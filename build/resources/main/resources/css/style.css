@@ -142,7 +142,7 @@ tr.d0:nth-child(even)  td{
 }
 
 .regbar {
-  height: 50px;
+  height: 65px;
   width: 100%;
   position: fixed;
   background: #004b80;

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 public class mainController {
     @RequestMapping(value={"/","home.html"})
     String home(){
-        return "home";
+        return "login";
     }
 
     @RequestMapping(value={"profile.html"})
