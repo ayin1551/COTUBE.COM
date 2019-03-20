@@ -152,6 +152,46 @@ tr.d0:nth-child(even)  td{
   float:right;
 }
 
+.regbar-mid{
+  margin: auto;
+  margin-top:5px;
+  height :56px;
+  width : 200px;
+}
+
+.regbar, .regbar-right, .regbar-mid{
+  display:inline;
+}
+
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: darkgray;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: darkgray;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: darkgray;
+}
+
+
+select.selectType{
+  /*background-color: #007700;*/
+  color: #000000;
+}
+
+input.search_bar{
+  border: 0;
+  border-bottom: 1px solid black;
+  background: #004b80;
+  outline: 0;
+}
+
+
 .margin-top-10{
   margin-top:10px;
 }
