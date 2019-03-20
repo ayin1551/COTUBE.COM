@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 public class mainController {
     @RequestMapping(value={"/","home.html"})
     String home(){
-        return "login";
+        return "index";
     }
 
     @RequestMapping(value={"profile.html"})
@@ -27,4 +27,8 @@ public class mainController {
         return "login";
     }
 
+    @RequestMapping(value={"index.html"})
+    String index(){
+        return "index";
+    }
 }
