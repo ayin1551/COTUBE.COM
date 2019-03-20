@@ -17,6 +17,11 @@ public class mainController {
         return "profile";
     }
 
+    @RequestMapping(value={"forget.html"})
+    String forget(){
+        return "forget";
+    }
+
     @RequestMapping(value={"login.html"})
     String login(){
         return "login";

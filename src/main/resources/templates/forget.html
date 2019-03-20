@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>CoTube Log in</title>
+  <title>CoTube Forget Password</title>
   
 
   <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
@@ -30,42 +30,19 @@
 <div id="dialog" class="dialog dialog-effect-in">
   <div class="dialog-front">
     <div class="dialog-content">
-      <form id="login_form" class="dialog-form" action="" method="POST">
-        <fieldset>
-          <div class="form-group">
-            <label for="user_username" class="control-label">Username:</label>
-            <input type="text" id="user_username" class="form-control" name="user_username" autofocus/>
-          </div>
-          <div class="form-group">
-            <label for="user_password" class="control-label">Password:</label>
-            <a href="forget.html" class="link user-actions"><strong>Forget?</strong></a></p>
-            <input type="password" id="user_password" class="form-control" name="user_password"/>
-          </div>
-          <div class="text-center">
-            <p>Don't have an account?<a href="#" class="link user-actions"><strong>Sign Up now</strong></a></p>
-          </div>
-          <div class="pad-top-20 pad-btm-20">
-            <input type="submit" class="btn btn-default btn-block btn-lg" value="Login">
-          </div>
-        </fieldset>
-      </form>
-    </div>
-  </div>
-  <div class="dialog-back">
-    <div class="dialog-content">
-      <form id="register_form" class="dialog-form" action="" method="POST">
+      <form id="reset_form" class="dialog-form" action="" method="POST">
         <fieldset>
           <div class="form-group">
             <label for="user_username" class="control-label">Username:</label>
             <input type="text" id="user_username" class="form-control" name="user_username"/> 
           </div>
           <div class="form-group">
-            <label for="user_password" class="control-label">Password:</label>
-            <input type="password" id="user_password" class="form-control" name="user_password"/>
+            <label for="user_new_password" class="control-label">New password:</label>
+            <input type="password" id="user_new_password" class="form-control" name="user_new_password"/>
           </div>
           <div class="form-group">
-            <label for="user_cnf_password" class="control-label">Confirm password:</label>
-            <input type="password" id="user_cnf_password" class="form-control" name="user_cnf_password"/>
+            <label for="user_cnf_new_password" class="control-label">Confirm new password:</label>
+            <input type="password" id="user_cnf_new_password" class="form-control" name="user_cnf_new_password"/>
           </div>
           <div class="form-group">
               <label for="user_security_question" class="control-label">Security Question</label>
@@ -81,11 +58,11 @@
               <input type="text" id="user_security_answer" class="form-control" name="user_security_answer"/>
           </div>
           <div class="text-center">
-              <p>Already have an account?<a href="#" class="link user-actions"><strong>Log in now</strong></a></p>
+              <p>Remember your password?<a href="login.html" class="link user-actions"><strong>Log in now</strong></a></p>
             </div>
 
           <div class="pad-btm-20">
-            <input type="submit" class="btn btn-default btn-block btn-lg" value="Continue"/>
+            <input type="submit" class="btn btn-default btn-block btn-lg" value="Reset Password"/>
           </div>
         </fieldset>
       </form>
