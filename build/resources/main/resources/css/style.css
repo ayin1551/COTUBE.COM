@@ -248,7 +248,7 @@ select.selectType{
 
 input.search_bar{
   border: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
   background: #004b80;
   outline: 0;
 }
