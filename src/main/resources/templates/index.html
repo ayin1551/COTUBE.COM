@@ -31,10 +31,10 @@
 
             <div class = "regbar-right" style = "margin-top:7px;">
                 <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px">
-                <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px">
+                <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
                 <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px">
                 <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px">
-                <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px">
+                <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
                 <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
             </div>
 
@@ -51,6 +51,13 @@
             document.getElementById("signout").style.display = "none";
             document.getElementById("message").style.display = "none";
             document.getElementById("profile").style.display = "none";
+        }
+        function gohome(){
+            document.location.href="./index.html";
+        }
+
+        function login(){
+            document.location.href="./login.html";
         }
 
         function logout(){
