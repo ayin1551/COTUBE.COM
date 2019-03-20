@@ -197,7 +197,7 @@ tr.d0:nth-child(even)  td{
 }
 
 #wrap {
-  margin: 0 auto 30px;
+  margin: 0 auto 50px;
 }
 
 .regbar {
@@ -206,19 +206,22 @@ tr.d0:nth-child(even)  td{
   position: fixed;
   background: #004b80;
 }
+.regbar-left{
+  float:left;
+}
 
 .regbar-right{
   float:right;
 }
 
 .regbar-mid{
-  margin: auto;
+  left:50%;
   margin-top:5px;
   height :56px;
   width : 200px;
 }
 
-.regbar, .regbar-right, .regbar-mid{
+.regbar, .regbar-right, .regbar-mid, .regbar-left{
   display:inline;
 }
 
