@@ -111,6 +111,7 @@
       $('#dialog').addClass('dialog-effect-out');
 
       $.cookie('username',data.user_username);
+      $.cookie('role',"user");
 
       $('#successful_login').addClass('active');
       document.location.href="./home.html";
@@ -170,6 +171,7 @@
 
 
       $.cookie('username',data.user_username);
+      $.cookie('role',"user");
       $('#successful_registration').addClass('active');
       document.location.href="./home.html";
       //return true;
@@ -229,6 +231,7 @@
 
 
       $.cookie('username',data.user_username);
+      $.cookie('role',"user");
       $('#successful_registration').addClass('active');
       document.location.href="./home.html";
       //return true;

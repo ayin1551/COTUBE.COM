@@ -249,6 +249,7 @@ select.selectType{
 input.search_bar{
   border: 0;
   border-bottom: 1px solid white;
+  width:30%;
   background: #004b80;
   outline: 0;
 }
