@@ -44,6 +44,145 @@
 
         </div>
     </div>
+
+    <div>
+        <h1 style = "margin-top:10px;">Change profile picture</h1>
+        <table>
+            <tr>
+                <td>
+                    <img src = "./img/test/oldpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "200px" height = "200px">
+                </td>
+                <td>
+                    <img src = "./img/test/newpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "200px" height = "200px">
+                </td>
+            </tr>
+            <tr>
+                <td align = "center">
+                    <h4>Current</h4>
+                </td>
+                <td align = "center">
+                    <h4>New</h4>
+                </td>
+            </tr>
+            <tr>
+                <td align = "center">
+                    <button type="button" class = "submitButton">Upload new</button>
+                </td>
+                <td align = "center">
+                    <button type="button" class = "submitButton">Submit</button>
+                </td>
+            </tr>
+            <tr>
+                <td align = "center">
+                    <p>You can upload JPG or PNG file</p>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <h1 style="margin-top:0px;margin-bottom:10px;">Change Password</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 style="margin-top:0px;margin-bottom:10px;">Original password</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" style="margin-left:20px;color:black;margin-right:0px;height:32px;width:250px;" id="original_password" name="original_password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 style="margin-top:10px;margin-bottom:10px;">New password</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" style="margin-left:20px;color:black;margin-right:0px;height:32px;width:250px;" id="new_password" name="new_password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 style="margin-top:10px;margin-bottom:10px;">Confirm new password</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" style="margin-left:20px;color:black;margin-right:0px;height:32px;width:250px;" id="cfm_new_password" name="cfm_new_password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" style="margin-left:20px;margin-top:20px;" class = "submitButton">Change</button>
+                </td>
+            </tr>
+        </table>
+        <table>
+                <tr>
+                    <td>
+                        <h1 style="margin-top:0px;margin-bottom:10px;">Change Security Question</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 style="margin-top:0px;margin-bottom:10px;">Original question</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="security_question" style="margin-left:20px;width:400px;height:32px;color:black;" id="security_question" class="custom-select">
+                            <option value="1">What was your childhood nickname?</option>
+                            <option value="2">In what city did you meet your spouse/significant other?</option>
+                            <option value="3">What is the name of your favorite childhood friend?</option>
+                            <option value="4">What street did you live on in third grade?</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 style="margin-top:10px;margin-bottom:10px;">Original Answer</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" style="margin-left:20px;color:black;margin-right:0px;height:32px;width:400px;" id="original_answer" name="original_answer">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 style="margin-top:0px;margin-bottom:10px;">New question</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="new_security_question" style="margin-left:20px;width:400px;height:32px;color:black;" id="new_security_question" class="custom-select">
+                            <option value="1">What was your childhood nickname?</option>
+                            <option value="2">In what city did you meet your spouse/significant other?</option>
+                            <option value="3">What is the name of your favorite childhood friend?</option>
+                            <option value="4">What street did you live on in third grade?</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 style="margin-top:10px;margin-bottom:10px;">New Answer</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" style="margin-left:20px;color:black;margin-right:0px;height:32px;width:400px;" id="new_answer" name="new_answer">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="margin-left:20px;margin-top:20px;margin-bottom:50px;" class = "submitButton">Change</button>
+                    </td>
+                </tr>
+            </table>
+    </div>
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
