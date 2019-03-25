@@ -31,4 +31,9 @@ public class mainController {
     String index(){
         return "index";
     }
+
+    @RequestMapping(value={"setting.html"})
+    String setting(){
+        return "setting";
+    }
 }
