@@ -126,6 +126,19 @@
   width: 45px;
 }
 
+.messageTab{
+  width: 90%;
+  color:white;
+  background:none;
+  border:none;
+  font-size:28px;
+  display:inline-table;
+  line-height: 170%;
+}
+
+
+
+
 .homeButton {
   -moz-box-shadow: 3px 3px 6px 0px #000000;
   -webkit-box-shadow: 3px 3px 6px 0px #000000;
