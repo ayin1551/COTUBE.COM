@@ -32,7 +32,7 @@
             <div class = "regbar-right" style = "margin-top:7px;">
                 <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px">
                 <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
-                <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px">
+                <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage()">
                 <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px">
                 <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
                 <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
@@ -56,6 +56,10 @@
         }
         function gohome(){
             document.location.href="./index.html";
+        }
+
+        function goMessage() {
+            document.location.href="./message.html";
         }
 
         function gotosetting(){

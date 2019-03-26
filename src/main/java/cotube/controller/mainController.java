@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 public class mainController {
     @RequestMapping(value={"/","home.html"})
     String home(){
-        return "viewComicsByTitle";
+        return "index";
     }
 
     @RequestMapping(value={"profile.html"})
@@ -35,5 +35,15 @@ public class mainController {
     @RequestMapping(value={"setting.html"})
     String setting(){
         return "setting";
+    }
+
+    @RequestMapping(value={"viewComicsByTitle.html"})
+    String viewComicsByTitle(){
+        return "viewComicsByTitle";
+    }
+
+    @RequestMapping(value={"message.html"})
+    String message(){
+        return "message";
     }
 }
