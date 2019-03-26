@@ -72,8 +72,58 @@
   background:none;
   border:none;
   margin:2px;
+  margin-left: 1%;
   font-size:30px;
   display:inline-block;
+}
+
+.alpabetDir{
+  color:#0688fa;
+  background:none;
+  border:none;
+  margin:2px;
+  margin-left: 5%;
+  font-size:30px;
+  display:inline-block;
+}
+
+.alpabetTab{
+  color:white;
+  background:none;
+  border:none;
+  font-size:28px;
+  margin-right: 45px;
+  display:inline-table;
+}
+
+.viewjump{
+  color: #ffffff;
+  margin: 2px;
+  font-size: 20px;
+  display: inline-block;
+  position: fixed;
+  bottom: 10%;
+  right: 0px;
+  -moz-box-shadow: 3px 3px 6px 0px #000000;
+  -webkit-box-shadow: 3px 3px 6px 0px #000000;
+  box-shadow: 3px 3px 6px 0px #000000;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0688fa), color-stop(1, #0688fa));
+  background: -moz-linear-gradient(top, #0688fa 5%, #0688fa 100%);
+  background: -webkit-linear-gradient(top, #0688fa 5%, #0688fa 100%);
+  background: -o-linear-gradient(top, #0688fa 5%, #0688fa 100%);
+  background: -ms-linear-gradient(top, #0688fa 5%, #0688fa 100%);
+  background: linear-gradient(to bottom, #ff87c3 5%, #ff87c3 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0688fa', endColorstr='#0688fa',GradientType=0);
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  display: inline-block;
+  color: #ffffff;
+  font-family: ClearSans;
+  font-size: 12px;
+  padding: 3px 4px;
+  text-decoration: none;
+  height: 45px;
+  width: 45px;
 }
 
 .homeButton {
