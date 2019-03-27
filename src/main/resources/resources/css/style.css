@@ -76,7 +76,6 @@
   font-size:30px;
   display:inline-block;
 }
-
 .alpabetDir{
   color:#0688fa;
   background:none;
@@ -86,7 +85,6 @@
   font-size:30px;
   display:inline-block;
 }
-
 .alpabetTab{
   color:white;
   background:none;
@@ -95,7 +93,6 @@
   margin-right: 45px;
   display:inline-table;
 }
-
 .viewjump{
   color: #ffffff;
   margin: 2px;
@@ -143,6 +140,7 @@
   position: fixed;
   bottom: 10%;
   right: 0px;
+  line-height: 90%;
   -moz-box-shadow: 3px 3px 6px 0px #000000;
   -webkit-box-shadow: 3px 3px 6px 0px #000000;
   box-shadow: 3px 3px 6px 0px #000000;
@@ -157,6 +155,42 @@
   height: 45px;
   width: 45px;
 }
+.keyworddiv{
+  color:#0688fa;
+  background:none;
+  border:none;
+  margin:2px;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size:30px;
+}
+.keywordTab{
+  width: 100%;
+  overflow-x: auto;
+  display: -webkit-box;
+  color: white;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 200%;
+  font-weight: normal;
+}
+
+
+.style-1::-webkit-scrollbar {
+  width: 12px;
+}
+.style-1::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #555;
+}
+.style-1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
 
 
 .homeButton {
