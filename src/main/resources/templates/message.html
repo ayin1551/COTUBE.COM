@@ -108,12 +108,12 @@
 
     function searchResult() {
         var word = document.getElementById("search_word").value;
-        console.log(word);
         $.cookie('search_word',word);
+        console.log($.cookie('search_word'));
 
         var by = document.getElementById("search_by").value;
-        console.log(by);
         $.cookie('search_by',by);
+        console.log($.cookie('search_by'));
         document.location.href="./searchResult.html";
     }
 
