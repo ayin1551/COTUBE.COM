@@ -127,13 +127,14 @@
 }
 
 .messageTab{
-  width: 90%;
+  width: 100%;
   color:white;
   background:none;
   border:none;
   font-size:28px;
   display:inline-table;
-  line-height: 170%;
+  line-height: 200%;
+  font-weight: normal;
 }
 
 
