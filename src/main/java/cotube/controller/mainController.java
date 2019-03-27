@@ -46,4 +46,9 @@ public class mainController {
     String message(){
         return "message";
     }
+
+    @RequestMapping(value={"viewGameComicsByKeyword.html"})
+    String viewGameComicsByKeyword(){
+        return "viewGameComicsByKeyword";
+    }
 }
