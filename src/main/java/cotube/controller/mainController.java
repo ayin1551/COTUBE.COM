@@ -51,4 +51,9 @@ public class mainController {
     String viewGameComicsByKeyword(){
         return "viewGameComicsByKeyword";
     }
+
+    @RequestMapping(value={"searchResult.html"})
+    String searchResult(){
+        return "searchResult";
+    }
 }
