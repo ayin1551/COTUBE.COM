@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html style="height:100%" lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Home Page</title>
+
+
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="./js/js.cookie.js"></script>
+
+
+</head>
+
+<body>
+<div id = "wrap">
+    <div class="regbar">
+        <div class = "regbar-left" style="width:30%">
+            <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+        </div>
+        <div class = "regbar-mid" align="center">
+            <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
+            <select class="selectType" id="search_by" name="search_by">
+                <option value="keyword">By Keyword</option>
+                <option value="author">By Author</option>
+            </select>
+            <input type="image" src = "./img/search.png" style = "margin-right:3px; width:35px; height:35px" onclick="searchResult()"/>
+        </div>
+
+        <div class = "regbar-right" style = "margin-top:7px;">
+            <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px">
+            <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+            <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage()">
+            <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px">
+            <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+            <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+            <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+<div class = "text-center">
+    <img id="cotube" src = "./img/CoTube-logo.png" width = "50%" height = "50%" >
+    <h1 id="cotubeDescription">Create Center</h1>
+</div>
+<br>
+<br>
+<div class = "text-center">
+    <a href="./createHome.html" class="homeButton" id="btn1">New Comic</a>
+    <button class="homeButton" id="btn2">Play 4-Panel Game</button>
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
+
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("btn2");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+
+
+</div>
+
+
+
+
+<script>
+    if($.cookie('role')=="user"){
+        document.getElementById("login").style.display = "none";
+    }else{
+        document.getElementById("create").style.display = "none";
+        document.getElementById("signout").style.display = "none";
+        document.getElementById("message").style.display = "none";
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("setting").style.display = "none";
+    }
+    function gohome(){
+        document.location.href="./index.html";
+    }
+
+    function goMessage() {
+        document.location.href="./message.html";
+    }
+
+    function gotosetting(){
+        document.location.href="./setting.html";
+    }
+
+    function login(){
+        document.location.href="./login.html";
+    }
+
+    function logout(){
+        $.cookie('username', null);
+        $.cookie('role',"guest");
+        document.location.href="./index.html";
+    }
+
+    function searchResult() {
+        var word = document.getElementById("search_word").value;
+        $.cookie('search_word',word);
+
+        var by = document.getElementById("search_by").value;
+        $.cookie('search_by',by);
+        if(word!="")
+            document.location.href="./searchResult.html";
+    }
+
+
+</script>
+</body>
+
+</html>

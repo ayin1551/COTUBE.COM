@@ -56,4 +56,9 @@ public class mainController {
     String searchResult(){
         return "searchResult";
     }
+
+    @RequestMapping(value={"createHome.html"})
+    String createHome(){
+        return "createHome";
+    }
 }
