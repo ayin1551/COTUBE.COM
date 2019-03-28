@@ -543,7 +543,8 @@
 
         var by = document.getElementById("search_by").value;
         $.cookie('search_by',by);
-        document.location.href="./searchResult.html";
+        if(word!="")
+            document.location.href="./searchResult.html";
     }
 </script>
 </body>
