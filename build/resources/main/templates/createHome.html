@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CoTube Message Page</title>
+    <title>Create Home Page</title>
 
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
@@ -20,7 +20,6 @@
         <div class = "regbar-left" style="width:30%">
             <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
         </div>
-
         <div class = "regbar-mid" align="center">
             <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
             <select class="selectType" id="search_by" name="search_by">
@@ -30,11 +29,10 @@
             <input type="image" src = "./img/search.png" style = "margin-right:3px; width:35px; height:35px" onclick="searchResult()"/>
         </div>
 
-
         <div class = "regbar-right" style = "margin-top:7px;">
             <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px">
             <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
-            <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
+            <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage()">
             <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px">
             <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
             <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
@@ -47,31 +45,92 @@
     </div>
 </div>
 
-<div>
-    <h1 style="font-size:35px; text-align:center; padding-top:10px">Message Center</h1>
-    <div style="clear: both; margin-left: 5%; margin-right: 5%; font-weight: initial">
-        <table class="messageTab">
-            <tbody>
-                <tr>
-                    <td style="text-align: left;">"userName" follows you</td>
-                    <td style="text-align: right; font-size: 14px; font-weight: lighter">59 seconds before</td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">"userName" likes your comics "comicName"</td>
-                    <td style="text-align: right; font-size: 14px; font-weight: lighter">23 hours before</td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">"userName" comment your comics "comicName"</td>
-                    <td style="text-align: right; font-size: 14px; font-weight: lighter">5 day before</td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">The game comics ("keyword") is avaliable now!</td>
-                    <td style="text-align: right; font-size: 14px; font-weight: lighter">yyyy.mm.dd hh:mm</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
+<div class = "text-center">
+    <img id="cotube" src = "./img/CoTube-logo.png" width = "50%" height = "50%" >
+    <h1 id="cotubeDescription">Create Center</h1>
 </div>
+<br>
+<br>
+<div class = "text-center">
+    <a href="./createHome.html" class="homeButton" id="btn1">New Comic</a>
+    <button class="homeButton" id="btn2">Play 4-Panel Game</button>
+
+    <div id="create_home_popup" class="modal">
+
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div class="KeywordOption" style="font-size: 20px">
+                <span>Keyword:</span>
+                <input type="radio" id="kw1" name="kwO" value="random" checked onclick="show1()">Random a Keyword<br>
+                <input type="radio" id="kw2" name="kwO" value="custom" onclick="show2()">Input a Keyword<br>
+            </div>
+
+            <div id="kw1display" style="display: block">
+                <button class="kwbtn">Play</button>
+            </div>
+
+            <div id="kw2display" style="display: none">
+                <label class="control-label">Keyword of Game:</label>
+                <input id="userKW" class="form-control" style="width: 200px; display: inline-block"/><br>
+                <button class="kwbtn">Create New Game</button>
+                <button class="kwbtn">Play Exist Game</button>
+            </div>
+
+            <script>
+                function show1() {
+                    var modal1 = document.getElementById("kw1display");
+                    var modal2 = document.getElementById("kw2display");
+                    var btn1 = document.getElementById("kw1");
+                    var btn2 = document.getElementById("kw2");
+                    modal1.style.display = "block";
+                    modal2.style.display = "none";
+                }
+
+                function show2() {
+                    var modal1 = document.getElementById("kw1display");
+                    var modal2 = document.getElementById("kw2display");
+                    var btn1 = document.getElementById("kw1");
+                    var btn2 = document.getElementById("kw2");
+                    modal2.style.display = "block";
+                    modal1.style.display = "none";
+                }
+            </script>
+
+
+        </div>
+
+
+
+
+
+    </div>
+    <script>
+        var modal = document.getElementById('create_home_popup');
+        var btn = document.getElementById("btn2");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+
+
+</div>
+
+
 
 
 <script>
@@ -109,11 +168,9 @@
     function searchResult() {
         var word = document.getElementById("search_word").value;
         $.cookie('search_word',word);
-        console.log($.cookie('search_word'));
 
         var by = document.getElementById("search_by").value;
         $.cookie('search_by',by);
-        console.log($.cookie('search_by'));
         if(word!="")
             document.location.href="./searchResult.html";
     }
