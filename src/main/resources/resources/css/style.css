@@ -213,6 +213,11 @@
   color: white;
 }
 
+.kwbtn2:disabled{
+  background-color: #6F6F6F;
+  color:#003153;
+}
+
 hr.style-six {
   border: 0;
   height: 0;
