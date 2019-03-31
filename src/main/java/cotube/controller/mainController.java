@@ -66,4 +66,9 @@ public class mainController {
     String favorite(){
         return "favorite";
     }
+
+    @RequestMapping(value={"viewComic.html"})
+    String viewComic(){
+        return "viewComic";
+    }
 }
