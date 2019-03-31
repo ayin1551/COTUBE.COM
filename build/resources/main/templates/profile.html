@@ -47,7 +47,7 @@
 
     <div>
         <br>
-        <table border="1">
+        <table>
             <tr>
                 <td>
                     <img src = "./img/test/oldpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "170px" height = "170px">
@@ -61,46 +61,93 @@
 
             </tr>
             <tr>
-                <td colspan=2>
-                    <span style = "font-size:25px;margin-left:23px;">Comics</span>
-                    <span style = "font-size:25px;margin-left:23px;"> | </span>
-                    <span style = "font-size:25px;margin-left:23px;">Favorites</span>
+                <td>
+                    <br>
                 </td>
             </tr>
-        </table>
-        <table border = "1">
             <tr>
-                <td>
-                    <img src="./img/t/1.jpg" width="400px" height="225px">
+                <td colspan=2>
+                    <span style = "font-size:25px;margin-left:23px;color:#0688fa;" id = "comicsbtn" onclick="showComics()">Comics</span>
+                    <span style = "font-size:25px;margin-left:23px;"> | </span>
+                    <span style = "font-size:25px;margin-left:23px;" id="favoritebtn" onclick="showFavorite()">Favorites</span>
+                </td>
+            </tr>
+        </table>
+        <table id="comicstb">
+            <tr>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
                     <br>
-                    <span style = "font-size:20px;">Comic Title</span>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
                     <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                     <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" width="400px" height="225px">
                     <br>
-                    <span style = "font-size:20px;">Comic Title</span>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
                     <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                     <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" width="400px" height="225px">
                     <br>
-                    <span style = "font-size:20px;">Comic Title</span>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
                     <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                     <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" width="400px" height="225px">
                     <br>
-                    <span style = "font-size:20px;">Comic Title</span>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
+                    <input type="image" src = "./img/delete.png" style = "margin-right:10%;float:right;" width = "25px" height = "25px">
+                    <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
                     <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                     <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                 </td>
             </tr>
         </table>
-    </div>
+
+        <table id="favoritetb" style = "display:none;">
+            <tr>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/folder.png" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:4.5vw;">Folder name 1</span>
+                    <br>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/folder.png" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:4.5vw;">Folder name 2</span>
+                    <br>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/folder.png" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:4.5vw;">Folder name 3</span>
+                    <br>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/folder.png" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:4.5vw;">Folder name 4</span>
+                    <br>
+                </td>
+            </tr>
+        </table>
+        </div>
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
@@ -131,6 +178,21 @@
             $.cookie('username', null);
             $.cookie('role',"guest");
             document.location.href="./index.html";
+        }
+
+        function showComics(){
+            document.getElementById("favoritetb").style.display = "none";
+            document.getElementById("comicstb").style.display = "initial";
+            document.getElementById("comicsbtn").style.color = "#0688fa";
+            document.getElementById("favoritebtn").style.color = "#FFFFFF";
+            
+        }
+
+        function showFavorite(){
+            document.getElementById("comicstb").style.display = "none";
+            document.getElementById("favoritetb").style.display = "initial";
+            document.getElementById("comicsbtn").style.color = "#FFFFFF";
+            document.getElementById("favoritebtn").style.color = "#0688fa";
         }
 
         function searchResult() {
