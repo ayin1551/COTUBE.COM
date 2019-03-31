@@ -61,4 +61,9 @@ public class mainController {
     String createHome(){
         return "createHome";
     }
+
+    @RequestMapping(value={"favorite.html"})
+    String favorite(){
+        return "favorite";
+    }
 }
