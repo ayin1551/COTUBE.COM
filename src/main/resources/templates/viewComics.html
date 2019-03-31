@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CoTube Home Page</title>
+    <title>View Comic</title>
 
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
@@ -38,11 +38,31 @@
                 <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
                 <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
             </div>
-
-
-
-
         </div>
+    </div>
+
+    <div>
+        <br>
+        <table align="center" style="text-align: center;">
+            <tr>
+                <td colspan="3">
+                    <h1>Comic Title</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="font-size:20px;color:gray;margin-left:23px;">Views:8964</span>
+                </td>
+                <td>
+                    <span style="font-size:20px;display:inline;margin-left:10px;">Created by</span>
+                    <a href="profile.html" style="display:inline;font-size:20px;">crazyArtist2048</a>
+                </td>
+                <td>
+                    <img src = "./img/test/newpp.jpg" style = "display:inline;margin-left:5px;" width = "45px" height = "45px">
+                </td>
+            </tr>
+        </table>
+        <img src="./img/t/1.jpg" style="display:block;margin:0 auto;margin-top:20px;">
     </div>
     <script>
         if($.cookie('role')=="user"){
