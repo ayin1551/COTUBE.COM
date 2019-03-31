@@ -56,36 +56,67 @@
     <a href="./createHome.html" class="homeButton" id="btn1">New Comic</a>
     <button class="homeButton" id="btn2">Play 4-Panel Game</button>
 
-    <div id="myModal" class="modal">
+    <div id="create_home_popup" class="modal">
 
-        <!-- Modal content -->
+
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+
+            <div class="KeywordOption" style="font-size: 20px">
+                <span>Keyword:</span>
+                <input type="radio" id="kw1" name="kwO" value="random" checked onclick="show1()">Random a Keyword<br>
+                <input type="radio" id="kw2" name="kwO" value="custom" onclick="show2()">Input a Keyword<br>
+            </div>
+
+            <div id="kw1display" style="display: block">
+                <button class="kwbtn">Play</button>
+            </div>
+
+            <div id="kw2display" style="display: none">
+                <label class="control-label">Keyword of Game:</label>
+                <input id="userKW" class="form-control" style="width: 200px; display: inline-block"/><br>
+                <button class="kwbtn">Create New Game</button>
+                <button class="kwbtn">Play Exist Game</button>
+            </div>
+
+            <script>
+                function show1() {
+                    var modal1 = document.getElementById("kw1display");
+                    var modal2 = document.getElementById("kw2display");
+                    var btn1 = document.getElementById("kw1");
+                    var btn2 = document.getElementById("kw2");
+                    modal1.style.display = "block";
+                    modal2.style.display = "none";
+                }
+
+                function show2() {
+                    var modal1 = document.getElementById("kw1display");
+                    var modal2 = document.getElementById("kw2display");
+                    var btn1 = document.getElementById("kw1");
+                    var btn2 = document.getElementById("kw2");
+                    modal2.style.display = "block";
+                    modal1.style.display = "none";
+                }
+            </script>
+
+
         </div>
+
+
+
+
 
     </div>
     <script>
-        // Get the modal
-        var modal = document.getElementById('myModal');
-
-        // Get the button that opens the modal
+        var modal = document.getElementById('create_home_popup');
         var btn = document.getElementById("btn2");
-
-        // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal
         btn.onclick = function() {
             modal.style.display = "block";
         }
-
-        // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
             modal.style.display = "none";
         }
-
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
