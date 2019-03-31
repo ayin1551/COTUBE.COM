@@ -336,6 +336,12 @@
 
     </div>
     <script>
+
+        var cusername = $.cookie('username');
+        if(cusername=="null" || cusername==undefined){
+            document.location.href="./index.html";
+        }
+
         var modal = document.getElementById('create_home_popup');
         var btn = document.getElementById("btn2");
         var span = document.getElementsByClassName("close")[0];

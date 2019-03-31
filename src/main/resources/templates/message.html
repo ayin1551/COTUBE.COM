@@ -75,6 +75,11 @@
 
 
 <script>
+    var cusername = $.cookie('username');
+    if(cusername=="null" || cusername==undefined){
+        document.location.href="./index.html";
+    }
+
     if($.cookie('role')=="user"){
         document.getElementById("login").style.display = "none";
     }else{
