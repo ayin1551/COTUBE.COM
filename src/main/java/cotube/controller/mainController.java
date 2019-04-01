@@ -76,4 +76,9 @@ public class mainController {
     String viewGameComics(){
         return "viewGameComics";
     }
+
+    @RequestMapping(value={"createComic.html"})
+    String createComic(){
+        return "createComic";
+    }
 }

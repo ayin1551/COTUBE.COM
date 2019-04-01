@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html style="height:100%" lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Create Comic Page</title>
+
+
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="./js/js.cookie.js"></script>
+
+
+</head>
+
+<body>
+<div id = "wrap">
+    <div class="regbar">
+        <div class = "regbar-left" style="width:30%">
+            <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+        </div>
+        <div class = "regbar-mid" align="center">
+            <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
+            <select class="selectType" id="search_by" name="search_by">
+                <option value="keyword">By Keyword</option>
+                <option value="author">By Author</option>
+            </select>
+            <input type="image" src = "./img/search.png" style = "margin-right:3px; width:35px; height:35px" onclick="searchResult()"/>
+        </div>
+
+        <div class = "regbar-right" style = "margin-top:7px;">
+            <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
+            <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+            <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
+            <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
+            <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+            <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+            <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+        </div>
+
+
+
+
+    </div>
+</div>
+<script>
+    var cusername = $.cookie('username');
+    if(cusername=="null" || cusername==undefined){
+        document.location.href="./index.html";
+    }
+
+
+    if($.cookie('role')=="user"){
+        document.getElementById("login").style.display = "none";
+    }else{
+        document.getElementById("create").style.display = "none";
+        document.getElementById("signout").style.display = "none";
+        document.getElementById("message").style.display = "none";
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("setting").style.display = "none";
+    }
+
+    function gohome(){
+        document.location.href="./index.html";
+    }
+
+    function goCreate(){
+        document.location.href="./createHome.html";
+    }
+
+    function goMessage() {
+        document.location.href="./message.html";
+    }
+
+    function gotosetting(){
+        document.location.href="./setting.html";
+    }
+
+    function goProfile(){
+        document.location.href="./profile.html";
+    }
+
+    function login(){
+        document.location.href="./login.html";
+    }
+
+    function logout(){
+        $.cookie('username', null);
+        $.cookie('role',"guest");
+        document.location.href="./index.html";
+    }
+
+    function searchResult() {
+        var word = document.getElementById("search_word").value;
+        $.cookie('search_word',word);
+
+        var by = document.getElementById("search_by").value;
+        $.cookie('search_by',by);
+        if(word!="")
+            document.location.href="./searchResult.html";
+    }
+
+
+</script>
+<div id="drawingHere" style="width: 100%; height: -webkit-fill-available; background-color: white;">
+    <h1 style="color:black; vertical-align: center; text-align: center">Drawing Area (add library later)</h1>
+</div>
+
+    <div id="submitComic">
+        <button class="kwbtn kwbtn2" style="float: right" id="scbtn">Submit</button>
+    </div>
+
+    <div id="drawComicPopup" class="modal">
+        <div class="modal-content">
+            <span id="x1" class="close">&times;</span>
+            <div>
+                <table style="margin: auto; text-align: left; margin-top: 15px">
+                    <tr>
+                        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px">Title:</label></td>
+                        <td><input id="comicTitle" class="form-control" style="width: 100%; margin-bottom:10px; display: inline-block"/></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px; vertical-align: top;">Description:</label></td>
+                        <td>
+                            <textarea rows = "5" cols = "50" name = "description"id="comicDescription" class="form-control" style="margin-bottom:10px;"></textarea>
+                        </td>
+                        </tr>
+                    <tr>
+                        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px">Tag:</label></td>
+                        <td><input id="comicTags" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block"/>
+                        <button class="kwbtn kwbtn2" id="addtag" style="padding-left: 5px; float: right; margin-top:0px; margin-bottom: 10px" onclick="addTags()">+ add</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="alltags" style="display: inline-flex; font-size: 18px; margin:auto; line-height: 100%;">
+                <div id="tag1" style="display: none" class="addUser">
+                    <label id="tag1word" ></label><label> </label>
+                    <span id="tag1close" class="someclose" style="opacity:0.8" onclick="deletetag1()">&#10006;</span>
+                </div>
+                <div id="tag2" style="display: none" class="addUser">
+                    <label id="tag2word" ></label><label> </label>
+                    <span id="tag2close" class="someclose" style="opacity:0.8" onclick="deletetag2()">&#10006;</span>
+                </div>
+                <div id="tag3" style="display: none" class="addUser">
+                    <label id="tag3word" ></label><label> </label>
+                    <span id="tag3close" class="someclose" style="opacity:0.8" onclick="deletetag3()">&#10006;</span>
+                </div>
+                <div id="tag4" style="display: none" class="addUser">
+                    <label id="tag4word" ></label><label> </label>
+                    <span id="tag4close" class="someclose" style="opacity:0.8" onclick="deletetag4()">&#10006;</span>
+                </div>
+                <div id="tag5" style="display: none" class="addUser">
+                    <label id="tag5word" ></label><label> </label>
+                    <span id="tag5close" class="someclose" style="opacity:0.8" onclick="deletetag5()">&#10006;</span>
+                </div>
+            </div>
+            <h4 id="tag_error1" style="color:red;display:none;margin-left:20px;font-weight: 300;">Cannot Have Same Tag.</h4>
+            <h4 id="tag_error2" style="color:red;display:none;margin-left:20px;font-weight: 300;">Title Cannot Be Empty.</h4>
+            <br><button class="kwbtn kwbtn2" id="pribtn1" style="left: 40%" onclick="comiccreate()">Create</button>
+        </div>
+
+        <script>
+            function comiccreate() {
+                document.getElementById("tag_error1").style.display = "none";
+                document.getElementById("tag_error2").style.display = "none";
+                var title = document.getElementById("comicTitle");
+                if(title.value==""||title.value==null){
+                    document.getElementById("tag_error2").style.display = "block";
+                }
+            }
+
+            function addTags() {
+                document.getElementById("tag_error1").style.display = "none";
+                var tag1 = document.getElementById("tag1word");
+                var tag2 = document.getElementById("tag2word");
+                var tag3 = document.getElementById("tag3word");
+                var tag4 = document.getElementById("tag4word");
+                var tag5 = document.getElementById("tag5word");
+                var newtag = document.getElementById("comicTags");
+
+                if(newtag.value==""){
+                    <!-- unfinished, user name empty -->
+                }else{
+                    if(tag1.innerText==""||tag1.innerText==null){
+                        tag1.innerText = newtag.value;
+                        var tag1show = document.getElementById("tag1");
+                        tag1show.style.display = "block";
+                    }
+                    else if(tag2.innerText==""||tag2.innerText==null){
+                        tag2.innerText = newtag.value;
+                        if(tag2.innerText==tag1.innerText){
+                            document.getElementById("tag_error1").style.display = "block";
+                            tag2.innerText = "";
+                        }else {
+                            var tag2show = document.getElementById("tag2");
+                            tag2show.style.display = "block";
+                        }
+                    }else if(tag3.innerText==""||tag3.innerText==null){
+                        tag3.innerText = newtag.value;
+                        if(tag3.innerText==tag1.innerText||tag3.innerText==tag2.innerText){
+                            document.getElementById("tag_error1").style.display = "block";
+                            tag3.innerText = "";
+                        }else {
+                            var tag3show = document.getElementById("tag3");
+                            tag3show.style.display = "block";
+                        }
+                    }else if(tag4.innerText==""||tag4.innerText==null){
+                        tag4.innerText = newtag.value;
+                        if(tag4.innerText==tag1.innerText||tag4.innerText==tag2.innerText||tag4.innerText==tag3.innerText){
+                            document.getElementById("tag_error1").style.display = "block";
+                            tag4.innerText = "";
+                        }else {
+                            var tag4show = document.getElementById("tag4");
+                            tag4show.style.display = "block";
+                        }
+                    }else if(tag5.innerText==""||tag5.innerText==null){
+                        tag5.innerText = newtag.value;
+                        if(tag5.innerText==tag1.innerText||tag5.innerText==tag2.innerText||tag5.innerText==tag3.innerText||tag5.innerText==tag4.innerText){
+                            document.getElementById("tag_error1").style.display = "block";
+                            tag5.innerText = "";
+                        }else {
+                            var tag5show = document.getElementById("tag5");
+                            tag5show.style.display = "block";
+                            document.getElementById("addtag").disabled = true;
+                        }
+                    }
+
+                }
+                newtag.value = "";
+            }
+
+            function deletetag1() {
+                document.getElementById("tag_error1").style.display = "none";
+                tag1 = document.getElementById("tag1word");
+                tag2 = document.getElementById("tag2word");
+                if(tag2.innerText==""||tag2.innerText==null){
+                    tag1.innerText = "";
+                    var tag1d = document.getElementById("tag1");
+                    tag1d.style.display = "none";
+                }else{
+                    tag1.innerText = tag2.innerText;
+                    deletetag2();
+                }
+            }
+
+            function deletetag2() {
+                document.getElementById("tag_error1").style.display = "none";
+                tag2 = document.getElementById("tag2word");
+                tag3 = document.getElementById("tag3word");
+                if(tag3.innerText==""||tag3.innerText==null){
+                    tag2.innerText = "";
+                    var tag2d = document.getElementById("tag2");
+                    tag2d.style.display = "none";
+                }else{
+                    tag2.innerText = tag3.innerText;
+                    deletetag3();
+                }
+            }
+
+            function deletetag3() {
+                document.getElementById("tag_error1").style.display = "none";
+                tag3 = document.getElementById("tag3word");
+                tag4 = document.getElementById("tag4word");
+                if(tag4.innerText==""||tag4.innerText==null){
+                    tag3.innerText = "";
+                    var tag3d = document.getElementById("tag3");
+                    tag3d.style.display = "none";
+                }else{
+                    tag3.innerText = tag4.innerText;
+                    deletetag4();
+                }
+            }
+
+            function deletetag4() {
+                document.getElementById("tag_error1").style.display = "none";
+                tag4 = document.getElementById("tag4word");
+                tag5 = document.getElementById("tag5word");
+                if(tag5.innerText==""||tag5.innerText==null){
+                    tag4.innerText = "";
+                    var tag4d = document.getElementById("tag4");
+                    tag4d.style.display = "none";
+                }else{
+                    tag4.innerText = tag5.innerText;
+                    deletetag5();
+                }
+            }
+
+            function deletetag5() {
+                document.getElementById("tag_error1").style.display = "none";
+                tag5 = document.getElementById("tag5word");
+                tag5.innerText = "";
+                var tag5d = document.getElementById("tag5");
+                tag5d.style.display = "none";
+                document.getElementById("addtag").disabled = false;
+            }
+        </script>
+
+
+
+
+    </div>
+
+
+    <script>
+        var modal = document.getElementById('drawComicPopup');
+        var btn = document.getElementById("scbtn");
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        var x1 = document.getElementById("x1");
+        x1.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+    </script>
+
+
+
+</div>
+
+</body>
+
+</html>
