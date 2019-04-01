@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>CoTube Home Page</title>
+    <title>View Comic</title>
 
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
@@ -39,12 +39,101 @@
                 <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
                 <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
             </div>
-
-
-
-
         </div>
     </div>
+
+    <div>
+        <br>
+        <table align="center" style="text-align: center;">
+            <tr>
+                <td colspan="3">
+                    <h1>Comic Title</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="font-size:20px;color:gray;margin-left:23px;">Views:8964</span>
+                </td>
+                <td>
+                    <span style="font-size:20px;display:inline;margin-left:10px;">Created by</span>
+                    <a href="profile.html" style="display:inline;font-size:20px;">crazyArtist2048</a>
+                </td>
+                <td>
+                    <img src = "./img/test/newpp.jpg" style = "display:inline;margin-left:5px;" width = "45px" height = "45px">
+                </td>
+            </tr>
+        </table>
+        <img src="./img/t/1.jpg" style="display:block;margin:0 auto;margin-top:20px;">
+        <table align="center">
+            <tr>
+                <td align="center" style="width:150px;">
+                    <input type="image" src = "./img/like-gray.png" width = "40px">
+                </td>
+                <td align="center" style="width:150px;">
+                    <input type="image" src = "./img/star-empty.png" width = "40px">
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <span>45</span>
+                </td>
+                <td align="center"></td>
+            </tr>
+        </table>
+    </div>
+    <table align="center" width = "65%">
+        <tr>
+            <td colspan="2">This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. </td>
+        </tr>
+        <tr>
+            <td>
+                <h2 style="margin-left:0px;">Comments(23)</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <textarea rows="4" cols="88" style="color:black;" placeholder="Enter your comment:"></textarea>
+            </td>
+            <td>
+                <button type="button" class="submitButton" style="height:85px;margin-left:0px;margin-top:0px;">Post</button>
+            </td>
+        </tr>
+    </table>
+    <table width = "65%" align="center">
+        <tr>
+            <td><span style="margin-left:0px;">Very Interesting comic!!!</span></td>
+        </tr>
+        <tr>
+            <td>
+                <span style="margin-left:0px;">#23</span>
+                <a href="profile.html" style="float:right;">crazyArtist2048</a>
+                <span style="float:right;margin-right:0.5em;">by </span>
+                <span style="float:right;color:gray;margin-right:0.5em;">2 min ago</span>
+                <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "20px" height = "20px">
+                <hr class="style-six">
+            </td>
+        </tr>
+        <tr>
+            <td><span style="margin-left:0px;">Gorgeous!</span></td>
+        </tr>
+        <tr>
+            <td>
+                <span style="margin-left:0px;">#22</span>
+                <a href="profile.html" style="float:right;">solaireOfAstora</a>
+                <span style="float:right;margin-right:0.5em;">by </span>
+                <span style="float:right;color:gray;margin-right:0.5em;">54 min ago</span>
+                <hr class="style-six">
+            </td>
+        </tr>
+    </table>
+    <table align="center">
+        <tr>
+            <td><span style="margin-right:10px;">First</span></td>
+            <td><span style="color:dodgerblue;margin-right:10px;">1</span></td>
+            <td><span style="margin-right:10px;">2</span></td>
+            <td><span style="margin-right:10px;">Last</span></td>
+        </tr>
+    </table>
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
@@ -55,7 +144,6 @@
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
         }
-
         function gohome(){
             document.location.href="./index.html";
         }
