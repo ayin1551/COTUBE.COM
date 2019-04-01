@@ -39,12 +39,20 @@
                 <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
                 <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
             </div>
-
-
-
-
         </div>
     </div>
+    <br>
+    <span style = "font-size:25px;margin-left:5%;" onclick="document.location.href='viewComicsByTitle.html';">View Comics by Title</span>
+    <span style = "font-size:25px;margin-left:23px;"> | </span>
+    <span style = "font-size:25px;margin-left:23px;" onclick="document.location.href='viewGameComicsByKeyword.html';">View Game Comics</span>
+    <div style="width:90%;height:200px;margin:auto;border:1px solid gray;padding:8px;background:#e1efbb url('../img/mountain.jpg')">
+        <p style="margin-left:20px;margin-top:20px;font-size:20px;color:black;">Want to create your own comics or play comic games?</p>
+        <button type ="button" class="kwbtn kwbtn2" style="background-color:transparent;margin-left:20px;margin-top:50px;">Log in Now!</button>
+    </div>
+
+
+
+
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
