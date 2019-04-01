@@ -213,6 +213,18 @@
   color: white;
 }
 
+.kwbtn2:disabled{
+  background-color: #6f6f6f;
+  color: #003153;
+}
+
+hr.style-six {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -1169,7 +1181,7 @@ h3,
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
-  height: 50%;
+  height: auto;
 }
 
 
@@ -1185,4 +1197,29 @@ h3,
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.addUser{
+  padding: 5px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  margin-top: 20px;
+  margin-right: 5px;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 2px solid #003153;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+}
+
+
+.someclose:hover{
+  color: red;
 }
