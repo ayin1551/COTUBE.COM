@@ -82,6 +82,11 @@ public class mainController {
         return "createComic";
     }
 
+    @RequestMapping(value={"createGame.html"})
+    String createGame(){
+        return "createGame";
+    }
+
     @RequestMapping(value={"adminHome.html"})
     String adminHome(){
         return "adminHome";
