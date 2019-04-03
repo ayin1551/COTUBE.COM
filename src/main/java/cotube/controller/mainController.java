@@ -81,4 +81,9 @@ public class mainController {
     String createComic(){
         return "createComic";
     }
+
+    @RequestMapping(value={"adminHome.html"})
+    String adminHome(){
+        return "adminHome";
+    }
 }
