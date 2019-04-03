@@ -183,10 +183,10 @@
   margin-top: 25px;
 }
 
-.kwbtn{
+.kwbtn3{
   background-color: #4CAF50; /* Green */
   border: none;
-  color: white;
+  color: transparent;
   padding: 5px 14px;
   text-align: center;
   text-decoration: none;
@@ -199,24 +199,28 @@
 }
 
 
-.kwbtn2 {
+.kwbtn4 {
   margin-top: 20px;
   margin-right: 5px;
   border-radius: 4px;
-  background-color: white;
+  background-color: transparent;
   color: black;
   border: 2px solid #003153;
 }
 
-.kwbtn2:hover {
+.kwbtn4:hover {
   background-color: #003153;
   color: white;
 }
 
-.kwbtn2:disabled{
+.kwbtn4:disabled{
   background-color: #6f6f6f;
   color: #003153;
 }
+
+
+
+
 
 hr.style-six {
   border: 0;
