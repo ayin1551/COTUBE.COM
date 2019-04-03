@@ -85,6 +85,7 @@ public class mainController {
     @RequestMapping(value={"admin.html"})
     String admin(){
         return "admin";
+    }
 
     @RequestMapping(value={"createGame.html"})
     String createGame(){
