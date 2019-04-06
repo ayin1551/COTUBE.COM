@@ -92,4 +92,9 @@ public class mainController {
         return "createGame";
     }
 
+    @RequestMapping(value={"viewSeries.html"})
+    String viewSeries(){
+        return "viewSeries";
+    }
+
 }

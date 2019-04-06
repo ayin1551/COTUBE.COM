@@ -55,7 +55,7 @@
                     <img src = "./img/test/oldpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "170px" height = "170px">
                 </td>
                 <td>
-                    <p style = "font-size: 25px;" id = "profileusername">magicMaster996</p>
+                    <span style = "font-size: 25px;" id = "profileusername">magicMaster996</span>
                     <p style = "font-size: 25px;">56 Following | 23,645 Followers</p>
                     <p style = "font-size: 25px;">1,345,391 Views | 38,691 Likes</p>
                     <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followUser();">Follow</button>
@@ -73,6 +73,8 @@
                     <span style = "font-size:25px;margin-left:23px;color:#0688fa;" id = "comicsbtn" onclick="showComics()">Comics</span>
                     <span style = "font-size:25px;margin-left:23px;"> | </span>
                     <span style = "font-size:25px;margin-left:23px;" id="favoritebtn" onclick="showFavorite()">Favorites</span>
+                    <span style = "font-size:25px;margin-left:23px;"> | </span>
+                    <span style = "font-size:25px;margin-left:23px;" id="seriesbtn" onclick="showSeries()">Series following</span>
                 </td>
             </tr>
         </table>
@@ -150,6 +152,37 @@
                 </td>
             </tr>
         </table>
+        <table id="seriestb" style="display:none;">
+            <tr>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;" onclick="document.location.href='viewSeries.html';">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
+                </td>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td style = "width:23vw;padding-top:15px;">
+                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
+                    <br>
+                    <span style = "font-size:20px;margin-left:2.5vw;">Comic SeriesTitle</span>
+                </td>
+            </tr>
+        </table>
         </div>
     <script>
         if($.cookie('role')=="user"){
@@ -162,7 +195,17 @@
             document.getElementById("setting").style.display = "none";
         }
 
-        if($.cookie('username')==document.getElementById("profileusername").value){
+
+        if(checkFollow()){
+            document.getElementById("follow").style.display = "none";
+            document.getElementById("unfollow").style.display = "initial";
+        }else{
+            document.getElementById("unfollow").style.display = "none";
+            document.getElementById("follow").style.display = "initial";
+        }
+
+        if($.cookie("username")==$("#profileusername").text()){
+            document.getElementById("unfollow").style.display = "none";
             document.getElementById("follow").style.display = "none";
         }
 
@@ -198,17 +241,30 @@
 
         function showComics(){
             document.getElementById("favoritetb").style.display = "none";
+            document.getElementById("seriestb").style.display = "none";
             document.getElementById("comicstb").style.display = "initial";
             document.getElementById("comicsbtn").style.color = "#0688fa";
             document.getElementById("favoritebtn").style.color = "#FFFFFF";
+            document.getElementById("seriesbtn").style.color = "#FFFFFF";
             
         }
 
         function showFavorite(){
             document.getElementById("comicstb").style.display = "none";
+            document.getElementById("seriestb").style.display = "none";
             document.getElementById("favoritetb").style.display = "initial";
             document.getElementById("comicsbtn").style.color = "#FFFFFF";
+            document.getElementById("seriesbtn").style.color = "#FFFFFF";
             document.getElementById("favoritebtn").style.color = "#0688fa";
+        }
+
+        function showSeries(){
+            document.getElementById("comicstb").style.display = "none";
+            document.getElementById("favoritetb").style.display = "none";
+            document.getElementById("seriestb").style.display = "initial";
+            document.getElementById("comicsbtn").style.color = "#FFFFFF";
+            document.getElementById("seriesbtn").style.color= "#0688fa";
+            document.getElementById("favoritebtn").style.color = "#FFFFFF";
         }
 
         function searchResult() {

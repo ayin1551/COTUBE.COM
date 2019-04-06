@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.*;
 
 @Controller
-@RequestMapping(value="/profile.html")
-public class ajaxProfileController{
+@RequestMapping(value="/series.html")
+public class ajaxSeriesController{
 
     @RequestMapping(value="/follow",method = RequestMethod.POST)
     @ResponseBody

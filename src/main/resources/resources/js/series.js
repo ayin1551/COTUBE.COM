@@ -1,8 +1,8 @@
-function followUser(){
+function followSeries(){
     var validality = false;
-    var following = $("#profileusername").text();
+    var following = "majik";
     $.ajax({
-        url: "profile.html/follow",
+        url: "series.html/follow",
         type: "post",
         async: false,
         data: {username: $.cookie("username"),following:following},
@@ -16,11 +16,11 @@ function followUser(){
     }
 }
 
-function unfollowUser(){
+function unfollowSeries(){
     var validality = false;
-    var unfollowing = $("#profileusername").text();
+    var unfollowing = "majik";
     $.ajax({
-        url: "profile.html/unfollow",
+        url: "series.html/unfollow",
         type: "post",
         async: false,
         data: {username: $.cookie("username"),unfollowing:unfollowing},
@@ -36,9 +36,9 @@ function unfollowUser(){
 
 function checkFollow(){
     var validality = false;
-    var following = $("#profileusername").text();
+    var following = "majik";
     $.ajax({
-        url: "profile.html/check",
+        url: "series.html/check",
         type: "post",
         async: false,
         data: {username: $.cookie("username"),following:following},
