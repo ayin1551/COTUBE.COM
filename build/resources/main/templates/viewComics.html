@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
+    <script src="./js/viewComics.js"></script>
 
 
 </head>
@@ -47,7 +48,7 @@
         <table align="center" style="text-align: center;">
             <tr>
                 <td colspan="3">
-                    <h1>Comic Title</h1>
+                    <h1 id="comictitle">Comic Title</h1>
                 </td>
             </tr>
             <tr>
@@ -60,6 +61,11 @@
                 </td>
                 <td>
                     <img src = "./img/test/newpp.jpg" style = "display:inline;margin-left:5px;" width = "45px" height = "45px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button type="button" class = "deleteButton" style = "display:none;" id="delete">Delete</button>
                 </td>
             </tr>
         </table>
@@ -144,6 +150,13 @@
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
         }
+
+        if($.cookie("role")=="admin"||checkAuthor()){
+            document.getElementById("delete").style.display = "initial";
+        }
+
+        //Check user and add delete button to comment 
+        
         function gohome(){
             document.location.href="./index.html";
         }
