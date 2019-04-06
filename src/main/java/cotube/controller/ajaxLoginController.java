@@ -34,6 +34,16 @@ public class ajaxLoginController{
         return false;
     }
 
+    public boolean validLogin(String username, String password){
+        List<Account> allAccounts = accountService.getAllAccounts();
+        for(Account acc: allAccounts){
+            if (acc.getUsername().equals(username) && acc.getPassword().equals(password)){
+                return true;
+            }
+    }
+        return false;
+    }
+
     @RequestMapping(value="/register",method = RequestMethod.POST)
     @ResponseBody
     public Boolean validateRegister(HttpServletRequest request){
@@ -62,13 +72,5 @@ public class ajaxLoginController{
         return true;
     }
 
-    public boolean validLogin(String username, String password){
-        List<Account> allAccounts = accountService.getAllAccounts();
-        for(Account acc: allAccounts){
-            if (acc.getUsername().equals(username) && acc.getPassword().equals(password)){
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
