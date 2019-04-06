@@ -91,21 +91,21 @@
        */
 
 
-      // $.ajax({
-      //   url: "index.html/login",
-      //   type: "post",
-      //   async: false,
-      //   data: {username: data.user_username,password:data.user_password},
-      //   success: function (data) {//loginController to check if the username and password match
-      //     validality = data;
-      //   }
-      // });
-      //
-      // //VALIDATE USER INFO FROM THE DATABASE
-      // if (!validality){
-      //   addFormError(form["user_username"], 'The username does not exist or password incorrect');
-      //   return false;
-      // }
+      $.ajax({
+        url: "login.html/login",
+        type: "post",
+        async: false,
+        data: {username: data.user_username,password:data.user_password},
+        success: function (data) {//loginController to check if the username and password match
+          validality = data;
+        }
+      });
+      
+      //VALIDATE USER INFO FROM THE DATABASE
+      if (!validality){
+        addFormError(form["user_username"], 'The username does not exist or password incorrect');
+        return false;
+      }
 
       $('#dialog').removeClass('dialog-effect-in').removeClass('shakeit');
       $('#dialog').addClass('dialog-effect-out');
@@ -148,20 +148,20 @@
        */
 
 
-      // $.ajax({
-      //   url: "index.html/signup",
-      //   type: "post",
-      //   async: false,
-      //   data: {username: data.user_username,password:data.user_password},
-      //   success: function (data) {//signUpController to check if the username already exist
-      //     validality = data;
-      //   }
-      // });
-      //
-      // if (!validality){
-      //   addFormError(form["user_username"], 'The username already exists');
-      //   return false;
-      // }
+      $.ajax({
+        url: "login.html/register",
+        type: "post",
+        async: false,
+        data: {username: data.user_username,password:data.user_password,security_question: data.user_security_question,security_answer:data.user_security_answer},
+        success: function (data) {//signUpController to check if the username already exist
+          validality = data;
+        }
+      });
+      
+      if (!validality){
+        addFormError(form["user_username"], 'The username already exists');
+        return false;
+      }
 
 
 
@@ -202,26 +202,26 @@
         addFormError(form["user_security_answer"], "The security answer is invalid");
         return false;
       }
-      alert(data.user_security_answer);
+
       /*
         Unfinished, use the following code to test after connect to the database (signUp part)
        */
 
 
-      // $.ajax({
-      //   url: "index.html/signup",
-      //   type: "post",
-      //   async: false,
-      //   data: {username: data.user_username,password:data.user_password},
-      //   success: function (data) {//signUpController to check if the username already exist
-      //     validality = data;
-      //   }
-      // });
-      //
-      // if (!validality){
-      //   addFormError(form["user_username"], 'The username already exists');
-      //   return false;
-      // }
+      $.ajax({
+        url: "login.html/reset",
+        type: "post",
+        async: false,
+        data: {username: data.user_username,password:data.user_new_password,security_question: data.user_security_question,security_answer:data.user_security_answer},
+        success: function (data) {//signUpController to check if the username already exist
+          validality = data;
+        }
+      });
+      
+      if (!validality){
+        addFormError(form["user_security_answer"], 'Security answer incorrect');
+        return false;
+      }
 
 
 
