@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
+    <script src="./js/profile.js"></script>
 
 
 </head>
@@ -54,10 +55,11 @@
                     <img src = "./img/test/oldpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "170px" height = "170px">
                 </td>
                 <td>
-                    <p style = "font-size: 25px;">magicMaster996</p>
+                    <p style = "font-size: 25px;" id = "profileusername">magicMaster996</p>
                     <p style = "font-size: 25px;">56 Following | 23,645 Followers</p>
                     <p style = "font-size: 25px;">1,345,391 Views | 38,691 Likes</p>
-                    <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow">Follow</a>
+                    <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followUser();">Follow</button>
+                    <button type="button" class="unfollowButton" style = "border-radius: 5px;display:none;" id="unfollow" onclick="unfollowUser();">Unfollow</button>
                 </td>
 
             </tr>
@@ -158,6 +160,10 @@
             document.getElementById("message").style.display = "none";
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
+        }
+
+        if($.cookie('username')==document.getElementById("profileusername").value){
+            document.getElementById("follow").style.display = "none";
         }
 
         function gohome(){

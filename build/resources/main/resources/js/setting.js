@@ -48,7 +48,6 @@ function resetPassword(){
 
 function resetSecurityQuestion(){
     var validality = false;
-    console.log("????");
     var original_question = document.getElementById("security_question").value;
     var original_answer = document.getElementById("original_answer").value;
     var new_question = document.getElementById("new_security_question").value;
