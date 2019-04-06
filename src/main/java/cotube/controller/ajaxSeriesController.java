@@ -47,4 +47,15 @@ public class ajaxSeriesController{
         return true;
     }
 
+    @RequestMapping(value="/checkAuthor",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean checkAuthor(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String following = request.getParameter("following");
+        System.out.println(username);
+        System.out.println(following);
+
+
+        return true;
+    }
 }
