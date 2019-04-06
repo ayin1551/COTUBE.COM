@@ -97,7 +97,7 @@
         async: false,
         data: {username: data.user_username,password:data.user_password},
         success: function (data) {//loginController to check if the username and password match
-          validality = data;
+          validality = data;//need to check if admin or not
         }
       });
       
@@ -213,8 +213,8 @@
         type: "post",
         async: false,
         data: {username: data.user_username,password:data.user_new_password,security_question: data.user_security_question,security_answer:data.user_security_answer},
-        success: function (data) {//signUpController to check if the username already exist
-          validality = data;
+        success: function (data) {
+          validality = data;//need to check if admin or not
         }
       });
       
