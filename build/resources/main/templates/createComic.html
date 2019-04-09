@@ -108,13 +108,22 @@
     <h1 style="color:black; vertical-align: center; text-align: center">Drawing Area (add library later)</h1>
 </div>
 
-    <div id="submitComic">
+    <div id="submitComic" style="">
         <button class="kwbtn kwbtn2" style="float: right" id="scbtn">Submit</button>
+        <button class="kwbtn kwbtn2" style="float: right" id="tbnbtn">Add Thumbnail</button>
     </div>
 
     <div id="drawComicPopup" class="modal">
         <div class="modal-content">
             <span id="x1" class="close">&times;</span>
+
+            <table style="margin: auto; text-align: left">
+                <tr>
+                    <td style="padding: 20px 20px 30px 0px; font-size: 20px"><input type="radio" id="rgl" name="kwO" value="regular" checked onclick="rgl()">regular comic<br></td>
+                    <td style="padding: 20px 0px 30px 0px; font-size: 20px"><input type="radio" id="srs" name="kwO" value="series" onclick="srs()">series comic<br></td>
+                </tr>
+            </table>
+
             <div>
                 <table style="margin: auto; text-align: left; margin-top: 15px">
                     <tr>
@@ -126,45 +135,123 @@
                         <td>
                             <textarea rows = "5" cols = "50" name = "description"id="comicDescription" class="form-control" style="margin-bottom:10px;"></textarea>
                         </td>
-                        </tr>
+                    </tr>
+                    <tr id="seriestr1" style="display: none;">
+                        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px">Exist series:</label></td>
+                        <td>
+                            <select id="existSeries" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block">
+                                <option value=" " id="existDefault"> </option>
+                                <option value="1" id="exist1">name1</option>
+                            </select>
+                            <button class="kwbtn kwbtn2" id="createNewSeriec" style="float: right; margin-top:0px; margin-bottom: 10px" onclick="cvtcreate()">+ new</button></td>
+                    </tr>
+                    <tr id="seriestr2" style="display: none;">
+                        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px">New series:</label></td>
+                        <td>
+                            <input id="newSeries" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block"/>
+                            <button class="kwbtn kwbtn2" id="addExistSeriec" style="float: right; margin-top:0px; margin-bottom: 10px" onclick="cvtexist()">exist</button></td>
+                    </tr>
                     <tr>
                         <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px">Tag:</label></td>
                         <td><input id="comicTags" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block"/>
-                        <button class="kwbtn kwbtn2" id="addtag" style="padding-left: 5px; float: right; margin-top:0px; margin-bottom: 10px" onclick="addTags()">+ add</button></td>
+                            <button class="kwbtn kwbtn2" id="addtag" style="padding-left: 8px; float: right; margin-top:0px; margin-bottom: 10px" onclick="addTags()">+ add</button></td>
                     </tr>
                 </table>
             </div>
-            <div id="alltags" style="display: inline-flex; font-size: 18px; margin:auto; line-height: 100%;">
+            <div id="alltags" style="display: inline-flex; width: 100%; font-size: 18px; margin:auto; line-height: 100%;">
+                <table style="margin: auto;">
+                    <tr>
+                        <td>
                 <div id="tag1" style="display: none" class="addUser">
                     <label id="tag1word" ></label><label> </label>
                     <span id="tag1close" class="someclose" style="opacity:0.8" onclick="deletetag1()">&#10006;</span>
                 </div>
+                        </td><td>
                 <div id="tag2" style="display: none" class="addUser">
                     <label id="tag2word" ></label><label> </label>
                     <span id="tag2close" class="someclose" style="opacity:0.8" onclick="deletetag2()">&#10006;</span>
                 </div>
+                    </td><td>
                 <div id="tag3" style="display: none" class="addUser">
                     <label id="tag3word" ></label><label> </label>
                     <span id="tag3close" class="someclose" style="opacity:0.8" onclick="deletetag3()">&#10006;</span>
                 </div>
+                    </td><td>
                 <div id="tag4" style="display: none" class="addUser">
                     <label id="tag4word" ></label><label> </label>
                     <span id="tag4close" class="someclose" style="opacity:0.8" onclick="deletetag4()">&#10006;</span>
                 </div>
+                    </td><td>
                 <div id="tag5" style="display: none" class="addUser">
                     <label id="tag5word" ></label><label> </label>
                     <span id="tag5close" class="someclose" style="opacity:0.8" onclick="deletetag5()">&#10006;</span>
                 </div>
+                    </td>
+                    </tr>
+                </table>
             </div>
+
+
+
             <h4 id="tag_error1" style="color:red;display:none;margin-left:20px;font-weight: 300;">Cannot Have Same Tag.</h4>
             <h4 id="tag_error2" style="color:red;display:none;margin-left:20px;font-weight: 300;">Title Cannot Be Empty.</h4>
-            <br><button class="kwbtn kwbtn2" id="pribtn1" style="left: 40%" onclick="comiccreate()">Create</button>
+            <h4 id="tag_error3" style="color:red;display:none;margin-left:20px;font-weight: 300;">Series Name Cannot Be Empty.</h4>
+            <br><button class="kwbtn kwbtn2" id="pribtn1" style="margin-left: 75%" onclick="comiccreate()">Create</button>
         </div>
 
         <script>
+            function srs() {
+                document.getElementById("tag_error1").style.display = "none";
+                document.getElementById("tag_error2").style.display = "none";
+                document.getElementById("tag_error3").style.display = "none";
+                document.getElementById("seriestr1").style.display = "table-row";
+                document.getElementById("existDefault").checked = true;
+                document.getElementById("newSeries").innerText = "";
+            }
+            function rgl() {
+                document.getElementById("tag_error1").style.display = "none";
+                document.getElementById("tag_error2").style.display = "none";
+                document.getElementById("tag_error3").style.display = "none";
+                document.getElementById("seriestr1").style.display = "none";
+                document.getElementById("seriestr2").style.display = "none";
+            }
+            function cvtcreate() {
+                document.getElementById("tag_error1").style.display = "none";
+                document.getElementById("tag_error2").style.display = "none";
+                document.getElementById("tag_error3").style.display = "none";
+                document.getElementById("existDefault").checked = true;
+                document.getElementById("newSeries").innerText = "";
+                document.getElementById("seriestr1").style.display = "none";
+                document.getElementById("seriestr2").style.display = "table-row";
+            }
+            function cvtexist() {
+                document.getElementById("tag_error1").style.display = "none";
+                document.getElementById("tag_error2").style.display = "none";
+                document.getElementById("tag_error3").style.display = "none";
+                document.getElementById("existDefault").checked = true;
+                document.getElementById("newSeries").innerText = "";
+                document.getElementById("seriestr1").style.display = "table-row";
+                document.getElementById("seriestr2").style.display = "none";
+            }
             function comiccreate() {
                 document.getElementById("tag_error1").style.display = "none";
                 document.getElementById("tag_error2").style.display = "none";
+                document.getElementById("tag_error3").style.display = "none";
+                if(document.getElementById("srs").checked==true){
+                    if(document.getElementById("seriestr1").style.display=='none'){
+                        if(document.getElementById("newSeries").value==""){
+                            console.log("input empty");
+                            document.getElementById("tag_error3").style.display = "block";
+                        }
+                    }
+                    if(document.getElementById("seriestr2").style.display=='none'){
+                        var ck = document.getElementById("existSeries");
+                        if(ck.options[ck.selectedIndex].value==" "){
+                            console.log("select empty");
+                            document.getElementById("tag_error3").style.display = "block";
+                        }
+                    }
+                }
                 var title = document.getElementById("comicTitle");
                 if(title.value==""||title.value==null){
                     document.getElementById("tag_error2").style.display = "block";
@@ -303,6 +390,26 @@
     </div>
 
 
+    <div id="thumbnailPopup" class="modal">
+        <div class="modal-content" style="width: fit-content;">
+            <span id="x3" class="close">&times;</span>
+            <table>
+                <tr>
+                    <td>
+                        <img src = "./img/test/oldpp.jpg" style = "margin:25px 25px 25px 25px;" width = "200px" height = "200px">
+                    </td>
+                </tr>
+                <tr>
+                    <td align = "center">
+                        <button type="button" class = "submitButton">Upload Image</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
     <script>
         var modal = document.getElementById('drawComicPopup');
         var btn = document.getElementById("scbtn");
@@ -318,6 +425,22 @@
                 modal.style.display = "none";
             }
         }
+
+        var modal2 = document.getElementById('thumbnailPopup');
+        var btn2 = document.getElementById("tbnbtn");
+        btn2.onclick = function() {
+            modal2.style.display = "block";
+        }
+        var x3 = document.getElementById("x3");
+        x3.onclick = function() {
+            modal2.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+            }
+        }
+
 
 
     </script>
