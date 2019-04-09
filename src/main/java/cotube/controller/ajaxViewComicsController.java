@@ -10,13 +10,27 @@ import org.json.*;
 @Controller
 @RequestMapping(value="/viewComics.html")
 public class ajaxViewComicsController{
-    @RequestMapping(value="/checkAuthor",method = RequestMethod.POST)
+    @RequestMapping(value="/checkLike",method = RequestMethod.POST)
     @ResponseBody
-    public Boolean checkAuthor(HttpServletRequest request){
+    public Boolean checkLike(HttpServletRequest request){
         String username = request.getParameter("username");
-        String comicName = request.getParameter("comic_name");
+        String comicid = request.getParameter("comic_id");
         System.out.println(username);
-        System.out.println(comicName);
+        System.out.println(comicid);
+
+
+        return true;
+    }
+
+    @RequestMapping(value="/toggleLike",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean toggleLike(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String comicid = request.getParameter("comic_id");
+        Boolean like = request.getParameter("like").equals("true")?true:false;
+        System.out.println(username);
+        System.out.println(comicid);
+        System.out.println(like);
 
 
         return true;
