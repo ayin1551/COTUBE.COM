@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import org.json.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,10 +52,21 @@ public class ajaxLoginController{
         String password = request.getParameter("password");
         String security_question = request.getParameter("security_question");
         String security_answer = request.getParameter("security_answer");
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(security_question);
-        System.out.println(security_answer);
+
+        List<Account> accounts = this.accountService.getAllAccounts();
+        for (Account acc: accounts){
+            if(acc.getUsername().equals(username)) {
+                return false;
+            }
+        }
+        Account n = new Account();
+        n.setUsername(username);
+        n.setPassword(password);
+        n.setSecurity_question(security_question);
+        n.setSecurity_answer(security_answer);
+        n.setProfile_pic_path("");
+        n.setAccount_role("user");
+        this.accountService.addAccount(n);
         return true;
     }
 
@@ -65,11 +77,20 @@ public class ajaxLoginController{
         String password = request.getParameter("password");
         String security_question = request.getParameter("security_question");
         String security_answer = request.getParameter("security_answer");
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(security_question);
-        System.out.println(security_answer);
-        return true;
+        List<Account> accounts = this.accountService.getAllAccounts();
+        for (Account acc: accounts) {
+            if (acc.getUsername().equals(username)) {
+                if (security_question.equals(acc.getSecurity_question())) {
+                    if (security_answer.equals(acc.getSecurity_answer())) {
+                        acc.setPassword(password);
+                        this.accountService.addAccount(acc);
+                        System.out.println("SAVED");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

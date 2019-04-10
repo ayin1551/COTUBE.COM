@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/profile.html")
@@ -32,11 +33,8 @@ public class ajaxProfileController{
         followUser.setFollower_username(username);
         followUser.setFollowing_username(following);
         followUser.follow_time = new Date();
+        System.out.println("Follow");
         followUserService.addFollowUser(followUser);
-        System.out.println(username);
-        System.out.println(following);
-
-
         return true;
     }
 
@@ -45,11 +43,16 @@ public class ajaxProfileController{
     public Boolean unfollow(HttpServletRequest request){
         String username = request.getParameter("username");
         String unfollowing = request.getParameter("unfollowing");
-        System.out.println(username);
-        System.out.println(unfollowing);
-
-
-        return true;
+        List<FollowUser> followList = this.followUserService.getAllFollowUsers();
+        for(FollowUser f: followList){
+            if (f.getFollower_username().equals(username)){
+                if(f.getFollowing_username().equals(unfollowing)){
+                    this.followUserService.deleteFollowerUser(f);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @RequestMapping(value="/check",method = RequestMethod.POST)

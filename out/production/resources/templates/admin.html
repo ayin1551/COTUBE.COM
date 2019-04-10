@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html style="height:100%" lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>CoTube Home Page</title>
+
+
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="./js/js.cookie.js"></script>
+    <link rel="stylesheet" href="css/style1.css">
+
+
+</head>
+
+<body>
+    <div id = "wrap">
+        <div class="regbar" style="z-index: 999;">
+            <div class = "regbar-left" style="width:30%">
+                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+            </div>
+            <div class = "regbar-mid" align="center">
+                <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
+                <select class="selectType" id="search_by" name="search_by">
+                    <option value="keyword">By Keyword</option>
+                    <option value="author">By Author</option>
+                </select>
+                <input type="image" src = "./img/search.png" style = "margin-right:3px; width:35px; height:35px" onclick="searchResult()"/>
+            </div>
+
+            <div class = "regbar-right" style = "margin-top:7px;">
+                <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
+                <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+                <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
+                <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
+                <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+                <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+                <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <span style = "font-size:50px;margin-left:5%;color:#0688fa;" id = "comicsbtn" onclick="showComics()">Comics</span>
+                    <span style = "font-size:50px;margin-left:23px;"> | </span>
+                    <span style = "font-size:50px;margin-left:23px;" id="commentsbtn" onclick="showComments()">Comments</span>
+                    <span style = "font-size:50px;margin-left:23px;">censor list</span>
+    <div style = "width:90vw;">
+        <table id = "comicstb"  style="margin-left:5%;font-size:25px;text-align: center;width:90vw;" align="center">
+            <tr class="d0"><td>Title</td><td>Author</td><td>Time</td><td>Action</td></tr>
+            <tr class="d0"><td>Snoopy</td><td>CharlesMS</td><td>2019/03/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Doopy</td><td>Alan</td><td>2019/02/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Moopy</td><td>Barker</td><td>2018/01/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Goopy</td><td>Detriot</td><td>2019/05/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Woopy</td><td>Goopst</td><td>2019/06/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Huppy</td><td>Khan</td><td>2018/03/12 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Juppy</td><td>Academy</td><td>2019/04/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Nuppy</td><td>Fox</td><td>2019/03/11 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Boppy</td><td>Echo</td><td>2019/12/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Comic</td><td>Liquid</td><td>2019/08/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+
+        </table>
+        <table id = "commentstb" style="margin-left:5%;font-size:25px;text-align: center;display:none;width:90vw;" align="center">
+            <tr class="d0"><td>Comment</td><td>User</td><td>Time</td><td>Action</td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+            <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
+
+        </table>
+
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        if($.cookie('role')=="admin"){
+            document.getElementById("login").style.display = "none";
+            document.getElementById("create").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+        }else{
+            document.getElementById("create").style.display = "none";
+            document.getElementById("signout").style.display = "none";
+            document.getElementById("message").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("setting").style.display = "none";
+        }
+
+        function showComics(){
+            document.getElementById("commentstb").style.display = "none";
+            document.getElementById("comicstb").style.display = "block";
+            document.getElementById("comicstb").style.width = "90vw";
+            document.getElementById("comicsbtn").style.color = "#0688fa";
+            document.getElementById("commentsbtn").style.color = "#FFFFFF";
+            
+        }
+
+        function showComments(){
+            document.getElementById("comicstb").style.display = "none";
+            document.getElementById("commentstb").style.display = "block";
+            document.getElementById("commentstb").style.width = "90vw";
+            document.getElementById("comicsbtn").style.color = "#FFFFFF";
+            document.getElementById("commentsbtn").style.color = "#0688fa";
+        }
+
+        function gohome(){
+            document.location.href="./index.html";
+        }
+
+        function goCreate(){
+            document.location.href="./createHome.html";
+        }
+
+        function goMessage() {
+            document.location.href="./message.html";
+        }
+
+        function gotosetting(){
+            document.location.href="./setting.html";
+        }
+
+        function goProfile(){
+            document.location.href="./profile.html";
+        }
+
+        function login(){
+            document.location.href="./login.html";
+        }
+
+        function logout(){
+            $.cookie('username', null);
+            $.cookie('role',"guest");
+            document.location.href="./index.html";
+        }
+
+        function searchResult() {
+            var word = document.getElementById("search_word").value;
+            $.cookie('search_word',word);
+
+            var by = document.getElementById("search_by").value;
+            $.cookie('search_by',by);
+            if(word!="")
+                document.location.href="./searchResult.html";
+        }
+
+
+    </script>
+</body>
+
+</html>

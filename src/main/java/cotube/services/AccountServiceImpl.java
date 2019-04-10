@@ -32,6 +32,16 @@ public class AccountServiceImpl implements AccountService {
         return accounts;
     }
 
+    @Override
+    public Account getAccountByUsername(String username){
+        List<Account> all = this.getAllAccounts();
+        for (Account a: all){
+            if(a.getUsername().equals(username)){
+                return a;
+            }
+        }
+        return null;
+    }
 
 
 }

@@ -1,5 +1,7 @@
 package cotube.controller;
 
+import cotube.domain.Account;
+import cotube.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +13,25 @@ import org.json.*;
 @RequestMapping(value="/setting.html")
 public class ajaxSettingController{
 
+    private AccountService accountService;
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
     @RequestMapping(value="/resetPassword",method = RequestMethod.POST)
     @ResponseBody
     public Boolean validateResetPassword(HttpServletRequest request){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String newPassword = request.getParameter("new_password");
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(newPassword);
-
-        return true;
+        Account current = this.accountService.getAccountByUsername(username);
+        if(current.getPassword().equals(password)){
+            current.setPassword(newPassword);
+            this.accountService.addAccount(current);
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping(value="/resetQuestion",method = RequestMethod.POST)
@@ -33,13 +43,15 @@ public class ajaxSettingController{
         String newQuestion = request.getParameter("new_question");
         String newAnswer = request.getParameter("new_answer");
 
-        System.out.println(username);
-        System.out.println(originalQuestion);
-        System.out.println(originalAnswer);
-        System.out.println(newQuestion);
-        System.out.println(newAnswer);
-
-        return true;
+        Account current = this.accountService.getAccountByUsername(username);
+        if(current.getSecurity_question().equals(originalQuestion)){
+            if(current.getSecurity_answer().equals(originalAnswer)){
+                current.setSecurity_question(newQuestion);
+                current.setSecurity_answer(newAnswer);
+                return true;
+            }
+        }
+        return false;
     }
 
 

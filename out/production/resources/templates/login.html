@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>CoTube Log in</title>
   
 
@@ -24,16 +25,13 @@
   </div>
     <div id = "wrap">
       <div class="regbar">
-          <h2>CoTube</h2>
+          <h2 style="margin-top:7px;margin-left:10px;">CoTube</h2>
       </div>
     </div>
 <div id="dialog" class="dialog dialog-effect-in">
   <div class="dialog-front">
     <div class="dialog-content">
       <form id="login_form" class="dialog-form" action="" method="POST">
-        <div class = "text-center">
-          <img src="./img/logo.png" class="pad-top-20 pad-btm-20" width = "35%" height = width>
-        </div>
         <fieldset>
           <div class="form-group">
             <label for="user_username" class="control-label">Username:</label>
@@ -41,6 +39,7 @@
           </div>
           <div class="form-group">
             <label for="user_password" class="control-label">Password:</label>
+            <a href="forget.html" class="link user-actions"><strong>Forget?</strong></a></p>
             <input type="password" id="user_password" class="form-control" name="user_password"/>
           </div>
           <div class="text-center">
@@ -57,9 +56,6 @@
     <div class="dialog-content">
       <form id="register_form" class="dialog-form" action="" method="POST">
         <fieldset>
-          <div class = "text-center">
-            <img src="./img/logo.png" class="pad-top-20 pad-btm-20" width = "35%" height = width>
-          </div>
           <div class="form-group">
             <label for="user_username" class="control-label">Username:</label>
             <input type="text" id="user_username" class="form-control" name="user_username"/> 
@@ -72,17 +68,23 @@
             <label for="user_cnf_password" class="control-label">Confirm password:</label>
             <input type="password" id="user_cnf_password" class="form-control" name="user_cnf_password"/>
           </div>
+          <div class="form-group">
+              <label for="user_security_question" class="control-label">Security Question</label>
+              <select name="user_security_question" style="width:250px;" id="user_security_question">
+                    <option value="1">What was your childhood nickname?</option>
+                    <option value="2">In what city did you meet your spouse/significant other?</option>
+                    <option value="3">What is the name of your favorite childhood friend?</option>
+                    <option value="4">What street did you live on in third grade?</option>
+                </select>
+          </div>
+          <div class="form-group">
+              <label for="user_security_answer" class="control-label">Answer</label>
+              <input type="text" id="user_security_answer" class="form-control" name="user_security_answer"/>
+          </div>
           <div class="text-center">
               <p>Already have an account?<a href="#" class="link user-actions"><strong>Log in now</strong></a></p>
             </div>
-          <div class="form-group pad-top-20 form-group-checkbox">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="user_terms" name="user_terms">
-                I have read and I agree with the Terms and Conditions
-              </label>
-            </div>
-          </div>
+
           <div class="pad-btm-20">
             <input type="submit" class="btn btn-default btn-block btn-lg" value="Continue"/>
           </div>
@@ -95,11 +97,13 @@
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
   <script src="./js/js.cookie.js"></script>
+  <script src="./js/login.js"></script>
+
   <script>
-    // var cusername = $.cookie('username');
-    // if(cusername!="null" && cusername!=undefined){
-    //   document.location.href="./home.html";
-    // }
+    var cusername = $.cookie('username');
+    if(cusername!="null" && cusername!=undefined){
+      document.location.href="./index.html";
+    }
   </script>
 
 

@@ -11,6 +11,7 @@ import org.json.*;
 @RequestMapping(value="/series.html")
 public class ajaxSeriesController{
 
+
     @RequestMapping(value="/follow",method = RequestMethod.POST)
     @ResponseBody
     public Boolean follow(HttpServletRequest request){
