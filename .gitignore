@@ -1,4 +1,12 @@
+#Folders
 build/*
 bin/*
 .gradle/*
+out/*
+
+#Files
 *.DS_store
+.classpath
+.project
+.settings
+.metadata
