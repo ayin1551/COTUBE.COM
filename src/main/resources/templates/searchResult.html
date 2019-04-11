@@ -48,44 +48,125 @@
 
 <div class="searchResult" style="margin-left: 5%; margin-right: 5%">
 
-    <!--<h1 style="font-size:35px; text-align:left; padding-top:10px" id="showKeyword">Search Result for "all comics in the web"</h1>
-    <script>
-        var kw = $.cookie('search_word');
-        if(kw!=""){
-            document.getElementById("showKeyword").innerText = "Search Result for \"" + kw + "\":";
-            document.getElementById("rst").innerText = "\"" + kw + "\"";
-        }
-    </script>
-    <h4>Total: "number"</h4>
-    <br>-->
     <div style="height: 100%; text-align:left; padding-top:10px">
 
         <div style="float: left;height:100%; font-size:35px;">
-                <span>1-x of "totalNum" results :</span>
-                <span id="rst" style="color:lightskyblue"></span>
-                <script>
-                    var kw = $.cookie('search_word');
-                    if(kw!=""){
-                        document.getElementById("rst").innerText = "\"" + kw + "\"";
-                    }
-                </script>
+            <span>Results of </span>
+            <span id="rst" style="color:lightskyblue"></span>
+            <span>:</span>
         </div>
 
-        <div style="float:right; height:100%; font-size:20px; padding-top: 15px">
+        <div id="keywordsortby" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
                 <select class="sortBy" id="sort_by" name="sort_by">
-                    <option value="viewHigh">View: High to Low</option>
-                    <option value="viewLow">View: Low to High</option>
-                    <option value="likeHigh">Like: High to Low</option>
-                    <option value="likeLow">Like: Low to High</option>
-                    <option value="commentHigh">Comment: High to Low</option>
-                    <option value="commentLow">Comment: Low to High</option>
+                    <option value="view">View Number</option>
+                    <option value="like">Like Number</option>
                     <option value="nameA">Name: A to Z</option>
-                    <option value="nameZ">Name: Z to A</option>
                 </select>
         </div>
+
+        <div id="series_regular" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
+            <select class="sortBy" id="series_regular_view" name="sort_by">
+                <option value="regular">View Regular Comic</option>
+                <option value="series">View Series Comic</option>
+            </select>
+        </div>
+
     </div>
     <br><br><hr style="margin-top: 40px">
-    <div class="searchResultTable">
+
+    <div id="authorresult" class="searchResultTable" style="display: none;">
+        <div>
+            <table class="searchResultTable" id="author_result_table" style="font-size: 23px; width: 100%;">
+                <tr style="width: 100%;" >
+                    <td style="width: 33.3%; padding-bottom: 20px">
+                        <div class="profileCard" style="width: 93.93%;display: flex">
+                            <div style="width: 38.2%">
+                            <img src="./img/profile.png" style="width: 100%; height: auto;">
+                            </div>
+                            <div style="width: 61.8%;margin-left: 6.8%;">
+                            <span>author 1</span><br>
+                            <span>follower: xxxxxx</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 33.3%; padding-bottom: 20px">
+                        <div class="profileCard" style="width: 93.93%;display: flex;margin-left: 3.03%">
+                            <div style="width: 38.2%">
+                                <img src="./img/profile.png" style="width: 100%; height: auto;">
+                            </div>
+                            <div style="width: 61.8%;margin-left: 6.8%;">
+                                <span>author 1</span><br>
+                                <span>follower: xxxxxx</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 33.3%; padding-bottom: 20px">
+                        <div class="profileCard" style="width: 93.93%;display: flex;float: right;">
+                            <div style="width: 38.2%">
+                                <img src="./img/profile.png" style="width: 100%; height: auto;">
+                            </div>
+                            <div style="width: 61.8%;margin-left: 6.8%">
+                                <span>author 1</span><br>
+                                <span>follower: xxxxxx</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="width: 100%;" >
+                    <td style="width: 33.3%; padding-bottom: 20px">
+                        <div class="profileCard" style="width: 93.93%;display: flex">
+                            <div style="width: 38.2%">
+                                <img src="./img/profile.png" style="width: 100%; height: auto;">
+                            </div>
+                            <div style="width: 61.8%;margin-left: 6.8%">
+                                <span>author 1</span><br>
+                                <span>follower: xxxxxx</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 33.3%; padding-bottom: 20px">
+                        <div class="profileCard" style="width: 93.93%;display: flex;padding-left: 3.03%">
+                            <div style="width: 38.2%">
+                                <img src="./img/profile.png" style="width: 100%; height: auto;">
+                            </div>
+                            <div style="width: 61.8%;margin-left: 6.8%">
+                                <span>author 1</span><br>
+                                <span>follower: xxxxxx</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 33.3%; padding-bottom: 20px">
+                        <div class="profileCard" style="width: 93.93%;display: flex;float: right;">
+                            <div style="width: 38.2%">
+                                <img src="./img/profile.png" style="width: 100%; height: auto;">
+                            </div>
+                            <div style="width: 61.8%;margin-left: 6.8%">
+                                <span>author 1</span><br>
+                                <span>follower: xxxxxx</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="pageTurn" style="text-align: center; font-size: 15px">
+            <hr style="margin-bottom: 0px">
+            <ul class="pagination">
+                <li>&laquo;</li>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>&raquo;</li>
+            </ul>
+            <hr style="margin-top: 0px">
+
+        </div>
+    </div>
+
+
+    <div id="keywordresult" class="searchResultTable" style="display: none;">
         <div>
         <table class="searchResultTable" id="search_result_table" style="font-size: 16px">
             <tr>
@@ -276,7 +357,26 @@
     </div>
 
 
-
+<script>
+    var kw = $.cookie('search_word');
+    if(kw!=""){
+        document.getElementById("rst").innerText = "\"" + kw + "\"";
+    }
+    var by = $.cookie('search_by');
+    console.log(by);
+    if(by=="author"){
+        document.getElementById("authorresult").style.display = "block";
+        document.getElementById("series_regular").style.display = "none";
+        document.getElementById("keywordsortby").style.display = "none";
+        document.getElementById("keywordresult").style.display = "none";
+    }
+    if(by=="keyword"){
+        document.getElementById("keywordsortby").style.display = "block";
+        document.getElementById("series_regular").style.display = "block";
+        document.getElementById("keywordresult").style.display = "block";
+        document.getElementById("authorresult").style.display = "none";
+    }
+</script>
 
 
 
