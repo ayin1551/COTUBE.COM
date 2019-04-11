@@ -32,6 +32,18 @@ public class ajaxViewComicsController{
         System.out.println(comicid);
         System.out.println(like);
 
+        return true;
+    }
+
+    @RequestMapping(value="/postComment",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean postComment(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String comicid = request.getParameter("comic_id");
+        String comment = request.getParameter("comment");
+        System.out.println(username);
+        System.out.println(comicid);
+        System.out.println(comment);
 
         return true;
     }

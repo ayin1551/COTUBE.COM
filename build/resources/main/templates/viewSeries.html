@@ -57,7 +57,8 @@
                 <td>
                     <p style = "font-size: 25px;display:inline;" id = "seriestitle">Comic Series Title</p>
                     <button type="button" class = "deleteButton" style="float:right;margin-top:0px;margin-right:30px;margin-left:50px;display:none;" id="delete">Delete</button>
-                    <p style = "font-size: 25px;">by magicMaster996</p>
+                    <br>
+                    <span style="font-size:25px;">by </span><a href="profile.html" style="font-size:25px;" id="comicauthor">crazyArtist2048</a>
                     <p style = "font-size: 25px;">563 Following</p>
                     <p style = "font-size: 25px;">5,391 Views | 691 Likes</p>
                     <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followSeries();">Follow Series</button>
@@ -101,7 +102,7 @@
                     <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
                     <br>
                     <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/delete.png" style = "margin-right:10%;float:right;" width = "25px" height = "25px">
+                    <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                     <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
                     <br>
                 </td>
@@ -128,15 +129,22 @@
             document.getElementById("setting").style.display = "none";
         }
 
-        if(checkFollow()){
+        if($.cookie("username")=="null" || $.cookie("username")==$("#comicauthor").text() || $.cookie("role")=="admin"){
+            document.getElementById("follow").style.display = "none";
+            document.getElementById("unfollow").style.display = "none";
+        }else{
+            if(checkFollow()){
             document.getElementById("follow").style.display = "none";
             document.getElementById("unfollow").style.display = "initial";
-        }else{
-            document.getElementById("unfollow").style.display = "none";
-            document.getElementById("follow").style.display = "initial";
+            }else{
+                document.getElementById("unfollow").style.display = "none";
+                document.getElementById("follow").style.display = "initial";
+            }
         }
 
-        if(checkAuthor() || $.cookie("role")=="admin"){
+        
+
+        if($.cookie("username")==$("#comicauthor").text() || $.cookie("role")=="admin"){
             document.getElementById("delete").style.display = "initial";
             //And display all the edit and delete button
         }
