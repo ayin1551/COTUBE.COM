@@ -36,4 +36,9 @@ public class FollowUserServiceImpl implements FollowUserService {
         followUserRepository.delete(followUser);
     }
 
+    @Override
+    public Integer getFollowerCount(String following_username) {
+        return followUserRepository.getFollowerCount(following_username);
+    }
+
 }
