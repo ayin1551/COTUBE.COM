@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> searchAccountContainingUsername(String username) {
-        List<Account> accounts = (List<Account>) accountRepository.findByNameContainingIgnoreCase(username);
+        List<Account> accounts = (List<Account>) accountRepository.findByUsernameContainingIgnoreCase(username);
 
         return accounts;
     }
