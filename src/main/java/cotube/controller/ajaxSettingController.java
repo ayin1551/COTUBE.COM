@@ -4,10 +4,11 @@ import cotube.domain.Account;
 import cotube.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
-import org.json.*;
 
 @Controller
 @RequestMapping(value="/setting.html")
@@ -48,6 +49,7 @@ public class ajaxSettingController{
             if(current.getSecurity_answer().equals(originalAnswer)){
                 current.setSecurity_question(newQuestion);
                 current.setSecurity_answer(newAnswer);
+                this.accountService.addAccount(current);
                 return true;
             }
         }

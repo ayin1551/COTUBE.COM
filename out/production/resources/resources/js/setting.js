@@ -100,8 +100,8 @@ function changeProfile(){
 
 function changeNewPP(){
     var path = document.getElementById("newPP");
-    var file    = document.querySelector('input[type=file]').files[0];
-    var reader  = new FileReader();
+    var file = document.querySelector('input[type=file]').files[0];
+    var reader = new FileReader();
 
     reader.onloadend = function () {
         path.src = reader.result;
