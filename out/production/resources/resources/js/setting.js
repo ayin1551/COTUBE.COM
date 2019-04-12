@@ -81,3 +81,35 @@ function resetSecurityQuestion(){
         }
     }
 }
+
+function changeProfile(){
+    var username = $("#profileusername").text();
+    var pathj = document.getElementById("file-input").value;
+    alert(pathj);
+    $.ajax({
+        url: "settings.html/changeProfile",
+        type: "post",
+        async: false,
+        data: {username: $.cookie("username"),following:following},
+        success: function (data) {//signUpController to check if the username already exist
+            validality = data;
+        }
+    });
+    return validality;
+}
+
+function changeNewPP(){
+    var path = document.getElementById("newPP");
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+
+    reader.onloadend = function () {
+        path.src = reader.result;
+    }
+    if (file) {
+        reader.readAsDataURL(file); //reads the data as a URL
+    } else {
+        path.src = "";
+    }
+    //document.getElementById("newpp").src = "http://127.0.0.1:8887/oldpp.jpg";
+}

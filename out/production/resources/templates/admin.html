@@ -48,9 +48,9 @@
                     <span style = "font-size:50px;margin-left:23px;"> | </span>
                     <span style = "font-size:50px;margin-left:23px;" id="commentsbtn" onclick="showComments()">Comments</span>
                     <span style = "font-size:50px;margin-left:23px;">censor list</span>
-    <div style = "width:90vw;">
-        <table id = "comicstb"  style="margin-left:5%;font-size:25px;text-align: center;width:90vw;" align="center">
-            <tr class="d0"><td>Title</td><td>Author</td><td>Time</td><td>Action</td></tr>
+    <div>
+        <table id = "comicstb"  style="margin-left:5%;font-size:25px;text-align: center;width:90%;" align="center">
+            <tr class="d0"><td style="width:22.5vw;">Title</td><td style="width:22.5vw;">Author</td><td style="width:22.5vw;">Time</td><td style="width:22.5vw;">Action</td></tr>
             <tr class="d0"><td>Snoopy</td><td>CharlesMS</td><td>2019/03/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
             <tr class="d0"><td>Doopy</td><td>Alan</td><td>2019/02/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
             <tr class="d0"><td>Moopy</td><td>Barker</td><td>2018/01/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
@@ -63,8 +63,8 @@
             <tr class="d0"><td>Comic</td><td>Liquid</td><td>2019/08/15 16:04:36</td><td><a href="">View  </a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
 
         </table>
-        <table id = "commentstb" style="margin-left:5%;font-size:25px;text-align: center;display:none;width:90vw;" align="center">
-            <tr class="d0"><td>Comment</td><td>User</td><td>Time</td><td>Action</td></tr>
+        <table id = "commentstb" style="margin-left:5%;font-size:25px;text-align: center;display:none;width:90%;" align="center">
+            <tr class="d0"><td style="width:22.5vw;">Comment</td><td style="width:22.5vw;">User</td><td style="width:22.5vw;">Time</td><td style="width:22.5vw;">Action</td></tr>
             <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
             <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
             <tr class="d0"><td>Stupiest comic ever</td><td>crazyUser01</td><td>2019/02/20 15:37:45</td><td><a herf="viewComics.html">View</a><input type="image" src = "./img/correct.png" height="35px" style = "margin-left:10px;"><input type="image" src = "./img/delete.png" height="35px" style = "margin-left:10px;"></td></tr>
@@ -100,8 +100,7 @@
 
         function showComics(){
             document.getElementById("commentstb").style.display = "none";
-            document.getElementById("comicstb").style.display = "block";
-            document.getElementById("comicstb").style.width = "90vw";
+            document.getElementById("comicstb").style.display = "initial";
             document.getElementById("comicsbtn").style.color = "#0688fa";
             document.getElementById("commentsbtn").style.color = "#FFFFFF";
             
@@ -109,8 +108,7 @@
 
         function showComments(){
             document.getElementById("comicstb").style.display = "none";
-            document.getElementById("commentstb").style.display = "block";
-            document.getElementById("commentstb").style.width = "90vw";
+            document.getElementById("commentstb").style.display = "initial";
             document.getElementById("comicsbtn").style.color = "#FFFFFF";
             document.getElementById("commentsbtn").style.color = "#0688fa";
         }

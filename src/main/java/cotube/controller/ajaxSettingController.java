@@ -54,5 +54,18 @@ public class ajaxSettingController{
         return false;
     }
 
-
+    @RequestMapping(value="/changeProfile",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean setProfilePicture(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String newPassword = request.getParameter("new_password");
+        Account current = this.accountService.getAccountByUsername(username);
+        if(current.getPassword().equals(password)){
+            current.setPassword(newPassword);
+            this.accountService.addAccount(current);
+            return true;
+        }
+        return false;
+    }
 }
