@@ -8,4 +8,5 @@ public interface AccountService {
     Account addAccount(Account account); //add account to db *C
     List<Account> getAllAccounts(); //get all accounts in db *R
     Account getAccountByUsername(String username);
+    List<Account> searchAccountContainingUsername(String username);
 }

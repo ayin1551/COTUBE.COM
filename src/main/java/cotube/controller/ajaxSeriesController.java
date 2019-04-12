@@ -36,21 +36,11 @@ public class ajaxSeriesController{
         return true;
     }
 
+
+    // Check if the user has already followed this series
     @RequestMapping(value="/check",method = RequestMethod.POST)
     @ResponseBody
     public Boolean check(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String following = request.getParameter("following");
-        System.out.println(username);
-        System.out.println(following);
-
-
-        return true;
-    }
-
-    @RequestMapping(value="/checkAuthor",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean checkAuthor(HttpServletRequest request){
         String username = request.getParameter("username");
         String following = request.getParameter("following");
         System.out.println(username);

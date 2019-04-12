@@ -71,7 +71,7 @@
         </table>
         <input type="hidden" id = "comicid" value = "3455">
         <img src="./img/t/1.jpg" style="display:block;margin:0 auto;margin-top:20px;">
-        <table align="center">
+        <table align="center" id = "likefavtb">
             <tr>
                 <td align="center" style="width:150px;">
                     <input type="image" src = "./img/like-gray.png" width = "40px" id="likebtn" onclick="toggleLike();">
@@ -88,6 +88,8 @@
             </tr>
         </table>
     </div>
+    <br>
+    <br>
     <table align="center" width = "65%">
         <tr>
             <td colspan="2">This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. </td>
@@ -97,12 +99,12 @@
                 <h2 style="margin-left:0px;">Comments(23)</h2>
             </td>
         </tr>
-        <tr>
+        <tr id = "comments">
             <td>
-                <textarea rows="4" cols="88" style="color:black;" placeholder="Enter your comment:"></textarea>
+                <textarea maxlength = "300" rows="4" cols="88" style="color:black;" placeholder="Enter your comment:" id="commentText"></textarea>
             </td>
             <td>
-                <button type="button" class="submitButton" style="height:85px;margin-left:0px;margin-top:0px;">Post</button>
+                <button type="button" class="submitButton" style="height:85px;margin-left:0px;margin-top:0px;" onclick = "postComment();">Post</button>
             </td>
         </tr>
     </table>
@@ -150,6 +152,8 @@
             document.getElementById("message").style.display = "none";
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
+            document.getElementById("likefavtb").style.display = "none";
+            document.getElementById("comments").style.display = "none";
         }
 
         if($.cookie("role")=="admin"||$.cookie("username")==$("#comicauthor").text()){
