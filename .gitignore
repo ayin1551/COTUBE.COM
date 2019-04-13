@@ -6,7 +6,7 @@ out/*
 gradle/*
 
 #Files
-*.DS_store
+.DS_store
 .classpath
 .project
 .settings

@@ -1,15 +1,16 @@
 package cotube.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
-import org.json.*;
 
 @Controller
 @RequestMapping(value="/series.html")
 public class ajaxSeriesController{
+
 
     @RequestMapping(value="/follow",method = RequestMethod.POST)
     @ResponseBody
@@ -35,21 +36,11 @@ public class ajaxSeriesController{
         return true;
     }
 
+
+    // Check if the user has already followed this series
     @RequestMapping(value="/check",method = RequestMethod.POST)
     @ResponseBody
     public Boolean check(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String following = request.getParameter("following");
-        System.out.println(username);
-        System.out.println(following);
-
-
-        return true;
-    }
-
-    @RequestMapping(value="/checkAuthor",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean checkAuthor(HttpServletRequest request){
         String username = request.getParameter("username");
         String following = request.getParameter("following");
         System.out.println(username);

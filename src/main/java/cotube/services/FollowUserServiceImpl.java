@@ -28,10 +28,17 @@ public class FollowUserServiceImpl implements FollowUserService {
     public List<FollowUser> getAllFollowUsers() {
 
         List<FollowUser> followUsers = (List<FollowUser>) followUserRepository.findAll();
-
         return followUsers;
     }
 
+    @Override
+    public void deleteFollowerUser(FollowUser followUser){
+        followUserRepository.delete(followUser);
+    }
 
+    @Override
+    public Integer getFollowerCount(String following_username) {
+        return followUserRepository.getFollowerCount(following_username);
+    }
 
 }

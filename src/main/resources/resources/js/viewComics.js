@@ -32,3 +32,19 @@ function toggleLike(){
       }
   });
 }
+
+function postComment(){
+  var comment = $("#commentText").val();
+  var user = $.cookie("username");
+  var comicid = $("input#comicid").val();
+  $.ajax({
+    url: "viewComics.html/postComment",
+    type: "post",
+    async: false,
+    data: {username:user,comic_id:comicid,comment:comment},
+    success: function (data) {//signUpController to check if the username already exist
+      
+    }
+});
+
+}

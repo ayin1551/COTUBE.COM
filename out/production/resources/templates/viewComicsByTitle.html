@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html style="height:100%" lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>CoTube View Comics By Title Page</title>
+
+
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="./js/js.cookie.js"></script>
+
+</head>
+
+<body>
+<div id = "wrap">
+    <div class="regbar">
+        <div class = "regbar-left" style="width:30%">
+            <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+        </div>
+        <div class = "regbar-mid" align="center">
+            <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
+            <select class="selectType" id="search_by" name="search_by">
+                <option value="keyword">By Keyword</option>
+                <option value="author">By Author</option>
+            </select>
+            <input type="image" src = "./img/search.png" style = "margin-right:3px; width:35px; height:35px" onclick="searchResult()"/>
+        </div>
+        <div class = "regbar-right" style = "margin-top:7px;">
+            <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
+            <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+            <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage()">
+            <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
+            <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+            <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+            <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <h1 style="font-size:35px; text-align:center; padding-top:10px">View Comics By Title</h1>
+    <div style="clear: both;">
+        <a name="jump" class="alpabet" style="font-size:33px; padding-top:50px; margin-left:5%;">Click to Jump:</a>
+        <br>
+        <a href="#a" class="alpabet" style="margin-left: 5%;">A</a>
+        <a href="#b" class="alpabet">B</a>
+        <a href="#c" class="alpabet">C</a>
+        <a href="#d" class="alpabet">D</a>
+        <a href="#e" class="alpabet">E</a>
+        <a href="#f" class="alpabet">F</a>
+        <a href="#g" class="alpabet">G</a>
+        <a href="#h" class="alpabet">H</a>
+        <a href="#i" class="alpabet">I</a>
+        <a href="#j" class="alpabet">G</a>
+        <a href="#k" class="alpabet">K</a>
+        <a href="#l" class="alpabet">L</a>
+        <a href="#m" class="alpabet">M</a>
+        <a href="#n" class="alpabet">N</a>
+        <a href="#o" class="alpabet">O</a>
+        <a href="#p" class="alpabet">P</a>
+        <a href="#q" class="alpabet">Q</a>
+        <a href="#r" class="alpabet">R</a>
+        <a href="#s" class="alpabet">S</a>
+        <a href="#t" class="alpabet">T</a>
+        <a href="#u" class="alpabet">U</a>
+        <a href="#v" class="alpabet">V</a>
+        <a href="#w" class="alpabet">W</a>
+        <a href="#x" class="alpabet">X</a>
+        <a href="#y" class="alpabet">Y</a>
+        <a href="#z" class="alpabet">Z</a>
+
+    </div>
+
+    <a name="a" style="padding-top:50px;" class="alpabetDir">A:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="margin-right:45px">
+        <tr style="margin-right:45px">
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">A_name_1</th>
+            <th style="width:15%">A_author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">A_name_2</th>
+            <th style="width:15%">A_author_2</th>
+        </tr>
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">A_name_3</th>
+            <th style="width:15%">A_author_3</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">A_name_4</th>
+            <th style="width:15%">A_author_4</th>
+        </tr>
+        </tbody>
+    </table>
+    <a href="#jump" class="viewjump">Back To Top</a>
+    <br>
+    <a name="b" style="padding-top:50px;" class="alpabetDir">B:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="c" style="padding-top:50px;" class="alpabetDir">C:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="d" style="padding-top:50px;" class="alpabetDir">D:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="e" style="padding-top:50px;" class="alpabetDir">E:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="f" style="padding-top:50px;" class="alpabetDir">F:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="g" style="padding-top:50px;" class="alpabetDir">G:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="h" style="padding-top:50px;" class="alpabetDir">H:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="i" style="padding-top:50px;" class="alpabetDir">I:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="j" style="padding-top:50px;" class="alpabetDir">J:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="k" style="padding-top:50px;" class="alpabetDir">K:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="l" style="padding-top:50px;" class="alpabetDir">L:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="m" style="padding-top:50px;" class="alpabetDir">M:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="n" style="padding-top:50px;" class="alpabetDir">N:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="o" style="padding-top:50px;" class="alpabetDir">O:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="p" style="padding-top:50px;" class="alpabetDir">P:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="q" style="padding-top:50px;" class="alpabetDir">Q:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="r" style="padding-top:50px;" class="alpabetDir">R:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="s" style="padding-top:50px;" class="alpabetDir">S:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="t" style="padding-top:50px;" class="alpabetDir">T:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="u" style="padding-top:50px;" class="alpabetDir">U:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="v" style="padding-top:50px;" class="alpabetDir">V:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="w" style="padding-top:50px;" class="alpabetDir">W:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="x" style="padding-top:50px;" class="alpabetDir">X:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="y" style="padding-top:50px;" class="alpabetDir">Y:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a name="z" style="padding-top:50px;" class="alpabetDir">Z:</a>
+    <table style="width:100%" class="alpabetTab">
+        <tbody style="width:100%">
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_1</th>
+            <th style="width:15%">author_1</th>
+            <th style="width:5%"></th>
+            <th style="width:5%">&#9679;</th>
+            <th style="width:25%">name_2</th>
+            <th style="width:15%">author_2</th>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+
+</div>
+
+
+<script>
+    if($.cookie('role')=="user"){
+        document.getElementById("login").style.display = "none";
+    }else{
+        document.getElementById("create").style.display = "none";
+        document.getElementById("signout").style.display = "none";
+        document.getElementById("message").style.display = "none";
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("setting").style.display = "none";
+    }
+    function gohome(){
+        document.location.href="./index.html";
+    }
+
+    function goCreate(){
+        document.location.href="./createHome.html";
+    }
+
+    function goMessage() {
+        document.location.href="./message.html";
+    }
+
+    function gotosetting(){
+        document.location.href="./setting.html";
+    }
+
+    function goProfile(){
+        document.location.href="./profile.html";
+    }
+
+    function login(){
+        document.location.href="./login.html";
+    }
+
+    function logout(){
+        $.cookie('username', null);
+        $.cookie('role',"guest");
+        document.location.href="./index.html";
+    }
+
+    function searchResult() {
+        var word = document.getElementById("search_word").value;
+        $.cookie('search_word',word);
+
+        var by = document.getElementById("search_by").value;
+        $.cookie('search_by',by);
+        if(word!="")
+            document.location.href="./searchResult.html";
+    }
+</script>
+</body>
+
+</html>
