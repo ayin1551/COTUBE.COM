@@ -14,3 +14,10 @@ gradle/*
 *.ipch
 *.lock
 *.lock
+.vscode/tasks.json
+.vscode/settings.json
+.vscode/launch.json
+.vscode/ipch/e5a6d929451eeba/mmap_address.bin
+.vscode/ipch/e5a6d929451eeba/HELLOWORLD.ipch
+.gradle/4.10/fileHashes/fileHashes.lock
+.gradle/4.10/fileHashes/fileHashes.bin
