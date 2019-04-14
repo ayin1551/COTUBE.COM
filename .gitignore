@@ -11,3 +11,6 @@ gradle/*
 .project
 .settings
 .metadata
+*.ipch
+*.lock
+*.lock
