@@ -84,6 +84,9 @@
                 </td>
                 <td align="center" style="width:150px;">
                     <input type="image" src = "./img/star-empty.png" width = "40px" id="favbtn">
+                    <!-- TODO: popup window here -->
+
+
                 </td>
             </tr>
             <tr>
@@ -215,6 +218,46 @@
 
 
     </script>
+
+
+
+
+
+    <!-- for popup -->
+    <div id="favoritePopup" class="modal">
+        <div class="modal-content" style="width: fit-content;">
+            <span id="x4" class="close">&times;</span>
+            <!-- <table>
+                <tr>
+                    <td>
+                        <img src = "./img/test/oldpp.jpg" style = "margin:25px 25px 25px 25px;" width = "200px" height = "200px">
+                    </td>
+                </tr>
+                <tr>
+                    <td align = "center">
+                        <button type="button" class = "submitButton">Upload Image</button>
+                    </td>
+                </tr>
+            </table> -->
+        </div>
+    </div>            
+    <script>
+        var modalfavorite = document.getElementById('favoritePopup');
+        var btnfavorite = document.getElementById("favbtn");
+        btnfavorite.onclick = function() {
+            modalfavorite.style.display = "block";
+        }
+        var x4 = document.getElementById("x4");
+        x4.onclick = function() {
+            modalfavorite.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modalfavorite) {
+                modalfavorite.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
 
 </html>
