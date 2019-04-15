@@ -43,12 +43,7 @@ public class AccountServiceImpl implements AccountService {
         return null;
     }
 
-    @Override
-    public List<Account> searchAccountContainingUsername(String username) {
-        List<Account> accounts = (List<Account>) accountRepository.findByUsernameContainingIgnoreCase(username);
 
-        return accounts;
-    }
 
 
 }

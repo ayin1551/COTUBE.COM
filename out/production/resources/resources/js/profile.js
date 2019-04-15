@@ -48,3 +48,4 @@ function checkFollow(){
     });
     return validality;
 }
+

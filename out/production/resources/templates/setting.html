@@ -55,7 +55,7 @@
                     <img src = "./img/test/oldpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "200px" height = "200px">
                 </td>
                 <td>
-                    <img src = "./img/test/newpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "200px" height = "200px">
+                    <img id = "newpp" src = "./img/test/newpp.jpg" style = "margin-left:25px;margin-right:25px;" width = "200px" height = "200px">
                 </td>
             </tr>
             <tr>
@@ -68,10 +68,11 @@
             </tr>
             <tr>
                 <td align = "center">
-                    <button type="button" class = "submitButton">Upload new</button>
+                    <button type="button" class = "submitButton" onclick="document.getElementById('file-input').click();">Upload new</button>
+                    <input id="file-input" type="file" name="name" oninput="changeNewPP()" style="display: none;" />
                 </td>
                 <td align = "center">
-                    <button type="button" class = "submitButton">Submit</button>
+                    <button type="button" class = "submitButton" onclick = "changeProfile()">Submit</button>
                 </td>
             </tr>
             <tr>

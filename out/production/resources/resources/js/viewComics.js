@@ -1,14 +1,50 @@
-function checkAuthor(){
-    var validality = false;
-    var comic = $("#comictitle").text();
-    $.ajax({
-        url: "viewComics.html/checkAuthor",
-        type: "post",
-        async: false,
-        data: {username: $.cookie("username"),comic_name:comic},
-        success: function (data) {//signUpController to check if the username already exist
-          validality = data;
+function checkLike(){
+  var validality = false;
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  $.ajax({
+      url: "viewComics.html/checkLike",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid},
+      success: function (data) {//signUpController to check if the username already exist
+        validality = data;
+      }
+  });
+  return validality;
+}
+
+function toggleLike(){
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  var like = checkLike();
+  $.ajax({
+      url: "viewComics.html/toggleLike",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid,like:like},
+      success: function (data) {//signUpController to check if the username already exist
+        if(like){
+          document.getElementById("likebtn").src ="./img/like-gray.png";
+        }else{
+          document.getElementById("likebtn").src ="./img/like-red.png";
         }
-    });
-    return validality;
+      }
+  });
+}
+
+function postComment(){
+  var comment = $("#commentText").val();
+  var user = $.cookie("username");
+  var comicid = $("input#comicid").val();
+  $.ajax({
+    url: "viewComics.html/postComment",
+    type: "post",
+    async: false,
+    data: {username:user,comic_id:comicid,comment:comment},
+    success: function (data) {//signUpController to check if the username already exist
+      
+    }
+});
+
 }

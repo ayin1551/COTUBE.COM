@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface AccountRepository extends CrudRepository<Account, Integer> {
 
-    public List<Account> findByUsernameContainingIgnoreCase(String username);
+    //public List<Account> findByNameContainingIgnoreCase(String name);
+
 
 }

@@ -4,10 +4,11 @@ import cotube.domain.Account;
 import cotube.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
-import org.json.*;
 
 @Controller
 @RequestMapping(value="/setting.html")
@@ -48,11 +49,25 @@ public class ajaxSettingController{
             if(current.getSecurity_answer().equals(originalAnswer)){
                 current.setSecurity_question(newQuestion);
                 current.setSecurity_answer(newAnswer);
+                this.accountService.addAccount(current);
                 return true;
             }
         }
         return false;
     }
 
-
+    @RequestMapping(value="/changeProfile",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean setProfilePicture(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String newPassword = request.getParameter("new_password");
+        Account current = this.accountService.getAccountByUsername(username);
+        if(current.getPassword().equals(password)){
+            current.setPassword(newPassword);
+            this.accountService.addAccount(current);
+            return true;
+        }
+        return false;
+    }
 }

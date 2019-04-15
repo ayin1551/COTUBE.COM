@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Search Result Page</title>
-
+    <!-- TODO:
+            By author   -- Profile picture and followers
+                        -- Onclick to go to the specific profile page(store the author's username to cookie)
+            By keyword  -- Default regular comics, can select series comics
+                        -- Sort by views, likes and name -->
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <script src="./js/js.cookie.js"></script>
+    <script src="./js/searchFunctions.js"></script>
 
 
 </head>
@@ -395,45 +401,9 @@
         document.getElementById("profile").style.display = "none";
         document.getElementById("setting").style.display = "none";
     }
-    function gohome(){
-        document.location.href="./index.html";
-    }
 
-    function goCreate(){
-        document.location.href="./createHome.html";
-    }
 
-    function goMessage() {
-        document.location.href="./message.html";
-    }
 
-    function gotosetting(){
-        document.location.href="./setting.html";
-    }
-
-    function goProfile(){
-        document.location.href="./profile.html";
-    }
-
-    function login(){
-        document.location.href="./login.html";
-    }
-
-    function logout(){
-        $.cookie('username', null);
-        $.cookie('role',"guest");
-        document.location.href="./index.html";
-    }
-
-    function searchResult() {
-        var word = document.getElementById("search_word").value;
-        $.cookie('search_word',word);
-
-        var by = document.getElementById("search_by").value;
-        $.cookie('search_by',by);
-        if(word!="")
-            document.location.href="./searchResult.html";
-    }
 
 
 </script>

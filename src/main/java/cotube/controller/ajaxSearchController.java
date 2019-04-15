@@ -2,17 +2,16 @@ package cotube.controller;
 
 import cotube.domain.Account;
 import cotube.services.AccountService;
-import cotube.domain.FollowUser;
 import cotube.services.FollowUserService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import javax.servlet.http.HttpServletRequest;
-import org.json.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,17 +32,23 @@ public class ajaxSearchController{
 
     @RequestMapping(value="/author",method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject searchByAuthor(HttpServletRequest request){
+    public String searchByAuthor(HttpServletRequest request){
         String author = request.getParameter("author");
-        List<Account> accounts = accountService.searchAccountContainingUsername(author);
+        List<Account> accounts = accountService.getAllAccounts();
+
         List<Integer> followerCount = new ArrayList<Integer>();
-        for(int i = 0; i < accounts.size(); i++){
-            followerCount.add(followUserService.getFollowerCount(accounts.get(i).getUsername()));
+        List<String> matches = new ArrayList<String>();
+        for(Account acc: accounts){
+            if (acc.getUsername().contains(author)){
+                followerCount.add(followUserService.getFollowerCount(acc.getUsername()));
+                matches.add(acc.getUsername());
+            }
         }
         JSONObject result = new JSONObject();
-        result.put("account", accounts);
+        result.put("account", matches);
         result.put("followers", followerCount);
-        return result;
+        System.out.println(result.toString());
+        return result.toString();
     }
 
 /*    @RequestMapping(value="/keyword",method = RequestMethod.POST)

@@ -41,7 +41,7 @@ public class ajaxLoginController{
             if (acc.getUsername().equals(username) && acc.getPassword().equals(password)){
                 return true;
             }
-    }
+        }
         return false;
     }
 
