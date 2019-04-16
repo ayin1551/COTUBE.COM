@@ -26,7 +26,7 @@
     <div id = "wrap">
         <div class="regbar">
             <div class = "regbar-left" style="width:30%">
-                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" onclick="gohome()">
             </div>
             <div class = "regbar-mid" align="center">
                 <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
@@ -227,18 +227,40 @@
     <div id="favoritePopup" class="modal">
         <div class="modal-content" style="width: fit-content;">
             <span id="x4" class="close">&times;</span>
-            <!-- <table>
+            <span style="font-size:20px; line-weight:200%">Add To:</span>
+            <table class="favoriteTable" >
                 <tr>
                     <td>
-                        <img src = "./img/test/oldpp.jpg" style = "margin:25px 25px 25px 25px;" width = "200px" height = "200px">
+                        <input type="checkbox" id="myCheck1">1
                     </td>
                 </tr>
                 <tr>
-                    <td align = "center">
-                        <button type="button" class = "submitButton">Upload Image</button>
+                    <td>
+                        <input type="checkbox" id="myCheck2">2
                     </td>
                 </tr>
-            </table> -->
+                <tr>
+                    <td>
+                        <input type="checkbox" id="myCheck3">3
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="myCheck4">4
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 230%; ">
+                        <input type="checkbox" id="checkadd">
+                        <input id="newList" class="form-control" style="width: auto; margin:0px; display: inline-block" placeholder="input new list name..."/>
+                    </td>
+                </tr>
+                <tr style="margin-top:20px">
+                    <td>
+                        <button class="kwbtn kwbtn2" id="submitFavorite" style="line-height:120%; position: relative; left: 57%;">Save</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>            
     <script>
