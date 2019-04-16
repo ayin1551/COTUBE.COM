@@ -2,38 +2,51 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="266e980c-2efd-44a5-ae59-d66fc1fb9d42" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/controller/ajaxSeriesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/controller/ajaxSeriesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/controller/ajaxSettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/controller/ajaxSettingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/controller/ajaxViewComicsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/controller/ajaxViewComicsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/controller/mainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/controller/mainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/domain/FollowUser$IdClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/domain/FollowUser$IdClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/domain/FollowUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/domain/FollowUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/repositories/FollowUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/repositories/FollowUserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/services/FollowUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/services/FollowUserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/cotube/services/FollowUserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/cotube/services/FollowUserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/resources/js/series.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/resources/js/series.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/resources/js/setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/resources/js/setting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/resources/js/viewComics.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/resources/js/viewComics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/templates/searchResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/templates/searchResult.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/templates/viewComics.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/templates/viewComics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/templates/viewSeries.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/templates/viewSeries.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSeriesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSeriesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSettingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxViewComicsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxViewComicsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/mainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/mainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/ComicRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/CommentsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/FavoriteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/FolderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/FollowSeriesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/LikesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/PanelRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/RegularComicRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/SeriesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/TagRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/ViewsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/ComicService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/ComicServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/CommentsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/CommentsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/FavoriteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/FavoriteServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/FolderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/FolderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/FollowSeriesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/FollowSeriesServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/LikesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/LikesServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/PanelService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/PanelServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/RegularComicService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/RegularComicServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/SeriesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/SeriesServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/TagService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/TagServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/ViewsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cotube/services/ViewsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/Comic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/Comic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/Comments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/Comments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/Favorite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/Favorite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/FollowSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/FollowSeries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/FollowUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/FollowUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/repositories/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/repositories/FollowUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/repositories/FollowUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/Likes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/Likes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/Tag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/domain/Views.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/domain/Views.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cotube/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/services/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/services/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/services/AccountServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/searchResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/searchResult.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/cse308createcotube.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cse308createcotube.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/cse308insertcotube.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/cse308insertcotube.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -52,74 +65,51 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/resources/js/profile.js">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/domain/FollowUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="70" column="20" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="129" selection-start-line="31" selection-start-column="129" selection-end-line="31" selection-end-column="129" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/setting.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="71" column="86" selection-start-line="71" selection-start-column="86" selection-end-line="71" selection-end-column="86" />
+            <state relative-caret-position="85">
+              <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
               <folding>
-                <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#tr#2;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#2203#2204#0" expanded="true" />
+                <element signature="e#2285#2286#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/resources/js/setting.js">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="108" column="15" lean-forward="true" selection-start-line="108" selection-start-column="15" selection-end-line="108" selection-end-column="15" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="112" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/temp.html">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/services/FollowSeriesServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="508">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#654#655#0" expanded="true" />
+                <element signature="e#718#719#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/searchResult.html">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/resources/js/searchFunctions.js">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/repositories/AccountRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="12" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSettingController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="51" column="56" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
+            <state relative-caret-position="119">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,23 +118,46 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/domain/Account.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+              <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/searchResult.html">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxLoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1360">
-              <caret line="80" column="68" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="68" />
-              <folding>
-                <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="355">
+              <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSettingController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="541">
+              <caret line="60" column="65" lean-forward="true" selection-start-line="60" selection-start-column="65" selection-end-line="60" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -234,13 +247,14 @@
     <option name="width" value="960" />
     <option name="height" value="605" />
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -346,6 +360,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -356,7 +372,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555097722763" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555412820710" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -468,7 +484,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52551000" />
+    <option name="totallyTimeSpent" value="52767000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -483,7 +499,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21006711" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23087248" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -493,7 +509,7 @@
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" x="0" y="23" width="1536" height="801" id="Run" maximized="true" order="2" type="WINDOWED" visible="true" weight="0.5694051" />
+      <window_info anchor="bottom" x="0" y="23" width="1536" height="801" id="Run" maximized="true" order="2" type="WINDOWED" weight="0.5694051" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -686,8 +702,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/domain/Account.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        <state relative-caret-position="425">
+          <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -722,8 +738,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/domain/FollowUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        <state relative-caret-position="85">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding>
+            <element signature="e#2203#2204#0" expanded="true" />
+            <element signature="e#2285#2286#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -736,8 +756,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/repositories/AccountRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        <state relative-caret-position="119">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -750,8 +773,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxLoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="96" column="1" selection-start-line="96" selection-start-column="1" selection-end-line="96" selection-end-column="1" />
+        <state relative-caret-position="355">
+          <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -771,8 +794,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="112" />
         </state>
       </provider>
     </entry>
@@ -785,29 +808,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+        <state relative-caret-position="102">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/searchResult.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="80" column="68" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="68" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSettingController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="51" column="56" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="541">
+          <caret line="60" column="65" lean-forward="true" selection-start-line="60" selection-start-column="65" selection-end-line="60" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -856,8 +868,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="70" column="20" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="20" />
+        <state relative-caret-position="102">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>

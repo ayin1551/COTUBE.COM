@@ -6,6 +6,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "favorite")
@@ -73,5 +74,19 @@ public class Favorite {
     static class IdClass implements Serializable {
         public Integer comic_id;
         public String favoriter_username;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            IdClass idClass = (IdClass) o;
+            return Objects.equals(comic_id, idClass.comic_id) &&
+                    Objects.equals(favoriter_username, idClass.favoriter_username);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(comic_id, favoriter_username);
+        }
     }
 }

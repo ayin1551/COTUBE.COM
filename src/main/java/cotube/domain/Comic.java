@@ -8,7 +8,7 @@ public class Comic {
 
     @Id
     private Integer comic_id;
-    private String comic_type;
+    private Integer comic_type;
     private String title;
     private Integer status;
     private Date date_published = new Date();
@@ -16,7 +16,7 @@ public class Comic {
     public Comic() {
     }
 
-    public Comic(Integer comic_id, String comic_type, String title, Integer status, Date date_published) {
+    public Comic(Integer comic_id, Integer comic_type, String title, Integer status, Date date_published) {
         this.comic_id = comic_id;
         this.comic_type = comic_type;
         this.title = title;
@@ -32,11 +32,11 @@ public class Comic {
         this.comic_id = comic_id;
     }
 
-    public String getComic_type() {
+    public Integer getComic_type() {
         return comic_type;
     }
 
-    public void setComic_type(String comic_type) {
+    public void setComic_type(Integer comic_type) {
         this.comic_type = comic_type;
     }
 

@@ -6,6 +6,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "comments")
@@ -96,5 +97,19 @@ public class Comments {
     static class IdClass implements Serializable {
         public Integer comic_id;
         public Integer comment_number;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            IdClass idClass = (IdClass) o;
+            return comic_id.equals(idClass.comic_id) &&
+                    comment_number.equals(idClass.comment_number);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(comic_id, comment_number);
+        }
     }
 }

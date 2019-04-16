@@ -31,7 +31,6 @@ CREATE TABLE Folder(
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
 
-
 CREATE TABLE Panel(
 	panel_id INTEGER,
     author VARCHAR(255),
@@ -45,7 +44,7 @@ CREATE TABLE Panel(
 
 CREATE TABLE Comic(
 	comic_id INTEGER,
-    comic_type VARCHAR(255),
+    comic_type INTEGER, #0 = REGULAR, 1 = GAME
     title VARCHAR(255),
     status INTEGER, #0 = non-published, 1 = published, 2 = censored VARCHAR(255),
     date_published DATETIME,

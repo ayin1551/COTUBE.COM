@@ -6,9 +6,10 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "followUser")
+@Table(name = "FollowUser")
 @IdClass(FollowUser.IdClass.class)
 public class FollowUser {
     @Id
@@ -65,5 +66,19 @@ public class FollowUser {
     static class IdClass implements Serializable {
         public String follower_username;
         public String following_username;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            IdClass idClass = (IdClass) o;
+            return Objects.equals(follower_username, idClass.follower_username) &&
+                    Objects.equals(following_username, idClass.following_username);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(follower_username, following_username);
+        }
     }
 }
