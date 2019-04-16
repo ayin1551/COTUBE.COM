@@ -8,22 +8,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "followUser")
-@IdClass(FollowUser.IdClass.class)
-public class FollowUser {
+@Table(name = "followSeries")
+@IdClass(FollowSeries.IdClass.class)
+public class FollowSeries{
     @Id
     private String follower_username;
     @Id
-    private String following_username;
-    public Date follow_time = new Date();
+    private Integer series_id;
+    private Date follow_time = new Date();
 
-    public FollowUser(){
+    public FollowSeries(){
 
     }
 
-    public FollowUser(String follower_username, String following_username, Date follow_time) {
+    public FollowSeries(String follower_username, Integer series_id, Date follow_time) {
         this.follower_username = follower_username;
-        this.following_username = following_username;
+        this.series_id = series_id;
         this.follow_time = follow_time;
     }
 
@@ -35,12 +35,12 @@ public class FollowUser {
         this.follower_username = follower_username;
     }
 
-    public String getFollowing_username() {
-        return following_username;
+    public Integer getSeries_id() {
+        return series_id;
     }
 
-    public void setFollowing_username(String following_username) {
-        this.following_username = following_username;
+    public void setSeries_id(Integer series_id) {
+        this.series_id = series_id;
     }
 
     public Date getFollow_time() {
@@ -51,19 +51,17 @@ public class FollowUser {
         this.follow_time = follow_time;
     }
 
-
     @Override
     public String toString() {
-        return "FollowUser{" +
+        return "FollowSeries{" +
                 "follower_username='" + follower_username + '\'' +
-                ", following_username='" + following_username + '\'' +
+                ", series_id=" + series_id +
                 ", follow_time=" + follow_time +
                 '}';
     }
 
-
     static class IdClass implements Serializable {
         public String follower_username;
-        public String following_username;
+        public Integer series_id;
     }
 }

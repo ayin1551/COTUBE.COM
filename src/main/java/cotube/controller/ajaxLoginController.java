@@ -50,7 +50,7 @@ public class ajaxLoginController{
     public Boolean validateRegister(HttpServletRequest request){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String security_question = request.getParameter("security_question");
+        Integer security_question = Integer.parseInt(request.getParameter("security_question"));
         String security_answer = request.getParameter("security_answer");
 
         List<Account> accounts = this.accountService.getAllAccounts();
@@ -65,7 +65,7 @@ public class ajaxLoginController{
         n.setSecurity_question(security_question);
         n.setSecurity_answer(security_answer);
         n.setProfile_pic_path("");
-        n.setAccount_role("user");
+        n.setAccount_role(0);
         this.accountService.addAccount(n);
         return true;
     }
@@ -75,7 +75,7 @@ public class ajaxLoginController{
     public Boolean validateReset(HttpServletRequest request){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String security_question = request.getParameter("security_question");
+        Integer security_question = Integer.parseInt(request.getParameter("security_question"));
         String security_answer = request.getParameter("security_answer");
         List<Account> accounts = this.accountService.getAllAccounts();
         for (Account acc: accounts) {

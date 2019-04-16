@@ -21,16 +21,17 @@ CREATE TABLE FollowUser(
         ON UPDATE CASCADE);
         
 CREATE TABLE Folder(
+	folder_id INTEGER,
 	username VARCHAR(255),
     folder_name VARCHAR(255),
     folder_type INTEGER, #0 = FAVORITE, 1 = series VARCHAR(255),
     visibility INTEGER, #0 = private, 1 = public
-    PRIMARY KEY(username, folder_name),
+    PRIMARY KEY(folder_id),
 	FOREIGN KEY (username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
-        
-    
+
+
 CREATE TABLE Panel(
 	panel_id INTEGER,
     author VARCHAR(255),
@@ -52,40 +53,40 @@ CREATE TABLE Comic(
 
 CREATE TABLE Series(
 	series_id INTEGER,
-    comic_id INTEGER,
     series_name VARCHAR(255),
-    folder VARCHAR(255),
-    PRIMARY KEY (series_id, comic_id),
-    FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
-		ON DELETE NO ACTION
-        ON UPDATE CASCADE,
-	FOREIGN KEY (folder) REFERENCES Folder (folder_name)
+    folder_id INTEGER,
+    PRIMARY KEY (series_id),
+	FOREIGN KEY (folder_id) REFERENCES Folder (folder_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
 
 CREATE TABLE RegularComic(
 	regular_comic_id INTEGER,
-    #series_id INTEGER, #If not part of series, pass NULL
+    series_id INTEGER, #If not part of series, pass NULL
     thumbnail_path VARCHAR(1000),
     description VARCHAR(1000),
-    panelID INTEGER,
+    panel_id INTEGER,
     PRIMARY KEY(regular_comic_id),
-	FOREIGN KEY (panelID) REFERENCES Panel (panelID)
+	FOREIGN KEY (panel_id) REFERENCES Panel (panel_id)
 		ON DELETE NO ACTION
-        ON UPDATE CASCADE);
+        ON UPDATE CASCADE,
+	FOREIGN KEY (series_id) REFERENCES Series (series_id)
+		ON DELETE NO ACTION
+        ON UPDATE CASCADE
+	);
 
 CREATE TABLE FollowSeries(
 	follower_username VARCHAR(255),
-    series INTEGER,
+    series_id INTEGER,
     follow_time DATETIME,
-	PRIMARY KEY (follower_username , series),
+	PRIMARY KEY (follower_username , series_id),
     FOREIGN KEY (follower_username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
-	FOREIGN KEY (series) REFERENCES RegularComic (series)
+	FOREIGN KEY (series_id) REFERENCES RegularComic (series_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
-        
+
 CREATE TABLE Views(
 	comic_id INTEGER,
     viewer_username VARCHAR(255),
@@ -98,7 +99,6 @@ CREATE TABLE Views(
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
 
-
 CREATE TABLE Likes(
 	comic_id INTEGER,
     liker_username VARCHAR(255),
@@ -107,10 +107,10 @@ CREATE TABLE Likes(
 	FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
-	FOREIGN KEY (likr_username) REFERENCES Account (username)
+	FOREIGN KEY (liker_username) REFERENCES Account (username)
 		ON DELETE NO ACTION
-        ON UPDATE CASCADE);        
-        
+        ON UPDATE CASCADE);
+
 CREATE TABLE Comments(
 	comic_id INTEGER,
     comment_number INTEGER,
@@ -125,7 +125,7 @@ CREATE TABLE Comments(
 	FOREIGN KEY (commenter_username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
-        
+
 CREATE TABLE Tag(
 	regular_comic_id INTEGER,
     comic_tag VARCHAR(255),
@@ -133,17 +133,17 @@ CREATE TABLE Tag(
 	FOREIGN KEY (regular_comic_id) REFERENCES RegularComic (regular_comic_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
-        
+
 CREATE TABLE Favorite(
 	comic_id INTEGER,
     favoriter_username VARCHAR(255),
     favorite_time DATETIME,
-    favorite_folder VARCHAR(255),
-    PRIMARY KEY(comic_id, favorite_username),
+    favorite_folder_id INTEGER,
+    PRIMARY KEY(comic_id, favoriter_username),
     FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
-	FOREIGN KEY (favorite_folder) REFERENCES Folder (folder_name)
+	FOREIGN KEY (favorite_folder_id) REFERENCES Folder (folder_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
 	FOREIGN KEY (favoriter_username) REFERENCES Account (username)
