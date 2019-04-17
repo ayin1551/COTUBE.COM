@@ -21,3 +21,4 @@ gradle/
 .vscode/ipch/e5a6d929451eeba/HELLOWORLD.ipch
 .gradle/4.10/fileHashes/fileHashes.lock
 .gradle/4.10/fileHashes/fileHashes.bin
+src/main/resources/application.properties
