@@ -34,19 +34,26 @@ public class ajaxSearchController{
     @ResponseBody
     public String searchByAuthor(HttpServletRequest request){
         String author = request.getParameter("author");
+        System.out.println(author);
         List<Account> accounts = accountService.getAllAccounts();
 
         List<Integer> followerCount = new ArrayList<Integer>();
         List<String> matches = new ArrayList<String>();
+        List<String> pic = new ArrayList<String>();
         for(Account acc: accounts){
-            if (acc.getUsername().contains(author)){
+            if (acc.getUsername().contains(author)&&acc.getAccount_role()==0){
                 followerCount.add(followUserService.getFollowerCount(acc.getUsername()));
                 matches.add(acc.getUsername());
+                pic.add(acc.getProfile_pic_path());
             }
+        }
+        for(int i=0;i<followerCount.size();i++){
+            System.out.println(i+1 + ": " + matches.get(i) + "\t" + followerCount.get(i) + "\t" + pic.get(i));
         }
         JSONObject result = new JSONObject();
         result.put("account", matches);
         result.put("followers", followerCount);
+        result.put("picpath", pic);
         System.out.println(result.toString());
         return result.toString();
     }
