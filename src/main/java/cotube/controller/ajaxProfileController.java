@@ -2,19 +2,31 @@ package cotube.controller;
 
 import cotube.domain.FollowUser;
 import cotube.services.FollowUserService;
+import cotube.domain.Account;
+import cotube.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value="/profile.html")
 public class ajaxProfileController{
+
+    private AccountService accountService;
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+
 
     private FollowUserService followUserService;
     @Autowired
@@ -60,14 +72,18 @@ public class ajaxProfileController{
     public Boolean check(HttpServletRequest request){
         String username = request.getParameter("username");
         String following = request.getParameter("following");
-        System.out.println(username);
-        System.out.println(following);
+        // System.out.println(username);
+        // System.out.println(following);
+        // System.out.println("!!!!!WANTED!!!!!follower:" + username + "\tfollowing:" + following);
         List<FollowUser>all = this.followUserService.getAllFollowUsers();
         for (FollowUser f: all){
-            if(f.getFollower_username().equals(following)){
+            // System.out.println("follower: " + f.getFollower_username() + "\tfollowing:" + f.getFollowing_username());
+            if(f.getFollower_username().equals(username)&&f.getFollowing_username().equals(following)){
+                // System.out.println("Yes!\n");
                 return true;
             }
         }
+        // System.out.println("No!\n");
         return false;
     }
 
@@ -76,8 +92,14 @@ public class ajaxProfileController{
     public Integer getFollowingCount(HttpServletRequest request){
         String username = request.getParameter("username");
         System.out.println(username);
-        
-        return 1;
+        int count = 0;
+        List<FollowUser> follows = followUserService.getAllFollowUsers();
+        for(FollowUser list: follows){
+            if(list.getFollower_username().equals(username)){
+                count++;
+            }
+        }
+        return count;
     }
 
     @RequestMapping(value="/getFollowerCount",method = RequestMethod.POST)
@@ -85,8 +107,77 @@ public class ajaxProfileController{
     public Integer getFollowerCount(HttpServletRequest request){
         String username = request.getParameter("username");
         System.out.println(username);
-        
-        return 2;
+        List<Account> accounts = accountService.getAllAccounts();
+        for(Account acc: accounts){
+            if(acc.getUsername().equals(username)){
+                return followUserService.getFollowerCount(acc.getUsername());
+            }
+        }
+        return -1;
+    }
+
+    @RequestMapping(value="/getFollowerList",method = RequestMethod.POST)
+    @ResponseBody
+    public String getFollowerList(HttpServletRequest request){
+        String username = request.getParameter("username");
+        // System.out.println(username);
+        List<FollowUser> follows = followUserService.getAllFollowUsers();
+
+        List<String> name = new ArrayList<String>();
+        List<String> pic = new ArrayList<String>();
+        for(FollowUser list: follows){
+            if (list.getFollowing_username().equals(username)){
+                name.add(list.getFollower_username());
+                List<Account> accounts = accountService.getAllAccounts();
+                for(Account acc: accounts){
+                    if(acc.getUsername().equals(list.getFollower_username())){
+                        pic.add(acc.getProfile_pic_path());
+                        break;
+                    }
+                }
+                
+            }
+        }
+        for(int i=0;i<name.size();i++){
+            System.out.println(i+1 + ": " + name.get(i) + "\t" + pic.get(i));
+        }
+        JSONObject result = new JSONObject();
+        result.put("account", name);
+        result.put("picpath", pic);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    @RequestMapping(value="/getFollowingList",method = RequestMethod.POST)
+    @ResponseBody
+    public String getFollowingList(HttpServletRequest request){
+        String username = request.getParameter("username");
+        // System.out.println(username);
+        List<FollowUser> follows = followUserService.getAllFollowUsers();
+
+        List<String> name = new ArrayList<String>();
+        List<String> pic = new ArrayList<String>();
+        for(FollowUser list: follows){
+            if (list.getFollower_username().equals(username)){
+                name.add(list.getFollowing_username());
+                List<Account> accounts = accountService.getAllAccounts();
+                for(Account acc: accounts){
+                    if(acc.getUsername().equals(list.getFollowing_username())){
+                        pic.add(acc.getProfile_pic_path());
+                        break;
+                    }
+                }
+                
+            }
+        }
+        for(int i=0;i<name.size();i++){
+            System.out.println(i+1 + ": " + name.get(i) + "\t" + pic.get(i));
+        }
+        JSONObject result = new JSONObject();
+        result.put("account", name);
+        result.put("picpath", pic);
+        System.out.println(result.toString());
+        return result.toString();
     }
 
 }

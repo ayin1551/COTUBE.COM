@@ -78,3 +78,31 @@ function getFollowers(username){
     });
     return num;
 }
+
+function getFollowerList(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getFollowerList",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function getFollowingList(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getFollowingList",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
