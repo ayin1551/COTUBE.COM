@@ -63,7 +63,7 @@
                 <td>
                     <span style = "font-size: 27px;" id = "profileusername"></span>
                     <br>
-                    <span style = "font-size: 25px;" id = "followings" onclick = "showFollowings();">56 Following</span>
+                    <span style = "font-size: 25px;" id = "followings" onclick = "showFollowings();"></span>
                     <span style = "font-size: 25px;"> | </span>
                     <span style = "font-size: 25px;" id = "followers" onclick = "showFollowers();">23,645 Followers</span>
                     <p style = "font-size: 25px;">1,345,391 Views | 38,691 Likes</p>
@@ -269,6 +269,10 @@
         console.log("profileUsername: " + p);
         document.getElementById("profileusername").innerText = $.cookie('profileUsername');
 
+        var c = getFollowings(p);
+        document.getElementById("followings").innerText = c + " Followings";
+        var c = getFollowers(p);
+        document.getElementById("followers").innerText = c + " Followers";
 
         if(checkFollow()){
             document.getElementById("follow").style.display = "none";

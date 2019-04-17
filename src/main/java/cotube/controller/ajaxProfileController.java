@@ -71,4 +71,22 @@ public class ajaxProfileController{
         return false;
     }
 
+    @RequestMapping(value="/getFollowingCount",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getFollowingCount(HttpServletRequest request){
+        String username = request.getParameter("username");
+        System.out.println(username);
+        
+        return 1;
+    }
+
+    @RequestMapping(value="/getFollowerCount",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getFollowerCount(HttpServletRequest request){
+        String username = request.getParameter("username");
+        System.out.println(username);
+        
+        return 2;
+    }
+
 }

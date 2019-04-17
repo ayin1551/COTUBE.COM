@@ -49,3 +49,32 @@ function checkFollow(){
     return validality;
 }
 
+
+function getFollowings(username){
+    var num = 0;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getFollowingCount",
+        async: false,
+        data: {username:username},
+        success: function (data) {
+            num = data;
+        }
+    });
+    return num;
+}
+
+
+function getFollowers(username){
+    var num = 0;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getFollowerCount",
+        async: false,
+        data: {username:username},
+        success: function (data) {
+            num = data;
+        }
+    });
+    return num;
+}
