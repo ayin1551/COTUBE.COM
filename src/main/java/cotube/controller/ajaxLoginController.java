@@ -64,7 +64,7 @@ public class ajaxLoginController{
         n.setPassword(password);
         n.setSecurity_question(security_question);
         n.setSecurity_answer(security_answer);
-        n.setProfile_pic_path("");
+        n.setProfile_pic_path("./img/profile.png");
         n.setAccount_role(0);
         this.accountService.addAccount(n);
         return true;
