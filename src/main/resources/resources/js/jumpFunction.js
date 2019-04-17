@@ -15,8 +15,9 @@ function authorprofile(name){
     document.location.href="./profile.html";
 }
 
-
-
+function admingohome(){
+    document.location.href="./admin.html";
+}
 
 
 function gohome(){

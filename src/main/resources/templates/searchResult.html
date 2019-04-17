@@ -6,8 +6,8 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Search Result Page</title>
     <!-- TODO:
-            By author   -- Profile picture and followers (FINISHED)
-                        -- Onclick to go to the specific profile page(store the author's username to cookie)
+            By author   -- Profile picture and followers                                                        (FINISHED)
+                        -- Onclick to go to the specific profile page(store the author's username to cookie)    (FINISHED)
             By keyword  -- Default regular comics, can select series comics
                         -- Sort by views, likes and name -->
 
@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <script src="./js/js.cookie.js"></script>
-    <script src="./js/searchFunctions.js"></script>
+    <script src="./js/jumpFunction.js"></script>
 
 
 </head>
@@ -336,8 +336,7 @@
                         tr.appendChild(td1);
                         var divBig1 = document.createElement('DIV');
                         divBig1.addEventListener('click', function() {
-                            $.cookie('profileUsername', obj.account[i]);
-                            document.location.href="./profile.html";
+                            authorprofile(obj.account[i]);
                         });
                         divBig1.classList.add("profileCard");
                         divBig1.style.width = "93.93%";
@@ -381,8 +380,7 @@
                         if(i+1<obj.account.length){                            
                             var divBig2 = document.createElement('DIV');
                             divBig2.addEventListener('click', function(){
-                                $.cookie('profileUsername', obj.account[i+1]);
-                                document.location.href="./profile.html";
+                                authorprofile(obj.account[i+1]);
                             });
                             divBig2.classList.add("profileCard");
                             divBig2.style.width = "93.93%";
@@ -430,8 +428,7 @@
                         if(i+2<obj.account.length){                            
                             var divBig3 = document.createElement('DIV');
                             divBig3.addEventListener('click', function(){
-                                $.cookie('profileUsername', obj.account[i+2]);
-                                document.location.href="./profile.html";
+                                authorprofile(obj.account[i+2]);
                             });
                             divBig3.classList.add("profileCard");
                             divBig3.style.width = "93.93%";
@@ -503,11 +500,6 @@
         document.getElementById("profile").style.display = "none";
         document.getElementById("setting").style.display = "none";
     }
-
-
-
-
-
 </script>
 </body>
 

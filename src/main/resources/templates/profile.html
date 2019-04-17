@@ -17,7 +17,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
     <script src="./js/profile.js"></script>
-    <script src="./js/searchFunctions.js"></script>
+    <script src="./js/searchFunction.js"></script>
 
 
 </head>
@@ -267,6 +267,7 @@
         }
         var p = $.cookie('profileUsername');
         console.log("profileUsername: " + p);
+        if($.cookie(''))
 
         if(checkFollow()){
             document.getElementById("follow").style.display = "none";
@@ -281,35 +282,6 @@
             document.getElementById("follow").style.display = "none";
         }
 
-        function gohome(){
-            document.location.href="./index.html";
-        }
-
-        function goCreate(){
-            document.location.href="./createHome.html";
-        }
-
-        function goMessage() {
-            document.location.href="./message.html";
-        }
-
-        function gotosetting(){
-            document.location.href="./setting.html";
-        }
-
-        function goProfile(){
-            document.location.href="./profile.html";
-        }
-
-        function login(){
-            document.location.href="./login.html";
-        }
-
-        function logout(){
-            $.cookie('username', null);
-            $.cookie('role',"guest");
-            document.location.href="./index.html";
-        }
 
         function showComics(){
             document.getElementById("favoritetb").style.display = "none";
@@ -375,16 +347,6 @@
             document.getElementById("favoritebtn").style.color = "#FFFFFF";
             document.getElementById("followings").style.color = "#FFFFFF";
             document.getElementById("followers").style.color = "#0688fa";
-        }
-
-        function searchResult() {
-            var word = document.getElementById("search_word").value;
-            $.cookie('search_word',word);
-
-            var by = document.getElementById("search_by").value;
-            $.cookie('search_by',by);
-            if(word!="")
-                document.location.href="./searchResult.html";
         }
 
 
