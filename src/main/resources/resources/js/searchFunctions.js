@@ -1,24 +1,23 @@
 function searchResult() {
-    console.log("innnnnnnnnnnn");
     var word = document.getElementById("search_word").value;
     $.cookie('search_word',word);
 
     var by = document.getElementById("search_by").value;
     $.cookie('search_by',by);
-    console.log(word);
-    console.log(by);
     if(word!=""){
-        console.log("innnnnnnnnnnn");
         document.location.href="./searchResult.html";  
         
-    }
-    
-        
-    
-        
-    
-    
+    } 
 }
+
+function authorprofile(name){
+    $.cookie('profileUsername', name);
+    document.location.href="./profile.html";
+}
+
+
+
+
 
 function gohome(){
     document.location.href="./index.html";

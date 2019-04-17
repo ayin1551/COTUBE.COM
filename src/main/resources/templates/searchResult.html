@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Search Result Page</title>
     <!-- TODO:
-            By author   -- Profile picture and followers
+            By author   -- Profile picture and followers (FINISHED)
                         -- Onclick to go to the specific profile page(store the author's username to cookie)
             By keyword  -- Default regular comics, can select series comics
                         -- Sort by views, likes and name -->
@@ -323,7 +323,8 @@
                     }else{
                         document.getElementById("authorEmpty").style.display = "none";
                     }
-                    for (var i = 0; i < obj.account.length; i+=3) {
+                    for (let i = 0; i < obj.account.length; i+=3) {
+                        // (function () {
                         var tr = document.createElement('TR');
                         tr.style.width = "100%";
                         tbody.appendChild(tr);
@@ -334,6 +335,10 @@
                         td1.style.paddingBottom = "20px";
                         tr.appendChild(td1);
                         var divBig1 = document.createElement('DIV');
+                        divBig1.addEventListener('click', function() {
+                            $.cookie('profileUsername', obj.account[i]);
+                            document.location.href="./profile.html";
+                        });
                         divBig1.classList.add("profileCard");
                         divBig1.style.width = "93.93%";
                         divBig1.style.display = "flex";
@@ -375,6 +380,10 @@
                         tr.appendChild(td2);
                         if(i+1<obj.account.length){                            
                             var divBig2 = document.createElement('DIV');
+                            divBig2.addEventListener('click', function(){
+                                $.cookie('profileUsername', obj.account[i+1]);
+                                document.location.href="./profile.html";
+                            });
                             divBig2.classList.add("profileCard");
                             divBig2.style.width = "93.93%";
                             divBig2.style.display = "flex";
@@ -417,8 +426,13 @@
                         td3.style.width = "33.3%";
                         td3.style.paddingBottom = "20px";
                         tr.appendChild(td3);
+                        
                         if(i+2<obj.account.length){                            
                             var divBig3 = document.createElement('DIV');
+                            divBig3.addEventListener('click', function(){
+                                $.cookie('profileUsername', obj.account[i+2]);
+                                document.location.href="./profile.html";
+                            });
                             divBig3.classList.add("profileCard");
                             divBig3.style.width = "93.93%";
                             divBig3.style.display = "flex";
@@ -455,6 +469,9 @@
                             divBig3.appendChild(divImg3);
                             divBig3.appendChild(divinfo3);
                         }
+
+                    // }());
+
                     }
                 }
             });
