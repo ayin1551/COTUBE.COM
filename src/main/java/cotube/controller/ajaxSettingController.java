@@ -39,9 +39,9 @@ public class ajaxSettingController{
     @ResponseBody
     public Boolean validateResetQuestion(HttpServletRequest request){
         String username = request.getParameter("username");
-        String originalQuestion = request.getParameter("original_question");
+        Integer originalQuestion = Integer.parseInt(request.getParameter("original_question"));
         String originalAnswer = request.getParameter("original_answer");
-        String newQuestion = request.getParameter("new_question");
+        Integer newQuestion = Integer.parseInt(request.getParameter("new_question"));
         String newAnswer = request.getParameter("new_answer");
 
         Account current = this.accountService.getAccountByUsername(username);

@@ -35,6 +35,7 @@ function toggleLike(){
 
 function postComment(){
   var comment = $("#commentText").val();
+  $("#commentText").val('');
   var user = $.cookie("username");
   var comicid = $("input#comicid").val();
   $.ajax({

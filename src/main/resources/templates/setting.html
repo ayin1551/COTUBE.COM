@@ -12,6 +12,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
     <script src="./js/setting.js"></script>
+    <script src="./js/jumpFunction.js"></script>
 
 
 </head>
@@ -20,7 +21,7 @@
     <div id = "wrap">
         <div class="regbar">
             <div class = "regbar-left" style="width:30%">
-                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" onclick="gohome()">
             </div>
             <div class = "regbar-mid" align="center">
                 <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
@@ -202,45 +203,7 @@
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
         }
-        function gohome(){
-            document.location.href="./index.html";
-        }
-
-        function goCreate(){
-            document.location.href="./createHome.html";
-        }
-
-        function goMessage() {
-            document.location.href="./message.html";
-        }
-
-        function gotosetting(){
-            document.location.href="./setting.html";
-        }
-
-        function goProfile(){
-            document.location.href="./profile.html";
-        }
-
-        function login(){
-            document.location.href="./login.html";
-        }
-
-        function logout(){
-            $.cookie('username', null);
-            $.cookie('role',"guest");
-            document.location.href="./index.html";
-        }
-
-        function searchResult() {
-            var word = document.getElementById("search_word").value;
-            $.cookie('search_word',word);
-
-            var by = document.getElementById("search_by").value;
-            $.cookie('search_by',by);
-            if(word!="")
-                document.location.href="./searchResult.html";
-        }
+ 
     </script>
 </body>
 

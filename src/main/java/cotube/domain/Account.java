@@ -6,35 +6,24 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     private String username;
     private String password;
-    private String security_question;
+    private Integer security_question;
     private String security_answer;
     private String profile_pic_path;
-    private String account_role;
+    private Integer account_role;
 
     public Account(){
 
     }
 
-    public Account(String username, String password, String security_question, String security_answer, String profile_pic_path, String account_role) {
+    public Account(String username, String password, Integer security_question, String security_answer, String profile_pic_path, Integer account_role) {
         this.username = username;
         this.password = password;
         this.security_question = security_question;
         this.security_answer = security_answer;
         this.profile_pic_path = profile_pic_path;
         this.account_role = account_role;
-    }
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -53,11 +42,11 @@ public class Account {
         this.password = password;
     }
 
-    public String getSecurity_question() {
+    public Integer getSecurity_question() {
         return security_question;
     }
 
-    public void setSecurity_question(String security_question) {
+    public void setSecurity_question(Integer security_question) {
         this.security_question = security_question;
     }
 
@@ -77,19 +66,18 @@ public class Account {
         this.profile_pic_path = profile_pic_path;
     }
 
-    public String getAccount_role() {
+    public Integer getAccount_role() {
         return account_role;
     }
 
-    public void setAccount_role(String account_role) {
+    public void setAccount_role(Integer account_role) {
         this.account_role = account_role;
     }
 
     @Override
     public String toString() {
         return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                " username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", security_question='" + security_question + '\'' +
                 ", security_answer='" + security_answer + '\'' +

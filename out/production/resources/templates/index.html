@@ -6,12 +6,16 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>CoTube Home Page</title>
 
+    <!-- TODO:
+            Trending comics, popular series and top 5
+            Timeline -->
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
     <script src="js/timeline.js"></script>
+    <script src="./js/jumpFunction.js"></script>
     <link rel="stylesheet" href="css/style1.css">
 
 
@@ -21,7 +25,7 @@
     <div id = "wrap">
         <div class="regbar" style="z-index: 999;">
             <div class = "regbar-left" style="width:30%">
-                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+                    <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" onclick="gohome()">
             </div>
             <div class = "regbar-mid" align="center">
                 <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
@@ -304,48 +308,6 @@
             document.getElementById("message").style.display = "none";
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
-        }
-
-        function gohome(){
-            document.location.href="./index.html";
-        }
-
-        function goCreate(){
-            document.location.href="./createHome.html";
-        }
-
-        function goMessage() {
-            document.location.href="./message.html";
-        }
-
-        function gotosetting(){
-            document.location.href="./setting.html";
-        }
-
-        
-
-        function goProfile(){
-            document.location.href="./profile.html";
-        }
-
-        function login(){
-            document.location.href="./login.html";
-        }
-
-        function logout(){
-            $.cookie('username', null);
-            $.cookie('role',"guest");
-            document.location.href="./index.html";
-        }
-
-        function searchResult() {
-            var word = document.getElementById("search_word").value;
-            $.cookie('search_word',word);
-
-            var by = document.getElementById("search_by").value;
-            $.cookie('search_by',by);
-            if(word!="")
-                document.location.href="./searchResult.html";
         }
 
 

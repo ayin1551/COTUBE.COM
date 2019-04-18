@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
+    <script src="./js/jumpFunction.js"></script>
 
 
 </head>
@@ -19,7 +20,7 @@
 <div id = "wrap">
     <div class="regbar">
         <div class = "regbar-left" style="width:30%">
-            <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" >
+            <img src = "./img/CoTube-logo.png" style = "margin-top:0px;" width = "125px" height = "50px" onclick="gohome()">
         </div>
         <div class = "regbar-mid" align="center">
             <input type="text" class="search_bar" name="search_word" id="search_word" size="35" placeholder="Input for searching...">
@@ -57,13 +58,6 @@
     <a href="./createComic.html" class="homeButton" id="btn1" onclick="createNewComic()">New Comic</a>
     <button class="homeButton" id="btn2">Play 4-Panel Game</button>
 
-    <script>
-        function createNewComic() {
-            $.cookie("createComic",true);
-            $.cookie("publicGame",false);
-            $.cookie("privateGame",false);
-        }
-    </script>
 
 
 
@@ -73,7 +67,7 @@
         <div class="modal-content">
             <span id="x1" class="close">&times;</span>
 
-            <div id="private_public_game" class="private_public_game" style="">
+            <div id="private_public_game" class="private_public_game">
                 <button id="pbtn1" class="kwbtn kwbtn2" onclick="privateGame()">Play Private Game</button>
                 <button id="pbtn2" class="kwbtn kwbtn2" onclick="publicGame()">Play Public Game</button>
             </div>
@@ -147,6 +141,7 @@
                 <h4 id="error2" style="color:red;display:none;margin-left:20px;font-weight: 300;">Order Invalid, Order Can Nither Be Repeat Or Empty.</h4>
                 <br>
                 <button class="kwbtn kwbtn2" id="pribtn1" onclick="create()">Create</button>
+                <!-- TODO: delete exist btn? -->
                 <button class="kwbtn kwbtn2" id="pribtn2" onclick="exist()">Exist</button>
 
             </div>
@@ -178,7 +173,7 @@
             <script>
                 function playrandom() {
                     $.cookie("gamekeyword", "random");
-                    <!-- unfinished, random a word -->
+                    // <!-- unfinished, random a word -->
                     document.location.href="./createGame.html";
                 }
                 function cng() {
@@ -190,7 +185,7 @@
                         $.cookie("gamekeyword",ukw.value);
                         document.location.href="./createGame.html";
                     }
-                    <!-- unfinished, jump -->
+                    // <!-- unfinished, jump -->
                 }
                 function peg() {
                     document.getElementById("error5").style.display = "none";
@@ -201,7 +196,7 @@
                         $.cookie("gamekeyword",ukw.value);
                         document.location.href="./createGame.html";
                     }
-                    <!-- unfinished, if no exist error6 & jump -->
+                    // <!-- unfinished, if no exist error6 & jump -->
                 }
 
 
@@ -211,9 +206,7 @@
                     game.style.display = "none";
                     var pri = document.getElementById("private_game");
                     pri.style.display = "block";
-                    $.cookie("createComic",false);
                     $.cookie("publicGame",false);
-                    $.cookie("privateGame",true);
                 }
                 function addUserBelow() {
                     document.getElementById("error1").style.display = "none";
@@ -225,7 +218,7 @@
                     var user3 = document.getElementById("add3name");
 
                     if(document.getElementById("invite_people").value==""){
-                        <!-- unfinished, user name empty -->
+                        // <!-- unfinished, user name empty -->
                     }else{
                         if(user1.innerText==""||user1.innerText==null){
                             user1.innerText = document.getElementById("invite_people").value;
@@ -359,7 +352,7 @@
 
 
 
-                    <!-- unfinished: jump -->
+                    // <!-- unfinished: jump -->
                 }
 
                 function exist() {
@@ -409,7 +402,7 @@
                         $.cookie("gameinvite3pos",pos3.value);
                         document.location.href="./createGame.html";
                     }
-                    <!-- unfinished: jump -->
+                    // <!-- unfinished: jump -->
                 }
 
                 function publicGame() {
@@ -417,9 +410,7 @@
                     game.style.display = "none";
                     var KeywordOption = document.getElementById("KeywordOption");
                     KeywordOption.style.display = "block";
-                    $.cookie("createComic",false);
                     $.cookie("publicGame",true);
-                    $.cookie("privateGame",false);
                     show1();
                 }
                 function show1() {
@@ -522,46 +513,6 @@
         document.getElementById("profile").style.display = "none";
         document.getElementById("setting").style.display = "none";
     }
-    function gohome(){
-        document.location.href="./index.html";
-    }
-
-    function goCreate(){
-        document.location.href="./createHome.html";
-    }
-
-    function goMessage() {
-        document.location.href="./message.html";
-    }
-
-    function gotosetting(){
-        document.location.href="./setting.html";
-    }
-
-    function goProfile(){
-        document.location.href="./profile.html";
-    }
-
-    function login(){
-        document.location.href="./login.html";
-    }
-
-    function logout(){
-        $.cookie('username', null);
-        $.cookie('role',"guest");
-        document.location.href="./index.html";
-    }
-
-    function searchResult() {
-        var word = document.getElementById("search_word").value;
-        $.cookie('search_word',word);
-
-        var by = document.getElementById("search_by").value;
-        $.cookie('search_by',by);
-        if(word!="")
-            document.location.href="./searchResult.html";
-    }
-
 
 </script>
 </body>

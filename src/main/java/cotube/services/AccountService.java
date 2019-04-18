@@ -1,7 +1,6 @@
 package cotube.services;
 
 import cotube.domain.Account;
-
 import java.util.List;
 
 public interface AccountService {
