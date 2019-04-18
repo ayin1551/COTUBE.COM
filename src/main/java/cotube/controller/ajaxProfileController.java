@@ -3,7 +3,9 @@ package cotube.controller;
 import cotube.domain.FollowUser;
 import cotube.services.FollowUserService;
 import cotube.domain.Account;
+import cotube.domain.Folder;
 import cotube.services.AccountService;
+import cotube.services.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,11 @@ public class ajaxProfileController{
         this.followUserService = followUserService;
     }
 
+    private FolderService folderService;
+    @Autowired
+    public void setFolderService(FolderService folderService) {
+        this.folderService = folderService;
+    }
 
 
     @RequestMapping(value="/follow",method = RequestMethod.POST)
@@ -180,4 +187,53 @@ public class ajaxProfileController{
         return result.toString();
     }
 
+    @RequestMapping(value="/getPublicFavorites",method = RequestMethod.POST)
+    @ResponseBody
+    public String getPublicFavorites(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Folder> folders = folderService.getAllFolders();
+
+        List<String> folderName = new ArrayList<String>();
+        List<Integer> folderId = new ArrayList<Integer>();
+
+        for(Folder folder: folders){
+            if (folder.getUsername().equals(username) && folder.getVisibility()==1){
+                folderName.add(folder.getFolder_name());
+                folderId.add(folder.getFolder_id());
+            }
+        }
+        for(int i=0;i<folderName.size();i++){
+            System.out.println(i+1 + ": " + folderName.get(i));
+        }
+        JSONObject result = new JSONObject();
+        result.put("folderName", folderName);
+        result.put("folderId", folderId);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    @RequestMapping(value="/getMyFavorites",method = RequestMethod.POST)
+    @ResponseBody
+    public String getMyFavorites(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Folder> folders = folderService.getAllFolders();
+
+        List<String> folderName = new ArrayList<String>();
+        List<Integer> folderId = new ArrayList<Integer>();
+
+        for(Folder folder: folders){
+            if (folder.getUsername().equals(username)){
+                folderName.add(folder.getFolder_name());
+                folderId.add(folder.getFolder_id());
+            }
+        }
+        for(int i=0;i<folderName.size();i++){
+            System.out.println(i+1 + ": " + folderName.get(i));
+        }
+        JSONObject result = new JSONObject();
+        result.put("folderName", folderName);
+        result.put("folderId", folderId);
+        System.out.println(result.toString());
+        return result.toString();
+    }
 }

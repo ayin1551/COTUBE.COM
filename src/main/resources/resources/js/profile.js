@@ -106,3 +106,37 @@ function getFollowingList(username){
     });
     return obj;
 }
+
+function getPublicFavorites(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getPublicFavorites",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function favoriteRedirect(id){
+    $.cookie("favoriteId",id);
+    document.location.href="./favorite.html";
+    console.log($.cookie("favoriteId"));
+}
+
+function getMyFavorites(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getMyFavorites",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
