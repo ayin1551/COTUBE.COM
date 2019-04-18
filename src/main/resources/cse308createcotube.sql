@@ -3,8 +3,8 @@ CREATE TABLE Account (
     username VARCHAR(255) ,
     password VARCHAR(255) NOT NULL ,
     security_question INTEGER NOT NULL, #Number corresponds to which question VARCHAR(1000) NOT NULL,
-    security_answer VARCHAR(10000) NOT NULL,
-    profile_pic_path VARCHAR(10000) NOT NULL,
+    security_answer VARCHAR(1000) NOT NULL,
+    profile_pic_path VARCHAR(1000) NOT NULL,
     account_role INTEGER NOT NULL, #0 = user, 1 = adminVARCHAR(65) NOT NULL,
     PRIMARY KEY (username) );
 
@@ -34,7 +34,7 @@ CREATE TABLE Folder(
 CREATE TABLE Panel(
 	panel_id INTEGER AUTO_INCREMENT,
     author VARCHAR(255),
-    canvas_path VARCHAR(10000),
+    canvas_path VARCHAR(1000),
     title_word VARCHAR(255), #ONLY FOR GAMECOMICS
     date_created DATETIME,
     PRIMARY KEY (panel_id),
@@ -54,7 +54,7 @@ CREATE TABLE Series(
 	series_id INTEGER AUTO_INCREMENT,
     series_name VARCHAR(255),
     folder_id INTEGER,
-    series_thumbnail_path VARCHAR(10000),
+    series_thumbnail_path VARCHAR(1000),
     PRIMARY KEY (series_id),
 	FOREIGN KEY (folder_id) REFERENCES Folder (folder_id)
 		ON DELETE NO ACTION
@@ -63,8 +63,8 @@ CREATE TABLE Series(
 CREATE TABLE RegularComic(
 	regular_comic_id INTEGER,
     series_id INTEGER, #If not part of series, pass NULL
-    thumbnail_path VARCHAR(10000),
-    description VARCHAR(10000),
+    thumbnail_path VARCHAR(1000),
+    description VARCHAR(1000),
     panel_id INTEGER,
     PRIMARY KEY(regular_comic_id),
 	FOREIGN KEY (panel_id) REFERENCES Panel (panel_id)
@@ -116,7 +116,7 @@ CREATE TABLE Comments(
     comment_number INTEGER,
     commenter_username VARCHAR(255),
     comment_time DATETIME,
-    comment VARCHAR(10000),
+    comment VARCHAR(1000),
     status INTEGER, #0 = published, 1 = censored
     PRIMARY KEY(comic_id, comment_number),
 	FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
