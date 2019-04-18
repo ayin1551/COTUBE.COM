@@ -75,5 +75,22 @@ public class ajaxFavoriteController{
 
         return false;
     }
+
+    @RequestMapping(value="/deleteFolder",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean deleteFolder(HttpServletRequest request){
+        Integer folderId = Integer.parseInt(request.getParameter("favoriteId"));
+        List<Folder> folders = folderService.getAllFolders();
+
+
+        for(Folder folder: folders){
+            if (folder.getFolder_id() == folderId){
+                folderService.deleteFolder(folder);
+                return true;
+            }
+        }
+
+        return false;
+    }
     
 }
