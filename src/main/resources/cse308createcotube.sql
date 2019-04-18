@@ -116,7 +116,7 @@ CREATE TABLE Comments(
     commenter_username VARCHAR(255),
     comment_time DATETIME,
     comment VARCHAR(255),
-    status VARCHAR(255),
+    status INTEGER, #0 = published, 1 = censored
     PRIMARY KEY(comic_id, comment_number),
 	FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION

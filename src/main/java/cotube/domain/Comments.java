@@ -19,13 +19,13 @@ public class Comments {
     private String commenter_username;
     private Date comment_time = new Date();
     private String comment;
-    private String status;
+    private Integer status;
 
     public Comments(){
 
     }
 
-    public Comments(Integer comic_id, Integer comment_number, String commenter_username, Date comment_time, String comment, String status) {
+    public Comments(Integer comic_id, Integer comment_number, String commenter_username, Date comment_time, String comment, Integer status) {
         this.comic_id = comic_id;
         this.comment_number = comment_number;
         this.commenter_username = commenter_username;
@@ -74,11 +74,11 @@ public class Comments {
         this.comment = comment;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
