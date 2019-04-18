@@ -7,6 +7,7 @@ import java.util.Date;
 public class Panel{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer panel_id;
     private String author;
     private String canvas_path;

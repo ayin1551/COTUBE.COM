@@ -50,7 +50,7 @@ INSERT INTO Comic
 VALUES(3, 0, 'nonseries', 1, curdate());
 
 INSERT INTO Series
-VALUES(1, 'garfield', 3);
+VALUES(1, 'garfield', 3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4TyAbTgJtsWlUB3SMaytFi9XsiniH1r2dX0n8jR_lDZthOKW3-A');
 
 INSERT INTO RegularComic
 VALUES(1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4TyAbTgJtsWlUB3SMaytFi9XsiniH1r2dX0n8jR_lDZthOKW3-A', 'part1 garfield series', 1);

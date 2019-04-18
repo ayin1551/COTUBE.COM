@@ -7,6 +7,7 @@ import java.util.Date;
 public class Comic {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer comic_id;
     private Integer comic_type;
     private String title;
