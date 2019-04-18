@@ -63,6 +63,8 @@ public class ajaxFavoriteController{
         Integer folderId = Integer.parseInt(request.getParameter("favoriteId"));
         Boolean pub = request.getParameter("public").equals("true");
         List<Folder> folders = folderService.getAllFolders();
+
+
         for(Folder folder: folders){
             if (folder.getFolder_id() == folderId){
                 folder.setVisibility(pub?1:0);

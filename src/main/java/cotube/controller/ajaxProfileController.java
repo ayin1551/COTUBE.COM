@@ -1,11 +1,17 @@
 package cotube.controller;
 
 import cotube.domain.FollowUser;
-import cotube.services.FollowUserService;
 import cotube.domain.Account;
 import cotube.domain.Folder;
+import cotube.domain.FollowSeries;
+import cotube.domain.Series;
+
+import cotube.services.FollowUserService;
 import cotube.services.AccountService;
 import cotube.services.FolderService;
+import cotube.services.FollowSeriesService;
+import cotube.services.SeriesService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +34,6 @@ public class ajaxProfileController{
         this.accountService = accountService;
     }
 
-
-
     private FollowUserService followUserService;
     @Autowired
     public void setFollowUserService(FollowUserService followUserService) {
@@ -40,6 +44,18 @@ public class ajaxProfileController{
     @Autowired
     public void setFolderService(FolderService folderService) {
         this.folderService = folderService;
+    }
+
+    private FollowSeriesService followSeriesService;
+    @Autowired
+    public void setFollowSeriesService(FollowSeriesService followSeriesService) {
+        this.followSeriesService = followSeriesService;
+    }
+
+    private SeriesService seriesService;
+    @Autowired
+    public void setSeriesService(SeriesService seriesService) {
+        this.seriesService = seriesService;
     }
 
 
@@ -197,7 +213,7 @@ public class ajaxProfileController{
         List<Integer> folderId = new ArrayList<Integer>();
 
         for(Folder folder: folders){
-            if (folder.getUsername().equals(username) && folder.getVisibility()==1){
+            if (folder.getUsername().equals(username) && folder.getVisibility()==1 && folder.getFolder_type()==0){
                 folderName.add(folder.getFolder_name());
                 folderId.add(folder.getFolder_id());
             }
@@ -222,7 +238,7 @@ public class ajaxProfileController{
         List<Integer> folderId = new ArrayList<Integer>();
 
         for(Folder folder: folders){
-            if (folder.getUsername().equals(username)){
+            if (folder.getUsername().equals(username) && folder.getFolder_type()==0){
                 folderName.add(folder.getFolder_name());
                 folderId.add(folder.getFolder_id());
             }
@@ -235,5 +251,39 @@ public class ajaxProfileController{
         result.put("folderId", folderId);
         System.out.println(result.toString());
         return result.toString();
+    }
+
+    @RequestMapping(value="/getSeries",method = RequestMethod.POST)
+    @ResponseBody
+    public String getSeries(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<FollowSeries> followSeries = followSeriesService.getAllFollowSeries();
+
+
+
+        List<Series> series = seriesService.getAllSeries();
+
+        List<Integer> seriesId = new ArrayList<Integer>();
+
+        for(FollowSeries f: followSeries){
+            if(f.getFollower_username().equals(username)){
+                for(Series s: series){
+                    if(s.getSeries_id() == f.getSeries_id()){
+                        seriesId.add(s.getSeries_id());
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        for(int i=0;i<seriesId.size();i++){
+            System.out.println(i+1 + ": " + seriesId.get(i));
+        }
+        JSONObject result = new JSONObject();
+        result.put("folderId", seriesId);
+        System.out.println(result.toString());
+        return result.toString();
+        return "a";
     }
 }

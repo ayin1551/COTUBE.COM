@@ -7,6 +7,7 @@ import java.util.Date;
 public class Folder {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer folder_id;
     private String username;
     private String folder_name;

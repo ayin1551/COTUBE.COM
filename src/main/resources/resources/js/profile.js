@@ -140,3 +140,17 @@ function getMyFavorites(username){
     });
     return obj;
 }
+
+function getSeries(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getSeries",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
