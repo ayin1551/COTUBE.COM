@@ -123,8 +123,36 @@ function getPublicFavorites(username){
 
 function favoriteRedirect(id){
     $.cookie("favoriteId",id);
-    document.location.href="./favorite.html";
-    console.log($.cookie("favoriteId"));
+    document.location.href = "./favorite.html";
+}
+
+function seriesRedirect(id){
+    $.cookie("seriesId",id);
+    document.location.href = "./viewSeries.html";
+}
+
+function comicRedirect(id, ifSeries){
+    $.cookie("comicId", id);
+    $.cookie("ifSeries", ifSeries);
+    document.location.href = "./viewComic.html";
+}
+
+//TODO:EDIT PAGE
+function editRedirect(id){
+    $.cookie("comicId", id);
+    document.location.href = "./editComic.html";
+}
+
+function deleteComic(id){
+    $.ajax({
+        type: "post",
+        url: "profile.html/deleteComic",
+        async: false,
+        data: {comicId:id},
+        success: function(data){
+            alert(data);
+        }
+    });
 }
 
 function getMyFavorites(username){
@@ -146,6 +174,20 @@ function getSeries(username){
     $.ajax({
         type: "post",
         url: "profile.html/getSeries",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function getMyComics(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getMyComics",
         async: false,
         data: {username:username},
         success: function(data){

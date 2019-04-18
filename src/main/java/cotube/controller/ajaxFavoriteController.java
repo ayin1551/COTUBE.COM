@@ -1,10 +1,6 @@
 package cotube.controller;
 
-import cotube.domain.FollowUser;
-import cotube.services.FollowUserService;
-import cotube.domain.Account;
 import cotube.domain.Folder;
-import cotube.services.AccountService;
 import cotube.services.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
