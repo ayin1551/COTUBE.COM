@@ -197,7 +197,7 @@ public class ajaxProfileController{
         List<Integer> folderId = new ArrayList<Integer>();
 
         for(Folder folder: folders){
-            if (folder.getUsername().equals(username) && folder.getVisibility()==1){
+            if (folder.getUsername().equals(username) && folder.getVisibility()==1 && folder.getFolder_type()==0){
                 folderName.add(folder.getFolder_name());
                 folderId.add(folder.getFolder_id());
             }
@@ -222,7 +222,7 @@ public class ajaxProfileController{
         List<Integer> folderId = new ArrayList<Integer>();
 
         for(Folder folder: folders){
-            if (folder.getUsername().equals(username)){
+            if (folder.getUsername().equals(username) && folder.getFolder_type()==0){
                 folderName.add(folder.getFolder_name());
                 folderId.add(folder.getFolder_id());
             }
