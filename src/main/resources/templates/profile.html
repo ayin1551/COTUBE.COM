@@ -58,6 +58,7 @@
         <table>
             <tr>
                 <td>
+                    <!-- TODO: change profile picture -->
                     <img src = "./img/test/oldpp.jpg" id="profilepicture" style = "margin-left:25px;margin-right:25px;" width = "170px" height = "170px">
                 </td>
                 <td>
@@ -66,7 +67,7 @@
                     <span style = "font-size: 25px;" id = "followings" onclick = "showFollowings();"></span>
                     <span style = "font-size: 25px;"> | </span>
                     <span style = "font-size: 25px;" id = "followers" onclick = "showFollowers();">23,645 Followers</span>
-                    <p style = "font-size: 25px;">1,345,391 Views | 38,691 Likes</p>
+                    <p style = "font-size: 25px;" id = "viewlike"></p>
                     <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followUser();">Follow</button>
                     <button type="button" class="unfollowButton" style = "border-radius: 5px;display:none;" id="unfollow" onclick="unfollowUser();">Unfollow</button>
                 </td>
@@ -173,6 +174,9 @@
         document.getElementById("followings").innerText = c + " Followings";
         var c = getFollowers(p);
         document.getElementById("followers").innerText = c + " Followers";
+        var c = getViews(p);
+        var d = getLikes(p);
+        document.getElementById("viewlike").innerText = c + " Views  |  " + d +" Likes";
 
         if(checkFollow()){
             document.getElementById("follow").style.display = "none";

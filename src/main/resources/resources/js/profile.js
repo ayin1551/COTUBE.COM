@@ -49,6 +49,34 @@ function checkFollow(){
     return validality;
 }
 
+function getViews(username){
+    var num = 0;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getViews",
+        async: false,
+        data: {username:username},
+        success: function (data) {
+            num = data;
+        }
+    });
+    return num;
+}
+
+function getLikes(username){
+    var num = 0;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getLikes",
+        async: false,
+        data: {username:username},
+        success: function (data) {
+            num = data;
+        }
+    });
+    return num;
+}
+
 
 function getFollowings(username){
     var num = 0;
@@ -134,13 +162,13 @@ function seriesRedirect(id){
 function comicRedirect(id, ifSeries){
     $.cookie("comicId", id);
     $.cookie("ifSeries", ifSeries);
-    document.location.href = "./viewComic.html";
+    document.location.href = "./viewComics.html";
 }
 
 //TODO:EDIT PAGE
 function editRedirect(id){
     $.cookie("comicId", id);
-    document.location.href = "./editComic.html";
+    document.location.href = "./editComics.html";
 }
 
 function deleteComic(id){

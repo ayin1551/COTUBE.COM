@@ -8,6 +8,8 @@ import cotube.domain.Series;
 import cotube.domain.Comic;
 import cotube.domain.RegularComic;
 import cotube.domain.Panel;
+import cotube.domain.Views;
+import cotube.domain.Likes;
 
 import cotube.services.FollowUserService;
 import cotube.services.AccountService;
@@ -17,6 +19,8 @@ import cotube.services.SeriesService;
 import cotube.services.ComicService;
 import cotube.services.RegularComicService;
 import cotube.services.PanelService;
+import cotube.services.ViewsService;
+import cotube.services.LikesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,8 +87,17 @@ public class ajaxProfileController{
         this.panelService = panelService;
     }
 
+    private ViewsService viewsService;
+    @Autowired
+    public void setViewsService(ViewsService viewsService) {
+        this.viewsService = viewsService;
+    }
 
-
+    private LikesService likesService;
+    @Autowired
+    public void setLikesService(LikesService likesService) {
+        this.likesService = likesService;
+    }
 
     @RequestMapping(value="/follow",method = RequestMethod.POST)
     @ResponseBody
@@ -135,6 +148,70 @@ public class ajaxProfileController{
         }
         // System.out.println("No!\n");
         return false;
+    }
+
+    @RequestMapping(value="/getViews",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getViews(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+        List<Views> views = viewsService.getAllViews();
+
+        int count = 0;
+
+        List<Integer> comicId = new ArrayList<Integer>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    if(rc.getPanel_id() == p.getPanel_id()){
+                        comicId.add(rc.getRegular_comic_id());
+                    }
+                }
+            }
+        }
+
+        for(Integer i: comicId){
+            for(Views v: views){
+                if(v.getComic_id() == i){
+                    count +=1;
+                }
+            }
+        }
+        return count;
+    }
+
+    @RequestMapping(value="/getLikes",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getLikes(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+        List<Likes> likes = likesService.getAllLikes();
+
+        int count = 0;
+
+        List<Integer> comicId = new ArrayList<Integer>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    if(rc.getPanel_id() == p.getPanel_id()){
+                        comicId.add(rc.getRegular_comic_id());
+                    }
+                }
+            }
+        }
+
+        for(Integer i: comicId){
+            for(Likes l: likes){
+                if(l.getComic_id() == i){
+                    count +=1;
+                }
+            }
+        }
+        return count;
     }
 
     @RequestMapping(value="/getFollowingCount",method = RequestMethod.POST)
@@ -370,6 +447,7 @@ public class ajaxProfileController{
         return result.toString();
     }
 
+    //TODO: delete Comic
     @RequestMapping(value="/deleteComic",method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteComic(HttpServletRequest request){
@@ -379,8 +457,7 @@ public class ajaxProfileController{
         List<Panel> panel = panelService.getAllPanels();
         List<Series> series = seriesService.getAllSeries();
 
-      
-
+    
 
         return false;
     }
