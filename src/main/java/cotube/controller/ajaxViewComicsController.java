@@ -17,19 +17,20 @@ import cotube.services.LikesService;
 import cotube.domain.Favorite;
 import cotube.services.FavoriteService;
 import cotube.domain.Comic;
+import cotube.services.ComicService;
 import cotube.domain.Comments;
 import cotube.services.CommentsService;
+import cotube.domain.Account;
 import cotube.services.CommentsServiceImpl;
 import cotube.services.AccountService;
-import cotube.services.ComicService;
 import cotube.domain.RegularComic;
 import cotube.services.RegularComicService;
 import cotube.domain.Panel;
 import cotube.services.PanelService;
 import cotube.domain.Views;
 import cotube.services.ViewsService;
-import cotube.domain.Account;
-import cotube.services.AccountService;
+import cotube.domain.Folder;
+import cotube.services.FolderService;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -79,11 +80,18 @@ public class ajaxViewComicsController{
         this.regularComicService = regularComicService;
     }
 
+    private FolderService folderService;
+    @Autowired
+    public void setFolderService(FolderService folderService) {
+        this.folderService = folderService;
+    }
+
     private AccountService accountService;
     @Autowired
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
     }
+
 
     @RequestMapping(value="/comicTitle",method = RequestMethod.POST)
     @ResponseBody
@@ -201,8 +209,6 @@ public class ajaxViewComicsController{
     }
 
 
-
-    // TODO: like/unlike
     @RequestMapping(value="/toggleLike",method = RequestMethod.POST)
     @ResponseBody
     public Boolean toggleLike(HttpServletRequest request){
@@ -224,6 +230,52 @@ public class ajaxViewComicsController{
 
         return true;
     }
+
+    @RequestMapping(value="/removeFromFav",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean removeFromFav(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String comicid = request.getParameter("comic_id");
+        List<Favorite> favorites = favoriteService.getAllFavorites();
+        for(Favorite each : favorites){
+            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getFavoriter_username().equals(username)){
+                favoriteService.deleteFavorite(each);
+            }
+        } 
+        return true;
+    }
+
+    @RequestMapping(value="/listFavorite",method = RequestMethod.POST)
+    @ResponseBody
+    public String listFavorite(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Folder> favoritesfolder = folderService.getAllFolders();
+        List<String> folderName = new ArrayList<String>();
+        List<Integer> folderId = new ArrayList<Integer>();
+        for(Folder each : favoritesfolder){
+            if(each.getUsername().equals(username)&&each.getFolder_type()==0){
+                folderName.add(each.getFolder_name());
+                folderId.add(each.getFolder_id());
+            }
+        }
+        JSONObject result = new JSONObject();
+        result.put("name", folderName);
+        result.put("id", folderId);
+        return result.toString();
+    }
+
+    @RequestMapping(value="/addToFav",method = RequestMethod.POST)
+    @ResponseBody
+    public String addToFav(HttpServletRequest request){
+        // String username = request.getParameter("username");
+        // String comicid = request.getParameter("comic_id");
+        String newlist= request.getParameter("new_list");
+        String idlist= request.getParameter("id_list");
+        System.out.println("newlist: " + newlist);
+        System.out.println("idlist: " + idlist);
+        return "";
+    }
+
 
     @RequestMapping(value="/postComment",method = RequestMethod.POST)
     @ResponseBody

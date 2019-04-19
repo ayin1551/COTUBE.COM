@@ -324,15 +324,16 @@ public class ajaxSeriesController{
             //delete from Comic
             comicService.deleteComic(comic);
 
-            //delete from FollowSeries
-            List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
-            for (int j = 0; j < followSeriesList.size(); j++)
-                followSeriesService.deleteFollowSeries(followSeriesList.get(j));
-
-            //delete from Series
-            seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
-
         }
+
+        //delete from FollowSeries
+        List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(seriesId);
+        for (int j = 0; j < followSeriesList.size(); j++)
+            followSeriesService.deleteFollowSeries(followSeriesList.get(j));
+
+        //delete from Series
+        seriesService.deleteSeries(seriesService.getSeriesBySeriesId(seriesId));
+
 
         return false;
 

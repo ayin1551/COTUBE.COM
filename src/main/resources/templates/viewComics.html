@@ -90,7 +90,7 @@
                     <input type="image" src = "./img/like-gray.png" width = "40px" id="likebtn" onclick="toggleLike();">
                 </td>
                 <td align="center" style="width:150px;">
-                    <input type="image" src = "./img/star-empty.png" width = "40px" id="favbtn">
+                    <input type="image" src = "./img/star-empty.png" width = "40px" id="favbtn" >
                 </td>
             </tr>
             <tr>
@@ -192,7 +192,6 @@
                 var t5 = document.createTextNode(comments.commentTime[i]);
                 span4.appendChild(t5);
                 span4.style.cssFloat = "right";
-                span4.style.color = "gray";
                 span4.style.marginRight = "0.5em";
                 td2.appendChild(span4);
 
@@ -236,7 +235,6 @@
         });
 
         
-// TODO: ,   description.  comic name,post comic,author,
         document.getElementById("comicid").value = $.cookie("comicId");
         var likenum = likeNumber();
         document.getElementById("likenumber").innerHTML = likenum;
@@ -284,7 +282,7 @@
             <span id="x4" class="close">&times;</span>
             <span style="font-size:20px; line-height:200%">Add To:</span>
             <table class="favoriteTable" >
-                <tr>
+                <!-- <tr>
                     <td>
                         <input type="checkbox" id="myCheck1">1
                     </td>
@@ -312,17 +310,94 @@
                 </tr>
                 <tr style="margin-top:20px">
                     <td>
-                        <button class="kwbtn kwbtn2" id="submitFavorite" style="line-height:120%; position: relative; left: 57%;">Save</button>
+                        <button class="kwbtn kwbtn2" id="submitFavorite" style="line-height:120%; position: relative; left: 57%;" onclick="toggleFavorite()">Save</button>
                     </td>
-                </tr>
+                </tr> -->
             </table>
+            <h4 id="fav_error1" style="color:red;display:none;margin-left:20px;font-weight: 300;">Please Input Name of List.</h4>
+            <h4 id="fav_error2" style="color:red;display:none;margin-left:20px;font-weight: 300;">Please Select At Least One List.</h4>
         </div>
     </div>            
     <script>
         var modalfavorite = document.getElementById('favoritePopup');
         var btnfavorite = document.getElementById("favbtn");
         btnfavorite.onclick = function() {
-            modalfavorite.style.display = "block";
+            if(document.getElementById("favbtn").src = "./img/star.png"){
+                removeFromFav();
+            }else if(document.getElementById("favbtn").src = "./img/star-empty.png"){
+                modalfavorite.style.display = "block";
+                document.getElementById("fav_error1").style.display = "none";                
+                document.getElementById("fav_error2").style.display = "none";
+                $(window).ready(function() { 
+                    $.ajax({
+                        url: "viewComic.html/listFavorite",
+                        type: "post",
+                        async: false,
+                        data: {username: $.cookie('username')},
+                        success: function (data) {
+                            var obj = jQuery.parseJSON(data);
+                            var tbody = document.getElementById("favoriteTable");
+                            // exist folder
+                            for(let i=0; i<obj.name.length; i++){
+                                var tr = document.createElement('tr');
+                                var td = document.createElement('td');
+                                var checkbox = document.createElement('input');
+                                checkbox.type = "checkbox";
+                                checkbox.name = obj.name[i];
+                                checkbox.value = obj.id[i];
+                                checkbox.id = "thisIs" + obj.id[i];
+                                var label = document.createElement('label');
+                                label.appendChild(document.createTextNode(obj.name[i]));
+                                checkbox.appendChild(label);
+                                td.appendChild(checkbox);
+                                tr.appendChild(td);
+                                tbody.appendChild(tr);
+                            }
+                            // creat new folder
+                            var trnew = document.createElement('tr');
+                            var tdnew = document.createElement('td');
+                            tdnew.style.lineHeight = "230%";
+                            var checkboxnew = document.createElement('input');
+                            checkboxnew.type = "checkbox";
+                            checkboxnew.id = "thisIsCheckAdd";
+                            var inputnew = document.createElement('input');
+                            inputnew.id = "thisIsInput";
+                            inputnew.classList = "form-control";
+                            inputnew.style.width = "auto";
+                            inputnew.style.margin = "0px";
+                            inputnew.style.display = "inline-block";
+                            inputnew.placeholder = "input new list name...";
+                            tdnew.appendChild(checkboxnew);
+                            tdnew.appendChild(inputnew);
+                            trnew.appendChild(tdnew);
+                            tbody.appendChild(tr);
+
+                            // submit btn
+                            var trsub = document.createElement('tr');
+                            trsub.style.marginTop = "20px";
+                            var tdsub = document.createElement('td');
+                            var btn = document.createElement('button');
+                            btn.classList = "kwbtn kwbtn2";
+                            btn.id = "thisIsSubmit";
+                            btn.style.lineHeight = "120%";
+                            btn.style.position = "relative";
+                            btn.style.left = "57%";
+                            var labelsub = document.createElement('label');
+                            labelsub.appendChild(document.createTextNode("Save"));
+                            btn.appendChild(labelsub);
+                            tdsub.appendChild(btn);
+                            trsub.appendChild(tdsub);
+                            tbody.appendChild(trsub);
+                            btn.onclick = function(){
+                                var get = addToFav(obj);
+                                if(get){
+                                    modalfavorite.style.display = "none";
+                                }
+                            }
+                        }
+                    });
+                });
+            }
         }
         var x4 = document.getElementById("x4");
         x4.onclick = function() {
