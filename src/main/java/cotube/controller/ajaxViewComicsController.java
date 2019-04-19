@@ -304,6 +304,21 @@ public class ajaxViewComicsController{
         return true;
     }
 
+    @RequestMapping(value="/deleteComment",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean deleteComment(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        Integer num = Integer.parseInt(request.getParameter("num"));
+        List<Comments> comments = this.commentsService.getAllComments();
+        for(Comments c: comments){
+            if(c.getComic_id() == comicId && c.getComment_number() == num){
+                this.commentsService.deleteComment(c);
+                return true;
+            }
+        }
+        return false;
+    }
+
     @RequestMapping(value="/getComment",method = RequestMethod.POST)
     @ResponseBody
     public String getComment(HttpServletRequest request){
