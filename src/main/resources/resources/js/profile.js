@@ -181,6 +181,7 @@ function deleteComic(id){
 
         }
     });
+    document.location.href = "./profile.html";
 }
 
 function getMyFavorites(username){

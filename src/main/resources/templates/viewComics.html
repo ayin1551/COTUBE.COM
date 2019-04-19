@@ -77,7 +77,13 @@
             </tr>
         </table>
         <input type="hidden" id = "comicid" value = "3455">
-        <img src="" style="display:block;margin:0 auto;margin-top:20px;" id="comicimg">
+        <table align="center">
+            <tr>
+                <td><input type="image" src = "./img/prev.png" id = "prev" onclick="prev()" style="display:none;height:7vh;float:left;"></td>
+                <td><img src="" style="display:inline;margin:0 auto;margin-top:20px;" id="comicimg" align="center"></td>
+                <td><input type="image" src = "./img/next.png" id = "next" onclick="next()" style="display:none;height:7vh;float:right;"></td>
+            </tr>
+        </table>
         <table align="center" id = "likefavtb">
             <tr>
                 <td align="center" style="width:150px;">
@@ -135,12 +141,18 @@
             document.getElementById("delete").style.display = "initial";
         }
 
+        if(hasPrev()){
+            document.getElementById("prev").style.display = "initial";
+        }
     
+        if(hasNext()){
+            document.getElementById("next").style.display = "initial";
+        }
         $(window).ready(function() {
             var tb = document.getElementById("commenttb");
             var comments = getComment($.cookie("comicId"),1);
             document.getElementById("commentHeader").innerText = "Comment("+comments.commentCount+")";
-            for(var i = 0; i < comments.commentNumber.length; i++){
+            for(let i = 0; i < comments.commentNumber.length; i++){
                 var tr1 = document.createElement('tr');
                 tb.appendChild(tr1);
                 var td = document.createElement('td');
@@ -192,6 +204,9 @@
                     input.style.cssFloat = "right";
                     input.style.width = "20px";
                     input.style.height = "20px";
+                    input.addEventListener('click', function() {
+                        deleteComment($.cookie("comicId"),comments.commentNumber[i]);
+                    });
                 }
                 var hr = document.createElement('hr');
                 hr.className = "style-six";

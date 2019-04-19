@@ -189,6 +189,19 @@ function getComment(id, num){
     return obj;
 }
 
+function deleteComment(id, num){
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/deleteComment",
+    async: false,
+    data: {comicId:id, num:num},
+    success: function(data){
+
+    }
+  });
+  document.location.href = "./viewComics.html";
+}
+
 function commentPage(id, num){
   var comments;
   $.ajax({
@@ -204,7 +217,7 @@ function commentPage(id, num){
   $("#commenttb tr").remove();
   var tb = document.getElementById("commenttb");
   document.getElementById("commentHeader").innerText = "Comment("+comments.commentCount+")";
-  for(var i = 0; i < comments.commentNumber.length; i++){
+  for(let i = 0; i < comments.commentNumber.length; i++){
       var tr1 = document.createElement('tr');
       tb.appendChild(tr1);
       var td = document.createElement('td');
@@ -257,10 +270,75 @@ function commentPage(id, num){
           input.style.cssFloat = "right";
           input.style.width = "20px";
           input.style.height = "20px";
+          input.addEventListener('click', function() {
+            deleteComment($.cookie("comicId"),comments.commentNumber[i]);
+          });
       }
       var hr = document.createElement('hr');
       hr.className = "style-six";
       td2.appendChild(hr);
 
   }
+}
+
+function hasPrev(){
+  var validality = false;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/hasPrev",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      validality = data;
+    }
+  });
+  return validality;
+}
+
+function hasNext(){
+  var validality = false;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/hasNext",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      validality = data;
+    }
+  });
+  return validality;
+}
+
+function prev(){
+  var prevId;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/prev",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      prevId = data;
+    }
+  });
+  $.cookie("comicId",prevId);
+  document.location.href = "./viewComics.html";
+}
+
+function next(){
+  var nextId;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/next",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      nextId = data;
+    }
+  });
+  $.cookie("comicId",nextId);
+  document.location.href = "./viewComics.html";
 }
