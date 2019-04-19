@@ -178,7 +178,7 @@ function deleteComic(id){
         async: false,
         data: {comicId:id},
         success: function(data){
-            alert(data);
+
         }
     });
 }
