@@ -72,6 +72,9 @@ CREATE TABLE RegularComic(
         ON UPDATE CASCADE,
 	FOREIGN KEY (series_id) REFERENCES Series (series_id)
 		ON DELETE NO ACTION
+        ON UPDATE CASCADE,
+	FOREIGN KEY (regular_comic_id) REFERENCES Comic (comic_id)
+		ON DELETE NO ACTION
         ON UPDATE CASCADE
 	);
 

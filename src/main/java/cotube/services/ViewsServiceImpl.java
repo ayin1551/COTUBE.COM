@@ -39,10 +39,12 @@ public class ViewsServiceImpl implements ViewsService {
 
     @Override
     public List<Comic> getHighestViewedRegularComics() {
-        List<Integer> comicIds = viewsRepository.getComicIdsOfMostViewedComics();
+        List<Integer> comicIds = viewsRepository.getComicIdsOfMostViewedRegularComics();
         List<Comic> result = new ArrayList<>();
-        for (Integer i: comicIds) {
-            Comic comic = comicRepository.getComicByComic_id(i);
+        System.out.print(comicIds);
+        for (int i = 0; i < comicIds.size(); i++){
+            System.out.print(comicIds.get(i));
+            Comic comic = comicRepository.getComicByComic_id(comicIds.get(i));
             result.add(comic);
         }
         return result;

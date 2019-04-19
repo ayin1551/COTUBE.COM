@@ -27,8 +27,6 @@ public class ajaxHomeController{
     public String getTrending(HttpServletRequest request){
 
         List<Comic> comics = viewsService.getHighestViewedRegularComics();
-        while (comics.size() > 20)
-            comics.remove(20);
 
         JSONObject result = new JSONObject();
         result.put("comics", comics);

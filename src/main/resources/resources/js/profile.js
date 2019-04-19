@@ -197,6 +197,7 @@ function getMyFavorites(username){
     return obj;
 }
 
+
 function getSeries(username){
     var obj;
     $.ajax({
@@ -216,6 +217,20 @@ function getMyComics(username){
     $.ajax({
         type: "post",
         url: "profile.html/getMyComics",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function getOthersComics(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getOthersComics",
         async: false,
         data: {username:username},
         success: function(data){

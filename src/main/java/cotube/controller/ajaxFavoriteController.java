@@ -1,6 +1,12 @@
 package cotube.controller;
 
 import cotube.domain.Folder;
+import cotube.domain.Favorite;
+import cotube.domain.Comic;
+import cotube.domain.RegularComic;
+import cotube.services.RegularComicService;
+import cotube.services.ComicService;
+import cotube.services.FavoriteService;
 import cotube.services.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -23,6 +31,23 @@ public class ajaxFavoriteController{
         this.folderService = folderService;
     }
 
+    private FavoriteService favoriteService;
+    @Autowired
+    public void setFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
+
+    private ComicService comicService;
+    @Autowired
+    public void setComicService(ComicService comicService) {
+        this.comicService = comicService;
+    }
+
+    private RegularComicService regularComicService;
+    @Autowired
+    public void setRegularComicService(RegularComicService regularComicService) {
+        this.regularComicService = regularComicService;
+    }
 
     @RequestMapping(value="/getInfo",method = RequestMethod.POST)
     @ResponseBody
@@ -87,4 +112,71 @@ public class ajaxFavoriteController{
         return false;
     }
     
+    @RequestMapping(value="/getComics",method = RequestMethod.POST)
+    @ResponseBody
+    public String getComics(HttpServletRequest request){
+        Integer favoriteId = Integer.parseInt(request.getParameter("favoriteId"));
+        List<Favorite> favorites = favoriteService.getAllFavorites();
+        List<Comic> comics = comicService.getAllComics();
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Integer> comicId = new ArrayList<Integer>();
+        List<String> comicName = new ArrayList<String>();
+        List<String> comicThumbnail = new ArrayList<String>();
+        List<Boolean> comicSeries = new ArrayList<Boolean>();
+
+        for(Favorite f: favorites){
+            if(f.getFavorite_folder_id() == favoriteId){
+                comicId.add(f.getComic_id());
+            }
+        }
+
+        Collections.sort(comicId);
+        Collections.reverse(comicId);
+
+        for(Integer i: comicId){
+            for(Comic c: comics){
+                if(c.getComic_id() == i){
+                    comicName.add(c.getTitle());
+                    break;
+                }
+            }
+
+            for(RegularComic rc: regularComics){
+                if(rc.getRegular_comic_id() == i){
+                    comicThumbnail.add(rc.getThumbnail_path());
+                    comicSeries.add(rc.getSeries_id()==null?false:true);
+                    break;
+                }
+            }
+        }
+        
+        JSONObject result = new JSONObject();
+        result.put("comicName", comicName);
+        result.put("comicId", comicId);
+        result.put("comicThumbnail", comicThumbnail);
+        result.put("comicSeries", comicSeries);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    @RequestMapping(value="/unfavorite",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean unfavorite(HttpServletRequest request){
+        Integer favoriteId = Integer.parseInt(request.getParameter("favoriteId"));
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<Favorite> favorites = favoriteService.getAllFavorites();
+
+
+        for(Favorite f: favorites){
+            if(f.getFavorite_folder_id() == favoriteId && f.getComic_id() == comicId){
+                this.favoriteService.deleteFavorite(f);
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
 }

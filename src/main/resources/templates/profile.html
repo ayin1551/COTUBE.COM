@@ -207,6 +207,57 @@
                 }
             });
         }else{
+            $(window).ready(function() {
+                var tb = document.getElementById("comicstb");
+                var comics = getOthersComics($("#profileusername").text());
+                console.log(comics);
+                for(var i = 0; i < comics.comicSeries.length; i+=4){
+                    var tr = document.createElement('tr');
+                    tb.appendChild(tr);
+                    for(let j = i; j < i+4 && j < comics.comicSeries.length; j++){
+                        var td = document.createElement('td');
+                        td.style.width = "23vw";
+                        td.style.paddingTop = "15px";
+                        tr.appendChild(td);
+                        var img = document.createElement('img');
+                        td.appendChild(img);
+                        img.src = comics.comicThumbnail[j];
+                        img.style.width = "20vw";
+                        img.style.height = "11.25vw";
+                        img.style.marginLeft = "2.5vw";
+                        img.addEventListener('click', function() {
+                            comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                        });
+                        var br1 = document.createElement('br');
+                        td.appendChild(br1);
+                        if(comics.comicSeries[j]){
+                            var img2 = document.createElement('img');
+                            td.appendChild(img2);
+                            img2.src = "./img/series-icon.png";
+                            img2.style.marginLeft = "2.5vw";
+                            img2.style.cssFloat = "left";
+                            img2.style.marginTop = "5px";
+                            img2.style.width = "19px";
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                        }else{
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                            span.style.marginLeft = "2.5vw";
+                        }
+                        
+                        var br2 = document.createElement('br');
+
+                        td.appendChild(br2);
+                    }
+                }
+            });
 
         }
 
