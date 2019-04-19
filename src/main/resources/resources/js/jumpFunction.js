@@ -26,6 +26,11 @@ function trendingcomic(comicId, ifSeries){
     document.location.href="./viewComic.html"
 }
 
+function popularseries(series_id){
+    $.cookie('seriesId', series_id);
+    document.location.href="./viewSeries.html";
+}
+
 function admingohome(){
     document.location.href="./admin.html";
 }

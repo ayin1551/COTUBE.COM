@@ -78,6 +78,13 @@ function getComics(id){
     return obj;
 }
 
+//TODO: edit page
+function editRedirect(id){
+    $.cookie("comicId", id);
+    document.location.href = "./editComics.html";
+}
+
+
 function comicRedirect(id, ifSeries){
     $.cookie("comicId", id);
     $.cookie("ifSeries", ifSeries);
@@ -94,6 +101,7 @@ function deleteComic(id){
 
         }
     });
+    document.location.href = "./viewSeries.html";
 }
 
 function deleteSeries(){
@@ -106,4 +114,6 @@ function deleteSeries(){
 
         }
     });
+    $.cookie("profileUsername",$.cookie("username"));
+    document.location.href = "./profile.html";
 }

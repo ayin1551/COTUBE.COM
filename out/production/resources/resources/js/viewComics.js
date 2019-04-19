@@ -96,22 +96,83 @@ function toggleLike(){
   });
 }
 
+function removeFromFav(){
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  $.ajax({
+      url: "viewComics.html/removeFromFav",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid},
+      success: function (data) {//signUpController to check if the username already exist
+        document.getElementById("favbtn").src = "./img/star-empty.png";
+      }
+  });
+}
+
+function addToFav(obj){
+  document.getElementById("fav_error1").style.display = "none";
+  document.getElementById("fav_error2").style.display = "none";
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  if(document.getElementById('thisIsCheckAdd').checked&&document.getElementById('thisIsInput').value==""){
+    document.getElementById("fav_error1").style.display = "block";
+    return false;
+  }
+  var ifCheck = false;
+  for(let i=0; i<obj.name.length; i++){
+    if(document.getElementById("thisIs"+obj.id[i]).checked){
+      ifCheck = true;
+      break;
+    }
+  }
+  if(!ifCheck && !document.getElementById('thisIsCheckAdd').checked){
+    document.getElementById("fav_error2").style.display = "block";
+    return false;
+  }
+  var newlist = "";
+  if(document.getElementById('thisIsCheckAdd').checked){
+    newlist = document.getElementById('thisIsInput').value;
+  }
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  var idlist = "";
+  for(let i=0; i<obj.name.length;i++){
+    if(document.getElementById("thisIs"+obj.id[i]).checked){
+      idlist +=obj.id[i] + ",";
+    }
+  }
+  console.log(idlist);
+  $.ajax({
+      url: "viewComics.html/addToFav",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid,new_list:newlist,id_list:idlist},
+      success: function (data) {//signUpController to check if the username already exist
+        document.getElementById("favbtn").src = "./img/star.png";
+      }
+  });
+  return true;
+}
+
+
 function postComment(){
   var comment = $("#commentText").val();
   $("#commentText").val('');
   var user = $.cookie("username");
   var comicid = $("input#comicid").val();
-  $.ajax({
-    url: "viewComics.html/postComment",
-    type: "post",
-    async: false,
-    data: {username:user,comic_id:comicid,comment:comment},
-    success: function (data) {//signUpController to check if the username already exist
-      
-    }
-  });
-  document.location.href = "viewComics.html";
-
+  if(comment!=""&&comment!=null&&comment!=undefined){
+    $.ajax({
+      url: "viewComics.html/postComment",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid,comment:comment},
+      success: function (data) {//signUpController to check if the username already exist
+        
+      }
+    });
+    document.location.href = "viewComics.html";
+  }
 }
 
 
@@ -129,6 +190,19 @@ function getComment(id, num){
     return obj;
 }
 
+function deleteComment(id, num){
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/deleteComment",
+    async: false,
+    data: {comicId:id, num:num},
+    success: function(data){
+
+    }
+  });
+  document.location.href = "./viewComics.html";
+}
+
 function commentPage(id, num){
   var comments;
   $.ajax({
@@ -144,7 +218,7 @@ function commentPage(id, num){
   $("#commenttb tr").remove();
   var tb = document.getElementById("commenttb");
   document.getElementById("commentHeader").innerText = "Comment("+comments.commentCount+")";
-  for(var i = 0; i < comments.commentNumber.length; i++){
+  for(let i = 0; i < comments.commentNumber.length; i++){
       var tr1 = document.createElement('tr');
       tb.appendChild(tr1);
       var td = document.createElement('td');
@@ -197,10 +271,75 @@ function commentPage(id, num){
           input.style.cssFloat = "right";
           input.style.width = "20px";
           input.style.height = "20px";
+          input.addEventListener('click', function() {
+            deleteComment($.cookie("comicId"),comments.commentNumber[i]);
+          });
       }
       var hr = document.createElement('hr');
       hr.className = "style-six";
       td2.appendChild(hr);
 
   }
+}
+
+function hasPrev(){
+  var validality = false;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/hasPrev",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      validality = data;
+    }
+  });
+  return validality;
+}
+
+function hasNext(){
+  var validality = false;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/hasNext",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      validality = data;
+    }
+  });
+  return validality;
+}
+
+function prev(){
+  var prevId;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/prev",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      prevId = data;
+    }
+  });
+  $.cookie("comicId",prevId);
+  document.location.href = "./viewComics.html";
+}
+
+function next(){
+  var nextId;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/next",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      nextId = data;
+    }
+  });
+  $.cookie("comicId",nextId);
+  document.location.href = "./viewComics.html";
 }

@@ -1,10 +1,13 @@
 package cotube.services;
 
+import cotube.domain.Comic;
 import cotube.domain.Likes;
+import cotube.repositories.ComicRepository;
 import cotube.repositories.LikesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,10 +17,7 @@ public class LikesServiceImpl implements LikesService {
     private LikesRepository likesRepository;
 
     @Autowired
-    public void setProductRepository(LikesRepository likesRepository) {
-        this.likesRepository = likesRepository;
-    }
-
+    private ComicRepository comicRepository;
 
     @Override
     public Likes addLike(Likes likes) {
@@ -40,6 +40,19 @@ public class LikesServiceImpl implements LikesService {
     @Override
     public List<Likes> getAllLikesInComic(Integer comic_id) {
         return likesRepository.getAllLikesInComic(comic_id);
+    }
+
+    @Override
+    public List<Comic> getMostLikedRegularComics() {
+        List<Integer> comicIds = likesRepository.getComicIdsOfMostLikedRegularComics();
+        List<Comic> result = new ArrayList<>();
+        System.out.print(comicIds);
+        for (int i = 0; i < comicIds.size(); i++){
+            System.out.print(comicIds.get(i));
+            Comic comic = comicRepository.getComicByComic_id(comicIds.get(i));
+            result.add(comic);
+        }
+        return result;
     }
 
 }

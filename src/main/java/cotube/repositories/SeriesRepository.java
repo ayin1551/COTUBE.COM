@@ -10,4 +10,6 @@ public interface SeriesRepository extends CrudRepository<Series, Integer> {
 
     @Query(value = "SELECT * from Series s where s.series_id = :series_id", nativeQuery = true)
     Series getSeriesBySeries_id(@Param("series_id") Integer series_id);
+
+
 }

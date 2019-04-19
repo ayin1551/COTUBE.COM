@@ -1,8 +1,10 @@
 package cotube.services;
 
 import cotube.domain.Comic;
+import cotube.domain.Series;
 import cotube.domain.Views;
 import cotube.repositories.ComicRepository;
+import cotube.repositories.SeriesRepository;
 import cotube.repositories.ViewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class ViewsServiceImpl implements ViewsService {
 
     @Autowired
     private ComicRepository comicRepository;
+
+    @Autowired
+    private SeriesRepository seriesRepository;
 
     @Override
     public Views addView(Views view) {
@@ -46,6 +51,19 @@ public class ViewsServiceImpl implements ViewsService {
             System.out.print(comicIds.get(i));
             Comic comic = comicRepository.getComicByComic_id(comicIds.get(i));
             result.add(comic);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Series> getHighestViewedSeries() {
+        List<Integer> seriesIds = viewsRepository.getSeriesIdsOfMostViewedSeries();
+        List<Series> result = new ArrayList<>();
+        System.out.print(seriesIds);
+        for (int i = 0; i < seriesIds.size(); i++){
+            System.out.print(seriesIds.get(i));
+            Series series = seriesRepository.getSeriesBySeries_id(seriesIds.get(i));
+            result.add(series);
         }
         return result;
     }
