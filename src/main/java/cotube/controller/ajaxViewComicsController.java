@@ -19,6 +19,7 @@ import cotube.services.FavoriteService;
 import cotube.domain.Comic;
 import cotube.domain.Comments;
 import cotube.services.CommentsService;
+import cotube.services.CommentsServiceImpl;
 import cotube.services.AccountService;
 import cotube.services.ComicService;
 import cotube.domain.RegularComic;
@@ -228,12 +229,25 @@ public class ajaxViewComicsController{
     @ResponseBody
     public Boolean postComment(HttpServletRequest request){
         String username = request.getParameter("username");
-        String comicid = request.getParameter("comic_id");
+        Integer comicid = Integer.parseInt(request.getParameter("comic_id"));
         String comment = request.getParameter("comment");
-        System.out.println(username);
-        System.out.println(comicid);
-        System.out.println(comment);
-
+        List<Comments> comments = this.commentsService.getAllComments();
+        Integer high = 0;
+        Comments c = new Comments();
+        c.setComic_id(comicid);
+        c.setComment(comment);
+        c.setComment_time(new Date());
+        c.setStatus(0);
+        c.setUsername(username);
+        for(Comments c: comments){
+            if(c.getComic_id() == comicid){
+                if(c.getComment_number()>high){
+                    high = c.getComment_number();
+                }
+            }
+        }
+        c.setComment_number(high+1);
+        commentsService.addComments(c);
         return true;
     }
 
