@@ -91,3 +91,5 @@ VALUES(1, 'user3', curDate(), 1);
 INSERT INTO Favorite
 VALUES(2, 'user3', curDate(), 2);
 
+
+
