@@ -60,14 +60,14 @@
             </tr>
             <tr>
                 <td>
-                    <span style="font-size:20px;color:gray;margin-left:23px;">Views:8964</span>
+                    <span style="font-size:20px;color:gray;margin-left:23px;" id="comicviewnum">Views:8964</span>
                 </td>
                 <td>
                     <span style="font-size:20px;display:inline;margin-left:10px;">Created by</span>
-                    <a href="profile.html" style="display:inline;font-size:20px;" id="comicauthor">crazyArtist2048</a>
+                    <a  style="display:inline;font-size:20px;" id="comicauthor"></a>
                 </td>
                 <td>
-                    <img src = "./img/test/newpp.jpg" style = "display:inline;margin-left:5px;" width = "45px" height = "45px">
+                    <img src = "" style = "display:inline;margin-left:5px;" width = "45px" height = "45px" id="authorimg">
                 </td>
             </tr>
             <tr>
@@ -77,7 +77,7 @@
             </tr>
         </table>
         <input type="hidden" id = "comicid" value = "3455">
-        <img src="./img/t/1.jpg" style="display:block;margin:0 auto;margin-top:20px;">
+        <img src="" style="display:block;margin:0 auto;margin-top:20px;" id="comicimg">
         <table align="center" id = "likefavtb">
             <tr>
                 <td align="center" style="width:150px;">
@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <td align="center">
-                    <span>45</span>
+                    <span id="likenumber"></span>
                 </td>
                 <td align="center"></td>
             </tr>
@@ -99,7 +99,7 @@
     <br>
     <table align="center" width = "65%">
         <tr>
-            <td colspan="2">This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. </td>
+            <td colspan="2" id="comicdescription"></td>
         </tr>
         <tr>
             <td>
@@ -166,13 +166,41 @@
         if($.cookie("role")=="admin"||$.cookie("username")==$("#comicauthor").text()){
             document.getElementById("delete").style.display = "initial";
         }
-
+        
+// TODO: ,   description.  comic name,post comic,author,
+        document.getElementById("comicid").value = $.cookie("comicId");
+        var likenum = likeNumber();
+        document.getElementById("likenumber").innerHTML = likenum;
+        var info = comicInfo();
+        document.getElementById("comicauthor").innerHTML = info.author;
+        document.getElementById("comicauthor").onclick = function() {
+            authorprofile(info.author);
+        }
+        document.getElementById("comicviewnum").innerHTML = "Views:"+info.views;
+        document.getElementById("comicimg").src = info.path;
+        document.getElementById("comicdescription").innerHTML = info.description;        
+        document.getElementById("comictitle").innerHTML = comicTitle();
+        document.getElementById("authorimg").src = info.authorpath;
+        if(info.author==$.cookie("username")){
+            document.getElementById("delete").style.display = "block";
+        }
         if(checkLike()){
             document.getElementById("likebtn").src = "./img/like-red.png";
         }else{
             document.getElementById("likebtn").src = "./img/like-gray.png";
         }
+        
+
+
+
+        if(checkFavorite()){
+            document.getElementById("favbtn").src = "./img/star.png";
+        }else{
+            document.getElementById("favbtn").src = "./img/star-empty.png";
+        }
+// TODO: 
         //Check user and add delete button to comment 
+        
         
  
     </script>
