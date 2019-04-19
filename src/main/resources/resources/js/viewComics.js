@@ -347,3 +347,14 @@ function next(){
   $.cookie("comicId",nextId);
   document.location.href = "./viewComics.html";
 }
+
+function viewComic(username, id){
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/viewComic",
+    async: true,
+    data: {username: username, comicId: id},
+    success: function(data){
+    }
+  });
+}

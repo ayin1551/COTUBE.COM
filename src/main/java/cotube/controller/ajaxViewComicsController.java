@@ -518,4 +518,32 @@ public class ajaxViewComicsController{
         return null;
     }
 
+
+    @RequestMapping(value="/viewComic",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer viewComic(HttpServletRequest request){
+        String username = request.getParameter("username");
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<Views> views = viewsService.getAllViewsInComic(comicId);
+        Boolean ifView = false;
+
+        for(Views v: views){    
+            if((v.getViewer_username().equals(username))){
+                ifView = true;
+                break;
+            }
+        }
+
+        if(!ifView){
+            Views v = new Views();
+            v.setComic_id(comicId);
+            v.setViewer_username(username);
+            v.setView_time(new Date());
+            this.viewsService.addView(v);
+        }
+
+
+        return null;
+    }
+
 }
