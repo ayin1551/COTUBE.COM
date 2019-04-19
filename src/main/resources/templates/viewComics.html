@@ -228,8 +228,7 @@
                     span.style.color = "dodgerblue";
                 }
                 span.addEventListener('click', function() {
-                    span.style.color = "white";
-                    commentPage($.cookie("comicId"),i);
+                    commentPage($.cookie("comicId"),i,comments.commentPage);
                 });
                 td.appendChild(span);
                 

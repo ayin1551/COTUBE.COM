@@ -203,7 +203,7 @@ function deleteComment(id, num){
   document.location.href = "./viewComics.html";
 }
 
-function commentPage(id, num){
+function commentPage(id, num,maxnum){
   var comments;
   $.ajax({
       type: "post",
@@ -214,7 +214,11 @@ function commentPage(id, num){
           comments = jQuery.parseJSON(data);
       }
   });
+  for(let i = 1;i <= maxnum; i++){
+    document.getElementById("span"+i).style.color = "white";
+  }
   document.getElementById("span"+num).style.color = "dodgerblue";
+
   $("#commenttb tr").remove();
   var tb = document.getElementById("commenttb");
   document.getElementById("commentHeader").innerText = "Comment("+comments.commentCount+")";
