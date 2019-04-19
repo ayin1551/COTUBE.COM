@@ -357,6 +357,8 @@ public class ajaxProfileController{
         return result.toString();
     }
 
+    
+
     @RequestMapping(value="/getSeries",method = RequestMethod.POST)
     @ResponseBody
     public String getSeries(HttpServletRequest request){
@@ -396,6 +398,60 @@ public class ajaxProfileController{
     @RequestMapping(value="/getMyComics",method = RequestMethod.POST)
     @ResponseBody
     public String getMyComic(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Comic> comics = comicService.getAllComics();
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+
+        List<String> comicName = new ArrayList<String>();
+        List<Integer> comicId = new ArrayList<Integer>();
+        List<String> comicThumbnail = new ArrayList<String>();
+        List<Boolean> comicSeries = new ArrayList<Boolean>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    for(Comic c: comics){
+                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id()){
+                            comicId.add(rc.getRegular_comic_id());
+                        }
+                    }
+                }
+            }
+        }
+
+        Collections.sort(comicId);
+        Collections.reverse(comicId);
+
+        for(Integer i: comicId){
+            for(Comic c: comics){
+                if(c.getComic_id() == i){
+                    comicName.add(c.getTitle());
+                    break;
+                }
+            }
+
+            for(RegularComic rc: regularComics){
+                if(rc.getRegular_comic_id() == i){
+                    comicThumbnail.add(rc.getThumbnail_path());
+                    comicSeries.add(rc.getSeries_id()==null?false:true);
+                    break;
+                }
+            }
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("comicName", comicName);
+        result.put("comicId", comicId);
+        result.put("comicThumbnail", comicThumbnail);
+        result.put("comicSeries", comicSeries);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    @RequestMapping(value="/getOthersComics",method = RequestMethod.POST)
+    @ResponseBody
+    public String getOtherComic(HttpServletRequest request){
         String username = request.getParameter("username");
         List<Comic> comics = comicService.getAllComics();
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
