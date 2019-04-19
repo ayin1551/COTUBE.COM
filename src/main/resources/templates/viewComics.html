@@ -84,7 +84,7 @@
                     <input type="image" src = "./img/like-gray.png" width = "40px" id="likebtn" onclick="toggleLike();">
                 </td>
                 <td align="center" style="width:150px;">
-                    <input type="image" src = "./img/star-empty.png" width = "40px" id="favbtn">
+                    <input type="image" src = "./img/star-empty.png" width = "40px" id="favbtn" >
                 </td>
             </tr>
             <tr>
@@ -243,7 +243,7 @@
                 </tr>
                 <tr style="margin-top:20px">
                     <td>
-                        <button class="kwbtn kwbtn2" id="submitFavorite" style="line-height:120%; position: relative; left: 57%;">Save</button>
+                        <button class="kwbtn kwbtn2" id="submitFavorite" style="line-height:120%; position: relative; left: 57%;" onclick="toggleFavorite()">Save</button>
                     </td>
                 </tr>
             </table>
@@ -253,7 +253,22 @@
         var modalfavorite = document.getElementById('favoritePopup');
         var btnfavorite = document.getElementById("favbtn");
         btnfavorite.onclick = function() {
-            modalfavorite.style.display = "block";
+            if(document.getElementById("favbtn").src = "./img/star.png"){
+                removeFromFav();
+            }else if(document.getElementById("favbtn").src = "./img/star-empty.png"){
+                modalfavorite.style.display = "block";
+                $(window).ready(function() { 
+                    $.ajax({
+                        url: "viewComic.html/listFavorite",
+                        type: "post",
+                        async: false,
+                        data: {username: $.cookie('username')},
+                        success: function (data) {
+                            
+                        }
+                    });
+                });
+            }
         }
         var x4 = document.getElementById("x4");
         x4.onclick = function() {

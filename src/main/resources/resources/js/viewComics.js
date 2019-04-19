@@ -96,6 +96,22 @@ function toggleLike(){
   });
 }
 
+function removeFromFav(){
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  $.ajax({
+      url: "viewComics.html/removeFromFav",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid},
+      success: function (data) {//signUpController to check if the username already exist
+        document.getElementById("favbtn").src = "./img/star-empty.png";
+      }
+  });
+}
+
+
+
 function postComment(){
   var comment = $("#commentText").val();
   $("#commentText").val('');

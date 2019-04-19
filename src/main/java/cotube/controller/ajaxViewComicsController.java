@@ -190,8 +190,6 @@ public class ajaxViewComicsController{
     }
 
 
-
-    // TODO: like/unlike
     @RequestMapping(value="/toggleLike",method = RequestMethod.POST)
     @ResponseBody
     public Boolean toggleLike(HttpServletRequest request){
@@ -213,6 +211,29 @@ public class ajaxViewComicsController{
 
         return true;
     }
+
+    @RequestMapping(value="/removeFromFav",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean removeFromFav(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String comicid = request.getParameter("comic_id");
+        List<Favorite> favorites = favoriteService.getAllFavorites();
+        for(Favorite each : favorites){
+            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getFavoriter_username().equals(username)){
+                favoriteService.deleteFavorite(each);
+            }
+        } 
+        return true;
+    }
+
+    @RequestMapping(value="/listFavorite",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean listFavorite(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Favorite> favorites = favoriteService.getAllFavorites();
+        return true;
+    }
+
 
     @RequestMapping(value="/postComment",method = RequestMethod.POST)
     @ResponseBody
