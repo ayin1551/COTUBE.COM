@@ -21,3 +21,30 @@ function deleteFavoriteFolder(){
     });
     document.location.href = "./profile.html";
 }
+
+function getComics(id){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "favorite.html/getComics",
+        async: false,
+        data: {favoriteId:id},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function unfavorite(favoriteId, comicId){
+    $.ajax({
+        type: "post",
+        url: "favorite.html/unfavorite",
+        async: false,
+        data: {favoriteId:favoriteId, comicId:comicId},
+        success: function(data){
+
+        }
+    });
+    document.location.href = "./favorite.html";
+}
