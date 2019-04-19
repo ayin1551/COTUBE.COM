@@ -204,3 +204,65 @@ function commentPage(id, num){
 
   }
 }
+
+function hasPrev(){
+  var validality = false;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/hasPrev",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      validality = data;
+    }
+  });
+  return validality;
+}
+
+function hasNext(){
+  var validality = false;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/hasNext",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      validality = data;
+    }
+  });
+  return validality;
+}
+
+function prev(){
+  var prevId;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/prev",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      prevId = data;
+    }
+  });
+  $.cookie("comicId",prevId);
+  document.location.href = "./viewComics.html";
+}
+
+function next(){
+  var nextId;
+  var comicId = $.cookie("comicId");
+  $.ajax({
+    type: "post",
+    url: "viewComics.html/next",
+    async: false,
+    data: {comicId:comicId},
+    success: function(data){
+      nextId = data;
+    }
+  });
+  $.cookie("comicId",nextId);
+  document.location.href = "./viewComics.html";
+}

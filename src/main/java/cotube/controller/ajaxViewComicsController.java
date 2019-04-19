@@ -239,17 +239,11 @@ public class ajaxViewComicsController{
         c.setComment_time(new Date());
         c.setStatus(0);
         c.setUsername(username);
-]
-        for(Comments i: comments){
-            if(i.getComic_id() == comicid){
-                if(i.getComment_number()>high){
-                    high = i.getComment_number();
-]
+
         for(Comments co: comments){
             if(co.getComic_id() == comicid){
                 if(co.getComment_number()>high){
                     high = co.getComment_number();
-]
                 }
             }
         }
@@ -307,6 +301,129 @@ public class ajaxViewComicsController{
         return result.toString();
 
 
+    }
+
+    @RequestMapping(value="/hasPrev",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean hasPrev(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Integer> series = new ArrayList<Integer>();
+        Integer seriesId = 0;
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id() == comicId){
+                seriesId = rc.getSeries_id();
+                break;
+            }
+        }
+
+        for(RegularComic rc: regularComics){
+            if(rc.getSeries_id() == seriesId){
+                series.add(rc.getRegular_comic_id());
+            }
+        }
+
+        Collections.sort(series);
+        if(series.get(0)== comicId){
+            return false;
+        }
+
+
+        return true;
+    }
+
+    @RequestMapping(value="/hasNext",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean hasNext(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Integer> series = new ArrayList<Integer>();
+        Integer seriesId = 0;
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id() == comicId){
+                seriesId = rc.getSeries_id();
+                break;
+            }
+        }
+
+        for(RegularComic rc: regularComics){
+            if(rc.getSeries_id() == seriesId){
+                series.add(rc.getRegular_comic_id());
+            }
+        }
+
+        Collections.sort(series);
+        if(series.get(series.size()-1)== comicId){
+            return false;
+        }
+
+
+        return true;
+    }
+
+    @RequestMapping(value="/prev",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer prev(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Integer> series = new ArrayList<Integer>();
+        Integer seriesId = 0;
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id() == comicId){
+                seriesId = rc.getSeries_id();
+                break;
+            }
+        }
+
+        for(RegularComic rc: regularComics){
+            if(rc.getSeries_id() == seriesId){
+                series.add(rc.getRegular_comic_id());
+            }
+        }
+
+        Collections.sort(series);
+        for(int i = 1; i < series.size(); i++){
+            if(series.get(i)==comicId){
+                return series.get(i-1);
+            }
+        }
+       
+        return null;
+    }
+
+    @RequestMapping(value="/next",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer next(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Integer> series = new ArrayList<Integer>();
+        Integer seriesId = 0;
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id() == comicId){
+                seriesId = rc.getSeries_id();
+                break;
+            }
+        }
+
+        for(RegularComic rc: regularComics){
+            if(rc.getSeries_id() == seriesId){
+                series.add(rc.getRegular_comic_id());
+            }
+        }
+
+        Collections.sort(series);
+        for(int i = 0; i < series.size(); i++){
+            if(series.get(i)==comicId){
+                return series.get(i+1);
+            }
+        }
+
+
+        return null;
     }
 
 }
