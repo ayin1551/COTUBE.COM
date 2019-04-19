@@ -94,6 +94,7 @@ function deleteComic(id){
 
         }
     });
+    document.location.href = "./viewSeries.html";
 }
 
 function deleteSeries(){
@@ -106,4 +107,6 @@ function deleteSeries(){
 
         }
     });
+    $.cookie("profileUsername",$.cookie("username"));
+    document.location.href = "./profile.html";
 }
