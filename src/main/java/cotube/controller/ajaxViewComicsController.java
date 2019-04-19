@@ -387,7 +387,8 @@ public class ajaxViewComicsController{
         result.put("commentContent", commentContent);
         result.put("commenter", commenter);
         result.put("commentTime", commentTime);
-        result.put("commentCount", Math.ceil(count/20));
+        result.put("commentCount", count);
+        result.put("commentPage", Math.ceil(count/20));
         System.out.println(result.toString());
         return result.toString();
 
