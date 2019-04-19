@@ -17,6 +17,8 @@ import cotube.services.LikesService;
 import cotube.domain.Favorite;
 import cotube.services.FavoriteService;
 import cotube.domain.Comic;
+import cotube.domain.Comments;
+import cotube.services.CommentsService;
 import cotube.services.AccountService;
 import cotube.services.ComicService;
 import cotube.domain.RegularComic;
@@ -27,6 +29,8 @@ import cotube.domain.Views;
 import cotube.services.ViewsService;
 import cotube.domain.Account;
 import cotube.services.AccountService;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Controller
 @RequestMapping(value="/viewComics.html")
@@ -48,6 +52,12 @@ public class ajaxViewComicsController{
     @Autowired
     public void setComicService(ComicService comicService) {
         this.comicService = comicService;
+    }
+
+    private CommentsService commentsService;
+    @Autowired
+    public void setCommentsService(CommentsService commentsService) {
+        this.commentsService = commentsService;
     }
 
     private PanelService panelService;
@@ -226,4 +236,56 @@ public class ajaxViewComicsController{
 
         return true;
     }
+
+    @RequestMapping(value="/getComment",method = RequestMethod.POST)
+    @ResponseBody
+    public String getComment(HttpServletRequest request){
+        Integer comicid = Integer.parseInt(request.getParameter("comicId"));
+        Integer num = Integer.parseInt(request.getParameter("num"));
+        List<Comments> comments = this.commentsService.getAllComments();
+        List<String> commentContent = new ArrayList<String>();
+        List<String> commenter = new ArrayList<String>();
+        List<String> commentTime = new ArrayList<String>();
+        List<Integer> commentNumber = new ArrayList<Integer>();
+        Integer count = 0;
+
+        for(Comments c: comments){
+            if(c.getStatus()==0){
+                commentNumber.add(c.getComment_number());
+                count += 1;
+            }
+        }
+
+        Collections.sort(commentNumber);
+        Collections.reverse(commentNumber);
+
+        if(commentNumber.size() < 20 * (num-1)){
+
+        }else if(commentNumber.size() <= 20 * num){
+            commentNumber = commentNumber.subList(20*(num-1), commentNumber.size());
+        }else if(commentNumber.size() > 20 * num){
+            commentNumber = commentNumber.subList(20*(num-1), 20 * num);
+        }
+        for(Integer n: commentNumber){
+            for(Comments c: comments){
+                if(c.getComment_number() == n){
+                    commentContent.add(c.getComment());
+                    commenter.add(c.getComenter_Username());
+                    commentTime.add(c.getComment_time().toString());
+                }
+            }
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("commentNumber", commentNumber);
+        result.put("commentContent", commentContent);
+        result.put("commenter", commenter);
+        result.put("commentTime", commentTime);
+        result.put("commentCount", count);
+        System.out.println(result.toString());
+        return result.toString();
+
+
+    }
+
 }

@@ -112,3 +112,18 @@ function postComment(){
 });
 
 }
+
+
+function getComment(id, num){
+  var obj;
+    $.ajax({
+        type: "post",
+        url: "viewComics.html/getComment",
+        async: false,
+        data: {comicId:id, num:num},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
