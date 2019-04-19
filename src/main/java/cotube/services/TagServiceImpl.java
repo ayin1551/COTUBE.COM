@@ -37,4 +37,9 @@ public class TagServiceImpl implements TagService {
         tagRepository.delete(tag);
     }
 
+    @Override
+    public List<Tag> getAllTagsInRegularComic(Integer regular_comic_id) {
+        return tagRepository.getAllTagsInRegularComic(regular_comic_id);
+    }
+
 }

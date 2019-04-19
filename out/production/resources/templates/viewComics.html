@@ -60,14 +60,14 @@
             </tr>
             <tr>
                 <td>
-                    <span style="font-size:20px;color:gray;margin-left:23px;">Views:8964</span>
+                    <span style="font-size:20px;color:gray;margin-left:23px;" id="comicviewnum">Views:8964</span>
                 </td>
                 <td>
                     <span style="font-size:20px;display:inline;margin-left:10px;">Created by</span>
-                    <a href="profile.html" style="display:inline;font-size:20px;" id="comicauthor">crazyArtist2048</a>
+                    <a  style="display:inline;font-size:20px;" id="comicauthor"></a>
                 </td>
                 <td>
-                    <img src = "./img/test/newpp.jpg" style = "display:inline;margin-left:5px;" width = "45px" height = "45px">
+                    <img src = "" style = "display:inline;margin-left:5px;" width = "45px" height = "45px" id="authorimg">
                 </td>
             </tr>
             <tr>
@@ -77,7 +77,7 @@
             </tr>
         </table>
         <input type="hidden" id = "comicid" value = "3455">
-        <img src="./img/t/1.jpg" style="display:block;margin:0 auto;margin-top:20px;">
+        <img src="" style="display:block;margin:0 auto;margin-top:20px;" id="comicimg">
         <table align="center" id = "likefavtb">
             <tr>
                 <td align="center" style="width:150px;">
@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <td align="center">
-                    <span>45</span>
+                    <span id="likenumber"></span>
                 </td>
                 <td align="center"></td>
             </tr>
@@ -99,11 +99,11 @@
     <br>
     <table align="center" width = "65%">
         <tr>
-            <td colspan="2">This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. </td>
+            <td colspan="2" id="comicdescription"></td>
         </tr>
         <tr>
             <td>
-                <h2 style="margin-left:0px;">Comments(23)</h2>
+                <h2 style="margin-left:0px;" id = "commentHeader">Comments(23)</h2>
             </td>
         </tr>
         <tr id = "comments">
@@ -115,7 +115,7 @@
             </td>
         </tr>
     </table>
-    <table width = "65%" align="center">
+    <table width = "65%" align="center" id="commenttb">
         <tr>
             <td><span style="margin-left:0px;">Very Interesting comic!!!</span></td>
         </tr>
@@ -151,6 +151,7 @@
         </tr>
     </table>
     <script>
+
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
         }else{
@@ -167,12 +168,144 @@
             document.getElementById("delete").style.display = "initial";
         }
 
+    
+        $(window).ready(function() {
+            var tb = document.getElementById("commenttb");
+            var comments = getComment($.cookie("comicId"),1);
+            document.getElementById("commentHeader").innerText = "Comment("+comments.commentCount+")";
+            for(var i = 0; i < comments.commentNumber.length; i++){
+                var tr1 = document.createElement('tr');
+                tb.appendChild(tr1);
+                var td = document.createElement('td');
+                tr1.appendChild(td);
+                var span = document.createElement('span');
+                var t = document.createTextNode(comments.commentContent[i]);
+                span.appendChild(t);
+                td.appendChild(span);
+                span.style.marginLeft = "0px";
+                
+
+                var tr2 = document.createElement('tr');
+                tb.appendChild(tr2);
+                var td2 = document.createElement('td');
+                tr2.appendChild(td2);
+                var span2 = document.createElement('span');
+                var t2 = document.createTextNode("#"+comments.commentNumber[i]);
+                span2.appendChild(t2);
+                td2.appendChild(span2);
+                span2.style.marginLeft = "0px";
+
+                var a = document.createElement('a');
+                a.href = "./profile.html";
+                a.style.cssFloat = "right";
+                var t3 = document.createTextNode(comments.commenter[i]);
+                a.appendChild(t3);
+                td2.appendChild(a);
+
+                var span3 = document.createElement('span');
+                var t4 = document.createTextNode("by");
+                span3.appendChild(t4);
+                span3.style.cssFloat = "right";
+                span3.style.marginRight = "0.5em";
+                td2.appendChild(span3);
+
+                var span4 = document.createElement('span');
+                var t5 = document.createTextNode(comments.commentTime[i]);
+                span4.appendChild(t5);
+                span4.style.cssFloat = "right";
+                span34.style.marginRight = "0.5em";
+                td2.appendChild(span4);
+
+
+                for(let j = i; j < i+4 && j < comics.comicName.length; j++){
+                    var td = document.createElement('td');
+                    td.style.width = "23vw";
+                    td.style.paddingTop = "15px";
+                    tr.appendChild(td);
+                    var img = document.createElement('img');
+                    td.appendChild(img);
+                    img.src = comics.comicThumbnail[j];
+                    img.style.width = "20vw";
+                    img.style.height = "11.25vw";
+                    img.style.marginLeft = "2.5vw";
+                    img.addEventListener('click', function() {
+                        comicRedirect(comics.comicId[j],true);
+                    });
+                    var br1 = document.createElement('br');
+                    td.appendChild(br1);
+                    
+                    var span = document.createElement('span');
+                    var t = document.createTextNode(comics.comicName[j]);
+                    span.appendChild(t);
+                    td.appendChild(span);
+                    span.style.fontSize = "20px";
+                    span.style.marginLeft = "2.5vw";
+                    
+                    
+                    var input1 = document.createElement('input');
+                    td.appendChild(input1);
+                    input1.type = "image";
+                    input1.src = "./img/delete.png";
+                    input1.style.marginRight = "5px";
+                    input1.style.cssFloat = "right";
+                    input1.style.width = "25px";
+                    input1.style.height = "25px";
+                    input1.addEventListener('click', function() {
+                        deleteComic(comics.comicId[j]);
+                    });
+
+                    var input2 = document.createElement('input');
+                    td.appendChild(input2);
+                    input2.type = "image";
+                    input2.src = "./img/edit-button.png";
+                    input2.style.marginRight = "5px";
+                    input2.style.cssFloat = "right";
+                    input2.style.width = "25px";
+                    input2.style.height = "25px";
+                    var br2 = document.createElement('br');
+                    input2.addEventListener('click', function() {
+                        editRedirect(comics.comicId[j]);
+                    });
+                    td.appendChild(br2);
+                }
+            }
+        });
+
+        
+// TODO: ,   description.  comic name,post comic,author,
+        document.getElementById("comicid").value = $.cookie("comicId");
+        var likenum = likeNumber();
+        document.getElementById("likenumber").innerHTML = likenum;
+        var info = comicInfo();
+        document.getElementById("comicauthor").innerHTML = info.author;
+        document.getElementById("comicauthor").onclick = function() {
+            authorprofile(info.author);
+        }
+        document.getElementById("comicviewnum").innerHTML = "Views:"+info.views;
+        document.getElementById("comicimg").src = info.path;
+        document.getElementById("comicdescription").innerHTML = info.description;        
+        document.getElementById("comictitle").innerHTML = comicTitle();
+        document.getElementById("authorimg").src = info.authorpath;
+        if(info.author==$.cookie("username")){
+            document.getElementById("delete").style.display = "block";
+        }
         if(checkLike()){
             document.getElementById("likebtn").src = "./img/like-red.png";
         }else{
             document.getElementById("likebtn").src = "./img/like-gray.png";
         }
+        
+
+
+
+        if(checkFavorite()){
+            document.getElementById("favbtn").src = "./img/star.png";
+        }else{
+            document.getElementById("favbtn").src = "./img/star-empty.png";
+        }
+// TODO: 
         //Check user and add delete button to comment 
+        
         
  
     </script>

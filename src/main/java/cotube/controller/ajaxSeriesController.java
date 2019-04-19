@@ -1,26 +1,8 @@
 package cotube.controller;
 
-import cotube.domain.FollowUser;
-import cotube.domain.Account;
-import cotube.domain.Folder;
-import cotube.domain.FollowSeries;
-import cotube.domain.Series;
-import cotube.domain.Comic;
-import cotube.domain.RegularComic;
-import cotube.domain.Panel;
-import cotube.domain.Views;
-import cotube.domain.Likes;
+import cotube.domain.*;
 
-import cotube.services.FollowUserService;
-import cotube.services.AccountService;
-import cotube.services.FolderService;
-import cotube.services.FollowSeriesService;
-import cotube.services.SeriesService;
-import cotube.services.ComicService;
-import cotube.services.RegularComicService;
-import cotube.services.PanelService;
-import cotube.services.ViewsService;
-import cotube.services.LikesService;
+import cotube.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +32,24 @@ public class ajaxSeriesController{
     @Autowired
     public void setSeriesService(SeriesService seriesService) {
         this.seriesService = seriesService;
+    }
+
+    private TagService tagService;
+    @Autowired
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
+    }
+
+    private CommentsService commentsService;
+    @Autowired
+    public void setCommentsService(CommentsService commentsService) {
+        this.commentsService = commentsService;
+    }
+
+    private FavoriteService favoriteService;
+    @Autowired
+    public void setFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
     }
 
     private ComicService comicService;
@@ -281,17 +281,61 @@ public class ajaxSeriesController{
     @ResponseBody
     public Boolean deleteSeries(HttpServletRequest request){
         Integer seriesId = Integer.parseInt(request.getParameter("seriesId"));
-        System.out.println(seriesId);
-        List<RegularComic> seriesComics = regularComicService.getAllRegularComicsInSeries(seriesId);
-        for (int i = 0; i< seriesComics.size(); i++){
-            Comic comic = comicService.getComicByComic_Id(seriesComics.get(i).getRegular_comic_id());
-            regularComicService.deleteRegularComic(seriesComics.get(i));
+        List<RegularComic> regularComicList = regularComicService.getAllRegularComicsInSeries(seriesId);
+
+        for(int i =0; i < regularComicList.size(); i++){
+            Integer comicId = regularComicList.get(i).getRegular_comic_id();
+            Comic comic = comicService.getComicByComic_Id(comicId);
+
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
+            Integer series_id = rc.getSeries_id();
+
+            //delete From Panel
+            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
+
+            //delete From Tag
+            List<Tag> tagList = tagService.getAllTagsInRegularComic(comicId);
+            for (int j = 0; j < tagList.size(); j++)
+                tagService.deleteTag(tagList.get(j));
+
+            //delete From Views
+            List<Views> viewsList = viewsService.getAllViewsInComic(comicId);
+            for (int j = 0; j < viewsList.size(); j++)
+                viewsService.deleteView(viewsList.get(j));
+
+            //delete from Likes
+            List<Likes> likesList = likesService.getAllLikesInComic(comicId);
+            for (int j = 0; j < likesList.size(); j++)
+                likesService.deleteLike(likesList.get(j));
+
+            //delete from Comments
+            List<Comments> commentsList = commentsService.getAllCommentsInComic(comicId);
+            for (int j = 0; j < commentsList.size(); j++)
+                commentsService.deleteComment(commentsList.get(j));
+
+            //delete from Favorites
+            List<Favorite> favoritesList = favoriteService.getAllFavoritesInComic(comicId);
+            for (int j = 0; j < favoritesList.size(); j++)
+                favoriteService.deleteFavorite(favoritesList.get(j));
+
+            //delete from RegularComic
+            regularComicService.deleteRegularComic(rc);
+
+            //delete from Comic
             comicService.deleteComic(comic);
 
+            //delete from Series
+            seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+
+            //delete from FollowSeries
+            List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
+            for (int j = 0; j < followSeriesList.size(); j++)
+                followSeriesService.deleteFollowSeries(followSeriesList.get(j));
+
         }
-    
 
         return false;
+
     }
 
     @RequestMapping(value="/deleteComic",method = RequestMethod.POST)
@@ -303,16 +347,57 @@ public class ajaxSeriesController{
         if (type == 0) {//regular
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
             Integer series_id = rc.getSeries_id();
+
+            //delete From Panel
+            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
+
+            //delete From Tag
+            List<Tag> tagList = tagService.getAllTagsInRegularComic(comicId);
+            for (int i = 0; i < tagList.size(); i++)
+                tagService.deleteTag(tagList.get(i));
+
+            //delete From Views
+            List<Views> viewsList = viewsService.getAllViewsInComic(comicId);
+            for (int i = 0; i < viewsList.size(); i++)
+                viewsService.deleteView(viewsList.get(i));
+
+            //delete from Likes
+            List<Likes> likesList = likesService.getAllLikesInComic(comicId);
+            for (int i = 0; i < likesList.size(); i++)
+                likesService.deleteLike(likesList.get(i));
+
+            //delete from Comments
+            List<Comments> commentsList = commentsService.getAllCommentsInComic(comicId);
+            for (int i = 0; i < commentsList.size(); i++)
+                commentsService.deleteComment(commentsList.get(i));
+
+            //delete from Favorites
+            List<Favorite> favoritesList = favoriteService.getAllFavoritesInComic(comicId);
+            for (int i = 0; i < favoritesList.size(); i++)
+                favoriteService.deleteFavorite(favoritesList.get(i));
+
+            //delete from RegularComic
             regularComicService.deleteRegularComic(rc);
+
+            //delete from Comic
             comicService.deleteComic(comic);
+
             if (series_id != null) {
                 List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
                 if(rcSeriesList.isEmpty()){
+
+                    //delete from Series
                     seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+
+                    //delete from FollowSeries
+                    List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
+                    for (int i = 0; i < followSeriesList.size(); i++)
+                        followSeriesService.deleteFollowSeries(followSeriesList.get(i));
                 }
             }
-            return true;
         }
+
+
 
         return false;
     }
