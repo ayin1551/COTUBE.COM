@@ -458,6 +458,7 @@ public class ajaxProfileController{
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
             Integer series_id = rc.getSeries_id();
             regularComicService.deleteRegularComic(rc);
+            comicService.deleteComic(comic);
             if (series_id != null) {
                 List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
                 if(rcSeriesList.isEmpty()){

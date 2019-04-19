@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
-    <script src="js/timeline.js"></script>
+    <!--<script src="js/timeline.js"></script>-->
+    <script src="./js/index.js"></script>
     <script src="./js/jumpFunction.js"></script>
     <link rel="stylesheet" href="css/style1.css">
 
@@ -56,6 +57,14 @@
         <button type ="button" id="bannerlogin"class="kwbtn3 kwbtn4" style="margin-left:20px;margin-top:50px;" onclick="document.location.href='login.html';">Log in Now!</button>
         <button type ="button" id="bannercreate"class="kwbtn3 kwbtn4" style="margin-left:20px;margin-top:50px;display:none;" onclick="document.location.href='createHome.html';">Create Now!</button>
     </div>
+    <!--
+    <div id = "trendingcomics" class = "trendingComicsTable" style="margin-left:5%;margin-top:10px;width:57vw;float:left;">
+        <h2 style="margin-left:0px;">Trending Comics</h2>
+        <div>
+            <table class="trendingComicsTable" id="trending_result_table" style="font-size: 23px; width: 100%;">
+            </table>
+        </div>
+        -->
     <div style="margin-left:5%;margin-top:10px;width:57vw;float:left;">
         <table style="border-right-style:groove;border-right-width: 2px;border-right-color: white;">
             <tr colspan="3">
@@ -105,8 +114,6 @@
             </tr>
         </table>
     </div>
-
-
 
     <div style="margin-left:5%;margin-top:40px;width:57vw;float:left;">
         <table style="border-right-style:groove;border-right-width: 2px;border-right-color: white;">
@@ -293,10 +300,21 @@
             </div>
             </section>
         </div>
-   
 
 
-    <script>
+        <script>
+            $(function(){
+                var x = getTrending()
+                console.log(x);
+                console.log(x.comics[0]);
+                console.log(x.comics[0].comic_id);
+            })
+
+        </script>
+
+
+
+        <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
             document.getElementById("bannerlogin").style.display = "none";

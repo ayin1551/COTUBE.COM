@@ -280,9 +280,15 @@ public class ajaxSeriesController{
     @RequestMapping(value="/deleteSeries",method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteComic(HttpServletRequest request){
-        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        Integer seriesId = Integer.parseInt(request.getParameter("seriesId"));
 
+        List<RegularComic> seriesComics = regularComicService.getAllRegularComicsInSeries(seriesId);
+        for (int i = 0; i< seriesComics.size(); i++){
+            Comic comic = comicService.getComicByComic_Id(seriesComics.get(i).getRegular_comic_id());
+            regularComicService.deleteRegularComic(seriesComics.get(i));
+            comicService.deleteComic(comic);
 
+        }
     
 
         return false;
