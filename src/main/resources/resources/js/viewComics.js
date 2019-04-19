@@ -110,6 +110,51 @@ function removeFromFav(){
   });
 }
 
+function addToFav(obj){
+  document.getElementById("fav_error1").style.display = "none";
+  document.getElementById("fav_error2").style.display = "none";
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  if(document.getElementById('thisIsCheckAdd').checked&&document.getElementById('thisIsInput').value==""){
+    document.getElementById("fav_error1").style.display = "block";
+    return false;
+  }
+  var ifCheck = false;
+  for(let i=0; i<obj.name.length; i++){
+    if(document.getElementById("thisIs"+obj.id[i]).checked){
+      ifCheck = true;
+      break;
+    }
+  }
+  if(!ifCheck && !document.getElementById('thisIsCheckAdd').checked){
+    document.getElementById("fav_error2").style.display = "block";
+    return false;
+  }
+  var newlist = "";
+  if(document.getElementById('thisIsCheckAdd').checked){
+    newlist = document.getElementById('thisIsInput').value;
+  }
+  var comicid = $("input#comicid").val();
+  var user = $.cookie("username");
+  var idlist = [];
+  var addto = 0;
+  for(let i=0; i<obj.name.length;i++){
+    if(document.getElementById("thisIs"+obj.id[i]).checked){
+      idlist[addto] = obj.id[i];
+      addto++;
+    }
+  }
+  $.ajax({
+      url: "viewComics.html/addToFav",
+      type: "post",
+      async: false,
+      data: {username:user,comic_id:comicid,new_list:newlist,id_list:idlist},
+      success: function (data) {//signUpController to check if the username already exist
+        document.getElementById("favbtn").src = "./img/star.png";
+      }
+  });
+  return true;
+}
 
 
 function postComment(){
