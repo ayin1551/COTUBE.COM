@@ -17,6 +17,7 @@ public class Favorite {
     @Id
     private String favoriter_username;
     private Date favorite_time = new Date();
+    @Id
     private Integer favorite_folder_id;
 
     public Favorite(){
@@ -74,6 +75,7 @@ public class Favorite {
     static class IdClass implements Serializable {
         public Integer comic_id;
         public String favoriter_username;
+        public Integer favorite_folder_id;
 
         @Override
         public boolean equals(Object o) {
@@ -81,12 +83,13 @@ public class Favorite {
             if (o == null || getClass() != o.getClass()) return false;
             IdClass idClass = (IdClass) o;
             return Objects.equals(comic_id, idClass.comic_id) &&
-                    Objects.equals(favoriter_username, idClass.favoriter_username);
+                    Objects.equals(favoriter_username, idClass.favoriter_username) &&
+                    Objects.equals(favorite_folder_id, idClass.favorite_folder_id);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(comic_id, favoriter_username);
+            return Objects.hash(comic_id, favoriter_username, favorite_folder_id);
         }
     }
 }
