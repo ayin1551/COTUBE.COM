@@ -109,7 +109,8 @@ function postComment(){
     success: function (data) {//signUpController to check if the username already exist
       
     }
-});
+  });
+  document.location.href = "viewComics.html";
 
 }
 
@@ -197,7 +198,9 @@ function commentPage(id, num){
           input.style.width = "20px";
           input.style.height = "20px";
       }
-      
+      var hr = document.createElement('hr');
+      hr.className = "style-six";
+      td2.appendChild(hr);
 
   }
 }
