@@ -564,9 +564,6 @@ public class ajaxProfileController{
                 }
             }
         }
-
-    
-
         return false;
     }
 }

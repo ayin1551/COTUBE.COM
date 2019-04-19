@@ -130,7 +130,10 @@
             document.getElementById("unfollow").style.display = "none";
             document.getElementById("follow").style.display = "initial";
         }
-
+        if($.cookie("role")=="guest"){
+            document.getElementById("unfollow").style.display = "none";
+            document.getElementById("follow").style.display = "none";
+        }
         //Comics table
         if($.cookie("username")==$("#profileusername").text()){
             $(window).ready(function() {

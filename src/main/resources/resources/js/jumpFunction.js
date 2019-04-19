@@ -58,6 +58,18 @@ function goProfile(){
     document.location.href="./profile.html";
 }
 
+function goViewComic(id){
+    $.cookie('profileUsername', $.cookie('username'));
+    $.cookie('comicId',id);
+    $.cookie('ifSeries', false);
+    document.location.href="./viewComics.html";
+}
+
+function goViewSeries(id){
+    $.cookie('seriesId',id);
+    document.location.href="./viewSeries.html";
+}
+
 function login(){
     document.location.href="./login.html";
 }
