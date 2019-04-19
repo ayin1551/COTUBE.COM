@@ -70,6 +70,9 @@ VALUES(1, 'user3', curDate());
 INSERT INTO Views
 VALUES(2, 'user3', curDate());
 
+INSERT INTO Views
+VALUES(2, 'user2', curDate());
+
 INSERT INTO Likes
 VALUES(1, 'user3', curDate());
 
@@ -87,5 +90,4 @@ VALUES(1, 'user3', curDate(), 1);
 
 INSERT INTO Favorite
 VALUES(2, 'user3', curDate(), 2);
-
 

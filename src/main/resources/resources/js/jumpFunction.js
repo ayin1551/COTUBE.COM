@@ -10,9 +10,26 @@ function searchResult() {
     } 
 }
 
+
 function authorprofile(name){
     $.cookie('profileUsername', name);
     document.location.href="./profile.html";
+}
+
+
+function trendingcomic(comicId, ifSeries){
+    if (ifSeries == null)
+        ifSeries = false;
+    else
+        ifSeries = true;
+    $.cookie("comicId", comicId);
+    $.cookie("ifSeries", ifSeries);
+    document.location.href="./viewComics.html"
+}
+
+function popularseries(series_id){
+    $.cookie('seriesId', series_id);
+    document.location.href="./viewSeries.html";
 }
 
 function admingohome(){

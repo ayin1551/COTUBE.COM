@@ -72,6 +72,9 @@ CREATE TABLE RegularComic(
         ON UPDATE CASCADE,
 	FOREIGN KEY (series_id) REFERENCES Series (series_id)
 		ON DELETE NO ACTION
+        ON UPDATE CASCADE,
+	FOREIGN KEY (regular_comic_id) REFERENCES Comic (comic_id)
+		ON DELETE NO ACTION
         ON UPDATE CASCADE
 	);
 
@@ -83,7 +86,7 @@ CREATE TABLE FollowSeries(
     FOREIGN KEY (follower_username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
-	FOREIGN KEY (series_id) REFERENCES RegularComic (series_id)
+	FOREIGN KEY (series_id) REFERENCES Series (series_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
 
@@ -139,7 +142,7 @@ CREATE TABLE Favorite(
     favoriter_username VARCHAR(255),
     favorite_time DATETIME,
     favorite_folder_id INTEGER,
-    PRIMARY KEY(comic_id, favoriter_username),
+    PRIMARY KEY(comic_id, favoriter_username, favorite_folder_id),
     FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,

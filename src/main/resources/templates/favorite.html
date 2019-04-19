@@ -53,46 +53,8 @@
         </label>
         <span style="float:right;margin-top:3px;font-size:25px;margin-right:8px;display:none;" id="publicText">Public</span>
     </div>
-    <table id="comicstb">
-            <tr>
-                <td style = "width:25vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/star.png" style = "margin-right:2.3vw;float:right;" width = "30px">
-                    <br>
-                </td>
-                <td style = "width:25vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/star.png" style = "margin-right:2.3vw;float:right;" width = "30px">
-                    <br>
-                </td>
-                <td style = "width:25vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/star.png" style = "margin-right:2.3vw;float:right;" width = "30px">
-                    <br>
-                </td>
-                <td style = "width:25vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/star.png" style = "margin-right:2.3vw;float:right;" width = "30px">
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/star.png" style = "margin-right:2.3vw;float:right;" width = "30px">
-                </td>
-            </tr>
-        </table>
+    
+    <table id="comicstb"></table>
 
     
     <script>
@@ -107,6 +69,65 @@
                 pageInfo = jQuery.parseJSON(data);
             }
         });
+
+
+        $(window).ready(function() {
+                var tb = document.getElementById("comicstb");
+                var comics = getComics(p);
+                console.log(comics);
+                for(var i = 0; i < comics.comicSeries.length; i+=4){
+                    var tr = document.createElement('tr');
+                    tb.appendChild(tr);
+                    for(let j = i; j < i+4 && j < comics.comicSeries.length; j++){
+                        var td = document.createElement('td');
+                        td.style.width = "25vw";
+                        td.style.paddingTop = "15px";
+                        tr.appendChild(td);
+                        var img = document.createElement('img');
+                        td.appendChild(img);
+                        img.src = comics.comicThumbnail[j];
+                        img.style.width = "20vw";
+                        img.style.height = "11.25vw";
+                        img.style.marginLeft = "2.5vw";
+                        img.addEventListener('click', function() {
+                            comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                        });
+                        var br1 = document.createElement('br');
+                        td.appendChild(br1);
+                        if(comics.comicSeries[j]){
+                            var img2 = document.createElement('img');
+                            td.appendChild(img2);
+                            img2.src = "./img/series-icon.png";
+                            img2.style.marginLeft = "2.5vw";
+                            img2.style.cssFloat = "left";
+                            img2.style.marginTop = "5px";
+                            img2.style.width = "19px";
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                        }else{
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                            span.style.marginLeft = "2.5vw";
+                        }
+                        var input = document.createElement('input');
+                        td.appendChild(input);
+                        input.type = "image";
+                        input.src = "./img/star.png";
+                        input.style.marginRight = "2.3vw";
+                        input.style.cssFloat = "right";
+                        input.style.width = "30px";
+                        input.addEventListener('click', function() {
+                            unfavorite(p, comics.comicId[j]);
+                        });
+                    }
+                }
+            });
 
         document.getElementById("favoriteHeader").innerText = "Favorite: " + pageInfo.folderName;
         document.getElementById("publicCheck").checked = pageInfo.folderPublic;

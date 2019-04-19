@@ -37,4 +37,9 @@ public class SeriesServiceImpl implements SeriesService {
         seriesRepository.delete(series);
     }
 
+    @Override
+    public Series getSeriesBySeriesId(Integer series_id) {
+        return seriesRepository.getSeriesBySeries_id(series_id);
+    }
+
 }

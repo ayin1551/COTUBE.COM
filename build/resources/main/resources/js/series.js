@@ -1,11 +1,11 @@
 function followSeries(){
     var validality = false;
-    var following = $("#seriestitle").text();
+    var id = $.cookie("seriesId");
     $.ajax({
-        url: "series.html/follow",
+        url: "viewSeries.html/follow",
         type: "post",
         async: false,
-        data: {username: $.cookie("username"),following:following},
+        data: {username: $.cookie("username"),seriesId:id},
         success: function (data) {//signUpController to check if the username already exist
           validality = data;
         }
@@ -18,12 +18,12 @@ function followSeries(){
 
 function unfollowSeries(){
     var validality = false;
-    var unfollowing = $("#seriestitle").text();
+    var id = $.cookie("seriesId");
     $.ajax({
-        url: "series.html/unfollow",
+        url: "viewSeries.html/unfollow",
         type: "post",
         async: false,
-        data: {username: $.cookie("username"),unfollowing:unfollowing},
+        data: {username: $.cookie("username"),seriesId:id},
         success: function (data) {//signUpController to check if the username already exist
           validality = data;
         }
@@ -36,15 +36,74 @@ function unfollowSeries(){
 
 function checkFollow(){
     var validality = false;
-    var following = $("#seriestitle").text();
+    var id = $.cookie("seriesId");
     $.ajax({
-        url: "series.html/check",
+        url: "viewSeries.html/check",
         type: "post",
         async: false,
-        data: {username: $.cookie("username"),following:following},
+        data: {username: $.cookie("username"),seriesId:id},
         success: function (data) {
           validality = data;
         }
     });
     return validality;
+}
+
+
+function getInfo(id){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "viewSeries.html/getInfo",
+        async: false,
+        data: {seriesId:id},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function getComics(id){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "viewSeries.html/getComics",
+        async: false,
+        data: {seriesId:id},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function comicRedirect(id, ifSeries){
+    $.cookie("comicId", id);
+    $.cookie("ifSeries", ifSeries);
+    document.location.href = "./viewComics.html";
+}
+
+function deleteComic(id){
+    $.ajax({
+        type: "post",
+        url: "viewSeries.html/deleteComic",
+        async: false,
+        data: {comicId:id},
+        success: function(data){
+
+        }
+    });
+}
+
+function deleteSeries(id){
+    $.ajax({
+        type: "post",
+        url: "viewSeries.html/deleteSeries",
+        async: false,
+        data: {comicId:id},
+        success: function(data){
+
+        }
+    });
 }

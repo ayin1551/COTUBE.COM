@@ -36,4 +36,9 @@ public class FavoriteServiceImpl implements FavoriteService {
         favoriteRepository.delete(favorite);
     }
 
+    @Override
+    public List<Favorite> getAllFavoritesInComic(Integer comic_id) {
+        return favoriteRepository.getAllFavoritesInComic(comic_id);
+    }
+
 }

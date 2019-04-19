@@ -1,16 +1,8 @@
 package cotube.controller;
 
-import cotube.domain.FollowUser;
-import cotube.domain.Account;
-import cotube.domain.Folder;
-import cotube.domain.FollowSeries;
-import cotube.domain.Series;
+import cotube.domain.*;
 
-import cotube.services.FollowUserService;
-import cotube.services.AccountService;
-import cotube.services.FolderService;
-import cotube.services.FollowSeriesService;
-import cotube.services.SeriesService;
+import cotube.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 @Controller
 @RequestMapping(value="/profile.html")
@@ -58,6 +51,53 @@ public class ajaxProfileController{
         this.seriesService = seriesService;
     }
 
+    private FavoriteService favoriteService;
+    @Autowired
+    public void setFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
+
+    private ComicService comicService;
+    @Autowired
+    public void setComicService(ComicService comicService) {
+        this.comicService = comicService;
+    }
+
+    private CommentsService commentsService;
+    @Autowired
+    public void setCommentsService(CommentsService commentsService) {
+        this.commentsService = commentsService;
+    }
+
+    private RegularComicService regularComicService;
+    @Autowired
+    public void setRegularComicService(RegularComicService regularComicService) {
+        this.regularComicService = regularComicService;
+    }
+
+    private PanelService panelService;
+    @Autowired
+    public void setPanelService(PanelService panelService) {
+        this.panelService = panelService;
+    }
+
+    private ViewsService viewsService;
+    @Autowired
+    public void setViewsService(ViewsService viewsService) {
+        this.viewsService = viewsService;
+    }
+
+    private LikesService likesService;
+    @Autowired
+    public void setLikesService(LikesService likesService) {
+        this.likesService = likesService;
+    }
+
+    private TagService tagService;
+    @Autowired
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
+    }
 
     @RequestMapping(value="/follow",method = RequestMethod.POST)
     @ResponseBody
@@ -108,6 +148,70 @@ public class ajaxProfileController{
         }
         // System.out.println("No!\n");
         return false;
+    }
+
+    @RequestMapping(value="/getViews",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getViews(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+        List<Views> views = viewsService.getAllViews();
+
+        int count = 0;
+
+        List<Integer> comicId = new ArrayList<Integer>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    if(rc.getPanel_id() == p.getPanel_id()){
+                        comicId.add(rc.getRegular_comic_id());
+                    }
+                }
+            }
+        }
+
+        for(Integer i: comicId){
+            for(Views v: views){
+                if(v.getComic_id() == i){
+                    count +=1;
+                }
+            }
+        }
+        return count;
+    }
+
+    @RequestMapping(value="/getLikes",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getLikes(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+        List<Likes> likes = likesService.getAllLikes();
+
+        int count = 0;
+
+        List<Integer> comicId = new ArrayList<Integer>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    if(rc.getPanel_id() == p.getPanel_id()){
+                        comicId.add(rc.getRegular_comic_id());
+                    }
+                }
+            }
+        }
+
+        for(Integer i: comicId){
+            for(Likes l: likes){
+                if(l.getComic_id() == i){
+                    count +=1;
+                }
+            }
+        }
+        return count;
     }
 
     @RequestMapping(value="/getFollowingCount",method = RequestMethod.POST)
@@ -253,23 +357,26 @@ public class ajaxProfileController{
         return result.toString();
     }
 
+    
+
     @RequestMapping(value="/getSeries",method = RequestMethod.POST)
     @ResponseBody
     public String getSeries(HttpServletRequest request){
         String username = request.getParameter("username");
         List<FollowSeries> followSeries = followSeriesService.getAllFollowSeries();
-
-
-
         List<Series> series = seriesService.getAllSeries();
 
+        List<String> seriesName = new ArrayList<String>();
         List<Integer> seriesId = new ArrayList<Integer>();
+        List<String> seriesThumbnail = new ArrayList<String>();
 
         for(FollowSeries f: followSeries){
             if(f.getFollower_username().equals(username)){
                 for(Series s: series){
                     if(s.getSeries_id() == f.getSeries_id()){
+                        seriesName.add(s.getSeries_name());
                         seriesId.add(s.getSeries_id());
+                        seriesThumbnail.add(s.getSeries_thumbnail_path());
                         break;
                     }
                 }
@@ -281,8 +388,182 @@ public class ajaxProfileController{
             System.out.println(i+1 + ": " + seriesId.get(i));
         }
         JSONObject result = new JSONObject();
-        result.put("folderId", seriesId);
+        result.put("seriesName", seriesName);
+        result.put("seriesId", seriesId);
+        result.put("seriesThumbnail", seriesThumbnail);
         System.out.println(result.toString());
         return result.toString();
+    }
+
+    @RequestMapping(value="/getMyComics",method = RequestMethod.POST)
+    @ResponseBody
+    public String getMyComic(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Comic> comics = comicService.getAllComics();
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+
+        List<String> comicName = new ArrayList<String>();
+        List<Integer> comicId = new ArrayList<Integer>();
+        List<String> comicThumbnail = new ArrayList<String>();
+        List<Boolean> comicSeries = new ArrayList<Boolean>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    for(Comic c: comics){
+                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id()){
+                            comicId.add(rc.getRegular_comic_id());
+                        }
+                    }
+                }
+            }
+        }
+
+        Collections.sort(comicId);
+        Collections.reverse(comicId);
+
+        for(Integer i: comicId){
+            for(Comic c: comics){
+                if(c.getComic_id() == i){
+                    comicName.add(c.getTitle());
+                    break;
+                }
+            }
+
+            for(RegularComic rc: regularComics){
+                if(rc.getRegular_comic_id() == i){
+                    comicThumbnail.add(rc.getThumbnail_path());
+                    comicSeries.add(rc.getSeries_id()==null?false:true);
+                    break;
+                }
+            }
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("comicName", comicName);
+        result.put("comicId", comicId);
+        result.put("comicThumbnail", comicThumbnail);
+        result.put("comicSeries", comicSeries);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    @RequestMapping(value="/getOthersComics",method = RequestMethod.POST)
+    @ResponseBody
+    public String getOtherComic(HttpServletRequest request){
+        String username = request.getParameter("username");
+        List<Comic> comics = comicService.getAllComics();
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        List<Panel> panel = panelService.getAllPanels();
+
+        List<String> comicName = new ArrayList<String>();
+        List<Integer> comicId = new ArrayList<Integer>();
+        List<String> comicThumbnail = new ArrayList<String>();
+        List<Boolean> comicSeries = new ArrayList<Boolean>();
+
+        for(Panel p: panel){
+            if(p.getAuthor().equals(username)){
+                for(RegularComic rc: regularComics){
+                    for(Comic c: comics){
+                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id() && c.getStatus() == 1){
+                            comicId.add(rc.getRegular_comic_id());
+                        }
+                    }
+                }
+            }
+        }
+
+        Collections.sort(comicId);
+        Collections.reverse(comicId);
+
+        for(Integer i: comicId){
+            for(Comic c: comics){
+                if(c.getComic_id() == i){
+                    comicName.add(c.getTitle());
+                    break;
+                }
+            }
+
+            for(RegularComic rc: regularComics){
+                if(rc.getRegular_comic_id() == i){
+                    comicThumbnail.add(rc.getThumbnail_path());
+                    comicSeries.add(rc.getSeries_id()==null?false:true);
+                    break;
+                }
+            }
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("comicName", comicName);
+        result.put("comicId", comicId);
+        result.put("comicThumbnail", comicThumbnail);
+        result.put("comicSeries", comicSeries);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    //TODO: delete Comic
+    @RequestMapping(value="/deleteComic",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean deleteComic(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        Comic comic = comicService.getComicByComic_Id(comicId);
+        int type = comic.getComic_type();
+        if (type == 0) {//regular
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
+            Integer series_id = rc.getSeries_id();
+
+            //delete From Tag
+            Integer regular_comic_id = comicId;
+            List<Tag> tagList = tagService.getAllTagsInRegularComic(regular_comic_id);
+            for (int i = 0; i < tagList.size(); i++)
+                tagService.deleteTag(tagList.get(i));
+
+            //delete From Views
+            List<Views> viewsList = viewsService.getAllViewsInComic(comicId);
+            for (int i = 0; i < viewsList.size(); i++)
+                viewsService.deleteView(viewsList.get(i));
+
+            //delete from Likes
+            List<Likes> likesList = likesService.getAllLikesInComic(comicId);
+            for (int i = 0; i < likesList.size(); i++)
+                likesService.deleteLike(likesList.get(i));
+
+            //delete from Comments
+            List<Comments> commentsList = commentsService.getAllCommentsInComic(comicId);
+            for (int i = 0; i < commentsList.size(); i++)
+                commentsService.deleteComment(commentsList.get(i));
+
+            //delete from Favorites
+            List<Favorite> favoritesList = favoriteService.getAllFavoritesInComic(comicId);
+            for (int i = 0; i < favoritesList.size(); i++)
+                favoriteService.deleteFavorite(favoritesList.get(i));
+
+            //delete from RegularComic
+            regularComicService.deleteRegularComic(rc);
+
+            //delete From Panel
+            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
+
+            //delete from Comic
+            comicService.deleteComic(comic);
+
+            if (series_id != null) {
+                List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
+                if(rcSeriesList.isEmpty()){
+
+                    //delete from FollowSeries
+                    List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
+                    for (int i = 0; i < followSeriesList.size(); i++)
+                        followSeriesService.deleteFollowSeries(followSeriesList.get(i));
+
+                    //delete from Series
+                    seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+
+                }
+            }
+        }
+        return false;
     }
 }

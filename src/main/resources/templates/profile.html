@@ -11,7 +11,8 @@
             Show follower/following people(if viewing own profile) -- need to reconstruct layout
             List all comics created by this user(Show edit and delete button if admin or viewing own profile)
             Show favorite list(Hide private folder if viewing other's profile)
-            Series following  -->
+            Series following  
+            Add series tag ?-->
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -58,6 +59,7 @@
         <table>
             <tr>
                 <td>
+                    <!-- TODO: change profile picture -->
                     <img src = "./img/test/oldpp.jpg" id="profilepicture" style = "margin-left:25px;margin-right:25px;" width = "170px" height = "170px">
                 </td>
                 <td>
@@ -66,7 +68,7 @@
                     <span style = "font-size: 25px;" id = "followings" onclick = "showFollowings();"></span>
                     <span style = "font-size: 25px;"> | </span>
                     <span style = "font-size: 25px;" id = "followers" onclick = "showFollowers();">23,645 Followers</span>
-                    <p style = "font-size: 25px;">1,345,391 Views | 38,691 Likes</p>
+                    <p style = "font-size: 25px;" id = "viewlike"></p>
                     <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followUser();">Follow</button>
                     <button type="button" class="unfollowButton" style = "border-radius: 5px;display:none;" id="unfollow" onclick="unfollowUser();">Unfollow</button>
                 </td>
@@ -87,147 +89,17 @@
                 </td>
             </tr>
         </table>
-        <table id="comicstb">
-            <tr>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;" onclick="document.location.href='viewComics.html';">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <br>
-                </td>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <br>
-                </td>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <img src="./img/series-icon.png" style = "margin-left:2.5vw;float:left;margin-top:5px;" width="19px">
-                    <span style = "font-size:20px;">Comic Title</span>
-                    <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <br>
-                </td>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/delete.png" style = "margin-right:10%;float:right;" width = "25px" height = "25px">
-                    <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/1.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Title</span>
-                    <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                    <input type="image" src = "./img/edit-button.png" style = "margin-right:5px;float:right;" width = "25px" height = "25px">
-                </td>
-            </tr>
-        </table>
+        <table id="comicstb"></table>
 
         <table id="favoritetb" style = "display:none;"></table>
 
-        <table id="seriestb" style="display:none;">
-            <tr>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;" onclick="document.location.href='viewSeries.html';">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
-                </td>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
-                </td>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
-                </td>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td style = "width:23vw;padding-top:15px;">
-                    <img src="./img/t/2.jpg" style = "width:20vw;margin-left:2.5vw;">
-                    <br>
-                    <span style = "font-size:20px;margin-left:2.5vw;">Comic Series Title</span>
-                </td>
-            </tr>
-        </table>
+        <table id="seriestb" style="display:none;"></table>
+
         </div>
 
         <table id="followingtb" style="display:none;border-collapse:separate; border-spacing:0px 10px;">
-            <!-- <tr>
-                <td>
-                    <img src = "./img/test/newpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">magicMaster994</span>
-                </td>
-                <td>
-                    <img src = "./img/test/oldpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">magicMaster993</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src = "./img/test/oldpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">magicMaster995</span>
-                </td>
-                <td>
-                    <img src = "./img/test/newpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">magicMaster992</span>
-                </td>
-            </tr> -->
         </table>
         <table id="followertb" style="display:none;border-collapse:separate; border-spacing:0px 10px;">
-            <!-- <tr>
-                <td>
-                    <img src = "./img/test/oldpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">crazyArtist1024</span>
-                </td>
-                <td>
-                    <img src = "./img/test/newpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">crazyArtist2048</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src = "./img/test/newpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">crazyArtist4096</span>
-                </td>
-                <td>
-                    <img src = "./img/test/oldpp.jpg" style="margin-left:2.5vw;" height="70px">
-                </td>
-                <td>
-                    <span style = "font-size:35px;">crazyArtist8192</span>
-                </td>
-            </tr> -->
         </table>
     <script>
         if($.cookie('role')=="user"){
@@ -247,6 +119,9 @@
         document.getElementById("followings").innerText = c + " Followings";
         var c = getFollowers(p);
         document.getElementById("followers").innerText = c + " Followers";
+        var c = getViews(p);
+        var d = getLikes(p);
+        document.getElementById("viewlike").innerText = c + " Views  |  " + d +" Likes";
 
         if(checkFollow()){
             document.getElementById("follow").style.display = "none";
@@ -256,7 +131,138 @@
             document.getElementById("follow").style.display = "initial";
         }
 
+        //Comics table
+        if($.cookie("username")==$("#profileusername").text()){
+            $(window).ready(function() {
+                var tb = document.getElementById("comicstb");
+                var comics = getMyComics($("#profileusername").text());
+                console.log(comics);
+                for(var i = 0; i < comics.comicSeries.length; i+=4){
+                    var tr = document.createElement('tr');
+                    tb.appendChild(tr);
+                    for(let j = i; j < i+4 && j < comics.comicSeries.length; j++){
+                        var td = document.createElement('td');
+                        td.style.width = "23vw";
+                        td.style.paddingTop = "15px";
+                        tr.appendChild(td);
+                        var img = document.createElement('img');
+                        td.appendChild(img);
+                        img.src = comics.comicThumbnail[j];
+                        img.style.width = "20vw";
+                        img.style.height = "11.25vw";
+                        img.style.marginLeft = "2.5vw";
+                        img.addEventListener('click', function() {
+                            comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                        });
+                        var br1 = document.createElement('br');
+                        td.appendChild(br1);
+                        if(comics.comicSeries[j]){
+                            var img2 = document.createElement('img');
+                            td.appendChild(img2);
+                            img2.src = "./img/series-icon.png";
+                            img2.style.marginLeft = "2.5vw";
+                            img2.style.cssFloat = "left";
+                            img2.style.marginTop = "5px";
+                            img2.style.width = "19px";
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                        }else{
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                            span.style.marginLeft = "2.5vw";
+                        }
+                        
+                        var input1 = document.createElement('input');
+                        td.appendChild(input1);
+                        input1.type = "image";
+                        input1.src = "./img/delete.png";
+                        input1.style.marginRight = "5px";
+                        input1.style.cssFloat = "right";
+                        input1.style.width = "25px";
+                        input1.style.height = "25px";
+                        input1.addEventListener('click', function() {
+                            deleteComic(comics.comicId[j]);
+                        });
 
+                        var input2 = document.createElement('input');
+                        td.appendChild(input2);
+                        input2.type = "image";
+                        input2.src = "./img/edit-button.png";
+                        input2.style.marginRight = "5px";
+                        input2.style.cssFloat = "right";
+                        input2.style.width = "25px";
+                        input2.style.height = "25px";
+                        var br2 = document.createElement('br');
+                        input2.addEventListener('click', function() {
+                            editRedirect(comics.comicId[j]);
+                        });
+                        td.appendChild(br2);
+                    }
+                }
+            });
+        }else{
+            $(window).ready(function() {
+                var tb = document.getElementById("comicstb");
+                var comics = getOthersComics($("#profileusername").text());
+                console.log(comics);
+                for(var i = 0; i < comics.comicSeries.length; i+=4){
+                    var tr = document.createElement('tr');
+                    tb.appendChild(tr);
+                    for(let j = i; j < i+4 && j < comics.comicSeries.length; j++){
+                        var td = document.createElement('td');
+                        td.style.width = "23vw";
+                        td.style.paddingTop = "15px";
+                        tr.appendChild(td);
+                        var img = document.createElement('img');
+                        td.appendChild(img);
+                        img.src = comics.comicThumbnail[j];
+                        img.style.width = "20vw";
+                        img.style.height = "11.25vw";
+                        img.style.marginLeft = "2.5vw";
+                        img.addEventListener('click', function() {
+                            comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                        });
+                        var br1 = document.createElement('br');
+                        td.appendChild(br1);
+                        if(comics.comicSeries[j]){
+                            var img2 = document.createElement('img');
+                            td.appendChild(img2);
+                            img2.src = "./img/series-icon.png";
+                            img2.style.marginLeft = "2.5vw";
+                            img2.style.cssFloat = "left";
+                            img2.style.marginTop = "5px";
+                            img2.style.width = "19px";
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                        }else{
+                            var span = document.createElement('span');
+                            var t = document.createTextNode(comics.comicName[j]);
+                            span.appendChild(t);
+                            td.appendChild(span);
+                            span.style.fontSize = "20px";
+                            span.style.marginLeft = "2.5vw";
+                        }
+                        
+                        var br2 = document.createElement('br');
+
+                        td.appendChild(br2);
+                    }
+                }
+            });
+
+        }
+
+
+        //Follower/Following list
         if($.cookie("username")==$("#profileusername").text()){
             document.getElementById("unfollow").style.display = "none";
             document.getElementById("follow").style.display = "none";
@@ -268,134 +274,250 @@
 
                 // follower table
                 var tbodyfollower = document.getElementById("followertb");
-                for(let i=0;i<followerlist.account.length;i+=3){
+                for(let i=0;i<followerlist.account.length;i+=4){
                     var tr = document.createElement('tr');
                     tr.style.width = "100%";
                     tbodyfollower.appendChild(tr);
                     var td11 = document.createElement('td');
                     var td12 = document.createElement('td');
+                    td11.style.paddingBottom = "2vw";
+                    td12.style.paddingBottom = "2vw";
+                    td12.style.paddingLeft = "1vw";
+                    td12.style.width = "16.5vw";
                     tr.appendChild(td11);
                     tr.appendChild(td12);
                     var img1 = document.createElement('img');
                     img1.src = followerlist.picpath[i];
                     img1.style.marginLeft = "2.5vw";
-                    img1.style.height = "70px";
-                    img1.style.width = "70px";
+                    img1.style.height = "5vw";
+                    img1.style.width = "5vw";
                     td11.appendChild(img1);
                     var span1 = document.createElement('span');
-                    span1.style.fontSize = "35px";
+                    span1.style.fontSize = "2vw";
                     var t = document.createTextNode(followerlist.account[i]);
                     span1.appendChild(t);
                     td12.appendChild(span1);
+                    td11.addEventListener('click', function() {
+                        authorprofile(followerlist.account[i]);
+                    });
+                    td12.addEventListener('click', function() {
+                        authorprofile(followerlist.account[i]);
+                    });
 
                     // i=1, second one
                     var td21 = document.createElement('td');
                     var td22 = document.createElement('td');
+                    td21.style.paddingBottom = "2vw";
+                    td22.style.paddingBottom = "2vw";
+                    td22.style.paddingLeft = "1vw";
+                    td22.style.width = "16.5vw";
                     tr.appendChild(td21);
                     tr.appendChild(td22);
                     if(i+1<followerlist.account.length){
                         var img2 = document.createElement('img');
                         img2.src = followerlist.picpath[i+1];
                         img2.style.marginLeft = "2.5vw";
-                        img2.style.height = "70px";
-                        img2.style.width = "70px";
+                        img2.style.height = "5vw";
+                        img2.style.width = "5vw";
                         td21.appendChild(img2);
                         var span2 = document.createElement('span');
-                        span2.style.fontSize = "35px";
+                        span2.style.fontSize = "2vw";
                         var t = document.createTextNode(followerlist.account[i+1]);
                         span2.appendChild(t);
                         td22.appendChild(span2);
+                        td21.addEventListener('click', function() {
+                        authorprofile(followerlist.account[i+1]);
+                        });
+                        td22.addEventListener('click', function() {
+                            authorprofile(followerlist.account[i+1]);
+                        });
                     }
 
                     // i=2, third one
                     var td31 = document.createElement('td');
                     var td32 = document.createElement('td');
+                    td31.style.paddingBottom = "2vw";
+                    td32.style.paddingBottom = "2vw";
+                    td32.style.paddingLeft = "1vw";
+                    td32.style.width = "16.5vw";
                     tr.appendChild(td31);
                     tr.appendChild(td32);
                     if(i+2<followerlist.account.length){
                         var img3 = document.createElement('img');
                         img3.src = followerlist.picpath[i+2];
                         img3.style.marginLeft = "2.5vw";
-                        img3.style.height = "70px";
-                        img3.style.width = "70px";
+                        img3.style.height = "5vw";
+                        img3.style.width = "5vw";
                         td31.appendChild(img3);
                         var span3 = document.createElement('span');
-                        span3.style.fontSize = "35px";
+                        span3.style.fontSize = "2vw";
                         var t = document.createTextNode(followerlist.account[i+2]);
                         span3.appendChild(t);
                         td32.appendChild(span3);
+                        td31.addEventListener('click', function() {
+                        authorprofile(followerlist.account[i+2]);
+                        });
+                        td32.addEventListener('click', function() {
+                            authorprofile(followerlist.account[i+2]);
+                        });
+                    }
+
+                    // i=3, 4th one
+                    var td41 = document.createElement('td');
+                    var td42 = document.createElement('td');
+                    td41.style.paddingBottom = "2vw";
+                    td42.style.paddingBottom = "2vw";
+                    td42.style.paddingLeft = "1vw";
+                    td42.style.width = "16.5vw";
+                    tr.appendChild(td41);
+                    tr.appendChild(td42);
+                    if(i+3<followerlist.account.length){
+                        var img4 = document.createElement('img');
+                        img4.src = followerlist.picpath[i+3];
+                        img4.style.marginLeft = "2.5vw";
+                        img4.style.height = "5vw";
+                        img4.style.width = "5vw";
+                        td41.appendChild(img4);
+                        var span4 = document.createElement('span');
+                        span4.style.fontSize = "2vw";
+                        var t = document.createTextNode(followerlist.account[i+3]);
+                        span4.appendChild(t);
+                        td42.appendChild(span4);
+                        td41.addEventListener('click', function() {
+                        authorprofile(followerlist.account[i+3]);
+                        });
+                        td42.addEventListener('click', function() {
+                            authorprofile(followerlist.account[i+3]);
+                        });
                     }
                 }
 
                 // following table
                 var tbodyfollowing = document.getElementById("followingtb");
-                for(let i=0;i<followinglist.account.length;i+=3){
+                for(let i=0;i<followinglist.account.length;i+=4){
                     var tr = document.createElement('tr');
                     tr.style.width = "100%";
                     tbodyfollowing.appendChild(tr);
                     var td11 = document.createElement('td');
                     var td12 = document.createElement('td');
+                    td11.style.paddingBottom = "2vw";
+                    td12.style.paddingBottom = "2vw";
+                    td12.style.paddingLeft = "1vw";
+                    td12.style.width = "16.5vw";
                     tr.appendChild(td11);
                     tr.appendChild(td12);
                     var img1 = document.createElement('img');
                     img1.src = followinglist.picpath[i];
                     img1.style.marginLeft = "2.5vw";
-                    img1.style.height = "70px";
-                    img1.style.width = "70px";
+                    img1.style.height = "5vw";
+                    img1.style.width = "5vw";
                     td11.appendChild(img1);
                     var span1 = document.createElement('span');
-                    span1.style.fontSize = "35px";
+                    span1.style.fontSize = "2vw";
                     var t = document.createTextNode(followinglist.account[i]);
                     span1.appendChild(t);
                     td12.appendChild(span1);
+                    td11.addEventListener('click', function() {
+                        authorprofile(followinglist.account[i]);
+                    });
+                    td12.addEventListener('click', function() {
+                        authorprofile(followinglist.account[i]);
+                    });
 
                     // i=1, second one
                     var td21 = document.createElement('td');
                     var td22 = document.createElement('td');
+                    td21.style.paddingBottom = "2vw";
+                    td22.style.paddingBottom = "2vw";
+                    td22.style.paddingLeft = "1vw";
+                    td22.style.width = "16.5vw";
                     tr.appendChild(td21);
                     tr.appendChild(td22);
                     if(i+1<followinglist.account.length){
                         var img2 = document.createElement('img');
                         img2.src = followinglist.picpath[i+1];
                         img2.style.marginLeft = "2.5vw";
-                        img2.style.height = "70px";
-                        img2.style.width = "70px";
+                        img2.style.height = "5vw";
+                        img2.style.width = "5vw";
                         td21.appendChild(img2);
                         var span2 = document.createElement('span');
-                        span2.style.fontSize = "35px";
+                        span2.style.fontSize = "2vw";
                         var t = document.createTextNode(followinglist.account[i+1]);
                         span2.appendChild(t);
                         td22.appendChild(span2);
+                        td21.addEventListener('click', function() {
+                            authorprofile(followinglist.account[i+1]);
+                        });
+                        td22.addEventListener('click', function() {
+                            authorprofile(followinglist.account[i+1]);
+                        });
                     }
 
                     // i=2, third one
                     var td31 = document.createElement('td');
                     var td32 = document.createElement('td');
+                    td31.style.paddingBottom = "2vw";
+                    td32.style.paddingBottom = "2vw";
+                    td32.style.paddingLeft = "1vw";
+                    td32.style.width = "16.5vw";
                     tr.appendChild(td31);
                     tr.appendChild(td32);
                     if(i+2<followinglist.account.length){
                         var img3 = document.createElement('img');
                         img3.src = followinglist.picpath[i+2];
                         img3.style.marginLeft = "2.5vw";
-                        img3.style.height = "70px";
-                        img3.style.width = "70px";
+                        img3.style.height = "5vw";
+                        img3.style.width = "5vw";
                         td31.appendChild(img3);
                         var span3 = document.createElement('span');
-                        span3.style.fontSize = "35px";
+                        span3.style.fontSize = "2vw";
                         var t = document.createTextNode(followinglist.account[i+2]);
                         span3.appendChild(t);
                         td32.appendChild(span3);
+                        td31.addEventListener('click', function() {
+                            authorprofile(followinglist.account[i+2]);
+                        });
+                        td32.addEventListener('click', function() {
+                            authorprofile(followinglist.account[i+2]);
+                        });
+                    }
+
+                    // i=3, 4th one
+                    var td41 = document.createElement('td');
+                    var td42 = document.createElement('td');
+                    td41.style.paddingBottom = "2vw";
+                    td42.style.paddingBottom = "2vw";
+                    td42.style.paddingLeft = "1vw";
+                    td42.style.width = "16.5vw";
+                    tr.appendChild(td41);
+                    tr.appendChild(td42);
+                    if(i+3<followinglist.account.length){
+                        var img4 = document.createElement('img');
+                        img4.src = followinglist.picpath[i+3];
+                        img4.style.marginLeft = "2.5vw";
+                        img4.style.height = "5vw";
+                        img4.style.width = "5vw";
+                        td41.appendChild(img4);
+                        var span4 = document.createElement('span');
+                        span4.style.fontSize = "2vw";
+                        var t = document.createTextNode(followinglist.account[i+3]);
+                        span4.appendChild(t);
+                        td42.appendChild(span4);
+                        td41.addEventListener('click', function() {
+                            authorprofile(followinglist.account[i+3]);
+                        });
+                        td42.addEventListener('click', function() {
+                            authorprofile(followinglist.account[i+3]);
+                        });
                     }
                 }
             });
         }else{
-            // document.getElementById("follow").disabled = true;
-            // document.getElementById("unfollow").disabled = true;
             document.getElementById("followings").onclick = false;
             document.getElementById("followers").onclick = false;
-            console.log("doesnt work");
         }
 
+        //Favorite folder
         if($.cookie("username")==$("#profileusername").text()){
             $(window).ready(function() {
                 var tb = document.getElementById("favoritetb");
@@ -470,80 +592,39 @@
             });
         }
 
-        if($.cookie("username")==$("#profileusername").text()){
-            $(window).ready(function() {
-                var tb = document.getElementById("seriestb");
-                var series = getSeries($("#profileusername").text());
-                console.log(series);
-                // for(var i = 0; i<folders.folderName.length; i+=4){
-                //     var tr = document.createElement('tr');
-                //     tb.appendChild(tr);
-                //     for(let j = i; j < i+4 && j < folders.folderName.length; j++){
-                //         var td = document.createElement('td');
-                //         td.style.width = "23vw";
-                //         td.style.paddingTop = "15px";
-                //         tr.appendChild(td);
-                //         var img = document.createElement('img');
-                //         td.appendChild(img);
-                //         img.src = "./img/folder.png";
-                //         img.style.width = "20vw";
-                //         img.style.marginLeft = "2.5vw";
-                //         img.addEventListener('click', function() {
-                //             favoriteRedirect(folders.folderId[j]);
-                //         });
-                //         console.log(folders.folderId[j]);
-                //         var br1 = document.createElement('br');
-                //         td.appendChild(br1);
-                //         var span = document.createElement('span');
-                //         var t = document.createTextNode(folders.folderName[j]);
-                //         span.appendChild(t);
-                //         td.appendChild(span);
-                //         span.style.fontSize = "20px";
-                //         span.style.marginLeft = "4.5vw";
-                //         var br2 = document.createElement('br');
-                //         td.appendChild(br2);
-                //     }
-
-                // }
-            });
-        }else{
-            $(window).ready(function() {
-                var tb = document.getElementById("favoritetb");
-                var folders = getPublicFavorites($("#profileusername").text());
-                console.log(folders);
-                for(var i = 0; i<folders.folderName.length; i+=4){
-                    var tr = document.createElement('tr');
-                    tb.appendChild(tr);
-                    for(let j = i; j < i+4 && j < folders.folderName.length; j++){
-                        var td = document.createElement('td');
-                        td.style.width = "23vw";
-                        td.style.paddingTop = "15px";
-                        tr.appendChild(td);
-                        var img = document.createElement('img');
-                        td.appendChild(img);
-                        img.src = "./img/folder.png";
-                        img.style.width = "20vw";
-                        img.style.marginLeft = "2.5vw";
-                        img.addEventListener('click', function() {
-                            favoriteRedirect(folders.folderId[j]);
-                        });
-                        console.log(folders.folderId[j]);
-                        var br1 = document.createElement('br');
-                        td.appendChild(br1);
-                        var span = document.createElement('span');
-                        var t = document.createTextNode(folders.folderName[j]);
-                        span.appendChild(t);
-                        td.appendChild(span);
-                        span.style.fontSize = "20px";
-                        span.style.marginLeft = "4.5vw";
-                        var br2 = document.createElement('br');
-                        td.appendChild(br2);
-                    }
-
+        //Series following
+        $(window).ready(function() {
+            var tb = document.getElementById("seriestb");
+            var series = getSeries($("#profileusername").text());
+            console.log(series);
+            for(var i = 0; i < series.seriesId.length; i+=4){
+                var tr = document.createElement('tr');
+                tb.appendChild(tr);
+                for(let j = i; j < i+4 && j < series.seriesId.length; j++){
+                    var td = document.createElement('td');
+                    td.style.width = "23vw";
+                    td.style.paddingTop = "15px";
+                    tr.appendChild(td);
+                    var img = document.createElement('img');
+                    td.appendChild(img);
+                    img.src = series.seriesThumbnail[j];
+                    img.style.width = "20vw";
+                    img.style.marginLeft = "2.5vw";
+                    img.addEventListener('click', function() {
+                        seriesRedirect(series.seriesId[j]);
+                    });
+                    var br1 = document.createElement('br');
+                    td.appendChild(br1);
+                    var span = document.createElement('span');
+                    var t = document.createTextNode(series.seriesName[j]);
+                    span.appendChild(t);
+                    td.appendChild(span);
+                    span.style.fontSize = "20px";
+                    span.style.marginLeft = "2.5vw";
                 }
-            });
-        }
-
+            }
+        });
+        
         function showComics(){
             document.getElementById("favoritetb").style.display = "none";
             document.getElementById("seriestb").style.display = "none";

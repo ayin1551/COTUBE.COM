@@ -49,6 +49,34 @@ function checkFollow(){
     return validality;
 }
 
+function getViews(username){
+    var num = 0;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getViews",
+        async: false,
+        data: {username:username},
+        success: function (data) {
+            num = data;
+        }
+    });
+    return num;
+}
+
+function getLikes(username){
+    var num = 0;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getLikes",
+        async: false,
+        data: {username:username},
+        success: function (data) {
+            num = data;
+        }
+    });
+    return num;
+}
+
 
 function getFollowings(username){
     var num = 0;
@@ -123,8 +151,37 @@ function getPublicFavorites(username){
 
 function favoriteRedirect(id){
     $.cookie("favoriteId",id);
-    document.location.href="./favorite.html";
-    console.log($.cookie("favoriteId"));
+    document.location.href = "./favorite.html";
+}
+
+function seriesRedirect(id){
+    $.cookie("seriesId",id);
+    document.location.href = "./viewSeries.html";
+}
+
+function comicRedirect(id, ifSeries){
+    $.cookie("comicId", id);
+    $.cookie("ifSeries", ifSeries);
+    document.location.href = "./viewComics.html";
+}
+
+//TODO:EDIT PAGE
+function editRedirect(id){
+    $.cookie("comicId", id);
+    document.location.href = "./editComics.html";
+}
+
+function deleteComic(id){
+    $.ajax({
+        type: "post",
+        url: "profile.html/deleteComic",
+        async: false,
+        data: {comicId:id},
+        success: function(data){
+
+        }
+    });
+    document.location.href = "./profile.html";
 }
 
 function getMyFavorites(username){
@@ -141,11 +198,40 @@ function getMyFavorites(username){
     return obj;
 }
 
+
 function getSeries(username){
     var obj;
     $.ajax({
         type: "post",
         url: "profile.html/getSeries",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function getMyComics(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getMyComics",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}
+
+function getOthersComics(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getOthersComics",
         async: false,
         data: {username:username},
         success: function(data){

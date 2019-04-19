@@ -53,4 +53,8 @@ public class ComicServiceImpl implements ComicService {
         }
         return result;
     }
+    public Comic getComicByComic_Id(Integer integer) {
+        return comicRepository.getComicByComic_id(integer);
+    }
+
 }

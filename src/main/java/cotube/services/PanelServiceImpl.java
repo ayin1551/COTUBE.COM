@@ -37,4 +37,9 @@ public class PanelServiceImpl implements PanelService {
         panelRepository.delete(panel);
     }
 
+    @Override
+    public Panel getPanelFromPanelId(Integer panel_id) {
+        return panelRepository.getPanelFromPanelId(panel_id);
+    }
+
 }
