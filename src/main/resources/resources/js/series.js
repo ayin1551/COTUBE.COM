@@ -78,6 +78,13 @@ function getComics(id){
     return obj;
 }
 
+//TODO: edit page
+function editRedirect(id){
+    $.cookie("comicId", id);
+    document.location.href = "./editComics.html";
+}
+
+
 function comicRedirect(id, ifSeries){
     $.cookie("comicId", id);
     $.cookie("ifSeries", ifSeries);
