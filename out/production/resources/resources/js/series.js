@@ -96,12 +96,12 @@ function deleteComic(id){
     });
 }
 
-function deleteSeries(id){
+function deleteSeries(){
     $.ajax({
         type: "post",
         url: "viewSeries.html/deleteSeries",
         async: false,
-        data: {comicId:id},
+        data: {seriesId:$.cookie("seriesId")},
         success: function(data){
 
         }

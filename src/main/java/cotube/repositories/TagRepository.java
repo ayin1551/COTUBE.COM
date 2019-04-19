@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface TagRepository extends CrudRepository<Tag, Integer> {
     @Query(value = "SELECT * from Tag t where t.regular_comic_id = :regular_comic_id", nativeQuery = true)
-    List<Tag> getAllTagsInRegularComic(@Param("comic_id") Integer regular_comic_id);
+    List<Tag> getAllTagsInRegularComic(@Param("regular_comic_id") Integer regular_comic_id);
 }
