@@ -103,53 +103,20 @@
         </tr>
         <tr>
             <td>
-                <h2 style="margin-left:0px;" id = "commentHeader">Comments(23)</h2>
+                <h2 style="margin-left:0px;" id = "commentHeader"></h2>
             </td>
         </tr>
         <tr id = "comments">
             <td>
-                <textarea maxlength = "300" rows="4" cols="88" style="color:black;" placeholder="Enter your comment:" id="commentText"></textarea>
+                <textarea maxlength = "300" rows="4" cols="88" style="color:black;width:50vw" placeholder="Enter your comment:" id="commentText"></textarea>
             </td>
             <td>
                 <button type="button" class="submitButton" style="height:85px;margin-left:0px;margin-top:0px;" onclick = "postComment();">Post</button>
             </td>
         </tr>
     </table>
-    <table width = "65%" align="center" id="commenttb">
-        <tr>
-            <td><span style="margin-left:0px;">Very Interesting comic!!!</span></td>
-        </tr>
-        <tr>
-            <td>
-                <span style="margin-left:0px;">#23</span>
-                <a href="profile.html" style="float:right;">crazyArtist2048</a>
-                <span style="float:right;margin-right:0.5em;">by </span>
-                <span style="float:right;color:gray;margin-right:0.5em;">2 min ago</span>
-                <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "20px" height = "20px">
-                <hr class="style-six">
-            </td>
-        </tr>
-        <tr>
-            <td><span style="margin-left:0px;">Gorgeous!</span></td>
-        </tr>
-        <tr>
-            <td>
-                <span style="margin-left:0px;">#22</span>
-                <a href="profile.html" style="float:right;">solaireOfAstora</a>
-                <span style="float:right;margin-right:0.5em;">by </span>
-                <span style="float:right;color:gray;margin-right:0.5em;">54 min ago</span>
-                <hr class="style-six">
-            </td>
-        </tr>
-    </table>
-    <table align="center">
-        <tr>
-            <td><span style="margin-right:10px;">First</span></td>
-            <td><span style="color:dodgerblue;margin-right:10px;">1</span></td>
-            <td><span style="margin-right:10px;">2</span></td>
-            <td><span style="margin-right:10px;">Last</span></td>
-        </tr>
-    </table>
+    <table width = "65%" align="center" id="commenttb"></table>
+    <table align="center" id = "numPage"></table>
     <script>
 
         if($.cookie('role')=="user"){
@@ -213,61 +180,43 @@
                 var t5 = document.createTextNode(comments.commentTime[i]);
                 span4.appendChild(t5);
                 span4.style.cssFloat = "right";
-                span34.style.marginRight = "0.5em";
+                span4.style.color = "gray";
+                span4.style.marginRight = "0.5em";
                 td2.appendChild(span4);
 
-
-                for(let j = i; j < i+4 && j < comics.comicName.length; j++){
-                    var td = document.createElement('td');
-                    td.style.width = "23vw";
-                    td.style.paddingTop = "15px";
-                    tr.appendChild(td);
-                    var img = document.createElement('img');
-                    td.appendChild(img);
-                    img.src = comics.comicThumbnail[j];
-                    img.style.width = "20vw";
-                    img.style.height = "11.25vw";
-                    img.style.marginLeft = "2.5vw";
-                    img.addEventListener('click', function() {
-                        comicRedirect(comics.comicId[j],true);
-                    });
-                    var br1 = document.createElement('br');
-                    td.appendChild(br1);
-                    
-                    var span = document.createElement('span');
-                    var t = document.createTextNode(comics.comicName[j]);
-                    span.appendChild(t);
-                    td.appendChild(span);
-                    span.style.fontSize = "20px";
-                    span.style.marginLeft = "2.5vw";
-                    
-                    
-                    var input1 = document.createElement('input');
-                    td.appendChild(input1);
-                    input1.type = "image";
-                    input1.src = "./img/delete.png";
-                    input1.style.marginRight = "5px";
-                    input1.style.cssFloat = "right";
-                    input1.style.width = "25px";
-                    input1.style.height = "25px";
-                    input1.addEventListener('click', function() {
-                        deleteComic(comics.comicId[j]);
-                    });
-
-                    var input2 = document.createElement('input');
-                    td.appendChild(input2);
-                    input2.type = "image";
-                    input2.src = "./img/edit-button.png";
-                    input2.style.marginRight = "5px";
-                    input2.style.cssFloat = "right";
-                    input2.style.width = "25px";
-                    input2.style.height = "25px";
-                    var br2 = document.createElement('br');
-                    input2.addEventListener('click', function() {
-                        editRedirect(comics.comicId[j]);
-                    });
-                    td.appendChild(br2);
+                if($.cookie("username")==comments.commenter[i]){
+                    var input = document.createElement('input');
+                    td2.appendChild(input);
+                    input.type = "image";
+                    input.src = "./img/delete.png";
+                    input.style.marginRight = "5px";
+                    input.style.cssFloat = "right";
+                    input.style.width = "20px";
+                    input.style.height = "20px";
                 }
+                
+
+            }
+            console.log(comments.commentCount);
+            var tb2 = document.getElementById("numPage");
+            for(let i=1;i<=comments.commentCount; i++){
+                var td = document.createElement('td');
+                tb2.appendChild(td);
+                var span = document.createElement('span');
+                var t = document.createTextNode(i);
+                span.appendChild(t);
+                span.style.marginRight = "10px";
+                span.id = "span"+i;
+                if(i==1){
+                    span.style.color = "dodgerblue";
+                }
+                span.addEventListener('click', function() {
+                    span.style.color = "white";
+                    commentPage($.cookie("comicId"),i);
+                });
+                td.appendChild(span);
+                
+
             }
         });
 

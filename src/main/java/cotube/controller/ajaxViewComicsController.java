@@ -247,7 +247,7 @@ public class ajaxViewComicsController{
         List<String> commenter = new ArrayList<String>();
         List<String> commentTime = new ArrayList<String>();
         List<Integer> commentNumber = new ArrayList<Integer>();
-        Integer count = 0;
+        double count = 0;
 
         for(Comments c: comments){
             if(c.getStatus()==0){
@@ -281,7 +281,7 @@ public class ajaxViewComicsController{
         result.put("commentContent", commentContent);
         result.put("commenter", commenter);
         result.put("commentTime", commentTime);
-        result.put("commentCount", count);
+        result.put("commentCount", Math.ceil(count/20));
         System.out.println(result.toString());
         return result.toString();
 
