@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
 import cotube.domain.Likes;
 import cotube.services.LikesService;
 import cotube.domain.Favorite;
@@ -198,9 +198,18 @@ public class ajaxViewComicsController{
         String username = request.getParameter("username");
         String comicid = request.getParameter("comic_id");
         Boolean like = request.getParameter("like").equals("true")?true:false;
-        System.out.println(username);
-        System.out.println(comicid);
-        System.out.println(like);
+        List<Likes> all = likesService.getAllLikes();
+        if(like){
+            for(Likes each : all){
+                if(each.getComic_id()==Integer.parseInt(comicid)&&each.getLiker_username().equals(username)){
+                    likesService.deleteLike(each);
+                    break;
+                }
+            }
+        }else{
+            Likes add = new Likes(Integer.parseInt(comicid), username, new Date());
+            likesService.addLike(add);
+        }
 
         return true;
     }
