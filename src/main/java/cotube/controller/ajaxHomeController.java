@@ -32,11 +32,27 @@ public class ajaxHomeController{
     public String getTrending(HttpServletRequest request){
         List<RegularComic> regularComics = new ArrayList<>();
         List<Comic> comics = viewsService.getHighestViewedRegularComics();
+        List<Comic> comics2 = viewsService.getHighestViewedRegularComics();
+        List<Comic> comics3 = viewsService.getHighestViewedRegularComics();
 
         for (int i = 0; i < comics.size(); i++) {
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(i).getComic_id());
             regularComics.add(rc);
         }
+
+        for (int i = 0; i < comics2.size(); i++) {
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(i).getComic_id());
+            regularComics.add(rc);
+        }
+
+        for (int i = 0; i < comics3.size(); i++) {
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(i).getComic_id());
+            regularComics.add(rc);
+        }
+        comics.addAll(comics2);
+        comics.addAll(comics3);
+        System.out.println(comics.toString());
+        System.out.println(regularComics.toString());
         JSONObject result = new JSONObject();
         result.put("comics", comics);
         result.put("regular_comics", regularComics);

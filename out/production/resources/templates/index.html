@@ -60,7 +60,7 @@
     <div id = "trendingcomics" class = "trendingComicsTable" style="margin-left:5%;margin-top:10px;width:57vw;float:left;">
         <h2 style="margin-left:0px;">Trending Comics</h2>
         <div>
-            <table class="trendingComicsTable" id="trending_result_table" style="font-size: 23px; width: 100%;">
+            <table class="trendingComicsTable" id="trending_comics_table" style="font-size: 23px; width: 100%;">
             </table>
         </div>
     <!--
@@ -308,6 +308,12 @@
                 console.log(x);
                 var tbody = document.getElementById("trending_comics_table");
                 for (i = 0; i < 6; x +=3){
+                    console.log(x.comics[i])
+                    console.log(x.comics[i+1])
+                    console.log(x.comics[i+2])
+                    console.log(x.regular_comics[i])
+                    console.log(x.regular_comics[i+1])
+                    console.log(x.regular_comics[i+2])
                     var tr = document.createElement('TR');
                     tr.style.width = "100%";
                     tbody.appendChild(tr);
@@ -331,6 +337,7 @@
                     divImg1.style.paddingTop = "38.2%";
                     divImg1.style.position = "relative";
                     var img1 = document.createElement('img');
+                    console.log(x.regular_comics[i].thumbnail_path);
                     img1.src = x.regular_comics[i].thumbnail_path;
                     img1.style.width = "100%";
                     img1.style.height = "100%";
@@ -360,7 +367,7 @@
                     td2.style.width = "33.3%";
                     td2.style.paddingBottom = "20px";
                     tr.appendChild(td2);
-                    if(i+1<obj.account.length){
+                    if(i+1<x.comics.length){
                         var divBig2 = document.createElement('DIV');
                         divBig2.addEventListener('click', function(){
                             trendingcomic(x.comics[i+1].comic_id, x.regular_comics[i+1].series_id);
@@ -376,6 +383,7 @@
                         divImg2.style.paddingTop = "38.2%";
                         divImg2.style.position = "relative";
                         var img2 = document.createElement('img');
+                        console.log(x.regular_comics[i+1].thumbnail_path);
                         img2.src = x.regular_comics[i+1].thumbnail_path;
                         console.log("img src = " + img2.src);
                         img2.style.width = "100%";
@@ -384,8 +392,8 @@
                         img2.style.top = "0";
                         divImg2.appendChild(img2);
                         // other info here
-                        <!--
-                        var divinfo2 = document.createElement('div');
+
+                       /* var divinfo2 = document.createElement('div');
                         divinfo2.style.width = "61.8%";
                         divinfo2.style.marginLeft = "6.8%"
                         var span_author2 = document.createElement('span');
@@ -397,8 +405,8 @@
                         divinfo2.appendChild(span_author2);
                         divinfo2.appendChild(document.createElement('br'));
                         divinfo2.appendChild(span_follower2);
-                        divinfo2.appendChild(document.createElement('span').appendChild(document.createTextNode(" follower")));
-                        -->
+                        divinfo2.appendChild(document.createElement('span').appendChild(document.createTextNode(" follower")));*/
+
                         // add to divBig2
                         divBig2.appendChild(divImg2);
                         //divBig2.appendChild(divinfo2);
@@ -410,7 +418,7 @@
                     td3.style.paddingBottom = "20px";
                     tr.appendChild(td3);
 
-                    if(i+2<obj.account.length){
+                    if(i+2<x.comics.length){
                         var divBig3 = document.createElement('DIV');
                         divBig3.addEventListener('click', function(){
                             trendingcomic(x.comics[i+2].comic_id, x.regular_comics[i+2].series_id);
@@ -426,6 +434,7 @@
                         divImg3.style.paddingTop = "38.2%";
                         divImg3.style.position = "relative";
                         var img3 = document.createElement('img');
+                        console.log(x.regular_comics[i+2].thumbnail_path);
                         img3.src = x.regular_comics[i+2].thumbnail_path;
                         console.log("img src = " + img3.src);
                         img3.style.width = "100%";
