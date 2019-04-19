@@ -198,6 +198,7 @@ function getMyFavorites(username){
     return obj;
 }
 
+
 function getSeries(username){
     var obj;
     $.ajax({
@@ -210,6 +211,7 @@ function getSeries(username){
         }
     });
     return obj;
+}
 
 function getMyComics(username){
     var obj;

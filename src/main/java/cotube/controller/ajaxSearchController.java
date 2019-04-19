@@ -117,7 +117,7 @@ public class ajaxSearchController{
                     picPath.add(reg.getThumbnail_path());
                     authors.add(getAuthor(reg));
                     likes.add(getLikes(reg));
-                    views.add(getLikes(reg));
+                    views.add(getViews(reg));
                 }
             }
         }
