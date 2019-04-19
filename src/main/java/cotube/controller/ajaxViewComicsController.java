@@ -250,7 +250,7 @@ public class ajaxViewComicsController{
         double count = 0;
 
         for(Comments c: comments){
-            if(c.getStatus()==0){
+            if(c.getStatus()==0 && c.getComic_id() == comicid){
                 commentNumber.add(c.getComment_number());
                 count += 1;
             }
