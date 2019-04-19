@@ -279,9 +279,9 @@ public class ajaxSeriesController{
     //TODO:deleteSeries
     @RequestMapping(value="/deleteSeries",method = RequestMethod.POST)
     @ResponseBody
-    public Boolean deleteComic(HttpServletRequest request){
+    public Boolean deleteSeries(HttpServletRequest request){
         Integer seriesId = Integer.parseInt(request.getParameter("seriesId"));
-
+        System.out.println(seriesId);
         List<RegularComic> seriesComics = regularComicService.getAllRegularComicsInSeries(seriesId);
         for (int i = 0; i< seriesComics.size(); i++){
             Comic comic = comicService.getComicByComic_Id(seriesComics.get(i).getRegular_comic_id());
@@ -290,6 +290,29 @@ public class ajaxSeriesController{
 
         }
     
+
+        return false;
+    }
+
+    @RequestMapping(value="/deleteComic",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean deleteComic(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        Comic comic = comicService.getComicByComic_Id(comicId);
+        int type = comic.getComic_type();
+        if (type == 0) {//regular
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
+            Integer series_id = rc.getSeries_id();
+            regularComicService.deleteRegularComic(rc);
+            comicService.deleteComic(comic);
+            if (series_id != null) {
+                List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
+                if(rcSeriesList.isEmpty()){
+                    seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+                }
+            }
+            return true;
+        }
 
         return false;
     }

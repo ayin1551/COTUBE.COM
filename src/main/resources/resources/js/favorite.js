@@ -22,6 +22,12 @@ function deleteFavoriteFolder(){
     document.location.href = "./profile.html";
 }
 
+function comicRedirect(id, ifSeries){
+    $.cookie("comicId", id);
+    $.cookie("ifSeries", ifSeries);
+    document.location.href = "./viewComics.html";
+}
+
 function getComics(id){
     var obj;
     $.ajax({
