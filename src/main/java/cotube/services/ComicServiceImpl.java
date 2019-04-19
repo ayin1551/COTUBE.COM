@@ -5,6 +5,7 @@ import cotube.repositories.ComicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,4 +37,20 @@ public class ComicServiceImpl implements ComicService {
         comicRepository.delete(comic);
     }
 
+    @Override
+    public List<Comic> searchComicsByTitle(String title){
+        //List<Comic> comics = comicRepository.findAll();
+        List<Comic> comics = (List<Comic>) comicRepository.findAll();
+        //System.out.println(title);
+        List<Comic> result = new ArrayList<Comic>();
+        for (Comic com: comics){
+
+            if (com.getTitle().contains((CharSequence)title)){
+                result.add(com);
+            }
+            System.out.println(com.getTitle());
+            System.out.println(title);
+        }
+        return result;
+    }
 }

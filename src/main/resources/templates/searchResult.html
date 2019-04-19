@@ -18,6 +18,7 @@
 
     <script src="./js/js.cookie.js"></script>
     <script src="./js/jumpFunction.js"></script>
+    <script src="./js/comicSort.js"></script>
 
 
 </head>
@@ -63,7 +64,7 @@
         </div>
 
         <div id="keywordsortby" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
-                <select class="sortBy" id="sort_by" name="sort_by">
+                <select class="sortBy" id="sort_by" name="sort_by" onchange = "refreshTable()">
                     <option value="view">Views</option>
                     <option value="like">Likes</option>
                     <option value="nameA">Name: A to Z</option>
@@ -71,7 +72,7 @@
         </div>
 
         <div id="series_regular" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
-            <select class="sortBy" id="series_regular_view" name="sort_by" style="margin-right: 20px;">
+            <select class="sortBy" id="series_regular_view" name="sort_by" style="margin-right: 20px;" onchange ="getTable()">
                 <option value="regular">View Regular Comic</option>
                 <option value="series">View Series Comic</option>
             </select>
@@ -278,7 +279,7 @@
         </table>
         </div>
 
-        <div class="pageTurn" style="text-align: center; font-size: 15px">
+        <!--<div class="pageTurn" style="text-align: center; font-size: 15px">
             <hr style="margin-bottom: 0px">
             <ul class="pagination">
                 <li>&laquo;</li>
@@ -290,13 +291,14 @@
             </ul>
             <hr style="margin-top: 0px">
 
-        </div>
+        </div>-->
 
 
     </div>
 
 
 <script>
+    getTable();
     var kw = $.cookie('search_word');
     if(kw!=""){
         document.getElementById("rst").innerText = "\"" + kw + "\"";
@@ -309,7 +311,7 @@
         document.getElementById("series_regular").style.display = "none";
         document.getElementById("keywordsortby").style.display = "none";
         document.getElementById("keywordresult").style.display = "none";
-        $(window).ready(function() { 
+        $(window).ready(function() {
             $.ajax({
                 url: "searchResult.html/author",
                 type: "post",
@@ -328,7 +330,7 @@
                         var tr = document.createElement('TR');
                         tr.style.width = "100%";
                         tbody.appendChild(tr);
-                                                
+
                         // i = 0, first one
                         var td1 = document.createElement('TD');
                         td1.style.width = "33.3%";
@@ -344,9 +346,9 @@
                         td1.appendChild(divBig1);
                         // img photo here
                         var divImg1 = document.createElement('DIV');
-                        divImg1.style.width = "38.2%";  
+                        divImg1.style.width = "38.2%";
                         divImg1.style.paddingTop = "38.2%";
-                        divImg1.style.position = "relative";                      
+                        divImg1.style.position = "relative";
                         var img1 = document.createElement('img');
                         img1.src = obj.picpath[i];
                         img1.style.width = "100%";
@@ -377,7 +379,7 @@
                         td2.style.width = "33.3%";
                         td2.style.paddingBottom = "20px";
                         tr.appendChild(td2);
-                        if(i+1<obj.account.length){                            
+                        if(i+1<obj.account.length){
                             var divBig2 = document.createElement('DIV');
                             divBig2.addEventListener('click', function(){
                                 authorprofile(obj.account[i+1]);
@@ -389,9 +391,9 @@
                             td2.appendChild(divBig2);
                             // img photo here
                             var divImg2 = document.createElement('DIV');
-                            divImg2.style.width = "38.2%";     
-                            divImg2.style.paddingTop = "38.2%";   
-                            divImg2.style.position = "relative";                      
+                            divImg2.style.width = "38.2%";
+                            divImg2.style.paddingTop = "38.2%";
+                            divImg2.style.position = "relative";
                             var img2 = document.createElement('img');
                             img2.src = obj.picpath[i+1];
                             console.log("img src = " + img2.src);
@@ -424,8 +426,8 @@
                         td3.style.width = "33.3%";
                         td3.style.paddingBottom = "20px";
                         tr.appendChild(td3);
-                        
-                        if(i+2<obj.account.length){                            
+
+                        if(i+2<obj.account.length){
                             var divBig3 = document.createElement('DIV');
                             divBig3.addEventListener('click', function(){
                                 authorprofile(obj.account[i+2]);
@@ -437,9 +439,9 @@
                             td3.appendChild(divBig3);
                             // img photo here
                             var divImg3 = document.createElement('DIV');
-                            divImg3.style.width = "38.2%";       
-                            divImg3.style.paddingTop = "38.2%"; 
-                            divImg3.style.position = "relative";                  
+                            divImg3.style.width = "38.2%";
+                            divImg3.style.paddingTop = "38.2%";
+                            divImg3.style.position = "relative";
                             var img3 = document.createElement('img');
                             img3.src = obj.picpath[i+2];
                             console.log("img src = " + img3.src);
@@ -475,11 +477,150 @@
             // }
         });
     }
-    if(by=="keyword"){
+    if(by=="keyword") {
         document.getElementById("keywordsortby").style.display = "block";
         document.getElementById("series_regular").style.display = "block";
         document.getElementById("keywordresult").style.display = "block";
         document.getElementById("authorresult").style.display = "none";
+        var sort = "1";
+        $(window).ready(function () {
+            $.ajax({
+                url: "searchResult.html/keyword",
+                type: "post",
+                async: false,
+                data: {keyword: kw,sorted: sort},
+                success: function (data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data);
+                    var tbody = document.getElementById("search_result_table");
+                    tbody.innerHTML = "";
+                    if (obj.TPALV.length == 0) {
+                        document.getElementById("authorEmpty").style.display = "block";
+                    } else {
+                        document.getElementById("authorEmpty").style.display = "none";
+                    }
+                    for (let i = 0; i < obj.TPALV.length; i += 3) {
+                        var tr = document.createElement('TR');
+                        tbody.appendChild(tr);
+
+                        // i = 0, first one
+                        var td1 = document.createElement('TD');
+                        var img1 = document.createElement('img');
+                        img1.src = obj["TPALV"][i].picPath;
+                        td1.appendChild(img1);
+                        img1.addEventListener('click', function () {
+                            goViewComic(obj["TPALV"][i+1].comicID);
+                        });
+                        var td2 = document.createElement('TD');
+                        td2.style = "padding-right: 20px; padding-bottom: 40px";
+                        var span_title = document.createElement('p');
+                        var t = document.createTextNode(obj["TPALV"][i].title);
+                        span_title.appendChild(t);
+                        var span_author1 = document.createElement('span');
+                        span_author1.addEventListener('click', function () {
+                            authorprofile(obj["TPALV"][i].author);
+                        });
+                        var t = document.createTextNode(obj["TPALV"][i].author);
+                        span_author1.appendChild(t);
+                        var span_likes = document.createElement('p');
+                        var t = document.createTextNode("Likes: " + obj["TPALV"][i].likes);
+                        span_likes.append(t);
+                        var span_views = document.createElement('p');
+                        var t = document.createTextNode("Views: " + obj["TPALV"][i].likes);
+                        span_views.append(t);
+                        td2.appendChild(span_title);
+                        td2.appendChild(span_author1);
+                        td2.appendChild(span_likes);
+                        td2.appendChild(span_views);
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+
+                        //divinfo1.appendChild(span_author1);
+                        //divinfo1.appendChild(document.createElement('br'));
+                        //divinfo1.appendChild(span_follower1);
+                        //divinfo1.appendChild(document.createElement('span').appendChild(document.createTextNode(" follower")));
+                        // add to divBig1
+                        //divBig1.appendChild(divImg1);
+                        //divBig1.appendChild(divinfo1);
+
+                        // i = 1, second one
+                        var td2 = document.createElement('TD');
+                        tr.appendChild(td2);
+                        if (i + 1 < obj.TPALV.length) {
+                            var td1 = document.createElement('TD');
+                            var img1 = document.createElement('img');
+                            img1.src = obj["TPALV"][i+1].picPath;
+                            td1.appendChild(img1);
+                            img1.addEventListener('click', function () {
+                                goViewComic(obj["TPALV"][i+1].comicID);
+                            });
+                            var td2 = document.createElement('TD');
+                            td2.style = "padding-right: 20px; padding-bottom: 40px";
+                            var span_title = document.createElement('p');
+                            var t = document.createTextNode(obj["TPALV"][i+1].title);
+                            span_title.appendChild(t);
+                            var span_author1 = document.createElement('span');
+                            //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
+                            span_author1.addEventListener('click', function () {
+                                authorprofile(obj["TPALV"][i+1].author);
+                            });
+                            var t = document.createTextNode(obj["TPALV"][i+1].author);
+                            span_author1.appendChild(t);
+                            var span_likes = document.createElement('p');
+                            var t = document.createTextNode("Likes: " + obj["TPALV"][i+1].likes);
+                            span_likes.append(t);
+                            var span_views = document.createElement('p');
+                            var t = document.createTextNode("Views: " + obj["TPALV"][i+1].likes);
+                            span_views.append(t);
+                            td2.appendChild(span_title);
+                            td2.appendChild(span_author1);
+                            td2.appendChild(span_likes);
+                            td2.appendChild(span_views);
+                            tr.appendChild(td1);
+                            tr.appendChild(td2);
+                        }
+
+                        // i = 2, first one
+                        var td3 = document.createElement('TD');
+                        tr.appendChild(td3);
+
+                        if (i + 2 < obj.TPALV.length) {
+                            var td1 = document.createElement('TD');
+                            var img1 = document.createElement('img');
+                            img1.src = obj["TPALV"][i+2].picPath;
+                            td1.appendChild(img1);
+                            img1.addEventListener('click', function () {
+                                goViewComic(obj["TPALV"][i+1].comicID);
+                            });
+                            var td2 = document.createElement('TD');
+                            td2.style = "padding-right: 20px; padding-bottom: 40px";
+                            var span_title = document.createElement('p');
+                            var t = document.createTextNode(obj["TPALV"][i+2].title);
+                            span_title.appendChild(t);
+                            var span_author1 = document.createElement('span');
+                            //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
+                            span_author1.addEventListener('click', function () {
+                                authorprofile(obj["TPALV"][i].author);
+                            });
+                            var t = document.createTextNode(obj["TPALV"][i+2].author);
+                            span_author1.appendChild(t);
+                            var span_likes = document.createElement('p');
+                            var t = document.createTextNode("Likes: " + obj["TPALV"][i+2].likes);
+                            span_likes.append(t);
+                            var span_views = document.createElement('p');
+                            var t = document.createTextNode("Views: " + obj["TPALV"][i+2].likes);
+                            span_views.append(t);
+                            td2.appendChild(span_title);
+                            td2.appendChild(span_author1);
+                            td2.appendChild(span_likes);
+                            td2.appendChild(span_views);
+                            tr.appendChild(td1);
+                            tr.appendChild(td2);
+                        }
+                    }
+                }
+        });
+        });
     }
 </script>
 

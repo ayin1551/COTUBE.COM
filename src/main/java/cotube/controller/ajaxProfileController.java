@@ -284,6 +284,5 @@ public class ajaxProfileController{
         result.put("folderId", seriesId);
         System.out.println(result.toString());
         return result.toString();
-        return "a";
     }
 }
