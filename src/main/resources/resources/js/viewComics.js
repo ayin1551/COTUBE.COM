@@ -28,7 +28,6 @@ function comicInfo(){
   return obj;
 }
 
-
 function checkLike(){
   var validality = false;
   var comicid = $("input#comicid").val();
@@ -60,8 +59,6 @@ function likeNumber(){
   return num;
 }
 
-
-
 function checkFavorite(){
   var validality = false;
   var comicid = $("input#comicid").val();
@@ -79,9 +76,6 @@ function checkFavorite(){
 }
 
 
-
-
-
 function toggleLike(){
   var comicid = $("input#comicid").val();
   var user = $.cookie("username");
@@ -97,6 +91,7 @@ function toggleLike(){
         }else{
           document.getElementById("likebtn").src ="./img/like-red.png";
         }
+        document.getElementById("likenumber").innerHTML = likeNumber();
       }
   });
 }
