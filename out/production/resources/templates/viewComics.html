@@ -148,6 +148,9 @@
         if(hasNext()){
             document.getElementById("next").style.display = "initial";
         }
+
+        viewComic($.cookie("username"),$.cookie("comicId"));
+
         $(window).ready(function() {
             var tb = document.getElementById("commenttb");
             var comments = getComment($.cookie("comicId"),1);
@@ -228,8 +231,7 @@
                     span.style.color = "dodgerblue";
                 }
                 span.addEventListener('click', function() {
-                    span.style.color = "white";
-                    commentPage($.cookie("comicId"),i);
+                    commentPage($.cookie("comicId"),i,comments.commentPage);
                 });
                 td.appendChild(span);
                 

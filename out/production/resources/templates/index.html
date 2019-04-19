@@ -73,70 +73,12 @@
         </div>
     </div>
 
-    <div style="/*width:23vw;float:left;*/margin-top:10px;">
-        <table align="center" style="border-collapse:separate; border-spacing:0px 20px;">
-            <th style="text-align:center;" colspan="3">
-                <h2>Top 5 Comics</h2>
-            </th>
-            <tr>
-                <td>
-                    <span style="display:inline;font-size:35px;">1st</span>
-                </td>
-                <td>
-                    <img src="./img/gold-medal.png" width="50px" height="50px" style="display:inline;">
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" height="63px" width="112px" style="display:inline;">
-                    <span style="display:inline;font-size:25px;">Comic Name</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="display:inline;font-size:35px;">2nd</span>
-                </td>
-                <td>
-                    <img src="./img/silver-medal.png" width="50px" height="50px" style="display:inline;">
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" height="63px" width="112px" style="display:inline;">
-                    <span style="display:inline;font-size:25px;">Comic Name</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="display:inline;font-size:35px;">3rd</span>
-                </td>
-                <td>
-                    <img src="./img/bronze-medal.png" width="50px" height="50px" style="display:inline;">
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" height="63px" width="112px" style="display:inline;">
-                    <span style="display:inline;font-size:25px;">Comic Name</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="display:inline;font-size:35px;">4th</span>
-                </td>
-                <td>
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" height="63px" width="112px" style="display:inline;">
-                    <span style="display:inline;font-size:25px;">Comic Name</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="display:inline;font-size:35px;">5th</span>
-                </td>
-                <td>
-                </td>
-                <td>
-                    <img src="./img/t/1.jpg" height="63px" width="112px" style="display:inline;">
-                    <span style="display:inline;font-size:25px;">Comic Name</span>
-                </td>
-            </tr>
+    <div id = "ratedcomics" class = "ratedcomicsTable" style="/*width:23vw;float:left;*/margin-top:10px;">
+        <h2 style="margin-left:0px;">Top 5 Comics</h2>
+        <div>
+        <table class = "topratedTable" id = "top_rated_table" align="center" style="border-collapse:separate; border-spacing:0px 20px;">
         </table>
+        </div>
     </div>
 
     <div style="clear: both;">
@@ -682,6 +624,164 @@
         })
     </script>
 
+    <script>
+        $(function(){
+            var a = 0;
+            var b = 1;
+            var c = 2;
+            var d = 3;
+            var e = 4;
+            var x = getTopRated()
+            console.log(x);
+            var tbody = document.getElementById("top_rated_table");
+            for (i = 0; i < 5; i++){
+                var tr = document.createElement('TR');
+                tr.colspan = 3;
+                tr.style.width = "18vw";
+                tr.style.height = "11vw"
+                tbody.appendChild(tr);
+
+                // i = 0, first one
+                var td1 = document.createElement('TD');
+                td1.style.width = "16vw";
+                td1.style.height = "9vw";
+                td1.style.paddingTop= "15px";
+                tr.append(td1);
+                var divBig1 = document.createElement('DIV');
+                divBig1.style.width = "85%";
+                divBig1.style.height = "85%";
+                td1.appendChild(divBig1);
+                if(i == 0) {
+                    var divImg1 = document.createElement('DIV');
+                    divImg1.style.width = "85%";
+                    divImg1.style.paddingTop = "85%";
+                    divImg1.style.position = "relative";
+                    var img1 = document.createElement('img');
+                    console.log(x.ratedcomics[i].thumbnail_path);
+                    img1.src = "./img/gold-medal.png";
+                    img1.style.width = "90%";
+                    img1.style.height = "90%";
+                    img1.style.position = "absolute";
+                    img1.style.top = "0";
+                    divImg1.appendChild(img1);
+                    // add to divBig1
+                    divBig1.appendChild(divImg1);
+                }
+                else if (i == 1){
+                    var divImg1 = document.createElement('DIV');
+                    divImg1.style.width = "85%";
+                    divImg1.style.paddingTop = "85%";
+                    divImg1.style.position = "relative";
+                    var img1 = document.createElement('img');
+                    console.log(x.ratedcomics[i].thumbnail_path);
+                    img1.src = "./img/silver-medal.png";
+                    img1.style.width = "90%";
+                    img1.style.height = "90%";
+                    img1.style.position = "absolute";
+                    img1.style.top = "0";
+                    divImg1.appendChild(img1);
+                    // add to divBig1
+                    divBig1.appendChild(divImg1);
+                }
+                else if (i == 2){
+                    var divImg1 = document.createElement('DIV');
+                    divImg1.style.width = "85%";
+                    divImg1.style.paddingTop = "85%";
+                    divImg1.style.position = "relative";
+                    var img1 = document.createElement('img');
+                    console.log(x.ratedcomics[i].thumbnail_path);
+                    img1.src = "./img/bronze-medal.png";
+                    img1.style.width = "90%";
+                    img1.style.height = "90%";
+                    img1.style.position = "absolute";
+                    img1.style.top = "0";
+                    divImg1.appendChild(img1);
+                    // add to divBig1
+                    divBig1.appendChild(divImg1);
+                }
+                else{
+
+                }
+
+                // i = 1, second one
+                var td2 = document.createElement('TD');
+                td2.style.width = "7vw";
+                td2.style.height = "9vw";
+                td2.style.paddingTop= "15px";
+                tr.append(td2);
+                var divBig2 = document.createElement('DIV');
+                divBig2.style.width = "85%";
+                divBig2.style.height = "85%";
+                td2.appendChild(divBig2);
+                var divImg2 = document.createElement('DIV');
+                divImg2.style.width = "85%";
+                divImg2.style.paddingTop = "85%";
+                divImg2.style.position = "relative";
+                var divinfo2 = document.createElement('div');
+                divinfo2.style.width = "61.8%";
+                divinfo2.style.marginLeft = "6.8%"
+                var span_title2 = document.createElement('span');
+                var t2 = document.createTextNode("Number " + (i+1));
+                span_title2.appendChild(t2);
+                divinfo2.appendChild(span_title2);
+                // add to divBig1
+                divBig2.appendChild(divinfo2);
+
+                // i = 2, first one
+                var td3 = document.createElement('TD');
+                td3.style.width = "20vw";
+                td3.style.height = "11vw";
+                td3.style.paddingTop= "15px";
+                tr.append(td3);
+                var divBig3 = document.createElement('DIV');
+                divBig3.style.width = "100%";
+                divBig3.style.height = "75%";
+                if (i == 0){
+                divBig3.addEventListener('click', function() {
+                    trendingcomic(x.ratedcomics[a].comic_id, x.regularcomics[a].series_id);
+                    });}
+                else if (i == 1){
+                    divBig3.addEventListener('click', function() {
+                        trendingcomic(x.ratedcomics[b].comic_id, x.regularcomics[b].series_id);
+                    });}
+                else if (i == 2){
+                    divBig3.addEventListener('click', function() {
+                        trendingcomic(x.ratedcomics[c].comic_id, x.regularcomics[c].series_id);
+                    });}
+                else if (i == 3){
+                    divBig3.addEventListener('click', function() {
+                        trendingcomic(x.ratedcomics[d].comic_id, x.regularcomics[d].series_id);
+                    });}
+                else if (i == 4){
+                    divBig3.addEventListener('click', function() {
+                        trendingcomic(x.ratedcomics[e].comic_id, x.regularcomics[e].series_id);
+                    });}
+                td3.appendChild(divBig3);
+                var divImg3 = document.createElement('DIV');
+                divImg3.style.width = "75%";
+                divImg3.style.height = "75%";
+                divImg3.style.position = "relative";
+                var img3 = document.createElement('img');
+                console.log(x.regularcomics[i].thumbnail_path);
+                img3.src = x.regularcomics[i].thumbnail_path;
+                img3.style.width = "80%";
+                img3.style.height = "100%";
+                img3.style.position = "absolute";
+                img3.style.top = "0";
+                divImg3.appendChild(img3);
+                var divinfo3 = document.createElement('div');
+                divinfo3.style.width = "50%";
+                //divinfo3.style.marginLeft = "50%"
+                var span_title3 = document.createElement('span');
+                var t3 = document.createTextNode(x.ratedcomics[i].title);
+                span_title3.appendChild(t3);
+                divinfo3.appendChild(span_title3);
+                // add to divBig1
+                divBig3.appendChild(divImg3);
+                divBig3.appendChild(divinfo3);
+            }
+        })
+    </script>
 
 
     <script>
