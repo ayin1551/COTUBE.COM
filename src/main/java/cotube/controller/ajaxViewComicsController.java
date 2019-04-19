@@ -239,10 +239,10 @@ public class ajaxViewComicsController{
         c.setComment_time(new Date());
         c.setStatus(0);
         c.setUsername(username);
-        for(Comments c: comments){
-            if(c.getComic_id() == comicid){
-                if(c.getComment_number()>high){
-                    high = c.getComment_number();
+        for(Comments i: comments){
+            if(i.getComic_id() == comicid){
+                if(i.getComment_number()>high){
+                    high = i.getComment_number();
                 }
             }
         }

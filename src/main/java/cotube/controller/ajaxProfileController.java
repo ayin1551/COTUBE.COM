@@ -514,11 +514,9 @@ public class ajaxProfileController{
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
             Integer series_id = rc.getSeries_id();
 
-            //delete From Panel
-            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
-
             //delete From Tag
-            List<Tag> tagList = tagService.getAllTagsInRegularComic(comicId);
+            Integer regular_comic_id = comicId;
+            List<Tag> tagList = tagService.getAllTagsInRegularComic(regular_comic_id);
             for (int i = 0; i < tagList.size(); i++)
                 tagService.deleteTag(tagList.get(i));
 
@@ -545,20 +543,24 @@ public class ajaxProfileController{
             //delete from RegularComic
             regularComicService.deleteRegularComic(rc);
 
+            //delete From Panel
+            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
+
             //delete from Comic
             comicService.deleteComic(comic);
-            
+
             if (series_id != null) {
                 List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
                 if(rcSeriesList.isEmpty()){
-
-                    //delete from Series
-                    seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
 
                     //delete from FollowSeries
                     List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
                     for (int i = 0; i < followSeriesList.size(); i++)
                         followSeriesService.deleteFollowSeries(followSeriesList.get(i));
+
+                    //delete from Series
+                    seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+
                 }
             }
         }
