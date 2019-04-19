@@ -590,7 +590,7 @@
                             img1.src = obj["TPALV"][i+2].picPath;
                             td1.appendChild(img1);
                             img1.addEventListener('click', function () {
-                                goViewComic(obj["TPALV"][i+1].comicID);
+                                goViewComic(obj["TPALV"][i+2].comicID);
                             });
                             var td2 = document.createElement('TD');
                             td2.style = "padding-right: 20px; padding-bottom: 40px";
@@ -600,7 +600,7 @@
                             var span_author1 = document.createElement('span');
                             //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                             span_author1.addEventListener('click', function () {
-                                authorprofile(obj["TPALV"][i].author);
+                                authorprofile(obj["TPALV"][i+2].author);
                             });
                             var t = document.createTextNode(obj["TPALV"][i+2].author);
                             span_author1.appendChild(t);
