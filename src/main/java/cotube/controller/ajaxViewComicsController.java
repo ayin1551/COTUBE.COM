@@ -21,6 +21,7 @@ import cotube.services.ComicService;
 import cotube.domain.Comments;
 import cotube.services.CommentsService;
 import cotube.domain.Account;
+import cotube.services.CommentsServiceImpl;
 import cotube.services.AccountService;
 import cotube.domain.RegularComic;
 import cotube.services.RegularComicService;
@@ -280,12 +281,32 @@ public class ajaxViewComicsController{
     @ResponseBody
     public Boolean postComment(HttpServletRequest request){
         String username = request.getParameter("username");
-        String comicid = request.getParameter("comic_id");
+        Integer comicid = Integer.parseInt(request.getParameter("comic_id"));
         String comment = request.getParameter("comment");
-        System.out.println(username);
-        System.out.println(comicid);
-        System.out.println(comment);
-
+        List<Comments> comments = this.commentsService.getAllComments();
+        Integer high = 0;
+        Comments c = new Comments();
+        c.setComic_id(comicid);
+        c.setComment(comment);
+        c.setComment_time(new Date());
+        c.setStatus(0);
+        c.setUsername(username);
+]
+        for(Comments i: comments){
+            if(i.getComic_id() == comicid){
+                if(i.getComment_number()>high){
+                    high = i.getComment_number();
+]
+        for(Comments co: comments){
+            if(co.getComic_id() == comicid){
+                if(co.getComment_number()>high){
+                    high = co.getComment_number();
+]
+                }
+            }
+        }
+        c.setComment_number(high+1);
+        commentsService.addComments(c);
         return true;
     }
 
@@ -299,10 +320,10 @@ public class ajaxViewComicsController{
         List<String> commenter = new ArrayList<String>();
         List<String> commentTime = new ArrayList<String>();
         List<Integer> commentNumber = new ArrayList<Integer>();
-        Integer count = 0;
+        double count = 0;
 
         for(Comments c: comments){
-            if(c.getStatus()==0){
+            if(c.getStatus()==0 && c.getComic_id() == comicid){
                 commentNumber.add(c.getComment_number());
                 count += 1;
             }
@@ -333,7 +354,7 @@ public class ajaxViewComicsController{
         result.put("commentContent", commentContent);
         result.put("commenter", commenter);
         result.put("commentTime", commentTime);
-        result.put("commentCount", count);
+        result.put("commentCount", Math.ceil(count/20));
         System.out.println(result.toString());
         return result.toString();
 

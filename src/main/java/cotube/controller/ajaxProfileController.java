@@ -1,26 +1,8 @@
 package cotube.controller;
 
-import cotube.domain.FollowUser;
-import cotube.domain.Account;
-import cotube.domain.Folder;
-import cotube.domain.FollowSeries;
-import cotube.domain.Series;
-import cotube.domain.Comic;
-import cotube.domain.RegularComic;
-import cotube.domain.Panel;
-import cotube.domain.Views;
-import cotube.domain.Likes;
+import cotube.domain.*;
 
-import cotube.services.FollowUserService;
-import cotube.services.AccountService;
-import cotube.services.FolderService;
-import cotube.services.FollowSeriesService;
-import cotube.services.SeriesService;
-import cotube.services.ComicService;
-import cotube.services.RegularComicService;
-import cotube.services.PanelService;
-import cotube.services.ViewsService;
-import cotube.services.LikesService;
+import cotube.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,10 +51,22 @@ public class ajaxProfileController{
         this.seriesService = seriesService;
     }
 
+    private FavoriteService favoriteService;
+    @Autowired
+    public void setFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
+
     private ComicService comicService;
     @Autowired
     public void setComicService(ComicService comicService) {
         this.comicService = comicService;
+    }
+
+    private CommentsService commentsService;
+    @Autowired
+    public void setCommentsService(CommentsService commentsService) {
+        this.commentsService = commentsService;
     }
 
     private RegularComicService regularComicService;
@@ -97,6 +91,12 @@ public class ajaxProfileController{
     @Autowired
     public void setLikesService(LikesService likesService) {
         this.likesService = likesService;
+    }
+
+    private TagService tagService;
+    @Autowired
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
     }
 
     @RequestMapping(value="/follow",method = RequestMethod.POST)
@@ -513,12 +513,54 @@ public class ajaxProfileController{
         if (type == 0) {//regular
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
             Integer series_id = rc.getSeries_id();
+
+            //delete From Tag
+            Integer regular_comic_id = comicId;
+            List<Tag> tagList = tagService.getAllTagsInRegularComic(regular_comic_id);
+            for (int i = 0; i < tagList.size(); i++)
+                tagService.deleteTag(tagList.get(i));
+
+            //delete From Views
+            List<Views> viewsList = viewsService.getAllViewsInComic(comicId);
+            for (int i = 0; i < viewsList.size(); i++)
+                viewsService.deleteView(viewsList.get(i));
+
+            //delete from Likes
+            List<Likes> likesList = likesService.getAllLikesInComic(comicId);
+            for (int i = 0; i < likesList.size(); i++)
+                likesService.deleteLike(likesList.get(i));
+
+            //delete from Comments
+            List<Comments> commentsList = commentsService.getAllCommentsInComic(comicId);
+            for (int i = 0; i < commentsList.size(); i++)
+                commentsService.deleteComment(commentsList.get(i));
+
+            //delete from Favorites
+            List<Favorite> favoritesList = favoriteService.getAllFavoritesInComic(comicId);
+            for (int i = 0; i < favoritesList.size(); i++)
+                favoriteService.deleteFavorite(favoritesList.get(i));
+
+            //delete from RegularComic
             regularComicService.deleteRegularComic(rc);
+
+            //delete From Panel
+            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
+
+            //delete from Comic
             comicService.deleteComic(comic);
+
             if (series_id != null) {
                 List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
                 if(rcSeriesList.isEmpty()){
+
+                    //delete from FollowSeries
+                    List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
+                    for (int i = 0; i < followSeriesList.size(); i++)
+                        followSeriesService.deleteFollowSeries(followSeriesList.get(i));
+
+                    //delete from Series
                     seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+
                 }
             }
         }

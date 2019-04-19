@@ -36,4 +36,9 @@ public class FollowSeriesServiceImpl implements FollowSeriesService {
         followSeriesRepository.delete(followSeries);
     }
 
+    @Override
+    public List<FollowSeries> getAllFollowSeriesInSeries(Integer series_id) {
+        return followSeriesRepository.getAllFollowSeriesInSeries(series_id);
+    }
+
 }

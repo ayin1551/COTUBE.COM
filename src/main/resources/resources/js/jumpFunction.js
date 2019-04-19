@@ -15,6 +15,17 @@ function authorprofile(name){
     document.location.href="./profile.html";
 }
 
+
+function trendingcomic(comicId, ifSeries){
+    if (ifSeries == null)
+        ifSeries = false;
+    else
+        ifSeries = true;
+    $.cookie("comicId", comicId);
+    $.cookie("ifSeries", ifSeries);
+    document.location.href="./viewComic.html"
+}
+
 function admingohome(){
     document.location.href="./admin.html";
 }

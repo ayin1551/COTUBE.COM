@@ -36,4 +36,9 @@ public class CommentsServiceImpl implements CommentsService {
         commentRepository.delete(comment);
     }
 
+    @Override
+    public List<Comments> getAllCommentsInComic(Integer comic_id) {
+        return commentRepository.getAllCommentsInComic(comic_id);
+    }
+
 }

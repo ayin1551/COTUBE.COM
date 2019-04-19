@@ -37,4 +37,9 @@ public class LikesServiceImpl implements LikesService {
         likesRepository.delete(likes);
     }
 
+    @Override
+    public List<Likes> getAllLikesInComic(Integer comic_id) {
+        return likesRepository.getAllLikesInComic(comic_id);
+    }
+
 }

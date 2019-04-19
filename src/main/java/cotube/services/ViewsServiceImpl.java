@@ -50,4 +50,9 @@ public class ViewsServiceImpl implements ViewsService {
         return result;
     }
 
+    @Override
+    public List<Views> getAllViewsInComic(Integer comic_id) {
+        return viewsRepository.getAllViewsInComic(comic_id);
+    }
+
 }
