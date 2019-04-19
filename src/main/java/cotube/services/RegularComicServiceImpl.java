@@ -37,4 +37,14 @@ public class RegularComicServiceImpl implements RegularComicService {
         regularComicRepository.delete(regularComic);
     }
 
+    @Override
+    public RegularComic getRegularComicByRegular_Comic_Id(Integer integer) {
+        return regularComicRepository.getRegularComicByRegular_Comic_Id(integer);
+    }
+
+    @Override
+    public List<RegularComic> getAllRegularComicsInSeries(Integer series_id) {
+        return regularComicRepository.getAllRegularComicsInSeries(series_id);
+    }
+
 }

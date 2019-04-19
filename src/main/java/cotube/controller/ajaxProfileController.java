@@ -452,10 +452,19 @@ public class ajaxProfileController{
     @ResponseBody
     public Boolean deleteComic(HttpServletRequest request){
         Integer comicId = Integer.parseInt(request.getParameter("comicId"));
-        List<Comic> comics = comicService.getAllComics();
-        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
-        List<Panel> panel = panelService.getAllPanels();
-        List<Series> series = seriesService.getAllSeries();
+        Comic comic = comicService.getComicByComic_Id(comicId);
+        int type = comic.getComic_type();
+        if (type == 0) {//regular
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
+            Integer series_id = rc.getSeries_id();
+            regularComicService.deleteRegularComic(rc);
+            if (series_id != null) {
+                List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
+                if(rcSeriesList.isEmpty()){
+                    seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
+                }
+            }
+        }
 
     
 

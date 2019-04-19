@@ -36,4 +36,9 @@ public class ComicServiceImpl implements ComicService {
         comicRepository.delete(comic);
     }
 
+    @Override
+    public Comic getComicByComic_Id(Integer integer) {
+        return comicRepository.getComicByComic_id(integer);
+    }
+
 }

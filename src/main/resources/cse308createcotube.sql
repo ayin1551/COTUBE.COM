@@ -83,7 +83,7 @@ CREATE TABLE FollowSeries(
     FOREIGN KEY (follower_username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
-	FOREIGN KEY (series_id) REFERENCES RegularComic (series_id)
+	FOREIGN KEY (series_id) REFERENCES Series (series_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
 
