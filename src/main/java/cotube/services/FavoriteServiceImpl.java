@@ -41,4 +41,9 @@ public class FavoriteServiceImpl implements FavoriteService {
         return favoriteRepository.getAllFavoritesInComic(comic_id);
     }
 
+    @Override
+    public List<Favorite> getAllFavoritesInFolderId(Integer folder_id) {
+        return favoriteRepository.getAllFavoritesFromFolderId(folder_id);
+    }
+
 }

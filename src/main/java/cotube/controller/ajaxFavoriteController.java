@@ -98,7 +98,15 @@ public class ajaxFavoriteController{
     @RequestMapping(value="/deleteFolder",method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteFolder(HttpServletRequest request){
+
+
         Integer folderId = Integer.parseInt(request.getParameter("favoriteId"));
+        List<Favorite> favorites = favoriteService.getAllFavoritesInFolderId(folderId);
+
+
+        for(Favorite favorite: favorites){
+            favoriteService.deleteFavorite(favorite);
+        }
         List<Folder> folders = folderService.getAllFolders();
 
 
