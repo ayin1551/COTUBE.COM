@@ -269,7 +269,7 @@
         <div class="modal-content" style="width: fit-content;">
             <span id="x4" class="close">&times;</span>
             <span style="font-size:20px; line-height:200%">Add To:</span>
-            <table class="favoriteTable" >
+            <table class="favoriteTable" id="favTable">
                 <!-- <tr>
                     <td>
                         <input type="checkbox" id="myCheck1">1
@@ -310,21 +310,26 @@
         var modalfavorite = document.getElementById('favoritePopup');
         var btnfavorite = document.getElementById("favbtn");
         btnfavorite.onclick = function() {
-            if(document.getElementById("favbtn").src = "./img/star.png"){
+            console.log("innnnnnnnnnnnnnnnnnn");
+            if(checkFavorite()){
                 removeFromFav();
-            }else if(document.getElementById("favbtn").src = "./img/star-empty.png"){
+            }else if(!checkFavorite()){
+                
+            console.log("elseiiiiiiiiiiiiiiiiiii");
                 modalfavorite.style.display = "block";
                 document.getElementById("fav_error1").style.display = "none";                
                 document.getElementById("fav_error2").style.display = "none";
+            console.log("elseiiiiiiiiiiiiiiiiiii222222");
                 $(window).ready(function() { 
                     $.ajax({
-                        url: "viewComic.html/listFavorite",
+                        url: "viewComics.html/listFavorite",
                         type: "post",
                         async: false,
                         data: {username: $.cookie('username')},
                         success: function (data) {
                             var obj = jQuery.parseJSON(data);
-                            var tbody = document.getElementById("favoriteTable");
+                            var tbody = document.getElementById("favTable");
+                            $("#favTable tr").remove();
                             // exist folder
                             for(let i=0; i<obj.name.length; i++){
                                 var tr = document.createElement('tr');
@@ -334,10 +339,11 @@
                                 checkbox.name = obj.name[i];
                                 checkbox.value = obj.id[i];
                                 checkbox.id = "thisIs" + obj.id[i];
-                                var label = document.createElement('label');
-                                label.appendChild(document.createTextNode(obj.name[i]));
-                                checkbox.appendChild(label);
+                                var span = document.createElement('span');
+                                span.appendChild(document.createTextNode(obj.name[i]));
+                                //checkbox.appendChild();
                                 td.appendChild(checkbox);
+                                td.appendChild(span);
                                 tr.appendChild(td);
                                 tbody.appendChild(tr);
                             }
@@ -358,7 +364,7 @@
                             tdnew.appendChild(checkboxnew);
                             tdnew.appendChild(inputnew);
                             trnew.appendChild(tdnew);
-                            tbody.appendChild(tr);
+                            tbody.appendChild(trnew);
 
                             // submit btn
                             var trsub = document.createElement('tr');

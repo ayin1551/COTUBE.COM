@@ -136,14 +136,13 @@ function addToFav(obj){
   }
   var comicid = $("input#comicid").val();
   var user = $.cookie("username");
-  var idlist = [];
-  var addto = 0;
+  var idlist = "";
   for(let i=0; i<obj.name.length;i++){
     if(document.getElementById("thisIs"+obj.id[i]).checked){
-      idlist[addto] = obj.id[i];
-      addto++;
+      idlist +=obj.id[i] + ",";
     }
   }
+  console.log(idlist);
   $.ajax({
       url: "viewComics.html/addToFav",
       type: "post",

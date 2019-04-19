@@ -258,6 +258,10 @@ public class ajaxViewComicsController{
                 folderId.add(each.getFolder_id());
             }
         }
+        System.out.println("favorite list:");
+        for(int i=0;i<folderName.size();i++){
+            System.out.println(folderName.get(i));
+        }
         JSONObject result = new JSONObject();
         result.put("name", folderName);
         result.put("id", folderId);
@@ -267,12 +271,33 @@ public class ajaxViewComicsController{
     @RequestMapping(value="/addToFav",method = RequestMethod.POST)
     @ResponseBody
     public String addToFav(HttpServletRequest request){
-        // String username = request.getParameter("username");
-        // String comicid = request.getParameter("comic_id");
+        String username = request.getParameter("username");
+        String comicid = request.getParameter("comic_id");
         String newlist= request.getParameter("new_list");
         String idlist= request.getParameter("id_list");
         System.out.println("newlist: " + newlist);
         System.out.println("idlist: " + idlist);
+        if(!newlist.equals("")&&newlist!=null){
+            // create new folder, then add comic into folder
+            int i = 0;
+            List<Folder> all = folderService.getAllFolders();
+            for(Folder a : all){
+                if(a.getFolder_id()>i){
+                    i = a.getFolder_id();
+                }
+            }
+            Folder newf = new Folder(i+1,username,newlist,0,1);
+            folderService.addFolder(newf);
+            Favorite newfa = new Favorite(Integer.parseInt(comicid), username, new Date(), newf.getFolder_id());
+            favoriteService.addFavorite(newfa);
+        }
+        if(idlist!=null&&!idlist.equals("")){
+            String[] id = idlist.split(",");
+            for(String a : id){
+                Favorite newfa = new Favorite(Integer.parseInt(comicid), username, new Date(), Integer.parseInt(a));
+                favoriteService.addFavorite(newfa);
+            }
+        }
         return "";
     }
 
@@ -291,17 +316,10 @@ public class ajaxViewComicsController{
         c.setComment_time(new Date());
         c.setStatus(0);
         c.setUsername(username);
-]
-        for(Comments i: comments){
-            if(i.getComic_id() == comicid){
-                if(i.getComment_number()>high){
-                    high = i.getComment_number();
-]
         for(Comments co: comments){
             if(co.getComic_id() == comicid){
                 if(co.getComment_number()>high){
                     high = co.getComment_number();
-]
                 }
             }
         }
