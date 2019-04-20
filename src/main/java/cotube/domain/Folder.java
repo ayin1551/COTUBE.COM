@@ -18,8 +18,7 @@ public class Folder {
 
     }
 
-    public Folder(Integer folder_id, String username, String folder_name, Integer folder_type, Integer visibility) {
-        this.folder_id = folder_id;
+    public Folder(String username, String folder_name, Integer folder_type, Integer visibility) {
         this.username = username;
         this.folder_name = folder_name;
         this.folder_type = folder_type;

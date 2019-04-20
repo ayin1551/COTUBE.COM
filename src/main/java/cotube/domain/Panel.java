@@ -18,8 +18,7 @@ public class Panel{
 
     }
 
-    public Panel(Integer panel_id, String author, String canvas_path, String title_word, Date date_created) {
-        this.panel_id = panel_id;
+    public Panel(String author, String canvas_path, String title_word, Date date_created) {
         this.author = author;
         this.canvas_path = canvas_path;
         this.title_word = title_word;

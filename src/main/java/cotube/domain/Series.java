@@ -16,8 +16,7 @@ public class Series {
 
     }
 
-    public Series(Integer series_id, String series_name, Integer folder_id, String series_thumbnail_path) {
-        this.series_id = series_id;
+    public Series(String series_name, Integer folder_id, String series_thumbnail_path) {
         this.series_name = series_name;
         this.folder_id = folder_id;
         this.series_thumbnail_path = series_thumbnail_path;

@@ -27,6 +27,7 @@ import org.json.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Random;
 
 @Controller
 @RequestMapping(value="/index.html")
@@ -63,29 +64,24 @@ public class ajaxHomeController{
     public String getTrending(HttpServletRequest request){
         List<RegularComic> regularComics = new ArrayList<>();
         List<Comic> comics = viewsService.getHighestViewedRegularComics();
-        List<Comic> comics2 = viewsService.getHighestViewedRegularComics();
-        List<Comic> comics3 = viewsService.getHighestViewedRegularComics();
-
-        for (int i = 0; i < comics.size(); i++) {
-            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(i).getComic_id());
+        List<Comic> resultComics = new ArrayList<>();
+        int counter = 6;
+        if (comics.size() < 6){
+            counter = comics.size();
+        }
+        Random rand = new Random();
+        for (int i = 0; i < counter; i++) {
+            int index = rand.nextInt(comics.size());
+            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(index).getComic_id());
+            resultComics.add(comics.get(index));
+            comics.remove(index);
             regularComics.add(rc);
         }
 
-        for (int i = 0; i < comics2.size(); i++) {
-            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(i).getComic_id());
-            regularComics.add(rc);
-        }
-
-        for (int i = 0; i < comics3.size(); i++) {
-            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(i).getComic_id());
-            regularComics.add(rc);
-        }
-        comics.addAll(comics2);
-        comics.addAll(comics3);
         System.out.println(comics.toString());
         System.out.println(regularComics.toString());
         JSONObject result = new JSONObject();
-        result.put("comics", comics);
+        result.put("comics", resultComics);
         result.put("regular_comics", regularComics);
         System.out.println(result.toString());
         return result.toString();
@@ -94,17 +90,23 @@ public class ajaxHomeController{
     @RequestMapping(value="/popseries",method = RequestMethod.POST)
     @ResponseBody
     public String getPopularSeries(HttpServletRequest request){
-            List<Series> series = viewsService.getHighestViewedSeries();
-            List<Series> series2 = viewsService.getHighestViewedSeries();
-            List<Series> series3 = viewsService.getHighestViewedSeries();
-
-            series.addAll(series2);
-            series.addAll(series3);
-            System.out.println(series.toString());
-            JSONObject result = new JSONObject();
-            result.put("series", series);
-            System.out.println(result.toString());
-            return result.toString();
+        List<Series> series = viewsService.getHighestViewedSeries();
+        List<Series> seriesResult = new ArrayList<>();
+        int counter = 6;
+        if (series.size() < 6){
+            counter = series.size();
+        }
+        Random rand = new Random();
+        for (int i = 0; i < counter; i++) {
+            int index = rand.nextInt(series.size());
+            seriesResult.add(series.get(index));
+            series.remove(index);
+        }
+        System.out.println(seriesResult.toString());
+        JSONObject result = new JSONObject();
+        result.put("series", seriesResult);
+        System.out.println(result.toString());
+        return result.toString();
     }
 
     @RequestMapping(value="/toprated",method = RequestMethod.POST)
@@ -112,31 +114,21 @@ public class ajaxHomeController{
     public String getTopRatedComics(HttpServletRequest request){
         List<RegularComic> regularComics = new ArrayList<>();
         List<Comic> ratedcomics = likesService.getMostLikedRegularComics();
-        List<Comic> comics2= likesService.getMostLikedRegularComics();
-        List<Comic> comics3 = likesService.getMostLikedRegularComics();
+        List<Comic> ratedcomicsResult = new ArrayList<>();
+        int counter = 5;
+        if (ratedcomics.size() < 5){
+            counter = ratedcomics.size();
+        }
 
-
-        for (int i = 0; i < ratedcomics.size(); i++) {
+        for (int i = 0; i < counter; i++) {
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(ratedcomics.get(i).getComic_id());
             regularComics.add(rc);
+            ratedcomicsResult.add(ratedcomics.get(i));
         }
 
-        for (int i = 0; i < comics2.size(); i++) {
-            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics2.get(i).getComic_id());
-            regularComics.add(rc);
-        }
-
-        for (int i = 0; i < comics3.size(); i++) {
-            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics3.get(i).getComic_id());
-            regularComics.add(rc);
-        }
-        ratedcomics.addAll(comics2);
-        ratedcomics.addAll(comics3);
-        regularComics.remove(5);
-        ratedcomics.remove(5);
         System.out.println(ratedcomics.toString());
         JSONObject result = new JSONObject();
-        result.put("ratedcomics", ratedcomics);
+        result.put("ratedcomics", ratedcomicsResult);
         result.put("regularcomics", regularComics);
         System.out.println(result.toString());
         return result.toString();

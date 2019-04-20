@@ -17,8 +17,7 @@ public class Comic {
     public Comic() {
     }
 
-    public Comic(Integer comic_id, Integer comic_type, String title, Integer status, Date date_published) {
-        this.comic_id = comic_id;
+    public Comic(Integer comic_type, String title, Integer status, Date date_published) {
         this.comic_type = comic_type;
         this.title = title;
         this.status = status;

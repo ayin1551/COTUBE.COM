@@ -286,8 +286,10 @@ public class ajaxViewComicsController{
                     i = a.getFolder_id();
                 }
             }
-            Folder newf = new Folder(i+1,username,newlist,0,1);
+            Folder newf = new Folder(username,newlist,0,1);
             folderService.addFolder(newf);
+            System.out.println(newf);
+            System.out.println(newf.getFolder_id());
             Favorite newfa = new Favorite(Integer.parseInt(comicid), username, new Date(), newf.getFolder_id());
             favoriteService.addFavorite(newfa);
         }
@@ -535,6 +537,29 @@ public class ajaxViewComicsController{
         }
 
         if(!ifView){
+            if (username ==  null){
+                System.out.println("Guest viewing comic");
+                StringBuilder sb = new StringBuilder();
+                sb.append("Guest");
+                String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        + "0123456789"
+                        + "abcdefghijklmnopqrstuvxyz";
+                for (int i = 0; i < 8; i++) {
+
+                    // generate a random number between
+                    // 0 to AlphaNumericString variable length
+                    int index
+                            = (int)(AlphaNumericString.length()
+                            * Math.random());
+
+                    // add Character one by one in end of sb
+                    sb.append(AlphaNumericString
+                            .charAt(index));
+                }
+                username = sb.toString();
+                System.out.println(username);
+            }
+
             Views v = new Views();
             v.setComic_id(comicId);
             v.setViewer_username(username);

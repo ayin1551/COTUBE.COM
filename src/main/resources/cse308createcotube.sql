@@ -94,9 +94,6 @@ CREATE TABLE Views(
     PRIMARY KEY(comic_id, viewer_username),
 	FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
-        ON UPDATE CASCADE,
-	FOREIGN KEY (viewer_username) REFERENCES Account (username)
-		ON DELETE NO ACTION
         ON UPDATE CASCADE);
 
 CREATE TABLE Likes(
@@ -139,7 +136,7 @@ CREATE TABLE Favorite(
     favoriter_username VARCHAR(255),
     favorite_time DATETIME,
     favorite_folder_id INTEGER,
-    PRIMARY KEY(comic_id, favoriter_username),
+    PRIMARY KEY(comic_id, favoriter_username, favorite_folder_id),
     FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE,
