@@ -571,4 +571,14 @@ public class ajaxViewComicsController{
         return null;
     }
 
+
+    @RequestMapping(value="/fphp",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer fphp(HttpServletRequest request){
+        System.out.println("FuckPHP!!!!!!!!!!!!!!!!!!!!!");
+
+        return null;
+    }
+
+
 }

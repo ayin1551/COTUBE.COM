@@ -95,4 +95,8 @@ public class mainController {
         return "viewSeries";
     }
 
+    @RequestMapping(value={"createComicDetail.html"})
+    String createComicDetail(){
+        return "createComicDetail";
+    }
 }
