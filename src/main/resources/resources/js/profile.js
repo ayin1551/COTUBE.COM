@@ -240,3 +240,17 @@ function getOthersComics(username){
     });
     return obj;
 }
+
+function getProfilePic(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "profile.html/getProfilePic",
+        async: false,
+        data: {username:username},
+        success: function(data){
+            obj = data;
+        }
+    });
+    return obj;
+}

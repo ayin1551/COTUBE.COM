@@ -45,3 +45,17 @@ function getTopRated(){
     });
     return obj;
 }
+
+function getTimeline(username){
+    var obj;
+    $.ajax({
+        type: "post",
+        url: "index.html/getTimeline",
+        async: false,
+        data: {username: username},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+        }
+    });
+    return obj;
+}

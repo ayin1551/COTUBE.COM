@@ -150,6 +150,14 @@ public class ajaxProfileController{
         return false;
     }
 
+    @RequestMapping(value="/getProfilePic",method = RequestMethod.POST)
+    @ResponseBody
+    public String getProfilePic(HttpServletRequest request){
+        String username = request.getParameter("username");
+        return accountService.getAccountByUsername(username).getProfile_pic_path();
+    }
+
+
     @RequestMapping(value="/getViews",method = RequestMethod.POST)
     @ResponseBody
     public Integer getViews(HttpServletRequest request){

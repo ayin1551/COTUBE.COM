@@ -5,13 +5,7 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>View Comic</title>
 
-    <!-- TODO:
-            Do not allow guest like, favorite or comment
-            Display comment 20 per pages(Delete button next to own comments)
-            Add next & prev arrow if series
-            Get comicid from cookie and load the page
-            Favorite functionality
-            Like front-end done, back-end to be done -->
+
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
@@ -60,7 +54,7 @@
             </tr>
             <tr>
                 <td>
-                    <span style="font-size:20px;color:gray;margin-left:23px;" id="comicviewnum">Views:8964</span>
+                    <span style="font-size:20px;color:gray;margin-left:23px;" id="comicviewnum"></span>
                 </td>
                 <td>
                     <span style="font-size:20px;display:inline;margin-left:10px;">Created by</span>
@@ -141,13 +135,16 @@
             document.getElementById("delete").style.display = "initial";
         }
 
-        if(hasPrev()){
-            document.getElementById("prev").style.display = "initial";
+        if($.cookie("ifSeries")=="true"?true:false){
+            if(hasPrev()){
+                document.getElementById("prev").style.display = "initial";
+            }
+        
+            if(hasNext()){
+                document.getElementById("next").style.display = "initial";
+            }
         }
-    
-        if(hasNext()){
-            document.getElementById("next").style.display = "initial";
-        }
+        
 
         viewComic($.cookie("username"),$.cookie("comicId"));
 
@@ -253,6 +250,9 @@
         document.getElementById("comicdescription").innerHTML = info.description;        
         document.getElementById("comictitle").innerHTML = comicTitle();
         document.getElementById("authorimg").src = info.authorpath;
+        document.getElementById("authorimg").onclick = function() {
+            authorprofile(info.author);
+        }
         if(info.author==$.cookie("username")){
             document.getElementById("delete").style.display = "block";
         }
@@ -270,9 +270,7 @@
         }else{
             document.getElementById("favbtn").src = "./img/star-empty.png";
         }
-// TODO: 
-        //Check user and add delete button to comment 
-        
+
         
  
     </script>

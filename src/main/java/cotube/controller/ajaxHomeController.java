@@ -210,6 +210,7 @@ public class ajaxHomeController{
         List<String> comicDescription = new ArrayList<String>();
         List<Boolean> comicSeries = new ArrayList<Boolean>();
         List<String> comicSeriesTitle = new ArrayList<String>();
+        List<Integer> comicSeriesId = new ArrayList<Integer>();
 
         for(Integer i:timelineComicId){
             RegularComic rc = this.regularComicService.getRegularComicByRegular_Comic_Id(i);
@@ -224,8 +225,10 @@ public class ajaxHomeController{
             comicSeries.add(rc.getSeries_id()==null?false:true);
             if(rc.getSeries_id()==null?false:true){
                 comicSeriesTitle.add(this.seriesService.getSeriesBySeriesId(rc.getSeries_id()).getSeries_name());
+                comicSeriesId.add(rc.getSeries_id());
             }else{
                 comicSeriesTitle.add("null");
+                comicSeriesId.add(0);
             }
         }
 
@@ -238,6 +241,7 @@ public class ajaxHomeController{
         result.put("comicDescription", comicDescription);
         result.put("comicSeries", comicSeries);
         result.put("comicSeriesTitle", comicSeriesTitle);
+        result.put("comicSeriesId", comicSeriesId);
         System.out.println(result.toString());
         return result.toString();
     }

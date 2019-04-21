@@ -6,9 +6,6 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>CoTube Home Page</title>
 
-    <!-- TODO:
-            Trending comics, popular series and top 5
-            Timeline -->
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
@@ -83,68 +80,10 @@
 
     <div style="clear: both;">
         <section class="timeline" id="timelinesec" style = "visibility: hidden;">
-            <div class="container">
-                <div class="timeline-item">
-        
-                    <div class="timeline-img"></div>
-        
-                    <div class="timeline-content js--fadeInLeft">
-                        <div class="date">1 min ago</div>
-                        <img src="./img/t/4.jpg" height="100px" style="display:inline;">
-                        <h2 style="color:black;display:inline;">Comic Title</h2>
-                        <table style="margin-top:10px;">
-                            <tr>
-                                <td><h4 style="color:black;">Author:</h4></td>
-                                <td><a href="profile.html" style="display:inline;margin-left:5px;">crazyArtist2048</a></td>
-                            </tr>
-                        </table>
-                        <blockquote>This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!</blockquote>
-                    </div>
-                </div>   
-                
-                <div class="timeline-item">
-        
-                    <div class="timeline-img"></div>
-        
-                    <div class="timeline-content js--fadeInRight">
-                        <div class="date">54 min ago</div>
-                        <img src="./img/t/4.jpg" height="100px" style="display:inline;">
-                        <h2 style="color:black;display:inline;">Comic Title</h2>
-                        <table style="margin-top:10px;border-collapse:separate; border-spacing:0px 10px;">
-                            <tr>
-                                <td><h4 style="color:black;">Author:</h4></td>
-                                <td><a href="profile.html" style="display:inline;margin-left:5px;">dragonMayCry</a></td>
-                                <td><a href="profile.html" style="display:inline;margin-left:5px;">godMayLaugh</a></td>>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><a href="profile.html" style="display:inline;margin-left:5px;">neilTheDevil</a></td>
-                                <td><a href="profile.html" style="display:inline;margin-left:5px;">danteTheHunter</a></td>
-                            </tr>
-                        </table>
-                        <blockquote>This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!</blockquote>
-                    </div>
-                </div>  
-                <div class="timeline-item">
-        
-                    <div class="timeline-img"></div>
-        
-                    <div class="timeline-content js--fadeInLeft">
-                        <div class="date">3 hours ago</div>
-                        <img src="./img/t/4.jpg" height="100px" style="display:inline;">
-                        <h2 style="color:black;display:inline;">Comic Title</h2>
-                        <table style="margin-top:10px;">
-                            <tr>
-                                <td><h4 style="color:black;">Author:</h4></td>
-                                <td><a href="profile.html" style="display:inline;margin-left:5px;">gasGasGas</a></td>
-                            </tr>
-                        </table>
-                        <blockquote>This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!This is a description!</blockquote>
-                    </div>
-                </div>  
+            <div class="container" id = "timelinediv">
             </div>
-            </section>
-        </div>
+        </section>
+    </div>
 
 
         <script>
@@ -798,6 +737,103 @@
             document.getElementById("setting").style.display = "none";
         }
 
+        if($.cookie('role')=="user"){
+            $(window).ready(function() {
+                //TODO: GAME COMIC
+                var timeline = getTimeline($.cookie('username'));
+                console.log(timeline);
+                var div = document.getElementById("timelinediv");
+                for(let i = 0; i < timeline.comicId.length; i++){
+                    var itemdiv = document.createElement("div");
+                    itemdiv.className = "timeline-item";
+                    div.appendChild(itemdiv);
+                    var imgdiv = document.createElement("div");
+                    imgdiv.className = "timeline-img";
+                    itemdiv.appendChild(imgdiv);
+                    var contentdiv = document.createElement("div");
+                    contentdiv.className = "timeline-content js--fadeInLeft";
+                    itemdiv.appendChild(contentdiv);
+                    var datediv = document.createElement("div");
+                    datediv.className = "date";
+                    var dateText = document.createTextNode(timeline.comicTime[i]);
+                    datediv.appendChild(dateText);
+                    contentdiv.appendChild(datediv);
+                    var img = document.createElement('img');
+                    contentdiv.appendChild(img);
+                    img.src = timeline.comicThumbnail[i];
+                    img.style.height = "100px";
+                    img.style.display = "inline";
+                    img.addEventListener('click', function() {
+                        $.cookie("comicId",timeline.comicId[i]);
+                        $.cookie("ifSeries",timeline.comicSeries[i]);
+                        document.location.href = "./viewComics.html";
+                    });
+                    var header = document.createElement("h2");
+                    var headerText = document.createTextNode(timeline.comicTitle[i]);
+                    header.appendChild(headerText);
+                    header.style.color = "black";
+                    header.style.display = "inline";
+                    header.addEventListener('click', function() {
+                        $.cookie("comicId",timeline.comicId[i]);
+                        $.cookie("ifSeries",timeline.comicSeries[i]);
+                        document.location.href = "./viewComics.html";
+                    });
+                    contentdiv.appendChild(header);
+                    var table = document.createElement("table");
+                    table.style.marginTop = "10px";
+                    contentdiv.appendChild(table);
+                    var tr = document.createElement("tr");
+                    table.appendChild(tr);
+                    var td1 = document.createElement("td");
+                    tr.appendChild(td1);
+                    var header4 = document.createElement("h4");
+                    var header4Text = document.createTextNode("Author:");
+                    header4.appendChild(header4Text);
+                    header4.style.color = "black";
+                    td1.appendChild(header4);
+                    var td2 = document.createElement("td");
+                    tr.appendChild(td2);
+                    var a = document.createElement("a");
+                    a.href = "./profile.html";
+                    a.style.display = "inline";
+                    a.style.marginLeft = "5px";
+                    a.addEventListener('click', function() {
+                        $.cookie("profileUsername",timeline.comicAuthor[i]);
+                    });
+                    var aText = document.createTextNode(timeline.comicAuthor[i]);
+                    a.appendChild(aText);
+                    td2.appendChild(a);
+                    if(timeline.comicSeries[i]){
+                        var tr2 = document.createElement("tr");
+                        table.appendChild(tr2);
+                        var td3 = document.createElement("td");
+                        tr2.appendChild(td3);
+                        var header42 = document.createElement("h4");
+                        var header42Text = document.createTextNode("Series:");
+                        header42.appendChild(header42Text);
+                        header42.style.color = "black";
+                        td3.appendChild(header42);
+                        var td4 = document.createElement("td");
+                        tr2.appendChild(td4);
+                        var a2 = document.createElement("a");
+                        a2.href = "./viewSeries.html";
+                        a2.style.display = "inline";
+                        a2.style.marginLeft = "5px";
+                        a2.addEventListener('click', function() {
+                            $.cookie("seriesId",timeline.comicSeriesId[i]);
+                            document.location.href = "./viewSeries.html";
+                        });
+                        var a2Text = document.createTextNode(timeline.comicSeriesTitle[i]);
+                        a2.appendChild(a2Text);
+                        td4.appendChild(a2);
+                    }
+                    var description = document.createElement("blockquote");
+                    contentdiv.append(description);
+                    var descriptionText = document.createTextNode(timeline.comicDescription[i]);
+                    description.appendChild(descriptionText);
+                }
+            });
+        }
 
     </script>
 </body>
