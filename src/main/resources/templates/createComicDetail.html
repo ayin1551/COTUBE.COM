@@ -48,6 +48,9 @@
 </div>
 <script>
     var cusername = $.cookie('username');
+    if(document.location.href.endsWith('/')){
+        document.location.href = document.location.href.slice(0,-1);
+    }
     if(cusername=="null" || cusername==undefined){
         document.location.href="./index.html";
     }
