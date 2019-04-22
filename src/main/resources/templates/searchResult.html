@@ -514,7 +514,8 @@
                         img1.src = obj["TPALV"][i].picPath;
                         td1.appendChild(img1);
                         img1.style.width = "17.6vw";
-                        img1.style.height = "9.9vw";
+                        img1.style.height = "9.9vw";                 
+                        img1.style.cursor = "pointer";
                         img1.addEventListener('click', function () {
                             goViewComic(obj["TPALV"][i].comicID);
                         });
@@ -524,8 +525,13 @@
                         var span_title = document.createElement('p');
                         var t = document.createTextNode(obj["TPALV"][i].title);
                         span_title.appendChild(t);
+                        span_title.addEventListener('click', function () {
+                            goViewComic(obj["TPALV"][i].comicID);
+                        });
                         span_title.style.width = "11vw";
+                        span_title.style.cursor = "pointer";
                         var span_author1 = document.createElement('span');
+                        span_author1.style.cursor = "pointer";
                         span_author1.addEventListener('click', function () {
                             authorprofile(obj["TPALV"][i].author);
                         });
@@ -559,7 +565,8 @@
                             var td1 = document.createElement('TD');
                             var img1 = document.createElement('img');
                             img1.style.width = "17.6vw";
-                            img1.style.height = "9.9vw";
+                            img1.style.height = "9.9vw";                 
+                            img1.style.cursor = "pointer";
                             img1.src = obj["TPALV"][i+1].picPath;
                             td1.appendChild(img1);
                             img1.addEventListener('click', function () {
@@ -569,9 +576,14 @@
                             td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                             var span_title = document.createElement('p');
                             var t = document.createTextNode(obj["TPALV"][i+1].title);
-                            span_title.appendChild(t);                            
+                            span_title.appendChild(t);   
+                            span_title.addEventListener('click', function () {
+                                goViewComic(obj["TPALV"][i+1].comicID);
+                            });                         
                             span_title.style.width = "11vw";
+                            span_title.style.cursor = "pointer";
                             var span_author1 = document.createElement('span');
+                            span_author1.style.cursor = "pointer";
                             //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                             span_author1.addEventListener('click', function () {
                                 authorprofile(obj["TPALV"][i+1].author);
@@ -600,7 +612,8 @@
                             var td1 = document.createElement('TD');
                             var img1 = document.createElement('img');
                             img1.style.width = "17.6vw";
-                            img1.style.height = "9.9vw";
+                            img1.style.height = "9.9vw";                 
+                            img1.style.cursor = "pointer";
                             img1.src = obj["TPALV"][i+2].picPath;
                             td1.appendChild(img1);
                             img1.addEventListener('click', function () {
@@ -611,8 +624,13 @@
                             var span_title = document.createElement('p');
                             var t = document.createTextNode(obj["TPALV"][i+2].title);
                             span_title.appendChild(t);
+                            span_title.addEventListener('click', function () {
+                                goViewComic(obj["TPALV"][i+2].comicID);
+                            });
                             span_title.style.width = "11vw";
+                            span_title.style.cursor = "pointer";
                             var span_author1 = document.createElement('span');
+                            span_author1.style.cursor = "pointer";  
                             //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                             span_author1.addEventListener('click', function () {
                                 authorprofile(obj["TPALV"][i+2].author);
@@ -636,7 +654,8 @@
                 }
         });
         });
-    }else{
+    }
+    if(by=="keyword" && document.getElementById('selectseries').selected == true){
         $(window).ready(function () {
             document.getElementById("keywordsortby").style.display = "block";
             document.getElementById("series_regular").style.display = "block";

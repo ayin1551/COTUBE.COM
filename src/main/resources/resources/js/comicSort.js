@@ -63,6 +63,7 @@ function getSeriesTable(){
                 var img1 = document.createElement('img');
                 img1.style.width = "17.6vw";
                 img1.style.height = "9.9vw";
+                img1.style.cursor = "pointer";
                 img1.src = obj["TPALV"][i].picPath;
                 td1.appendChild(img1);
                 img1.addEventListener('click', function () {
@@ -73,10 +74,11 @@ function getSeriesTable(){
                 var span_title = document.createElement('p');
                 var t = document.createTextNode(obj["TPALV"][i].title);
                 span_title.appendChild(t);
-                span_title.style.width = "11vw";
                 span_title.addEventListener('click', function () {
                     goViewSeries(obj["TPALV"][i].seriesID);
                 });
+                span_title.style.width = "11vw";
+                span_title.style.cursor = "pointer";
                 var span_author = document.createElement('p');
                 var t = document.createTextNode(obj["TPALV"][i].author);
                 span_author.appendChild(t);
@@ -106,7 +108,8 @@ function getSeriesTable(){
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
                     img1.style.width = "17.6vw";
-                    img1.style.height = "9.9vw";
+                    img1.style.height = "9.9vw";                 
+                    img1.style.cursor = "pointer";
                     img1.src = obj["TPALV"][i + 1].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
@@ -117,10 +120,11 @@ function getSeriesTable(){
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i + 1].title);
                     span_title.appendChild(t);
-                    span_title.style.width = "11vw";
                     span_title.addEventListener('click', function () {
                         goViewSeries(obj["TPALV"][i + 1].seriesID);
                     });
+                    span_title.style.width = "11vw";
+                    span_title.style.cursor = "pointer";
                     td2.appendChild(span_title);
                     tr.appendChild(td1);
                     tr.appendChild(td2);
@@ -135,7 +139,8 @@ function getSeriesTable(){
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
                     img1.style.width = "17.6vw";
-                    img1.style.height = "9.9vw";
+                    img1.style.height = "9.9vw";                 
+                    img1.style.cursor = "pointer";
                     img1.src = obj["TPALV"][i + 2].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
@@ -146,10 +151,11 @@ function getSeriesTable(){
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i + 2].title);
                     span_title.appendChild(t);
-                    span_title.style.width = "11vw";
                     span_title.addEventListener('click', function () {
                         goViewSeries(obj["TPALV"][i + 2].seriesID);
                     });
+                    span_title.style.width = "11vw";
+                    span_title.style.cursor = "pointer";
                     td2.appendChild(span_title);
                     tr.appendChild(td1);
                     tr.appendChild(td2);
@@ -197,7 +203,8 @@ function refreshTable(){
                 var td1 = document.createElement('TD');
                 var img1 = document.createElement('img');
                 img1.style.width = "17.6vw";
-                img1.style.height = "9.9vw";
+                img1.style.height = "9.9vw";                 
+                img1.style.cursor = "pointer";
                 img1.src = obj["TPALV"][i].picPath;
                 td1.appendChild(img1);
                 img1.addEventListener('click', function () {
@@ -208,8 +215,13 @@ function refreshTable(){
                 var span_title = document.createElement('p');
                 var t = document.createTextNode(obj["TPALV"][i].title);
                 span_title.appendChild(t);
+                span_title.addEventListener('click', function () {
+                    goViewComic(obj["TPALV"][i].comicID);
+                });
                 span_title.style.width = "11vw";
+                span_title.style.cursor = "pointer";
                 var span_author1 = document.createElement('span');
+                span_author1.style.cursor = "pointer";
                 span_author1.addEventListener('click', function () {
                     authorprofile(obj["TPALV"][i].author);
                 });
@@ -243,7 +255,8 @@ function refreshTable(){
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
                     img1.style.width = "17.6vw";
-                    img1.style.height = "9.9vw";
+                    img1.style.height = "9.9vw";                 
+                    img1.style.cursor = "pointer";
                     img1.src = obj["TPALV"][i+1].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
@@ -254,8 +267,13 @@ function refreshTable(){
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i+1].title);
                     span_title.appendChild(t);
+                    span_title.addEventListener('click', function () {
+                        goViewComic(obj["TPALV"][i+1].comicID);
+                    });
                     span_title.style.width = "11vw";
+                    span_title.style.cursor = "pointer";
                     var span_author1 = document.createElement('span');
+                    span_author1.style.cursor = "pointer";
                     //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                     span_author1.addEventListener('click', function () {
                         authorprofile(obj["TPALV"][i+1].author);
@@ -284,7 +302,8 @@ function refreshTable(){
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
                     img1.style.width = "17.6vw";
-                    img1.style.height = "9.9vw";
+                    img1.style.height = "9.9vw";                 
+                    img1.style.cursor = "pointer";
                     img1.src = obj["TPALV"][i+2].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
@@ -295,8 +314,13 @@ function refreshTable(){
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i+2].title);
                     span_title.appendChild(t);
+                    span_title.addEventListener('click', function () {
+                        goViewComic(obj["TPALV"][i+2].comicID);
+                    });
                     span_title.style.width = "11vw";
+                    span_title.style.cursor = "pointer";
                     var span_author1 = document.createElement('span');
+                    span_author1.style.cursor = "pointer";
                     //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                     span_author1.addEventListener('click', function () {
                         authorprofile(obj["TPALV"][i].author);

@@ -49,19 +49,19 @@
         <table align="center" style="text-align: center;">
             <tr>
                 <td colspan="3">
-                    <h1 id="comictitle">Comic Title</h1>
+                    <h1 id="comictitle" style="cursor:default;">Comic Title</h1>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span style="font-size:20px;color:gray;margin-left:23px;" id="comicviewnum"></span>
+                    <span style="font-size:20px;color:gray;margin-left:23px;cursor:default;" id="comicviewnum"></span>
                 </td>
                 <td>
-                    <span style="font-size:20px;display:inline;margin-left:10px;">Created by</span>
-                    <a  style="display:inline;font-size:20px;" id="comicauthor"></a>
+                    <span style="font-size:20px;display:inline;margin-left:10px;cursor:default;">Created by</span>
+                    <a  style="display:inline;font-size:20px;cursor:pointer" id="comicauthor"></a>
                 </td>
                 <td>
-                    <img src = "" style = "display:inline;margin-left:5px;" width = "45px" height = "45px" id="authorimg">
+                    <img src = "" style = "display:inline;margin-left:5px;cursor:pointer;" width = "45px" height = "45px" id="authorimg">
                 </td>
             </tr>
             <tr>
@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <td align="center">
-                    <span id="likenumber"></span>
+                    <span id="likenumber" style="cursor:default;"></span>
                 </td>
                 <td align="center"></td>
             </tr>
@@ -99,11 +99,11 @@
     <br>
     <table align="center" width = "65%">
         <tr>
-            <td colspan="2" id="comicdescription"></td>
+            <td colspan="2" id="comicdescription" style="cursor:default;"></td>
         </tr>
         <tr>
             <td>
-                <h2 style="margin-left:0px;" id = "commentHeader"></h2>
+                <h2 style="margin-left:0px;cursor:default;" id = "commentHeader"></h2>
             </td>
         </tr>
         <tr id = "comments">
@@ -162,6 +162,7 @@
                 span.appendChild(t);
                 td.appendChild(span);
                 span.style.marginLeft = "0px";
+                span.style.cursor = "default";
                 
 
                 var tr2 = document.createElement('tr');
@@ -173,6 +174,7 @@
                 span2.appendChild(t2);
                 td2.appendChild(span2);
                 span2.style.marginLeft = "0px";
+                span2.style.cursor = "default";
 
                 var a = document.createElement('a');
                 a.href = "./profile.html";
@@ -186,6 +188,7 @@
                 span3.appendChild(t4);
                 span3.style.cssFloat = "right";
                 span3.style.marginRight = "0.5em";
+                span3.style.cursor = "default";
                 td2.appendChild(span3);
 
                 var span4 = document.createElement('span');
@@ -193,6 +196,7 @@
                 span4.appendChild(t5);
                 span4.style.cssFloat = "right";
                 span4.style.marginRight = "0.5em";
+                span4.style.cursor = "default";
                 td2.appendChild(span4);
 
                 if($.cookie("username")==comments.commenter[i]){
@@ -223,6 +227,7 @@
                 var t = document.createTextNode(i);
                 span.appendChild(t);
                 span.style.marginRight = "10px";
+                span.style.cursor = "pointer";
                 span.id = "span"+i;
                 if(i==1){
                     span.style.color = "dodgerblue";
@@ -247,7 +252,7 @@
         }
         document.getElementById("comicviewnum").innerHTML = "Views:"+info.views;
         document.getElementById("comicimg").src = info.path;
-        document.getElementById("comicdescription").innerHTML = info.description;        
+        document.getElementById("comicdescription").innerHTML = "Description: " + info.description;        
         document.getElementById("comictitle").innerHTML = comicTitle();
         document.getElementById("authorimg").src = info.authorpath;
         document.getElementById("authorimg").onclick = function() {
@@ -283,7 +288,7 @@
     <div id="favoritePopup" class="modal">
         <div class="modal-content" style="width: fit-content;">
             <span id="x4" class="close">&times;</span>
-            <span style="font-size:20px; line-height:200%">Add To:</span>
+            <span style="font-size:20px; line-height:200%; cursor:default;">Add To:</span>
             <table class="favoriteTable" id="favTable">
                 <!-- <tr>
                     <td>
@@ -317,24 +322,20 @@
                     </td>
                 </tr> -->
             </table>
-            <h4 id="fav_error1" style="color:red;display:none;margin-left:20px;font-weight: 300;">Please Input Name of List.</h4>
-            <h4 id="fav_error2" style="color:red;display:none;margin-left:20px;font-weight: 300;">Please Select At Least One List.</h4>
+            <h4 id="fav_error1" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Please Input Name of List.</h4>
+            <h4 id="fav_error2" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Please Select At Least One List.</h4>
         </div>
     </div>            
     <script>
         var modalfavorite = document.getElementById('favoritePopup');
         var btnfavorite = document.getElementById("favbtn");
         btnfavorite.onclick = function() {
-            console.log("innnnnnnnnnnnnnnnnnn");
             if(checkFavorite()){
                 removeFromFav();
             }else if(!checkFavorite()){
-                
-            console.log("elseiiiiiiiiiiiiiiiiiii");
                 modalfavorite.style.display = "block";
                 document.getElementById("fav_error1").style.display = "none";                
                 document.getElementById("fav_error2").style.display = "none";
-            console.log("elseiiiiiiiiiiiiiiiiiii222222");
                 $(window).ready(function() { 
                     $.ajax({
                         url: "viewComics.html/listFavorite",
@@ -356,6 +357,7 @@
                                 checkbox.id = "thisIs" + obj.id[i];
                                 var span = document.createElement('span');
                                 span.appendChild(document.createTextNode(obj.name[i]));
+                                span.style.cursor = "default";
                                 //checkbox.appendChild();
                                 td.appendChild(checkbox);
                                 td.appendChild(span);

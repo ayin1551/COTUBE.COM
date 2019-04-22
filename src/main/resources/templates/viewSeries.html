@@ -56,12 +56,12 @@
                     <img src = "./img/t/4.jpg" style = "margin-left:25px;margin-right:25px;" height = "170px" id="seriesThumb">
                 </td>
                 <td>
-                    <p style = "font-size: 25px;display:inline;" id = "seriestitle"></p>
+                    <p style = "font-size: 25px;display:inline;cursor:default" id = "seriestitle"></p>
                     <button type="button" class = "deleteButton" style="float:right;margin-top:0px;margin-right:30px;margin-left:50px;display:none;" id="delete" onclick="deleteSeries();">Delete</button>
                     <br>
-                    <span style="font-size:25px;">by </span><a href="profile.html" style="font-size:25px;" id="comicauthor"></a>
-                    <p style = "font-size: 25px;" id = "following"></p>
-                    <p style = "font-size: 25px;" id = "viewlike"></p>
+                    <span style="font-size:25px;cursor:default">by </span><a href="profile.html" style="font-size:25px;cursor:pointer" id="comicauthor"></a>
+                    <p style = "font-size: 25px;cursor:default" id = "following"></p>
+                    <p style = "font-size: 25px;cursor:default" id = "viewlike"></p>
                     <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followSeries();">Follow Series</button>
                     <button type="button" class="unfollowButton" style = "border-radius: 5px;display:none;" id="unfollow" onclick="unfollowSeries();">Unfollow Series</button>
                 </td>
@@ -105,6 +105,7 @@
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
+                        img.style.cursor = "pointer";
                         img.addEventListener('click', function() {
                             comicRedirect(comics.comicId[j],true);
                         });
@@ -117,7 +118,10 @@
                         td.appendChild(span);
                         span.style.fontSize = "20px";
                         span.style.marginLeft = "2.5vw";
-                        
+                        span.style.cursor = "pointer";
+                        span.addEventListener('click', function() {
+                            comicRedirect(comics.comicId[j],true);
+                        });
                         
                         var input1 = document.createElement('input');
                         td.appendChild(input1);
@@ -166,6 +170,7 @@
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
+                        img.style.cursor = "pointer";
                         img.addEventListener('click', function() {
                             comicRedirect(comics.comicId[j],true);
                         });
@@ -178,7 +183,10 @@
                         td.appendChild(span);
                         span.style.fontSize = "20px";
                         span.style.marginLeft = "2.5vw";
-                        
+                        span.style.cursor = "pointer";
+                        span.addEventListener('click', function() {
+                            comicRedirect(comics.comicId[j],true);
+                        });
                         
                         var br2 = document.createElement('br');
                         
