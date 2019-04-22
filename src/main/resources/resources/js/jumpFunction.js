@@ -1,7 +1,7 @@
 function searchResult() {
     var word = document.getElementById("search_word").value;
     $.cookie('search_word',word);
-
+    $.cookie('searchComicType', 'regular');
     var by = document.getElementById("search_by").value;
     $.cookie('search_by',by);
     if(word!=""){

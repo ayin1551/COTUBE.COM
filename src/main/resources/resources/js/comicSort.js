@@ -1,11 +1,28 @@
+function checksortby(){
+    if(document.getElementById("series_regular").style.display == "block"){
+        if(document.getElementById("selectseries").selected==true){
+            document.getElementById("keywordsortby").style.display = "none";
+        }else{
+            document.getElementById("keywordsortby").style.display = "block";
+        }
+    }
+}
+
+
 function getTable(){
+    if($.cookie('searchComicType')=='series'){
+        option = 'series';
+        document.getElementById("selectseries").selected = true;
+    }
     var selector = document.getElementById("series_regular_view");
     var option = selector.options[selector.selectedIndex].value;
+    console.log("option:" + option);
+    checksortby();
     if (option == "series"){
         getSeriesTable();
     }
     else{
-        refreshTable()
+        refreshTable();
     }
 }
 function getSeriesTable(){
