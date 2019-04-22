@@ -175,6 +175,19 @@ function postComment(){
   }
 }
 
+function deleteComic(){
+  $.ajax({
+      type: "post",
+      url: "viewComics.html/deleteComic",
+      async: false,
+      data: {comicId:$.cookie('comicId')},
+      success: function(data){
+
+      }
+  });
+  document.location.href = "./profile.html";
+}
+
 
 function getComment(id, num){
   var obj;
