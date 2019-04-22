@@ -73,8 +73,8 @@
 
         <div id="series_regular" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
             <select class="sortBy" id="series_regular_view" name="sort_by" style="margin-right: 20px;" onchange ="getTable()">
-                <option value="regular">View Regular Comic</option>
-                <option value="series">View Series Comic</option>
+                <option value="regular" onclick="checksortby()">View Regular Comic</option>
+                <option value="series" id = "selectseries" onclick="checksortby()">View Series Comic</option>
             </select>
         </div>
 
@@ -109,7 +109,7 @@
     <div id="keywordresult" class="searchResultTable" style="display: none;">
         <div>
         <table class="searchResultTable" id="search_result_table" style="font-size: 16px">
-            <tr>
+            <!-- <tr>
                 <td><img src="./img/t/1.jpg"></td>
                 <td style="padding-right: 20px; padding-bottom: 40px">
                     <p>ImgName1</p>
@@ -275,7 +275,7 @@
                     <p>AuthorName3</p>
                     <p>View:xxx Like:xxx Comment:xxx</p>
                 </td>
-            </tr>
+            </tr> -->
         </table>
         </div>
 
@@ -299,6 +299,7 @@
 
 <script>
     getTable();
+    
     var kw = $.cookie('search_word');
     if(kw!=""){
         document.getElementById("rst").innerText = "\"" + kw + "\"";
@@ -480,17 +481,20 @@
     if(by=="keyword") {
         document.getElementById("keywordsortby").style.display = "block";
         document.getElementById("series_regular").style.display = "block";
+        // checksortby();
         document.getElementById("keywordresult").style.display = "block";
         document.getElementById("authorresult").style.display = "none";
         var sort = "1";
         $(window).ready(function () {
+            // checksortby();
             $.ajax({
                 url: "searchResult.html/keyword",
                 type: "post",
                 async: false,
                 data: {keyword: kw,sorted: sort},
                 success: function (data) {
-                    console.log(data);
+                    // checksortby();
+                    console.log("!!!!!!!!!!!!!!!"+data);
                     var obj = jQuery.parseJSON(data);
                     var tbody = document.getElementById("search_result_table");
                     tbody.innerHTML = "";
@@ -500,6 +504,7 @@
                         document.getElementById("authorEmpty").style.display = "none";
                     }
                     for (let i = 0; i < obj.TPALV.length; i += 3) {
+                        console.log("fuxk");
                         var tr = document.createElement('TR');
                         tbody.appendChild(tr);
 
