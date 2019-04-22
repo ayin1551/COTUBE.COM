@@ -102,14 +102,9 @@ function changeNewPP(){
     var path = document.getElementById("newPP");
     var file = document.querySelector('input[type=file]').files[0];
     var reader = new FileReader();
-
-    reader.onloadend = function () {
-        path.src = reader.result;
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+        console.log('RESULT', reader.result)
     }
-    if (file) {
-        reader.readAsDataURL(file); //reads the data as a URL
-    } else {
-        path.src = "";
-    }
-    //document.getElementById("newpp").src = "http://127.0.0.1:8887/oldpp.jpg";
+  
 }

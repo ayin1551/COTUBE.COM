@@ -60,25 +60,5 @@ public class ajaxCreateController {
         this.regularComicService = regularComicService;
     }
 
-    // @RequestMapping(value = "/saveComic", method = RequestMethod.POST)
-    // public String saveComic(HttpServletRequest request) throws IOException {
-    //     String img = request.getParameter("data");
-    //     byte[] imageByte;
-    //     BufferedImage image = null;
-    //     Decoder decoder = java.util.Base64.getMimeDecoder();
-
-    //     imageByte = decoder.decode(img);
-    //     ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-    //     image = ImageIO.read(bis);
-    //     bis.close();
-        
-    //     File outputfile = new File("cotubeImage.png");
-    //     ImageIO.write(image, "png", outputfile);
-
-    //     return "";
-    // }
-
- 
-
 
 }
