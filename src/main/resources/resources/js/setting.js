@@ -87,11 +87,11 @@ function changeProfile(){
     var pathj = document.getElementById("file-input").value;
     alert(pathj);
     $.ajax({
-        url: "settings.html/changeProfile",
+        url: "setting.html/changeProfile",
         type: "post",
         async: false,
         data: {username: $.cookie("username"),following:following},
-        success: function (data) {//signUpController to check if the username already exist
+        success: function (data) {
             validality = data;
         }
     });
@@ -99,12 +99,20 @@ function changeProfile(){
 }
 
 function changeNewPP(){
-    var path = document.getElementById("newPP");
     var file = document.querySelector('input[type=file]').files[0];
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = function() {
-        console.log('RESULT', reader.result)
+        $.ajax({
+            url: "setting.html/uploadPicture",
+            type: "post",
+            async: false,
+            data: {username: $.cookie("username"),img:reader.result.substr(reader.result.indexOf(',') + 1)},
+            success: function (data) {
+            }
+        });
+        
     }
+
   
 }
