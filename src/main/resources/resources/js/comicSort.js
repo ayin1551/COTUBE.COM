@@ -61,16 +61,19 @@ function getSeriesTable(){
                 // i = 0, first one
                 var td1 = document.createElement('TD');
                 var img1 = document.createElement('img');
+                img1.style.width = "17.6vw";
+                img1.style.height = "9.9vw";
                 img1.src = obj["TPALV"][i].picPath;
                 td1.appendChild(img1);
                 img1.addEventListener('click', function () {
                     goViewSeries(obj["TPALV"][i].seriesID);
                 });
                 var td2 = document.createElement('TD');
-                td2.style = "padding-right: 20px; padding-bottom: 40px";
+                td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                 var span_title = document.createElement('p');
                 var t = document.createTextNode(obj["TPALV"][i].title);
                 span_title.appendChild(t);
+                span_title.style.width = "11vw";
                 span_title.addEventListener('click', function () {
                     goViewSeries(obj["TPALV"][i].seriesID);
                 });
@@ -102,16 +105,19 @@ function getSeriesTable(){
                 if (i + 1 < obj.TPALV.length) {
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
+                    img1.style.width = "17.6vw";
+                    img1.style.height = "9.9vw";
                     img1.src = obj["TPALV"][i + 1].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
                         goViewSeries(obj["TPALV"][i + 1].seriesID);
                     });
                     var td2 = document.createElement('TD');
-                    td2.style = "padding-right: 20px; padding-bottom: 40px";
+                    td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i + 1].title);
                     span_title.appendChild(t);
+                    span_title.style.width = "11vw";
                     span_title.addEventListener('click', function () {
                         goViewSeries(obj["TPALV"][i + 1].seriesID);
                     });
@@ -128,16 +134,19 @@ function getSeriesTable(){
                 if (i + 2 < obj.TPALV.length) {
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
+                    img1.style.width = "17.6vw";
+                    img1.style.height = "9.9vw";
                     img1.src = obj["TPALV"][i + 2].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
                         goViewSeries(obj["TPALV"][i + 2].seriesID);
                     });
                     var td2 = document.createElement('TD');
-                    td2.style = "padding-right: 20px; padding-bottom: 40px";
+                    td2.style = "padding-right: 20px; padding-bottom: 40px; width:11vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i + 2].title);
                     span_title.appendChild(t);
+                    span_title.style.width = "11vw";
                     span_title.addEventListener('click', function () {
                         goViewSeries(obj["TPALV"][i + 2].seriesID);
                     });
@@ -187,16 +196,19 @@ function refreshTable(){
                 // i = 0, first one
                 var td1 = document.createElement('TD');
                 var img1 = document.createElement('img');
+                img1.style.width = "17.6vw";
+                img1.style.height = "9.9vw";
                 img1.src = obj["TPALV"][i].picPath;
                 td1.appendChild(img1);
                 img1.addEventListener('click', function () {
                     goViewComic(obj["TPALV"][i].comicID);
                 });
                 var td2 = document.createElement('TD');
-                td2.style = "padding-right: 20px; padding-bottom: 40px";
+                td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                 var span_title = document.createElement('p');
                 var t = document.createTextNode(obj["TPALV"][i].title);
                 span_title.appendChild(t);
+                span_title.style.width = "11vw";
                 var span_author1 = document.createElement('span');
                 span_author1.addEventListener('click', function () {
                     authorprofile(obj["TPALV"][i].author);
@@ -230,16 +242,19 @@ function refreshTable(){
                 if (i + 1 < obj.TPALV.length) {
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
+                    img1.style.width = "17.6vw";
+                    img1.style.height = "9.9vw";
                     img1.src = obj["TPALV"][i+1].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
                         goViewComic(obj["TPALV"][i+1].comicID);
                     });
                     var td2 = document.createElement('TD');
-                    td2.style = "padding-right: 20px; padding-bottom: 40px";
+                    td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i+1].title);
                     span_title.appendChild(t);
+                    span_title.style.width = "11vw";
                     var span_author1 = document.createElement('span');
                     //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                     span_author1.addEventListener('click', function () {
@@ -268,16 +283,19 @@ function refreshTable(){
                 if (i + 2 < obj.TPALV.length) {
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
+                    img1.style.width = "17.6vw";
+                    img1.style.height = "9.9vw";
                     img1.src = obj["TPALV"][i+2].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
                         goViewComic(obj["TPALV"][i+2].comicID);
                     });
                     var td2 = document.createElement('TD');
-                    td2.style = "padding-right: 20px; padding-bottom: 40px";
+                    td2.style = "padding-right: 20px; padding-bottom: 40px; width:11vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
                     var t = document.createTextNode(obj["TPALV"][i+2].title);
                     span_title.appendChild(t);
+                    span_title.style.width = "11vw";
                     var span_author1 = document.createElement('span');
                     //span_author1.addEventListener("click",authorprofile(obj["TPALV"][i].author));
                     span_author1.addEventListener('click', function () {
