@@ -73,8 +73,8 @@
 
         <div id="series_regular" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
             <select class="sortBy" id="series_regular_view" name="sort_by" style="margin-right: 20px;" onchange ="getTable()">
-                <option value="regular" onclick="checksortby()">View Regular Comic</option>
-                <option value="series" id = "selectseries" onclick="checksortby()">View Series Comic</option>
+                <option value="regular">View Regular Comic</option>
+                <option value="series" id = "selectseries">View Series Comic</option>
             </select>
         </div>
 
@@ -478,7 +478,8 @@
             // }
         });
     }
-    if(by=="keyword") {
+
+    if(by=="keyword" && document.getElementById('selectseries').selected == false) {
         document.getElementById("keywordsortby").style.display = "block";
         document.getElementById("series_regular").style.display = "block";
         // checksortby();
@@ -625,6 +626,16 @@
                     }
                 }
         });
+        });
+    }else{
+        $(window).ready(function () {
+            document.getElementById("keywordsortby").style.display = "block";
+            document.getElementById("series_regular").style.display = "block";
+            // checksortby();
+            document.getElementById("keywordresult").style.display = "block";
+            document.getElementById("authorresult").style.display = "none";
+            checksortby();
+            getSeriesTable();
         });
     }
 </script>
