@@ -62,6 +62,7 @@ public class ajaxCreateDetailController {
 
     @RequestMapping(value = "/saveComic", method = RequestMethod.POST)
     public RedirectView saveComic(HttpServletRequest request) throws IOException {
+        Integer comicId = 23333;
         String img = request.getParameter("data");
         byte[] imageByte;
         BufferedImage image = null;
@@ -75,7 +76,7 @@ public class ajaxCreateDetailController {
         File outputfile = new File("cotubeImage.png");
         ImageIO.write(image, "png", outputfile);
 
-        return new RedirectView("");
+        return new RedirectView("?createComicId="+Integer.toString(comicId));
     }
 
  
