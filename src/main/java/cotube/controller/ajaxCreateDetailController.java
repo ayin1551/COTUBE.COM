@@ -62,19 +62,29 @@ public class ajaxCreateDetailController {
 
     @RequestMapping(value = "/saveComic", method = RequestMethod.POST)
     public RedirectView saveComic(HttpServletRequest request) throws IOException {
-        Integer comicId = 23333;
+        String username = request.getParameter("username");
         String img = request.getParameter("data");
         byte[] imageByte;
         BufferedImage image = null;
         Decoder decoder = java.util.Base64.getMimeDecoder();
+        Integer comicId = 23333; //comidId which need to return
 
         imageByte = decoder.decode(img);
         ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
         image = ImageIO.read(bis);
         bis.close();
         
-        File outputfile = new File("cotubeImage.png");
+        File outputfile = new File("cotubeImage.png"); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
+        System.out.println(request.getParameter("username"));
+
+        /*
+
+            Create a new comic, regularComic and panel in the db with the username given
+            Fill the other fields of the tables with placeholder
+            Save the newly generated comicId in the variable comidId
+
+        */
 
         return new RedirectView("?createComicId="+Integer.toString(comicId));
     }

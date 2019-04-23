@@ -55,7 +55,12 @@
 
     if($.cookie('role')=="user"){
         document.getElementById("login").style.display = "none";
+        var target = document.location.href.replace("createComic.html","createComicDetail.html/saveComic?username=" + $.cookie("username"));
+        $(window).ready(function() {
+            document.getElementById("paintBoard").src = "https://sumopaint.com/flash/api.php?target=" + target + "& cloud=0&service=Save%20to%20Cotube"
+        });
     }else{
+        document.location.href="./index.html";
         document.getElementById("create").style.display = "none";
         document.getElementById("signout").style.display = "none";
         document.getElementById("message").style.display = "none";
@@ -64,15 +69,11 @@
     }
 
 </script>
-<iframe style = "width:100vw;height:85vh;" frameborder="0" scrolling="no" src="https://sumopaint.com/flash/api.php?target=localhost:8080/createComicDetail.html/saveComic& cloud=0&service=Save%20to%20Cotube"></iframe>
+<iframe style = "width:100vw;height:85vh;" frameborder="0" scrolling="no" id = "paintBoard"></iframe>
 <!-- <div id="drawingHere" style="width: 100%; height: -webkit-fill-available; background-color: white;">
     <h1 style="color:black; vertical-align: center; text-align: center">Drawing Area (add library later)</h1>
 </div> -->
 
-    <div id="submitComic">
-        <button class="kwbtn kwbtn2" style="float: right" id="scbtn">Submit</button>
-        <button class="kwbtn kwbtn2" style="float: right" id="tbnbtn">Add Thumbnail</button>
-    </div>
 
     <div id="drawComicPopup" class="modal">
         <div class="modal-content">
