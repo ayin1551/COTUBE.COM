@@ -165,10 +165,9 @@ function comicRedirect(id, ifSeries){
     document.location.href = "./viewComics.html";
 }
 
-//TODO:EDIT PAGE
 function editRedirect(id){
     $.cookie("comicId", id);
-    document.location.href = "./editComics.html";
+    document.location.href = "./editComic.html";
 }
 
 function deleteComic(id){

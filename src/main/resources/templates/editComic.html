@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>Create Comic Page</title>
+    <title>Edit Comic Page</title>
 
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
@@ -12,6 +12,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
     <script src="./js/jumpFunction.js"></script>
+    <script src="./js/editComic.js"></script>
 
 
 </head>
@@ -55,9 +56,10 @@
 
     if($.cookie('role')=="user"){
         document.getElementById("login").style.display = "none";
-        var target = document.location.href.replace("createComic.html","createComicDetail.html/saveComic?username=" + $.cookie("username"));
+        var comicPath = getComic($.cookie("comicId"));
+        var target = document.location.href.replace("editComic.html","editComicDetail.html/saveComic?comicId=" + $.cookie("comicId"));
         $(window).ready(function() {
-            document.getElementById("paintBoard").src = "https://sumopaint.com/flash/api.php?target=" + target + "& cloud=0&service=Save%20to%20Cotube"
+            document.getElementById("paintBoard").src = "https://sumopaint.com/flash/api.php?target=" + target + "& url=" + comicPath + "& cloud=0&service=Save%20to%20Cotube";
         });
     }else{
         document.location.href="./index.html";
@@ -69,15 +71,7 @@
     }
 
 </script>
-
 <iframe style = "width:100vw;height:85vh;" frameborder="0" scrolling="no" id = "paintBoard"></iframe>
-<!-- <div id="drawingHere" style="width: 100%; height: -webkit-fill-available; background-color: white;">
-    <h1 style="color:black; vertical-align: center; text-align: center">Drawing Area (add library later)</h1>
-</div> -->
-
-
- 
-
 
 
 </div>

@@ -1,7 +1,6 @@
 package cotube.controller;
 
 import cotube.domain.*;
-import cotube.repositories.LikesRepository;
 import cotube.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +107,6 @@ public class ajaxSearchController{
         List<Integer>views = new ArrayList<Integer>();
         List<Integer>IDs = new ArrayList<>();
         List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
-        List<Panel>panels = this.panelService.getAllPanels();
         for (Comic c: comics){
             titles.add(c.getTitle());
             IDs.add(c.getComic_id());
@@ -181,15 +179,6 @@ public class ajaxSearchController{
         }
         return total;
     }
-    @RequestMapping(value="/check",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean check(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String following = request.getParameter("following");
-        //System.out.println(username);
-        //System.out.println(following);
-        return true;
-    }
 
     @RequestMapping(value="/seriesSearch",method = RequestMethod.POST)
     @ResponseBody
@@ -198,7 +187,6 @@ public class ajaxSearchController{
         List<String>titles = new ArrayList<String>();
         List<String>picPath = new ArrayList<String>();
         List<Integer>ID = new ArrayList<>();
-        List<String>authors = new ArrayList<>();
         List<Integer>totalComics = new ArrayList<>();
         List<Series>all = this.seriesService.getAllSeries();
         for(Series x: all){

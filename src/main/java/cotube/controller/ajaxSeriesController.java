@@ -235,10 +235,8 @@ public class ajaxSeriesController{
     @ResponseBody
     public String getComics(HttpServletRequest request){
         Integer seriesId = Integer.parseInt(request.getParameter("seriesId"));
-        List<Series> series = seriesService.getAllSeries();
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
         List<Comic> comics = comicService.getAllComics();
-        List<Panel> panel = panelService.getAllPanels();
         List<Integer> comicId = new ArrayList<Integer>();
         List<String> comicThumbnail = new ArrayList<String>();
         List<String> comicName = new ArrayList<String>();
@@ -276,7 +274,6 @@ public class ajaxSeriesController{
         return result.toString();
     }
 
-    //TODO:deleteSeries
     @RequestMapping(value="/deleteSeries",method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteSeries(HttpServletRequest request){
@@ -288,7 +285,6 @@ public class ajaxSeriesController{
             Comic comic = comicService.getComicByComic_Id(comicId);
 
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
-            Integer series_id = rc.getSeries_id();
 
             //delete From Tag
             List<Tag> tagList = tagService.getAllTagsInRegularComic(comicId);

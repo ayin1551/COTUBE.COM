@@ -1,15 +1,12 @@
 package cotube.controller;
 
-import cotube.domain.Account;
 import cotube.domain.Comic;
 import cotube.domain.RegularComic;
 import cotube.domain.Series;
 import cotube.domain.FollowSeries;
 import cotube.domain.Panel;
 import cotube.domain.FollowUser;
-import cotube.domain.Series;
 import cotube.services.ComicService;
-import cotube.services.AccountService;
 import cotube.services.LikesService;
 import cotube.services.RegularComicService;
 import cotube.services.ViewsService;
@@ -20,7 +17,6 @@ import cotube.services.SeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import org.json.*;
 

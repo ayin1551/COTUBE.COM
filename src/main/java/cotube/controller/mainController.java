@@ -97,6 +97,16 @@ public class mainController {
 
     @RequestMapping(value={"createComicDetail.html"})
     String createComicDetail(){
-        return "createComicDetail";
+        return "createCoeditmicDetail";
+    }
+
+    @RequestMapping(value={"editComic.html"})
+    String editComic(){
+        return "editComic";
+    }
+    
+    @RequestMapping(value={"editComicDetail.html"})
+    String editComicDetail(){
+        return "editComicDetail";
     }
 }
