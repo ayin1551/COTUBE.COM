@@ -511,7 +511,6 @@ public class ajaxProfileController{
         return result.toString();
     }
 
-    //TODO: delete Comic
     @RequestMapping(value="/deleteComic",method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteComic(HttpServletRequest request){

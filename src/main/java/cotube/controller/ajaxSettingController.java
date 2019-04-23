@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 import java.util.Base64.Decoder;
 
 import javax.imageio.ImageIO;

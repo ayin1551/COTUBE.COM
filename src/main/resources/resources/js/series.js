@@ -78,10 +78,9 @@ function getComics(id){
     return obj;
 }
 
-//TODO: edit page
 function editRedirect(id){
     $.cookie("comicId", id);
-    document.location.href = "./editComics.html";
+    document.location.href = "./editComic.html";
 }
 
 
