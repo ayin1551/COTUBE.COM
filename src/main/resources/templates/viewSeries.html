@@ -207,7 +207,7 @@
             document.getElementById("setting").style.display = "none";
         }
 
-        if($.cookie("username")=="null" || $.cookie("username")==$("#comicauthor").text() || $.cookie("role")=="admin"){
+        if($.cookie("username")=="null" || $.cookie("username")==$("#comicauthor").text() || $.cookie("role")!="user"){
             document.getElementById("follow").style.display = "none";
             document.getElementById("unfollow").style.display = "none";
         }else{
