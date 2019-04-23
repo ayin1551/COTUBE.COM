@@ -49,7 +49,7 @@
 <script>
     var cusername = $.cookie('username');
     var htmlpath = document.location.href;
-    if(htmlpath.indexOf("?createComicId")!=-1){
+    if(htmlpath.indexOf("?editComicId")!=-1){
         var split = htmlpath.split("/?");
         var saveCookie = split[1].split("=");
         $.cookie('comicId',saveCookie[1]);

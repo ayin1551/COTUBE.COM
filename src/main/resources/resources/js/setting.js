@@ -83,19 +83,17 @@ function resetSecurityQuestion(){
 }
 
 function changeProfile(){
-    var username = $("#profileusername").text();
-    var pathj = document.getElementById("file-input").value;
-    alert(pathj);
     $.ajax({
         url: "setting.html/changeProfile",
         type: "post",
         async: false,
-        data: {username: $.cookie("username"),following:following},
+        data: {username: $.cookie("username")},
         success: function (data) {
-            validality = data;
+            if(data){
+                document.getElementById("oldpp").src = document.getElementById("newpp").src;
+            }
         }
     });
-    return validality;
 }
 
 function changeNewPP(){
@@ -111,8 +109,7 @@ function changeNewPP(){
             success: function (data) {
             }
         });
-        
+        document.getElementById("newpp").src = reader.result;
     }
-
   
 }

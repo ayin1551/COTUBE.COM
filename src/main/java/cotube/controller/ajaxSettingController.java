@@ -70,6 +70,7 @@ public class ajaxSettingController {
         String username = request.getParameter("username");
         String img = request.getParameter("img");
         String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
+        //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
         Decoder decoder = java.util.Base64.getMimeDecoder();
@@ -90,15 +91,14 @@ public class ajaxSettingController {
     @RequestMapping(value="/changeProfile",method = RequestMethod.POST)
     @ResponseBody
     public Boolean setProfilePicture(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String newPassword = request.getParameter("new_password");
-        Account current = this.accountService.getAccountByUsername(username);
-        if(current.getPassword().equals(password)){
-            current.setPassword(newPassword);
-            this.accountService.addAccount(current);
-            return true;
-        }
-        return false;
+
+
+        // Update db here!!!!
+        // Replace the old profile picture file
+        // Delete the username_newProfilePicture.png
+        // Return true if success else false
+
+
+        return true;
     }
 }
