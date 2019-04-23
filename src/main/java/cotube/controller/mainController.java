@@ -97,7 +97,7 @@ public class mainController {
 
     @RequestMapping(value={"createComicDetail.html"})
     String createComicDetail(){
-        return "createCoeditmicDetail";
+        return "createComicDetail";
     }
 
     @RequestMapping(value={"editComic.html"})
