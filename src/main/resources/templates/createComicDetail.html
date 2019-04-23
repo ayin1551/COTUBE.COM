@@ -226,59 +226,6 @@
         document.getElementById("seriestr1").style.display = "table-row";
         document.getElementById("seriestr2").style.display = "none";
     }
-
-    function comiccreate() {
-        document.getElementById("tag_error1").style.display = "none";
-        document.getElementById("tag_error2").style.display = "none";
-        document.getElementById("tag_error3").style.display = "none";
-        if(document.getElementById("srs").checked==true){
-            if(document.getElementById("seriestr1").style.display=='none'){
-                if(document.getElementById("newSeries").value==""){
-                    console.log("input empty");
-                    document.getElementById("tag_error3").style.display = "block";
-                }
-            }
-            if(document.getElementById("seriestr2").style.display=='none'){
-                var ck = document.getElementById("existSeries");
-                if(ck.options[ck.selectedIndex].value==" "){
-                    console.log("select empty");
-                    document.getElementById("tag_error3").style.display = "block";
-                }
-            }
-        }
-        var title = document.getElementById("comicTitle");
-        if(title.value==""||title.value==null){
-            document.getElementById("tag_error2").style.display = "block";
-        }
-        // TODO: create comic to database --- public
-    }
-
-    function comicsave(){
-        document.getElementById("tag_error1").style.display = "none";
-        document.getElementById("tag_error2").style.display = "none";
-        document.getElementById("tag_error3").style.display = "none";
-        if(document.getElementById("srs").checked==true){
-            if(document.getElementById("seriestr1").style.display=='none'){
-                if(document.getElementById("newSeries").value==""){
-                    document.getElementById("tag_error3").style.display = "block";
-                }
-            }
-            if(document.getElementById("seriestr2").style.display=='none'){
-                var ck = document.getElementById("existSeries");
-                if(ck.options[ck.selectedIndex].value==" "){
-                    console.log("select empty");
-                    document.getElementById("tag_error3").style.display = "block";
-                }
-            }
-        }
-        var title = document.getElementById("comicTitle");
-        if(title.value==""||title.value==null){
-            document.getElementById("tag_error2").style.display = "block";
-        }
-
-        // TODO: save the comic to database --- private
-    }
-
     function addTags() {
         document.getElementById("tag_error1").style.display = "none";
         var tag1 = document.getElementById("tag1word");
@@ -338,7 +285,6 @@
         }
         newtag.value = "";
     }
-
     function deletetag1() {
         document.getElementById("tag_error1").style.display = "none";
         tag1 = document.getElementById("tag1word");
@@ -352,7 +298,6 @@
             deletetag2();
         }
     }
-
     function deletetag2() {
         document.getElementById("tag_error1").style.display = "none";
         tag2 = document.getElementById("tag2word");
@@ -366,7 +311,6 @@
             deletetag3();
         }
     }
-
     function deletetag3() {
         document.getElementById("tag_error1").style.display = "none";
         tag3 = document.getElementById("tag3word");
@@ -380,7 +324,6 @@
             deletetag4();
         }
     }
-
     function deletetag4() {
         document.getElementById("tag_error1").style.display = "none";
         tag4 = document.getElementById("tag4word");
@@ -394,7 +337,6 @@
             deletetag5();
         }
     }
-
     function deletetag5() {
         document.getElementById("tag_error1").style.display = "none";
         tag5 = document.getElementById("tag5word");
@@ -404,8 +346,71 @@
         document.getElementById("addtag").disabled = false;
     }
 
+
+
+
+
+
+    function comiccreate() {
+        document.getElementById("tag_error1").style.display = "none";
+        document.getElementById("tag_error2").style.display = "none";
+        document.getElementById("tag_error3").style.display = "none";
+        if(document.getElementById("srs").checked==true){
+            if(document.getElementById("seriestr1").style.display=='none'){
+                if(document.getElementById("newSeries").value==""){
+                    console.log("input empty");
+                    document.getElementById("tag_error3").style.display = "block";
+                }
+            }
+            if(document.getElementById("seriestr2").style.display=='none'){
+                var ck = document.getElementById("existSeries");
+                if(ck.options[ck.selectedIndex].value==" "){
+                    console.log("select empty");
+                    document.getElementById("tag_error3").style.display = "block";
+                }
+            }
+        }
+        var title = document.getElementById("comicTitle");
+        if(title.value==""||title.value==null){
+            document.getElementById("tag_error2").style.display = "block";
+        }
+        if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
+            // TODO: create comic to database --- public
+        }
+    }
+
+    function comicsave(){
+        document.getElementById("tag_error1").style.display = "none";
+        document.getElementById("tag_error2").style.display = "none";
+        document.getElementById("tag_error3").style.display = "none";
+        if(document.getElementById("srs").checked==true){
+            if(document.getElementById("seriestr1").style.display=='none'){
+                if(document.getElementById("newSeries").value==""){
+                    document.getElementById("tag_error3").style.display = "block";
+                }
+            }
+            if(document.getElementById("seriestr2").style.display=='none'){
+                var ck = document.getElementById("existSeries");
+                if(ck.options[ck.selectedIndex].value==" "){
+                    console.log("select empty");
+                    document.getElementById("tag_error3").style.display = "block";
+                }
+            }
+        }
+        var title = document.getElementById("comicTitle");
+        if(title.value==""||title.value==null){
+            document.getElementById("tag_error2").style.display = "block";
+        }
+        if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
+            // TODO: save the comic to database --- private
+        }
+    }
+
+
+
     function getSeries(){
         // var series = getAllSeries();
+        // TODO: get all series created by user, add them to <select> id="existSeries", (view in line120)
     }
 
 
