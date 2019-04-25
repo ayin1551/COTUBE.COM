@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="../css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="../js/createComicDetail.js"></script>
     <script src="../js/js.cookie.js"></script>
     <script src="../js/jumpFunction.js"></script>
 
@@ -82,6 +83,10 @@
     </div>
 
 
+    <script>
+        console.log("VARIABLE path IS comicID_" + $.cookie('comicId') + ".png");
+        document.getElementById("createNewComicImg").src = "../img/t/comicID_" + $.cookie('comicId') + ".png";
+    </script>
 
     <div id="saveInfo" style="width:43vw;height:auto;">
         <table style="margin:auto; text-align: left">
@@ -97,8 +102,7 @@
                 <td><button id="seriesThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
             </tr>
             <tr id="tbn2" style="width:100%">
-                <td style="width:100%"><input id="comicThumbnail" class="form-control" style="width: 100%; margin:0px; display: inline-block" placeholder="comic thumbnail path..."/></td>
-                <td><button id="comicThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
+                Upload a New Thumbnail: <input id="file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
             </tr>
         </table>
 
@@ -376,6 +380,7 @@
         }
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
             // TODO: create comic to database --- public
+            publishComic();
         }
     }
 
@@ -402,6 +407,7 @@
         //     document.getElementById("tag_error2").style.display = "block";
         // }
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
+            saveComic();
             // TODO: save the comic to database --- private
         }
     }
@@ -409,7 +415,8 @@
 
 
     function getSeries(){
-        // var series = getAllSeries();
+          var series = getAllSeries();
+          console.log(series);
         // TODO: get all series created by user, add them to <select> id="existSeries", (view in line120)
     }
 
