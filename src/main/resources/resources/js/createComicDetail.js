@@ -8,6 +8,7 @@ function getAllSeries(){
         dataType:"json",
         data: {username: $.cookie("username")},
         success: function(data){
+            console.log(data);
             obj = data;
         }
     });
@@ -39,8 +40,16 @@ function saveComic(){
         type: "post",
         url: "createComicDetail.html/save",
         async: false,
-        data: {title:document.getElementById("comicTitle"), descr:document.getElementById("comicDescription"),
-            thumb:document.getElementById("file-input").value, comicId: $.cookie('comicId'), seriesId: document.getElementById("existSeries")},
+        data: {title:document.getElementById("comicTitle").value,
+            descr:document.getElementById("comicDescription").value,
+            thumb: null, comicId: $.cookie('comicId'),
+            newSeries:document.getElementById("newSeries").value,
+            existSeries: document.getElementById("existSeries").value,
+            tag1: document.getElementById("tag1word").innerText,
+            tag2: document.getElementById("tag2word").innerText,
+            tag3: document.getElementById("tag3word").innerText,
+            tag4:document.getElementById("tag4word").innerText,
+            tag5: document.getElementById("tag5word").innerText},
         success: function(data){
 
         }
@@ -52,8 +61,16 @@ function publishComic(){
         type: "post",
         url: "createComicDetail.html/publish",
         async: false,
-        data: {title:document.getElementById("comicTitle").value, descr:document.getElementById("comicDescription").value,
-            thumb: document.getElementById("file-input").files[0].name, comicId: $.cookie('comicId'), seriesId: document.getElementById("existSeries").value},
+        data: {title:document.getElementById("comicTitle").value,
+            descr:document.getElementById("comicDescription").value,
+            thumb: null, comicId: $.cookie('comicId'),
+            newSeries:document.getElementById("newSeries").value,
+            existSeries: document.getElementById("existSeries").value,
+        tag1: document.getElementById("tag1word").innerText,
+        tag2: document.getElementById("tag2word").innerText,
+            tag3: document.getElementById("tag3word").innerText,
+            tag4:document.getElementById("tag4word").innerText,
+            tag5: document.getElementById("tag5word").innerText},
         success: function(data){
 
         }

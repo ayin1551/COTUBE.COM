@@ -50,6 +50,7 @@
 <script>
     var cusername = $.cookie('username');
     var htmlpath = document.location.href;
+
     if(htmlpath.indexOf("?createComicId")!=-1){
         var split = htmlpath.split("/?");
         var saveCookie = split[1].split("=");
@@ -84,8 +85,8 @@
 
 
     <script>
-        console.log("VARIABLE path IS comicID_" + $.cookie('comicId') + ".png");
-        document.getElementById("createNewComicImg").src = "../img/t/comicID_" + $.cookie('comicId') + ".png";
+        document.getElementById("createNewComicImg").src = "../upload/comicID_" + $.cookie('comicId') + ".png";
+        console.log();
     </script>
 
     <div id="saveInfo" style="width:43vw;height:auto;">
@@ -122,8 +123,11 @@
                     <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Exist series:</label></td>
                     <td>
                         <select id="existSeries" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block">
-                            <option value=" " id="existDefault"> </option>
+                            <option value="1" id="existDefault"> </option>
+                            <!--
+
                             <option value="1" id="exist1">name1</option>
+                            -->
                         </select>
                         <button class="kwbtn kwbtn2" id="createNewSeriec" style="float: right; margin-top:0px; margin-bottom: 10px" onclick="cvtcreate()">+ new</button></td>
                 </tr>
@@ -415,10 +419,25 @@
 
 
     function getSeries(){
-          var series = getAllSeries();
-          console.log(series);
+          var x = getAllSeries();
+        console.log(x);
+        var select = document.getElementById('existSeries');
+        console.log(select);
+        console.log(x.series.length);
+        for (i = 0; i < x.series.length;i+=1){
+            var option = document.createElement('option');
+            option.value = x.series[i].series_name;
+            option.text = x.series[i].series_name;
+            select.add(option);
+            console.log(select);
+        }
+
         // TODO: get all series created by user, add them to <select> id="existSeries", (view in line120)
     }
+
+    $(window).ready(function() {
+        getSeries();
+    });
 
 
 </script>
