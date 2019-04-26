@@ -165,6 +165,9 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
+                            img2.addEventListener('click', function() {
+                                seriesRedirect(comics.comicSeriesId[j]);
+                            });
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
@@ -248,6 +251,9 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
+                            img2.addEventListener('click', function() {
+                                seriesRedirect(comics.comicSeriesId[j]);
+                            });
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);

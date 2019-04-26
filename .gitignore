@@ -3,7 +3,6 @@ build/
 bin/
 .gradle/
 out/
-gradle/
 
 #Files
 .DS_store

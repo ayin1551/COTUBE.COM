@@ -59,7 +59,7 @@
                     <p style = "font-size: 25px;display:inline;cursor:default" id = "seriestitle"></p>
                     <button type="button" class = "deleteButton" style="float:right;margin-top:0px;margin-right:30px;margin-left:50px;display:none;" id="delete" onclick="deleteSeries();">Delete</button>
                     <br>
-                    <span style="font-size:25px;cursor:default">by </span><a href="profile.html" style="font-size:25px;cursor:pointer" id="comicauthor"></a>
+                    <span style="font-size:25px;cursor:default">by </span><a style="font-size:25px;cursor:pointer" id="comicauthor"></a>
                     <p style = "font-size: 25px;cursor:default" id = "following"></p>
                     <p style = "font-size: 25px;cursor:default" id = "viewlike"></p>
                     <button type="button" class="submitButton" style = "border-radius: 5px;" id="follow" onclick="followSeries();">Follow Series</button>
@@ -82,6 +82,10 @@
         document.getElementById("seriesThumb").src = c.seriesThumbnail;
         document.getElementById("seriestitle").innerText = c.seriesName;
         $("#comicauthor").text(c.seriesAuthor);
+        document.getElementById("comicauthor").addEventListener('click', function() {
+            $.cookie("profileUsername",c.seriesAuthor);
+            document.location.href = "./profile.html";
+        });
         document.getElementById("following").innerText = c.following + " Following";
         document.getElementById("viewlike").innerText = c.viewCount + " Views  |  " + c.likeCount +" Likes";
 

@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="../css/style.css">
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="../js/createComicDetail.js"></script>
     <script src="../js/js.cookie.js"></script>
     <script src="../js/jumpFunction.js"></script>
 
@@ -49,6 +50,7 @@
 <script>
     var cusername = $.cookie('username');
     var htmlpath = document.location.href;
+
     if(htmlpath.indexOf("?createComicId")!=-1){
         var split = htmlpath.split("/?");
         var saveCookie = split[1].split("=");
@@ -82,6 +84,10 @@
     </div>
 
 
+    <script>
+        document.getElementById("createNewComicImg").src = "../upload/comicID_" + $.cookie('comicId') + ".png";
+        console.log();
+    </script>
 
     <div id="saveInfo" style="width:43vw;height:auto;">
         <table style="margin:auto; text-align: left">
@@ -97,8 +103,7 @@
                 <td><button id="seriesThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
             </tr>
             <tr id="tbn2" style="width:100%">
-                <td style="width:100%"><input id="comicThumbnail" class="form-control" style="width: 100%; margin:0px; display: inline-block" placeholder="comic thumbnail path..."/></td>
-                <td><button id="comicThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
+                Upload a New Thumbnail: <input id="file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
             </tr>
         </table>
 
@@ -118,8 +123,11 @@
                     <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Exist series:</label></td>
                     <td>
                         <select id="existSeries" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block">
-                            <option value=" " id="existDefault"> </option>
+                            <option value="1" id="existDefault"> </option>
+                            <!--
+
                             <option value="1" id="exist1">name1</option>
+                            -->
                         </select>
                         <button class="kwbtn kwbtn2" id="createNewSeriec" style="float: right; margin-top:0px; margin-bottom: 10px" onclick="cvtcreate()">+ new</button></td>
                 </tr>
@@ -376,6 +384,7 @@
         }
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
             // TODO: create comic to database --- public
+            publishComic();
         }
     }
 
@@ -402,6 +411,7 @@
         //     document.getElementById("tag_error2").style.display = "block";
         // }
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
+            saveComic();
             // TODO: save the comic to database --- private
         }
     }
@@ -409,9 +419,25 @@
 
 
     function getSeries(){
-        // var series = getAllSeries();
+          var x = getAllSeries();
+        console.log(x);
+        var select = document.getElementById('existSeries');
+        console.log(select);
+        console.log(x.series.length);
+        for (i = 0; i < x.series.length;i+=1){
+            var option = document.createElement('option');
+            option.value = x.series[i].series_name;
+            option.text = x.series[i].series_name;
+            select.add(option);
+            console.log(select);
+        }
+
         // TODO: get all series created by user, add them to <select> id="existSeries", (view in line120)
     }
+
+    $(window).ready(function() {
+        getSeries();
+    });
 
 
 </script>

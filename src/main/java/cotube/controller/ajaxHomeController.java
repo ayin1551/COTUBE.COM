@@ -102,6 +102,10 @@ public class ajaxHomeController{
         JSONObject result = new JSONObject();
         result.put("series", seriesResult);
         System.out.println(result.toString());
+
+        String test = request.getRequestURI();
+        System.out.println(test);
+
         return result.toString();
     }
 
