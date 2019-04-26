@@ -104,9 +104,9 @@
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
         }
-        var p = $.cookie('profileUsername');
-        console.log("profileUsername: " + p);
-        document.getElementById("profileusername").innerText = $.cookie('profileUsername');
+        var p = $.cookie('profileusername');
+        console.log("profileusername: " + p);
+        document.getElementById("profileusername").innerText = $.cookie('profileusername');
 
         var c = getFollowings(p);
         document.getElementById("followings").innerText = c + " Followings";
@@ -165,6 +165,9 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
+                            img2.addEventListener('click', function() {
+                                seriesRedirect(comics.comicSeriesId[j]);
+                            });
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
@@ -248,6 +251,9 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
+                            img2.addEventListener('click', function() {
+                                seriesRedirect(comics.comicSeriesId[j]);
+                            });
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
@@ -286,8 +292,8 @@
             document.getElementById("follow").style.display = "none";
 
             $(window).ready(function() {
-                var followerlist = getFollowerList($.cookie('profileUsername'));
-                var followinglist = getFollowingList($.cookie('profileUsername'));
+                var followerlist = getFollowerList($.cookie('profileusername'));
+                var followinglist = getFollowingList($.cookie('profileusername'));
                 console.log(followerlist.account[0]);
 
                 // follower table

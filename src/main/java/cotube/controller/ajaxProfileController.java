@@ -414,6 +414,7 @@ public class ajaxProfileController{
         List<String> comicName = new ArrayList<String>();
         List<Integer> comicId = new ArrayList<Integer>();
         List<String> comicThumbnail = new ArrayList<String>();
+        List<Integer> comicSeriesId = new ArrayList<Integer>();
         List<Boolean> comicSeries = new ArrayList<Boolean>();
 
         for(Panel p: panel){
@@ -443,6 +444,7 @@ public class ajaxProfileController{
                 if(rc.getRegular_comic_id() == i){
                     comicThumbnail.add(rc.getThumbnail_path());
                     comicSeries.add(rc.getSeries_id()==null?false:true);
+                    comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
                     break;
                 }
             }
@@ -453,6 +455,7 @@ public class ajaxProfileController{
         result.put("comicId", comicId);
         result.put("comicThumbnail", comicThumbnail);
         result.put("comicSeries", comicSeries);
+        result.put("comicSeriesId",comicSeriesId);
         System.out.println(result.toString());
         return result.toString();
     }
@@ -469,12 +472,13 @@ public class ajaxProfileController{
         List<Integer> comicId = new ArrayList<Integer>();
         List<String> comicThumbnail = new ArrayList<String>();
         List<Boolean> comicSeries = new ArrayList<Boolean>();
+        List<Integer> comicSeriesId = new ArrayList<Integer>();
 
         for(Panel p: panel){
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
                     for(Comic c: comics){
-                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id() && c.getStatus() == 1){
+                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id() && (c.getStatus() == 1 || c.getStatus() == 3)){
                             comicId.add(rc.getRegular_comic_id());
                         }
                     }
@@ -497,6 +501,7 @@ public class ajaxProfileController{
                 if(rc.getRegular_comic_id() == i){
                     comicThumbnail.add(rc.getThumbnail_path());
                     comicSeries.add(rc.getSeries_id()==null?false:true);
+                    comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
                     break;
                 }
             }
@@ -507,6 +512,7 @@ public class ajaxProfileController{
         result.put("comicId", comicId);
         result.put("comicThumbnail", comicThumbnail);
         result.put("comicSeries", comicSeries);
+        result.put("comicSeriesId", comicSeriesId);
         System.out.println(result.toString());
         return result.toString();
     }
