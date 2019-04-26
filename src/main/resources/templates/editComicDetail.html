@@ -12,7 +12,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="../js/js.cookie.js"></script>
     <script src="../js/jumpFunction.js"></script>
-
+    <script src="../js/editComicDetail.js"></script>
 
 </head>
 
@@ -80,6 +80,10 @@
         <img src="../img/t/1.jpg" id="createNewComicImg" style="width:54vw;height:auto;margin-left:1.9vw;margin-right:0.9vw;margin-top: 1.9vw">
     </div>
 
+    <script>
+        document.getElementById("createNewComicImg").src = "../img/regularcomics/newcomicID_" + $.cookie('comicId') + ".png";
+        console.log();
+    </script>
 
 
     <div id="saveInfo" style="width:43vw;height:auto;">
@@ -90,16 +94,16 @@
             </tr>
         </table>
 
-        <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
-            <tr id="tbn1" style="display:none;width:42.1vw">
-                <td style="width:100%"><input id="seriesThumbnail" class="form-control" style="width: 100%; margin:0px; display: inline-block" placeholder="series thumbnail path..."/></td>
-                <td><button id="seriesThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
+        <div id = "th"  style="display: none;">
+            <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Series Thumbnail:</label></td>
+            <tr id="tbn1" style=";width:42.1vw">
+                <input id="file-inputs" type="file" name="name" oninput="uploadSrsThumb()" />
             </tr>
-            <tr id="tbn2" style="width:100%">
-                <td style="width:100%"><input id="comicThumbnail" class="form-control" style="width: 100%; margin:0px; display: inline-block" placeholder="comic thumbnail path..."/></td>
-                <td><button id="comicThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
-            </tr>
-        </table>
+        </div>
+        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Comic Thumbnail:</label></td>
+        <tr id="tbn2" style="width:100%">
+            <input id="file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
+        </tr>
 
         <div>
             <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
@@ -118,7 +122,6 @@
                     <td>
                         <select id="existSeries" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block">
                             <option value=" " id="existDefault"> </option>
-                            <option value="1" id="exist1">name1</option>
                         </select>
                         <button class="kwbtn kwbtn2" id="createNewSeriec" style="float: right; margin-top:0px; margin-bottom: 10px" onclick="cvtcreate()">+ new</button></td>
                 </tr>
@@ -184,7 +187,7 @@
                         <button class="kwbtn kwbtn2" id="pribtn2"  onclick="comicsave()">Save</button>
                     </td>
                     <td>
-                        <button class="kwbtn kwbtn2" id="pribtn3"  onclick="">Cancel</button>
+                        <button class="kwbtn kwbtn2" id="pribtn3"  onclick="cancel()">Cancel</button>
                     </td>
                 </tr>
             </table>
@@ -206,14 +209,16 @@
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("seriestr1").style.display = "none";
         document.getElementById("seriestr2").style.display = "none";
-        document.getElementById("tbn1").style.display = "none";
+        document.getElementById("th").style.display = "none";
+        document.getElementById("file-inputs").style.display = "none";
     }
     function cvtcreate() {
         document.getElementById("tag_error1").style.display = "none";
         document.getElementById("tag_error2").style.display = "none";
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("existDefault").checked = true;
-        document.getElementById("tbn1").style.display = "table-row";
+        document.getElementById("th").style.display = "inline";
+        document.getElementById("file-inputs").style.display = "inline";
         document.getElementById("newSeries").innerText = "";
         document.getElementById("seriestr1").style.display = "none";
         document.getElementById("seriestr2").style.display = "table-row";
@@ -223,7 +228,8 @@
         document.getElementById("tag_error2").style.display = "none";
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("existDefault").checked = true;
-        document.getElementById("tbn1").style.display = "none";
+        document.getElementById("th").style.display = "inline";
+        document.getElementById("file-inputs").style.display = "inline";
         document.getElementById("newSeries").innerText = "";
         document.getElementById("seriestr1").style.display = "table-row";
         document.getElementById("seriestr2").style.display = "none";
@@ -252,6 +258,8 @@
         if(title.value==""||title.value==null){
             document.getElementById("tag_error2").style.display = "block";
         }
+        publishComic()
+
         // TODO: create comic to database --- public
     }
 
@@ -277,6 +285,8 @@
         if(title.value==""||title.value==null){
             document.getElementById("tag_error2").style.display = "block";
         }
+
+        saveComic();
 
         // TODO: save the comic to database --- private
     }
@@ -406,11 +416,9 @@
         document.getElementById("addtag").disabled = false;
     }
 
-    function getSeries(){
-        // var series = getAllSeries();
+    function cancel(){
+        cancelEdit()
     }
-
-
 </script>
 
 
@@ -420,15 +428,17 @@
         <img src="../img/t/1.jpg" id="pub_createNewComicImg" style="width:54vw;height:auto;margin-left:1.9vw;margin-right:0.9vw;margin-top: 1.9vw">
     </div>
 
+    <script>
+        document.getElementById("createNewComicImg").src = "../img/regularcomics/newcomicID_" + $.cookie('comicId') + ".png";
+        console.log();
+    </script>
 
 
     <div id="pub_saveInfo" style="width:43vw;height:auto;">
-        <table style="margin-right: 0.9vw; text-align: left; margin-top: 2.5vw;width:42.1vw">
-            <tr id="tbn2" style="width:100%">
-                <td style="width:100%"><input id="pub_comicThumbnail" class="form-control" style="width: 100%; margin:0px; display: inline-block" placeholder="comic thumbnail path..."/></td>
-                <td><button id="pub_comicThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
+            <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Comic Thumbnail:</label></td>
+            <tr id="tb3n2" style="width:100%">
+                <input id="pub_file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
             </tr>
-        </table>
 
         <div>
             <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
@@ -445,7 +455,7 @@
                 <tr>
                     <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Tag:</label></td>
                     <td><input id="pub_comicTags" class="form-control" style="width: 70%; margin-bottom:10px; display: inline-block"/>
-                        <button class="kwbtn kwbtn2" id="addtag" style="padding-left: 8px; float: right; margin-top:0px; margin-bottom: 10px" onclick="pub_addTags()">+ add</button></td>
+                        <button class="kwbtn kwbtn2" id="pub_addtag" style="padding-left: 8px; float: right; margin-top:0px; margin-bottom: 10px" onclick="pub_addTags()">+ add</button></td>
                 </tr>
             </table>
         </div>
@@ -498,7 +508,7 @@
                         <button class="kwbtn kwbtn2" id="pubbtn1"  onclick="pub_comiccreate()">Publish</button>
                     </td>
                     <td>
-                        <button class="kwbtn kwbtn2" id="pubbtn2"  onclick="">Cancel</button>
+                        <button class="kwbtn kwbtn2" id="pubbtn2"  onclick="pub_cancel()">Cancel</button>
                     </td>
                 </tr>
             </table>
@@ -511,6 +521,7 @@
     function pub_comiccreate() {
         document.getElementById("pub_tag_error1").style.display = "none";
         // TODO: create comic to database --- public
+        publishPubComic();
     }
 
     function pub_addTags() {
@@ -637,14 +648,56 @@
         tag5d.style.display = "none";
         document.getElementById("pub_addtag").disabled = false;
     }
+
+    function pub_cancel(){
+        pub_cancelEdit()
+    }
+
+
 </script>
-
-
-
 
 
 <script>
 
+        // TODO: get all series created by user, add them to <select> id="existSeries", (view in line120)
+
+    $(window).ready(function() {
+        var x = getAllSeries();
+        console.log(x);
+        var select = document.getElementById('existSeries');
+        console.log(select);
+        console.log(x.series.length);
+        for (i = 0; i < x.series.length;i+=1){
+            var option = document.createElement('option');
+            option.value = x.series[i].series_name;
+            console.log(option.value);
+            option.text = x.series[i].series_name;
+            select.add(option);
+            console.log(select);
+        }
+    });
+    $(window).ready(function() {
+        var x = getComicInfo();
+        if (x.comic[0].status == 1) {
+            //published
+            document.getElementById("nonpublished").style.display = "none";
+            document.getElementById("pub_comicTitle").value = x.comic[0].title;
+            document.getElementById("pub_comicDescription").value = x.rc[0].description;
+
+        }
+        else {
+            //nonpublished
+            //todo: check if series id, series is empty
+            if('series_id' in x){
+                srs()
+            }
+            else
+                rgl();
+            document.getElementById("published").style.display = "none";
+            document.getElementById("comicTitle").value = x.comic[0].title;
+            document.getElementById("comicDescription").value =  x.rc[0].description;
+        }
+    });
 </script>
 
 </div>
