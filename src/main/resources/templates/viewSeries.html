@@ -83,7 +83,7 @@
         document.getElementById("seriestitle").innerText = c.seriesName;
         $("#comicauthor").text(c.seriesAuthor);
         document.getElementById("comicauthor").addEventListener('click', function() {
-            $.cookie("profileusername",c.seriesAuthor);
+            $.cookie("profileUsername",c.seriesAuthor);
             document.location.href = "./profile.html";
         });
         document.getElementById("following").innerText = c.following + " Following";
