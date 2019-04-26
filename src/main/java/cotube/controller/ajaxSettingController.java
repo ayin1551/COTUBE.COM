@@ -96,7 +96,7 @@ public class ajaxSettingController {
     }
     @RequestMapping(value="/changeProfile",method = RequestMethod.POST)
     @ResponseBody
-    public Boolean setProfilePicture(HttpServletRequest request){
+    public String setProfilePicture(HttpServletRequest request){
         // Update db here!!!!
         // Replace the old profile picture file
         // Delete the username_newProfilePicture.png
@@ -104,8 +104,8 @@ public class ajaxSettingController {
         String username = request.getParameter("username");
         String img = request.getParameter("img");
         Account changed = this.accountService.getAccountByUsername(username);
-        changed.setProfile_pic_path(img);
+        changed.setProfile_pic_path("img/" + username + "_newProfilePicture.png");
         this.accountService.addAccount(changed);
-        return true;
+        return ("img/" + username + "_newProfilePicture.png");
     }
 }
