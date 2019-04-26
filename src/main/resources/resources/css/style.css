@@ -527,6 +527,7 @@ tr.d0:nth-child(even)  td{
   width: 100%;
   position: fixed;
   background: #004b80;
+  z-index: 999;
 }
 .regbar-left{
   float:left;
