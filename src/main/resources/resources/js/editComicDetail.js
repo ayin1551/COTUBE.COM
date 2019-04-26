@@ -3,10 +3,61 @@ function getAllSeries(){
     console.log("HIT");
     $.ajax({
         type: "post",
-        url: "createComicDetail.html/getSeries",
+        url: "editComicDetail.html/getSeries",
         async: false,
         dataType:"json",
         data: {username: $.cookie("username")},
+        success: function(data){
+            console.log(data);
+            obj = data;
+        }
+    });
+    return obj;
+}
+
+function getComicInfo(){
+    var obj;
+    console.log("HIT");
+    $.ajax({
+        type: "post",
+        url: "editComicDetail.html/getComic",
+        async: false,
+        dataType:"json",
+        data: {comicId: $.cookie("comicId")},
+        success: function(data){
+            console.log(data);
+            obj = data;
+        }
+    });
+    return obj;
+}
+
+function cancelEdit(){
+    var obj;
+    console.log("HIT");
+    $.ajax({
+        type: "post",
+        url: "editComicDetail.html/cancel",
+        async: false,
+        dataType:"json",
+        data: {comicId: $.cookie("comicId")},
+        success: function(data){
+            console.log(data);
+            obj = data;
+        }
+    });
+    return obj;
+}
+
+function pub_cancelEdit(){
+    var obj;
+    console.log("HIT");
+    $.ajax({
+        type: "post",
+        url: "editComicDetail.html/pubcancel",
+        async: false,
+        dataType:"json",
+        data: {comicId: $.cookie("comicId")},
         success: function(data){
             console.log(data);
             obj = data;
@@ -23,7 +74,7 @@ function uploadCmcThumb(){
     console.log("HELP");
     reader.onloadend = function() {
         $.ajax({
-            url: "createComicDetail.html/uploadCmcThumb",
+            url: "editComicDetail.html/uploadCmcThumb",
             type: "post",
             async: false,
             data: {comicId: $.cookie("comicId"),img:reader.result.substr(reader.result.indexOf(',') + 1)},
@@ -34,7 +85,6 @@ function uploadCmcThumb(){
         //document.getElementById("thumb").src = reader.result;
     }
 }
-
 function uploadSrsThumb(){
     var file = document.querySelector('input[type=file]').files[0];
     var reader = new FileReader();
@@ -57,7 +107,7 @@ function uploadSrsThumb(){
 function saveComic(){
     $.ajax({
         type: "post",
-        url: "createComicDetail.html/save",
+        url: "editComicDetail.html/save",
         async: false,
         data: {title:document.getElementById("comicTitle").value,
             descr:document.getElementById("comicDescription").value,
@@ -73,7 +123,6 @@ function saveComic(){
             tag4:document.getElementById("tag4word").innerText,
             tag5: document.getElementById("tag5word").innerText},
         success: function(data){
-
         }
     });
 }
@@ -81,7 +130,7 @@ function saveComic(){
 function publishComic(){
     $.ajax({
         type: "post",
-        url: "createComicDetail.html/publish",
+        url: "editComicDetail.html/publish",
         async: false,
         data: {title:document.getElementById("comicTitle").value,
             descr:document.getElementById("comicDescription").value,
@@ -91,14 +140,34 @@ function publishComic(){
             comicId: $.cookie('comicId'),
             newSeries:document.getElementById("newSeries").value,
             existSeries: document.getElementById("existSeries").value,
-        tag1: document.getElementById("tag1word").innerText,
-        tag2: document.getElementById("tag2word").innerText,
+            tag1: document.getElementById("tag1word").innerText,
+            tag2: document.getElementById("tag2word").innerText,
             tag3: document.getElementById("tag3word").innerText,
             tag4:document.getElementById("tag4word").innerText,
             tag5: document.getElementById("tag5word").innerText},
         success: function(data){
-
         }
     });
 }
+
+function publishPubComic(){
+    $.ajax({
+        type: "post",
+        url: "editComicDetail.html/pubpublish",
+        async: false,
+        data: {title:document.getElementById("comicTitle").value,
+            descr:document.getElementById("comicDescription").value,
+            thumb: null,
+            //thumb:document.getElementById("pub_file-input").value,
+            comicId: $.cookie('comicId'),
+            tag1: document.getElementById("tag1word").innerText,
+            tag2: document.getElementById("tag2word").innerText,
+            tag3: document.getElementById("tag3word").innerText,
+            tag4:document.getElementById("tag4word").innerText,
+            tag5: document.getElementById("tag5word").innerText},
+        success: function(data){
+        }
+    });
+}
+
 
