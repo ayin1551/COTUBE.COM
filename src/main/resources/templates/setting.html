@@ -196,6 +196,10 @@
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
+        }else if($.cookie('role')=="admin"){
+            document.getElementById("login").style.display = "none";
+            document.getElementById("create").style.display = "none";
+            document.getElementById("profile").style.display = "none";
         }else{
             document.getElementById("create").style.display = "none";
             document.getElementById("signout").style.display = "none";

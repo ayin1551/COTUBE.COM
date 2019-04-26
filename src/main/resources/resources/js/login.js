@@ -128,7 +128,7 @@
           }
           else{
             $.cookie('role','admin');
-            document.location.href="./admin.html";
+			document.location.href="./admin.html";
           }
         }
       });
