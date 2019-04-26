@@ -70,26 +70,44 @@ public class ajaxSearchController{
     @ResponseBody
     public String searchByAuthor(HttpServletRequest request){
         String author = request.getParameter("author");
+        String page = request.getParameter("page");
         System.out.println(author);
         List<Account> accounts = accountService.getAllAccounts();
 
         List<Integer> followerCount = new ArrayList<Integer>();
         List<String> matches = new ArrayList<String>();
         List<String> pic = new ArrayList<String>();
+        int count = 0;
         for(Account acc: accounts){
             if (acc.getUsername().contains(author)&&acc.getAccount_role()==0){
                 followerCount.add(followUserService.getFollowerCount(acc.getUsername()));
                 matches.add(acc.getUsername());
                 pic.add(acc.getProfile_pic_path());
+                count++;
             }
         }
-        for(int i=0;i<followerCount.size();i++){
-            System.out.println(i+1 + ": " + matches.get(i) + "\t" + followerCount.get(i) + "\t" + pic.get(i));
+        count = followerCount.size();
+        System.out.println("count：" + count);
+        // for(int i=0;i<followerCount.size();i++){
+        //     System.out.println(i+1 + ": " + matches.get(i) + "\t" + followerCount.get(i) + "\t" + pic.get(i));
+        // }
+        int pageint = Integer.parseInt(page);
+        if((Integer.parseInt(page))*12>matches.size()){
+            System.out.print("-----------in if---------");
+            followerCount = followerCount.subList((pageint-1)*12,count);
+            matches = matches.subList((pageint-1)*12, count);
+            pic = pic.subList((pageint-1)*12, count);
+        }else{
+            followerCount = followerCount.subList((pageint-1)*12,pageint*12);
+            matches = matches.subList((pageint-1)*12, pageint*12);
+            pic = pic.subList((pageint-1)*12, pageint*12);
         }
         JSONObject result = new JSONObject();
         result.put("account", matches);
         result.put("followers", followerCount);
         result.put("picpath", pic);
+        result.put("totalpage", Math.ceil(count/12.0));
+        result.put("pagenumber", pageint);
         System.out.println(result.toString());
         return result.toString();
     }
