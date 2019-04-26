@@ -122,7 +122,6 @@
         data: {username: $.cookie("username")},
         success: function (data) {//loginController to check if the username and password match
           validality = data;//need to check if admin or not
-          alert(validality);
           if(!validality){
             document.location.href="./home.html";
           }
