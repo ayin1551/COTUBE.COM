@@ -89,6 +89,14 @@ public class ajaxLoginController{
         }
         return false;
     }
-
+    @RequestMapping(value="/checkAdmin",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean isAdmin(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        Account check = this.accountService.getAccountByUsername(username);
+        if (check.getAccount_role() == 1)
+            return true;
+        return false;
+    }
 
 }

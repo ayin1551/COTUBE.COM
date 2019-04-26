@@ -69,7 +69,8 @@ public class ajaxSettingController {
     public String uploadPicture(HttpServletRequest request) throws IOException {
         String username = request.getParameter("username");
         String img = request.getParameter("img");
-        String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
+        //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
+        String filePath = "./src/main/resources/resources/img/" + username + "_newProfilePicture.png";
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
@@ -83,22 +84,28 @@ public class ajaxSettingController {
         System.out.println(filePath);
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
-
         return filePath;
     }
 
-
+    @RequestMapping(value = "/loadProfile", method = RequestMethod.POST)
+    @ResponseBody
+    public String loadProfilePic(HttpServletRequest request) throws IOException {
+        String username = request.getParameter("username");
+        Account changed = this.accountService.getAccountByUsername(username);
+        return changed.getProfile_pic_path();
+    }
     @RequestMapping(value="/changeProfile",method = RequestMethod.POST)
     @ResponseBody
     public Boolean setProfilePicture(HttpServletRequest request){
-
-
         // Update db here!!!!
         // Replace the old profile picture file
         // Delete the username_newProfilePicture.png
         // Return true if success else false
-
-
+        String username = request.getParameter("username");
+        String img = request.getParameter("img");
+        Account changed = this.accountService.getAccountByUsername(username);
+        changed.setProfile_pic_path(img);
+        this.accountService.addAccount(changed);
         return true;
     }
 }

@@ -50,7 +50,7 @@ public class Comments {
         this.comment_number = comment_number;
     }
 
-    public String getComenter_Username() {
+    public String getCommenter_username() {
         return commenter_username;
     }
 

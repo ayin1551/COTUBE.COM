@@ -114,7 +114,23 @@
       $.cookie('role',"user");
 
       $('#successful_login').addClass('active');
-      document.location.href="./home.html";
+
+      $.ajax({
+        url: "login.html/checkAdmin",
+        type: "post",
+        async: false,
+        data: {username: $.cookie("username")},
+        success: function (data) {//loginController to check if the username and password match
+          validality = data;//need to check if admin or not
+          alert(validality);
+          if(!validality){
+            document.location.href="./home.html";
+          }
+          else{
+            document.location.href="./admin.html";
+          }
+        }
+      });
     }
 
     // REGISTRATION FORM: Validation function

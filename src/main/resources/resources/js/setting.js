@@ -81,13 +81,26 @@ function resetSecurityQuestion(){
         }
     }
 }
-
+function loadProfilePicture(){
+    $.ajax({
+        url: "setting.html/loadProfile",
+        type: "post",
+        async: false,
+        data: {username: $.cookie("username")},
+        success: function (data) {
+            if(data){
+                document.getElementById("oldpp").src = data;
+            }
+        }
+    });
+}
 function changeProfile(){
+    var imgsrc = document.getElementById("newapp").src;
     $.ajax({
         url: "setting.html/changeProfile",
         type: "post",
         async: false,
-        data: {username: $.cookie("username")},
+        data: {username: $.cookie("username"),img: imgsrc},
         success: function (data) {
             if(data){
                 document.getElementById("oldpp").src = document.getElementById("newpp").src;

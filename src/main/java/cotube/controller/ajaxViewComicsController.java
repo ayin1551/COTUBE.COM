@@ -401,7 +401,7 @@ public class ajaxViewComicsController{
             for(Comments c: comments){
                 if(c.getComment_number() == n && c.getComic_id() == comicid){
                     commentContent.add(c.getComment());
-                    commenter.add(c.getComenter_Username());
+                    commenter.add(c.getCommenter_username());
                     commentTime.add(c.getComment_time().toString());
                 }
             }
