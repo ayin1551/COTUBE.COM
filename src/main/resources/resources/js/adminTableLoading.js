@@ -10,16 +10,16 @@ function loadComics(){
             var tableRow = document.createElement("TR");
             tableRow.className = "d0";
             var titleTD = document.createElement('TD');
-            titleTD.style = "width:22.5vw";
+            titleTD.style = "width:25vw";
             titleTD.innerText = "Title";
             var AuthorTD = document.createElement('TD');
             AuthorTD.style = "width:22.5vw";
             AuthorTD.innerText = "Author";
             var TimeTD = document.createElement('TD');
-            TimeTD.style = "width:22.5vw";
+            TimeTD.style = "width:25vw";
             TimeTD.innerText = "Time";
             var ActionTD = document.createElement('TD');
-            ActionTD.style = "width:22.5vw";
+            ActionTD.style = "width:25vw";
             ActionTD.innerText = "Action";
             tableRow.appendChild(titleTD);
             //tableRow.appendChild(AuthorTD);
@@ -79,9 +79,10 @@ function passComicID(ID){
         async: false,
         data: {comicTitle: ID},
         success: function (data) {
-            loadComics();
+
         }
     });
+    document.location.reload();
 }
 function denyComicID(ID){
     $.ajax({
@@ -90,9 +91,10 @@ function denyComicID(ID){
         async: false,
         data: {comicTitle: ID},
         success: function (data) {
-            loadComics();
+
         }
     });
+    document.location.reload();
 }
 
 function loadComments(){
@@ -107,19 +109,19 @@ function loadComments(){
             var tableRow = document.createElement("TR");
             tableRow.className = "d0";
             var titleTD = document.createElement('TD');
-            titleTD.style = "width:22.5vw";
+            titleTD.style = "width:17.5vw";
             titleTD.innerText = "Comment";
             var AuthorTD = document.createElement('TD');
-            AuthorTD.style = "width:22.5vw";
+            AuthorTD.style = "width:17.5vw";
             AuthorTD.innerText = "User";
             var ComNumTD = document.createElement('TD');
-            ComNumTD.style = "width:22.5vw";
+            ComNumTD.style = "width:17.5vw";
             ComNumTD.innerText = "Comment Number";
             var TimeTD = document.createElement('TD');
-            TimeTD.style = "width:22.5vw";
+            TimeTD.style = "width:17.5vw";
             TimeTD.innerText = "Time";
             var ActionTD = document.createElement('TD');
-            ActionTD.style = "width:22.5vw";
+            ActionTD.style = "width:17.5vw";
             ActionTD.innerText = "Action";
             tableRow.appendChild(titleTD);
             tableRow.appendChild(AuthorTD);
@@ -189,10 +191,11 @@ function passComment(comic_id,comic_number){
         async: false,
         data: {comicID: comic_id,comicNum: comic_number},
         success: function (data) {
-            showComics();
-            //showComments();
+
         }
     });
+    document.location.reload();
+    showComments();
 }
 function denyComment(comic_id,comic_number){
     $.ajax({
@@ -205,4 +208,6 @@ function denyComment(comic_id,comic_number){
             //showComments();
         }
     });
+    document.location.reload();
+    showComments();
 }

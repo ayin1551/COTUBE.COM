@@ -21,6 +21,7 @@ function getAllComicsByTitle(){
                 tableheadTitle.addEventListener('click', function () {
                     goViewComic(obj["TNA"][i].ID);
                 });
+                tableheadTitle.style.cursor = "pointer";
                 tableheadTitle.style = "width:25%";
                 tableheadTitle.innerHTML = title;
                 var tableheadAuthor = document.createElement("TH");
@@ -29,6 +30,7 @@ function getAllComicsByTitle(){
                 });
 
                 tableheadAuthor.style = "width:15%";
+                tableheadAuthor.style.cursor = "pointer";
                 tableheadAuthor.innerHTML = author;
                 tablerow.appendChild(tableheadEmpty);
                 tablerow.appendChild(tableheadBullet);

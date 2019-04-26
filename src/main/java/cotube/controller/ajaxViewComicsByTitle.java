@@ -58,6 +58,9 @@ public class ajaxViewComicsByTitle {
             }
         }
         List<titleAndAuthor>result = new ArrayList<>();
+        System.out.println(titles.size());
+        System.out.println(authors.size());
+        System.out.println(ids.size());
         for (int i = 0;i < titles.size(); i++){
             titleAndAuthor packed = new titleAndAuthor(titles.get(i),authors.get(i),ids.get(i));
             result.add(packed);

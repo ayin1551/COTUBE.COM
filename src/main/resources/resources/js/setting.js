@@ -95,7 +95,7 @@ function loadProfilePicture(){
     });
 }
 function changeProfile(){
-    var imgsrc = document.getElementById("newapp").src;
+    var imgsrc = document.getElementById("newpp").src;
     $.ajax({
         url: "setting.html/changeProfile",
         type: "post",
