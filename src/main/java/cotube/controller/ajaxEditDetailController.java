@@ -83,44 +83,28 @@ public class ajaxEditDetailController {
         ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
         image = ImageIO.read(bis);
         bis.close();
-        
-       // File outputfile = new File("cotubeImage_new.png");  //file path and file name need to change
-                                                        //Do not replace the old comic at this time
-        //ImageIO.write(image, "png", outputfile);
-        //System.out.println(request.getParameter("username"));
 
-        /*
-
-            Save the new comic file elsewhere with a different file name
-            Once commit the edit, replace the old comic with the new one (This will be handle by another controller)
-
-        */
-
-       /* Panel panel = panelService.getPanelFromPanelId(comicId);
-        Comic comic = comicService.getComicByComic_Id(comicId);
-        RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
-        comicService.addComic(comic);
-        panel.setCanvas_path("newcomicID_" + comicId + ".png");
-        System.out.println(panel.getCanvas_path());*/
-        //rc.setRegular_comic_id(comicId);
-        //rc.setPanel_id(panel.getPanel_id());
-
-        //panelService.addPanel(panel);
-        //comicService.addComic(comic);
-        //regularComicService.addRegularComic(rc);
-
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
         String fileName = "newcomicID_" + comicId + ".png";
         File outputfile = new File("src/main/resources/resources/img/regularcomics/" + fileName); //file path and file name need to change
+        File seriesfile = new File("src/main/resources/resources/img/thumbnails/" + oldSeriesName); //file path and file name need to change
+        File cmcthmbfile = new File("src/main/resources/resources/img/thumbnails/" + oldComicThumbnail); //file path and file name need to change
         System.out.println(System.getProperty("user.dir"));
         //File outputfile = new File("src/main/resources/resources/img/t/4.jpg"); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
+        ImageIO.write(image, "png", seriesfile);
+        ImageIO.write(image, "png", cmcthmbfile);
         //File file = new File()
         //MultipartFile multipartFile = new MockMultipartFile("test.jpg", new FileInputStream(outputfile));
         MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        MultipartFile multipartFile2 = new MockMultipartFile(oldSeriesName, new FileInputStream(seriesfile));
+        MultipartFile multipartFile3 = new MockMultipartFile(oldComicThumbnail, new FileInputStream(cmcthmbfile));
         System.out.println("MultipartFile Name:" + multipartFile.getName());
         System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
-        //this.amazonS3ClientService.uploadFileToS3Bucket(outputfile, true);
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
 
         return new RedirectView("?editComicId="+Integer.toString(comicId));
 
@@ -168,8 +152,10 @@ public class ajaxEditDetailController {
         if (!existSeries.equals("")){
             List<Series> seriesList = seriesService.getAllSeries();
             for (int i = 0; i < seriesList.size(); i++){
-                if (seriesList.get(i).getSeries_name() == existSeries)
+                if (seriesList.get(i).getSeries_name().equals(existSeries)) {
+                    System.out.println("EXISTSER");
                     rc.setSeries_id(seriesList.get(i).getSeries_id());
+                }
             }
         }
         //A new series was selected
@@ -315,8 +301,10 @@ public class ajaxEditDetailController {
         if (!existSeries.equals("")){
             List<Series> seriesList = seriesService.getAllSeries();
             for (int i = 0; i < seriesList.size(); i++){
-                if (seriesList.get(i).getSeries_name() == existSeries)
+                if (seriesList.get(i).getSeries_name().equals(existSeries)) {
+                    System.out.println("EXISTSER");
                     rc.setSeries_id(seriesList.get(i).getSeries_id());
+                }
             }
         }
         //A new series was selected
@@ -657,9 +645,9 @@ public class ajaxEditDetailController {
         String comicId = request.getParameter("comicId");
         System.out.println("comicId:" + request.getParameter("comicId"));
 
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
         String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
         String oldComicName = "newcomicID_" + comicId + ".png";
-        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
         this.amazonS3ClientService.deleteFileFromS3Bucket(oldSeriesName);
         this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicName);
         this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);

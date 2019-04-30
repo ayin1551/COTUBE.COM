@@ -168,15 +168,15 @@ function publishPubComic(){
         type: "post",
         url: "editComicDetail.html/pubpublish",
         async: false,
-        data: {title:document.getElementById("comicTitle").value,
-            descr:document.getElementById("comicDescription").value,
+        data: {title:document.getElementById("pub_comicTitle").value,
+            descr:document.getElementById("pub_comicDescription").value,
             comicId: $.cookie('comicId'),
             thumb: "https://s3.amazonaws.com/cotubetest/comic-" + $.cookie("comicId") + "_thumbnail.png",
-            tag1: document.getElementById("tag1word").innerText,
-            tag2: document.getElementById("tag2word").innerText,
-            tag3: document.getElementById("tag3word").innerText,
-            tag4:document.getElementById("tag4word").innerText,
-            tag5: document.getElementById("tag5word").innerText},
+            tag1: document.getElementById("pub_tag1word").innerText,
+            tag2: document.getElementById("pub_tag2word").innerText,
+            tag3: document.getElementById("pub_tag3word").innerText,
+            tag4:document.getElementById("pub_tag4word").innerText,
+            tag5: document.getElementById("pub_tag5word").innerText},
         success: function(data){
         }
     });

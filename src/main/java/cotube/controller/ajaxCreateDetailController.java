@@ -114,18 +114,27 @@ public class ajaxCreateDetailController {
 
         //comicService.addComic(comic);
         regularComicService.addRegularComic(rc);
+        String oldComicThumbnail = "comic-" + comicId + "_thumbnail.png";
+        String oldSeriesName = "seriescomic-" + comicId + "_thumbnail.png";
         String fileName = "comicID_" + comicId + ".png";
         File outputfile = new File("src/main/resources/resources/img/regularcomics/" + fileName); //file path and file name need to change
+        File seriesfile = new File("src/main/resources/resources/img/thumbnails/" + oldSeriesName); //file path and file name need to change
+        File cmcthmbfile = new File("src/main/resources/resources/img/thumbnails/" + oldComicThumbnail); //file path and file name need to change
         System.out.println(System.getProperty("user.dir"));
         //File outputfile = new File("src/main/resources/resources/img/t/4.jpg"); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
+        ImageIO.write(image, "png", seriesfile);
+        ImageIO.write(image, "png", cmcthmbfile);
         //File file = new File()
         //MultipartFile multipartFile = new MockMultipartFile("test.jpg", new FileInputStream(outputfile));
         MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        MultipartFile multipartFile2 = new MockMultipartFile(oldSeriesName, new FileInputStream(seriesfile));
+        MultipartFile multipartFile3 = new MockMultipartFile(oldComicThumbnail, new FileInputStream(cmcthmbfile));
         System.out.println("MultipartFile Name:" + multipartFile.getName());
         System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
-        //this.amazonS3ClientService.uploadFileToS3Bucket(outputfile, true);
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
 
         return new RedirectView("?createComicId="+Integer.toString(comicId));
     }
@@ -231,8 +240,10 @@ public class ajaxCreateDetailController {
         if (!existSeries.equals("")){
             List<Series> seriesList = seriesService.getAllSeries();
             for (int i = 0; i < seriesList.size(); i++){
-                if (seriesList.get(i).getSeries_name() == existSeries)
+                if (seriesList.get(i).getSeries_name().equals(existSeries)) {
+                    System.out.println("EXISTSER");
                     rc.setSeries_id(seriesList.get(i).getSeries_id());
+                }
             }
         }
         //A new series was selected
@@ -335,11 +346,12 @@ public class ajaxCreateDetailController {
 
         //An existing series was selected
         if (!existSeries.equals("")){
-            System.out.println("pickexist");
             List<Series> seriesList = seriesService.getAllSeries();
             for (int i = 0; i < seriesList.size(); i++){
-                if (seriesList.get(i).getSeries_name().equals(existSeries))
+                if (seriesList.get(i).getSeries_name().equals(existSeries)) {
+                    System.out.println("EXISTSER");
                     rc.setSeries_id(seriesList.get(i).getSeries_id());
+                }
             }
         }
         //A new series was selected
