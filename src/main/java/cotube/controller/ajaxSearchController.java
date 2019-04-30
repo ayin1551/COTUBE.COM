@@ -70,26 +70,44 @@ public class ajaxSearchController{
     @ResponseBody
     public String searchByAuthor(HttpServletRequest request){
         String author = request.getParameter("author");
+        String page = request.getParameter("page");
         System.out.println(author);
         List<Account> accounts = accountService.getAllAccounts();
 
         List<Integer> followerCount = new ArrayList<Integer>();
         List<String> matches = new ArrayList<String>();
         List<String> pic = new ArrayList<String>();
+        int count = 0;
         for(Account acc: accounts){
             if (acc.getUsername().contains(author)&&acc.getAccount_role()==0){
                 followerCount.add(followUserService.getFollowerCount(acc.getUsername()));
                 matches.add(acc.getUsername());
                 pic.add(acc.getProfile_pic_path());
+                count++;
             }
         }
-        for(int i=0;i<followerCount.size();i++){
-            System.out.println(i+1 + ": " + matches.get(i) + "\t" + followerCount.get(i) + "\t" + pic.get(i));
+        count = followerCount.size();
+        System.out.println("count：" + count);
+        // for(int i=0;i<followerCount.size();i++){
+        //     System.out.println(i+1 + ": " + matches.get(i) + "\t" + followerCount.get(i) + "\t" + pic.get(i));
+        // }
+        int pageint = Integer.parseInt(page);
+        if((Integer.parseInt(page))*12>matches.size()){
+            System.out.print("-----------in if---------");
+            followerCount = followerCount.subList((pageint-1)*12,count);
+            matches = matches.subList((pageint-1)*12, count);
+            pic = pic.subList((pageint-1)*12, count);
+        }else{
+            followerCount = followerCount.subList((pageint-1)*12,pageint*12);
+            matches = matches.subList((pageint-1)*12, pageint*12);
+            pic = pic.subList((pageint-1)*12, pageint*12);
         }
         JSONObject result = new JSONObject();
         result.put("account", matches);
         result.put("followers", followerCount);
         result.put("picpath", pic);
+        result.put("totalpage", Math.ceil(count/12.0));
+        result.put("pagenumber", pageint);
         System.out.println(result.toString());
         return result.toString();
     }
@@ -97,9 +115,11 @@ public class ajaxSearchController{
     @RequestMapping(value="/keyword",method = RequestMethod.POST)
     @ResponseBody
     public String searchByKeyword(HttpServletRequest request){
-
         String keyword = request.getParameter("keyword");
-        List<Comic> comics = this.comicService.searchComicsByTitle(keyword);
+        String pagenum1 = request.getParameter("page");
+        System.out.println("!!!!!!!!!!!!!!" + keyword + "\t" + pagenum1);
+        int pagenum = Integer.parseInt(pagenum1);
+        List<Comic> comics = this.comicService.searchComicsByTitlePublic(keyword);
         List<String>titles = new ArrayList<String>();
         List<String>picPath = new ArrayList<String>();
         List<String>authors = new ArrayList<String>();
@@ -108,14 +128,16 @@ public class ajaxSearchController{
         List<Integer>IDs = new ArrayList<>();
         List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
         for (Comic c: comics){
-            titles.add(c.getTitle());
-            IDs.add(c.getComic_id());
-            for (RegularComic reg: regularComics){
-                if (reg.getRegular_comic_id() == c.getComic_id()){
-                    picPath.add(reg.getThumbnail_path());
-                    authors.add(getAuthor(reg));
-                    likes.add(getLikes(reg));
-                    views.add(getViews(reg));
+            if(c.getStatus()==1||c.getStatus()==3){
+                titles.add(c.getTitle());
+                IDs.add(c.getComic_id());
+                for (RegularComic reg: regularComics){
+                    if (reg.getRegular_comic_id() == c.getComic_id()){
+                        picPath.add(reg.getThumbnail_path());
+                        authors.add(getAuthor(reg));
+                        likes.add(getLikes(reg));
+                        views.add(getViews(reg));
+                    }
                 }
             }
         }
@@ -145,8 +167,17 @@ public class ajaxSearchController{
         else if(sortMethod.equals("3")){
             Collections.sort(result, compareByAlphabet);
         }
+        int count = result.size();
+        if(pagenum*15>result.size()){
+            System.out.print("-----------in if regular---------");
+            result = result.subList((pagenum-1)*15,count);
+        }else{
+            result = result.subList((pagenum-1)*15,pagenum*15);
+        }
         JSONObject go = new JSONObject();
         go.put("TPALV",result);
+        go.put("pagenumber",pagenum);
+        go.put("totalpage",Math.ceil(count/15.0));
         //System.out.println(go.toString());
         return go.toString();
     }
@@ -184,6 +215,9 @@ public class ajaxSearchController{
     @ResponseBody
     public String seriesSearch(HttpServletRequest request) {
         String keyword = request.getParameter("keyword");
+        String pagenum1 = request.getParameter("page");
+        System.out.println("!!!!!!!!!!!!!!" + keyword + "\t" + pagenum1);
+        int pagenum = Integer.parseInt(pagenum1);
         List<String>titles = new ArrayList<String>();
         List<String>picPath = new ArrayList<String>();
         List<Integer>ID = new ArrayList<>();
@@ -207,13 +241,24 @@ public class ajaxSearchController{
                 totalComics.add(total);
             }
         }
-        ArrayList<seriesSearchPackage>result = new ArrayList<seriesSearchPackage>();
+        List<seriesSearchPackage>result = new ArrayList<seriesSearchPackage>();
         for(int i = 0;i<titles.size();i++){
             seriesSearchPackage add = new seriesSearchPackage(titles.get(i),picPath.get(i),"user1",ID.get(i),totalComics.get(i));
             result.add(add);
         }
+        int count = result.size();
+        // System.out.println("totalcount in series:" + count);
+        if(pagenum*15>result.size()){
+            System.out.print("-----------in if series---------");
+            result = result.subList((pagenum-1)*15,count);
+        }else{
+            result = result.subList((pagenum-1)*15,pagenum*15);
+        }
+
         JSONObject go = new JSONObject();
         go.put("TPALV",result);
+        go.put("pagenumber",pagenum);
+        go.put("totalpage",Math.ceil(count/15.0));
         //System.out.println(go.toString());
         return go.toString();
     }

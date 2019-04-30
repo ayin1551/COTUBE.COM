@@ -4,10 +4,12 @@ import cotube.domain.*;
 import cotube.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 
@@ -16,7 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64.Decoder;
 import java.util.List;
@@ -24,6 +29,14 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/editComicDetail.html")
 public class ajaxEditDetailController {
+
+    private String amazonURL =  "https://s3.amazonaws.com/cotubetest/";
+
+    private AmazonS3ClientService amazonS3ClientService;
+    @Autowired
+    public void setAmazonS3ClientService(AmazonS3ClientService amazonS3ClientService) {
+        this.amazonS3ClientService = amazonS3ClientService;
+    }
 
     private ComicService comicService;
     @Autowired
@@ -70,37 +83,31 @@ public class ajaxEditDetailController {
         ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
         image = ImageIO.read(bis);
         bis.close();
-        
-       // File outputfile = new File("cotubeImage_new.png");  //file path and file name need to change
-                                                        //Do not replace the old comic at this time
-        //ImageIO.write(image, "png", outputfile);
-        //System.out.println(request.getParameter("username"));
 
-        /*
-
-            Save the new comic file elsewhere with a different file name
-            Once commit the edit, replace the old comic with the new one (This will be handle by another controller)
-
-        */
-
-       /* Panel panel = panelService.getPanelFromPanelId(comicId);
-        Comic comic = comicService.getComicByComic_Id(comicId);
-        RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
-        comicService.addComic(comic);
-        panel.setCanvas_path("newcomicID_" + comicId + ".png");
-        System.out.println(panel.getCanvas_path());*/
-        //rc.setRegular_comic_id(comicId);
-        //rc.setPanel_id(panel.getPanel_id());
-
-        //panelService.addPanel(panel);
-        //comicService.addComic(comic);
-        //regularComicService.addRegularComic(rc);
-        File outputfile = new File("src/main/resources/resources/img/regularcomics/newcomicID_" + comicId + ".png"); //file path and file name need to change
-        System.out.println("Path of outputfile:" + outputfile);
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
+        String fileName = "newcomicID_" + comicId + ".png";
+        File outputfile = new File("src/main/resources/resources/img/regularcomics/" + fileName); //file path and file name need to change
+        File seriesfile = new File("src/main/resources/resources/img/thumbnails/" + oldSeriesName); //file path and file name need to change
+        File cmcthmbfile = new File("src/main/resources/resources/img/thumbnails/" + oldComicThumbnail); //file path and file name need to change
+        System.out.println(System.getProperty("user.dir"));
+        //File outputfile = new File("src/main/resources/resources/img/t/4.jpg"); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
-
+        ImageIO.write(image, "png", seriesfile);
+        ImageIO.write(image, "png", cmcthmbfile);
+        //File file = new File()
+        //MultipartFile multipartFile = new MockMultipartFile("test.jpg", new FileInputStream(outputfile));
+        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        MultipartFile multipartFile2 = new MockMultipartFile(oldSeriesName, new FileInputStream(seriesfile));
+        MultipartFile multipartFile3 = new MockMultipartFile(oldComicThumbnail, new FileInputStream(cmcthmbfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
 
         return new RedirectView("?editComicId="+Integer.toString(comicId));
+
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -131,7 +138,6 @@ public class ajaxEditDetailController {
         System.out.println("tag4:" +request.getParameter("tag4"));
         System.out.println("tag5:" +request.getParameter("tag5"));
 
-
         Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
         comic.setTitle(title);
         comic.setStatus(0);
@@ -139,128 +145,22 @@ public class ajaxEditDetailController {
         rc.setDescription(descr);
         rc.setThumbnail_path(thumb);
 
-        //An existing series was selected
-        if (!existSeries.equals("")){
-            List<Series> seriesList = seriesService.getAllSeries();
-            for (int i = 0; i < seriesList.size(); i++){
-                if (seriesList.get(i).getSeries_name() == existSeries)
-                    rc.setSeries_id(seriesList.get(i).getSeries_id());
-            }
-        }
-        //A new series was selected
-        if (!newSeries.equals("")){
-            String user = panelService.getPanelFromPanelId(rc.getPanel_id()).getAuthor();
-            Folder folder = new Folder();
-            folder.setFolder_type(1);
-            folder.setVisibility(1);
-            folder.setUsername(user);
-            folder.setFolder_name(user+newSeries+"seriesfolder");
-            folderService.addFolder(folder);
-            Series series = new Series();
-            series.setFolder_id(folder.getFolder_id());
-            series.setSeries_name(newSeries);
-            series.setThumbnail_path(seriesThumb);
-            seriesService.addSeries(series);
-            rc.setSeries_id(series.getSeries_id());
-        }
-
-        regularComicService.addRegularComic(rc);
-
-        List<Tag> previousTags = tagService.getAllTagsInRegularComic(Integer.parseInt(comicId));
-        for (int i = 0; i < previousTags.size();i++){
-            tagService.deleteTag(previousTags.get(i));
-        }
-
-        if (!tag1.equals("")) {
-            Tag tag = new Tag();
-            tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
-            tagService.addTag(tag);
-        }
-        if (!tag2.equals("")) {
-            Tag tag = new Tag();
-            tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
-            tagService.addTag(tag);
-        }
-        if (!tag3.equals("")) {
-            Tag tag = new Tag();
-            tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
-            tagService.addTag(tag);
-        }
-        if (!tag4.equals("")) {
-            Tag tag = new Tag();
-            tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
-            tagService.addTag(tag);
-        }
-        if (!tag5.equals("")) {
-            Tag tag = new Tag();
-            tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
-            tagService.addTag(tag);
-        }
-
-
-        comicService.addComic(comic);
-        System.out.println("savb");
-
-        return "editComicDetail";
-    }
-
-    @RequestMapping(value = "/publish", method = RequestMethod.POST)
-    public String publish(HttpServletRequest request) throws IOException {
-        String comicId = request.getParameter("comicId");
-        String descr = request.getParameter("descr");
-        String title = request.getParameter("title");
-        String thumb = request.getParameter("thumb");
-        String newSeries = request.getParameter("newSeries");
-        String existSeries = request.getParameter("existSeries");
-        String seriesThumb = request.getParameter("seriesThumb");
-        String tag1 = request.getParameter("tag1");
-        String tag2 = request.getParameter("tag2");
-        String tag3 = request.getParameter("tag3");
-        String tag4 = request.getParameter("tag4");
-        String tag5 = request.getParameter("tag5");
-
-        System.out.println("comicId:" + request.getParameter("comicId"));
-        System.out.println("descr:" +request.getParameter("descr"));
-        System.out.println("title:" +request.getParameter("title"));
-        System.out.println("thumb:" +request.getParameter("thumb"));
-        System.out.println("newSeries:" +request.getParameter("newSeries"));
-        System.out.println("existSeries:" +request.getParameter("existSeries"));
-        System.out.println("seriesThumb:" +request.getParameter("seriesThumb"));
-        System.out.println("tag1:" +request.getParameter("tag1"));
-        System.out.println("tag2:" +request.getParameter("tag2"));
-        System.out.println("tag3:" +request.getParameter("tag3"));
-        System.out.println("tag4:" +request.getParameter("tag4"));
-        System.out.println("tag5:" +request.getParameter("tag5"));
-
-        Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
-        comic.setTitle(title);
-        comic.setStatus(1);
-        RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(Integer.parseInt(comicId));
-        rc.setDescription(descr);
-        rc.setThumbnail_path(thumb);
         Panel panel = panelService.getPanelFromPanelId(rc.getPanel_id());
-        File newComicFile = new File("src/main/resources/resources/img/regularcomics/newcomicID_" + comicId + ".png");
-        File oldComicFile = new File("src/main/resources/resources/img/regularcomics/comicID_" + comicId + ".png");
-        panel.setCanvas_path(newComicFile.getCanonicalPath());
-        oldComicFile.delete();
-
+        panel.setCanvas_path(amazonURL + "comicID_" + comicId + ".png");
 
         //An existing series was selected
         if (!existSeries.equals("")){
             List<Series> seriesList = seriesService.getAllSeries();
             for (int i = 0; i < seriesList.size(); i++){
-                if (seriesList.get(i).getSeries_name() == existSeries)
+                if (seriesList.get(i).getSeries_name().equals(existSeries)) {
+                    System.out.println("EXISTSER");
                     rc.setSeries_id(seriesList.get(i).getSeries_id());
+                }
             }
         }
         //A new series was selected
         if (!newSeries.equals("")){
-            String user = panelService.getPanelFromPanelId(rc.getPanel_id()).getAuthor();
+            String user = panel.getAuthor();
             Folder folder = new Folder();
             folder.setFolder_type(1);
             folder.setVisibility(1);
@@ -275,7 +175,6 @@ public class ajaxEditDetailController {
             rc.setSeries_id(series.getSeries_id());
         }
 
-        System.out.println("pub=");
         regularComicService.addRegularComic(rc);
 
         List<Tag> previousTags = tagService.getAllTagsInRegularComic(Integer.parseInt(comicId));
@@ -313,6 +212,197 @@ public class ajaxEditDetailController {
             tag.setComic_tag(tag5);
             tagService.addTag(tag);
         }
+
+        //Replace comic panel
+        String oldComicName = "newcomicID_" + comicId + ".png";
+        String comicName = "comicID_" + comicId + ".png";
+        URL url = new URL(amazonURL + oldComicName);
+        BufferedImage img = ImageIO.read(url);
+        File file = new File("image.png");
+        ImageIO.write(img, "png", file);
+
+        MultipartFile multipartFile = new MockMultipartFile(comicName, new FileInputStream(file));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicName);
+
+        //Replace comic thumbnail
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        String comicThumbnail = "comic-" + comicId + "_thumbnail.png";
+        URL url2 = new URL(amazonURL + oldComicThumbnail);
+        BufferedImage img2 = ImageIO.read(url2);
+        File file2 = new File("image2.png");
+        ImageIO.write(img2, "png", file2);
+
+        MultipartFile multipartFile2 = new MockMultipartFile(comicThumbnail, new FileInputStream(file2));
+        System.out.println("MultipartFile Name:" + multipartFile2.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile2.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);
+
+        //Replace series thumbnail
+        String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
+        String seriesName = "seriescomic-" + comicId + "_thumbnail.png";
+        URL url3 = new URL(amazonURL + oldSeriesName);
+        BufferedImage img3 = ImageIO.read(url3);
+        File file3 = new File("image3.png");
+        ImageIO.write(img3, "png", file3);
+
+        MultipartFile multipartFile3 = new MockMultipartFile(seriesName, new FileInputStream(file3));
+        System.out.println("MultipartFile Name:" + multipartFile3.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile3.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldSeriesName);
+
+        comicService.addComic(comic);
+        return "editComicDetail";
+    }
+
+    @RequestMapping(value = "/publish", method = RequestMethod.POST)
+    public String publish(HttpServletRequest request) throws IOException {
+        String comicId = request.getParameter("comicId");
+        String descr = request.getParameter("descr");
+        String title = request.getParameter("title");
+        String thumb = request.getParameter("thumb");
+        String newSeries = request.getParameter("newSeries");
+        String existSeries = request.getParameter("existSeries");
+        String seriesThumb = request.getParameter("seriesThumb");
+        String tag1 = request.getParameter("tag1");
+        String tag2 = request.getParameter("tag2");
+        String tag3 = request.getParameter("tag3");
+        String tag4 = request.getParameter("tag4");
+        String tag5 = request.getParameter("tag5");
+
+        System.out.println("comicId:" + request.getParameter("comicId"));
+        System.out.println("descr:" +request.getParameter("descr"));
+        System.out.println("title:" +request.getParameter("title"));
+        System.out.println("thumb:" +request.getParameter("thumb"));
+        System.out.println("newSeries:" +request.getParameter("newSeries"));
+        System.out.println("existSeries:" +request.getParameter("existSeries"));
+        System.out.println("seriesThumb:" +request.getParameter("seriesThumb"));
+        System.out.println("tag1:" +request.getParameter("tag1"));
+        System.out.println("tag2:" +request.getParameter("tag2"));
+        System.out.println("tag3:" +request.getParameter("tag3"));
+        System.out.println("tag4:" +request.getParameter("tag4"));
+        System.out.println("tag5:" +request.getParameter("tag5"));
+
+        Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
+        comic.setTitle(title);
+        comic.setStatus(3);
+        RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(Integer.parseInt(comicId));
+        rc.setDescription(descr);
+        rc.setThumbnail_path(thumb);
+
+        Panel panel = panelService.getPanelFromPanelId(rc.getPanel_id());
+        panel.setCanvas_path(amazonURL + "comicID_" + comicId + ".png");
+
+        //An existing series was selected
+        if (!existSeries.equals("")){
+            List<Series> seriesList = seriesService.getAllSeries();
+            for (int i = 0; i < seriesList.size(); i++){
+                if (seriesList.get(i).getSeries_name().equals(existSeries)) {
+                    System.out.println("EXISTSER");
+                    rc.setSeries_id(seriesList.get(i).getSeries_id());
+                }
+            }
+        }
+        //A new series was selected
+        if (!newSeries.equals("")){
+            String user = panel.getAuthor();
+            Folder folder = new Folder();
+            folder.setFolder_type(1);
+            folder.setVisibility(1);
+            folder.setUsername(user);
+            folder.setFolder_name(user+newSeries+"seriesfolder");
+            folderService.addFolder(folder);
+            Series series = new Series();
+            series.setFolder_id(folder.getFolder_id());
+            series.setSeries_name(newSeries);
+            series.setThumbnail_path(seriesThumb);
+            seriesService.addSeries(series);
+            rc.setSeries_id(series.getSeries_id());
+        }
+
+        regularComicService.addRegularComic(rc);
+
+        List<Tag> previousTags = tagService.getAllTagsInRegularComic(Integer.parseInt(comicId));
+        for (int i = 0; i < previousTags.size();i++){
+            tagService.deleteTag(previousTags.get(i));
+        }
+
+        if (!tag1.equals("")) {
+            Tag tag = new Tag();
+            tag.setRegular_comic_id(Integer.parseInt(comicId));
+            tag.setComic_tag(tag1);
+            tagService.addTag(tag);
+        }
+        if (!tag2.equals("")) {
+            Tag tag = new Tag();
+            tag.setRegular_comic_id(Integer.parseInt(comicId));
+            tag.setComic_tag(tag2);
+            tagService.addTag(tag);
+        }
+        if (!tag3.equals("")) {
+            Tag tag = new Tag();
+            tag.setRegular_comic_id(Integer.parseInt(comicId));
+            tag.setComic_tag(tag3);
+            tagService.addTag(tag);
+        }
+        if (!tag4.equals("")) {
+            Tag tag = new Tag();
+            tag.setRegular_comic_id(Integer.parseInt(comicId));
+            tag.setComic_tag(tag4);
+            tagService.addTag(tag);
+        }
+        if (!tag5.equals("")) {
+            Tag tag = new Tag();
+            tag.setRegular_comic_id(Integer.parseInt(comicId));
+            tag.setComic_tag(tag5);
+            tagService.addTag(tag);
+        }
+
+        //Replace comic panel
+        String oldComicName = "newcomicID_" + comicId + ".png";
+        String comicName = "comicID_" + comicId + ".png";
+        URL url = new URL(amazonURL + oldComicName);
+        BufferedImage img = ImageIO.read(url);
+        File file = new File("image.png");
+        ImageIO.write(img, "png", file);
+
+        MultipartFile multipartFile = new MockMultipartFile(comicName, new FileInputStream(file));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicName);
+
+        //Replace comic thumbnail
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        String comicThumbnail = "comic-" + comicId + "_thumbnail.png";
+        URL url2 = new URL(amazonURL + oldComicThumbnail);
+        BufferedImage img2 = ImageIO.read(url2);
+        File file2 = new File("image2.png");
+        ImageIO.write(img2, "png", file2);
+
+        MultipartFile multipartFile2 = new MockMultipartFile(comicThumbnail, new FileInputStream(file2));
+        System.out.println("MultipartFile Name:" + multipartFile2.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile2.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);
+
+        //Replace series thumbnail
+        String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
+        String seriesName = "seriescomic-" + comicId + "_thumbnail.png";
+        URL url3 = new URL(amazonURL + oldSeriesName);
+        BufferedImage img3 = ImageIO.read(url3);
+        File file3 = new File("image3.png");
+        ImageIO.write(img3, "png", file3);
+
+        MultipartFile multipartFile3 = new MockMultipartFile(seriesName, new FileInputStream(file3));
+        System.out.println("MultipartFile Name:" + multipartFile3.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile3.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldSeriesName);
 
         comicService.addComic(comic);
         return "editComicDetail";
@@ -360,7 +450,10 @@ public class ajaxEditDetailController {
     public String uploadCmcThumb(HttpServletRequest request) throws IOException {
         String comicId = request.getParameter("comicId");
         String img = request.getParameter("img");
-        String filePath = "newcomic-" + comicId + "_thumbnail.png";
+        System.out.println(img);
+        String fileName= "newcomic-" + comicId + "_thumbnail.png";
+        //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
+        String filePath = "./src/main/resources/resources/img/thumbnails/" + fileName;
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
@@ -374,7 +467,43 @@ public class ajaxEditDetailController {
         System.out.println(filePath);
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
-        System.out.println("Comic Thumbnail edit");
+
+        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+
+        return filePath;
+    }
+
+    @RequestMapping(value = "/uploadCmcThumbPub", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadCmcThumbPub(HttpServletRequest request) throws IOException {
+        String comicId = request.getParameter("comicId");
+        String img = request.getParameter("img");
+        System.out.println(img);
+        String fileName= "newcomic-" + comicId + "_thumbnail.png";
+        //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
+        String filePath = "./src/main/resources/resources/img/thumbnails/" + fileName;
+        //File path and need to change
+        byte[] imageByte;
+        BufferedImage image = null;
+        Decoder decoder = java.util.Base64.getMimeDecoder();
+
+        imageByte = decoder.decode(img);
+        ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+        image = ImageIO.read(bis);
+        bis.close();
+
+        System.out.println(filePath);
+        File outputfile = new File(filePath);
+        ImageIO.write(image, "png", outputfile);
+
+        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+
         return filePath;
     }
 
@@ -398,8 +527,12 @@ public class ajaxEditDetailController {
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
 
-        System.out.println("Series Thumbnail edit");
-        return filePath;
+        MultipartFile multipartFile = new MockMultipartFile(filePath, new FileInputStream(outputfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+
+        return img;
     }
 
     @RequestMapping(value = "/pubpublish", method = RequestMethod.POST)
@@ -426,16 +559,15 @@ public class ajaxEditDetailController {
 
         Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
         comic.setTitle(title);
-        comic.setStatus(1);
+        comic.setStatus(3);
         RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(Integer.parseInt(comicId));
         rc.setDescription(descr);
         rc.setThumbnail_path(thumb);
 
         Panel panel = panelService.getPanelFromPanelId(rc.getPanel_id());
-        File newComicFile = new File("src/main/resources/resources/img/regularcomics/newcomicID_" + comicId + ".png");
-        File oldComicFile = new File("src/main/resources/resources/img/regularcomics/comicID_" + comicId + ".png");
-        panel.setCanvas_path(newComicFile.getCanonicalPath());
-        oldComicFile.delete();
+        panel.setCanvas_path(amazonURL + "comicID_" + comicId + ".png");
+
+
 
         regularComicService.addRegularComic(rc);
 
@@ -475,8 +607,36 @@ public class ajaxEditDetailController {
             tagService.addTag(tag);
         }
 
+        //Replace comic panel
+        String oldComicName = "newcomicID_" + comicId + ".png";
+        String comicName = "comicID_" + comicId + ".png";
+        URL url = new URL(amazonURL + oldComicName);
+        BufferedImage img = ImageIO.read(url);
+        File file = new File("image.png");
+        ImageIO.write(img, "png", file);
+
+        MultipartFile multipartFile = new MockMultipartFile(comicName, new FileInputStream(file));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicName);
+
+        //Replace comic thumbnail
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        String comicThumbnail = "comic-" + comicId + "_thumbnail.png";
+        URL url2 = new URL(amazonURL + oldComicThumbnail);
+        BufferedImage img2 = ImageIO.read(url2);
+        File file2 = new File("image2.png");
+        ImageIO.write(img2, "png", file2);
+
+        MultipartFile multipartFile2 = new MockMultipartFile(comicThumbnail, new FileInputStream(file2));
+        System.out.println("MultipartFile Name:" + multipartFile2.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile2.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);
+
+
         comicService.addComic(comic);
-        System.out.println("pubpub");
         return "editComicDetail";
     }
 
@@ -485,15 +645,12 @@ public class ajaxEditDetailController {
         String comicId = request.getParameter("comicId");
         System.out.println("comicId:" + request.getParameter("comicId"));
 
-        File newComicFile = new File("src/main/resources/resources/img/regularcomics/newcomicID_" + comicId + ".png");
-        File newSrsThumbFile = new File("seriesnewcomic-" + comicId + "_thumbnail.png");
-        File newComicThumbFile = new File("newcomic-" + comicId + "_thumbnail.png");
-        newComicFile.delete();
-        newSrsThumbFile.delete();
-        newComicThumbFile.delete();
-
-        //Delete all files
-        System.out.println("canc");
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
+        String oldComicName = "newcomicID_" + comicId + ".png";
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldSeriesName);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicName);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);
 
         return "editComicDetail";
     }
@@ -502,14 +659,10 @@ public class ajaxEditDetailController {
     public String pubCancel(HttpServletRequest request) throws IOException {
         String comicId = request.getParameter("comicId");
         System.out.println("comicId:" + request.getParameter("comicId"));
-
-        File newComicFile = new File("src/main/resources/resources/img/regularcomics/newcomicID_" + comicId + ".png");
-        File newComicThumbFile = new File("newcomic-" + comicId + "_thumbnail.png");
-        newComicFile.delete();
-        newComicThumbFile.delete();
-
-        System.out.println("pubcanc");
-
+        String oldComicName = "newcomicID_" + comicId + ".png";
+        String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicName);
+        this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);
         return "editComicDetail";
     }
     }

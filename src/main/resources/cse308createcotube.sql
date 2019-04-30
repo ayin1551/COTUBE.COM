@@ -46,7 +46,7 @@ CREATE TABLE Comic(
 	comic_id INTEGER auto_increment,
     comic_type INTEGER, #0 = REGULAR, 1 = GAME
     title VARCHAR(255),
-    status INTEGER, #0 = non-published, 1 = published, 2 = censored VARCHAR(255),
+    status INTEGER, #0 = saved, 1 = published, 2 = censored VARCHAR(255), 3 = nonchecked
     date_published DATETIME,
     PRIMARY KEY (comic_id));
 
@@ -114,7 +114,7 @@ CREATE TABLE Comments(
     commenter_username VARCHAR(255),
     comment_time DATETIME,
     comment VARCHAR(1000),
-    status INTEGER, #0 = published, 1 = censored
+    status INTEGER, #0 = published, 1 = censored, 2 = unchecked
     PRIMARY KEY(comic_id, comment_number),
 	FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
