@@ -103,7 +103,7 @@ public class ajaxCreateDetailController {
 
         //comicService.addComic(comic);
         regularComicService.addRegularComic(rc);
-        File outputfile = new File("src/main/upload/comicID_" + comicId + ".png"); //file path and file name need to change
+        File outputfile = new File("src/main/resources/resources/img/regularcomics/comicID_" + comicId + ".png"); //file path and file name need to change
         System.out.println("Path of outputfile:" + outputfile);
         ImageIO.write(image, "png", outputfile);
 
@@ -112,10 +112,34 @@ public class ajaxCreateDetailController {
     }
 
     @RequestMapping(value = "/uploadCmcThumb", method = RequestMethod.POST)
+    @ResponseBody
     public String uploadCmcThumb(HttpServletRequest request) throws IOException {
         String comicId = request.getParameter("comicId");
         String img = request.getParameter("img");
         String filePath = "comic-" + comicId + "_thumbnail.png";
+        //File path and need to change
+        byte[] imageByte;
+        BufferedImage image = null;
+        Decoder decoder = java.util.Base64.getMimeDecoder();
+
+        imageByte = decoder.decode(img);
+        ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+        image = ImageIO.read(bis);
+        bis.close();
+
+        System.out.println(filePath);
+        File outputfile = new File(filePath);
+        ImageIO.write(image, "png", outputfile);
+
+        return img;
+    }
+
+    @RequestMapping(value = "/uploadSrsThumb", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadSrsThumb(HttpServletRequest request) throws IOException {
+        String comicId = request.getParameter("comicId");
+        String img = request.getParameter("img");
+        String filePath = "seriescomic-" + comicId + "_thumbnail.png";
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
@@ -138,24 +162,29 @@ public class ajaxCreateDetailController {
         String comicId = request.getParameter("comicId");
         String descr = request.getParameter("descr");
         String title = request.getParameter("title");
-        String thumb = request.getParameter("oldthumb");
-        String seriesID = request.getParameter("seriesId");
-
+        String thumb = request.getParameter("thumb");
+        String newSeries = request.getParameter("newSeries");
+        String existSeries = request.getParameter("existSeries");
+        String seriesThumb = request.getParameter("seriesThumb");
         String tag1 = request.getParameter("tag1");
         String tag2 = request.getParameter("tag2");
         String tag3 = request.getParameter("tag3");
         String tag4 = request.getParameter("tag4");
         String tag5 = request.getParameter("tag5");
+
         System.out.println("comicId:" + request.getParameter("comicId"));
         System.out.println("descr:" +request.getParameter("descr"));
         System.out.println("title:" +request.getParameter("title"));
-        System.out.println("oldthumb:" +request.getParameter("oldthumb"));
-        System.out.println("seriesId:" +request.getParameter("seriesId"));
+        System.out.println("thumb:" +request.getParameter("thumb"));
+        System.out.println("newSeries:" +request.getParameter("newSeries"));
+        System.out.println("existSeries:" +request.getParameter("existSeries"));
+        System.out.println("seriesThumb:" +request.getParameter("seriesThumb"));
         System.out.println("tag1:" +request.getParameter("tag1"));
         System.out.println("tag2:" +request.getParameter("tag2"));
         System.out.println("tag3:" +request.getParameter("tag3"));
         System.out.println("tag4:" +request.getParameter("tag4"));
         System.out.println("tag5:" +request.getParameter("tag5"));
+
 
         Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
         comic.setTitle(title);
@@ -163,6 +192,31 @@ public class ajaxCreateDetailController {
         RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(Integer.parseInt(comicId));
         rc.setDescription(descr);
         rc.setThumbnail_path(thumb);
+
+        //An existing series was selected
+        if (!existSeries.equals("")){
+            List<Series> seriesList = seriesService.getAllSeries();
+            for (int i = 0; i < seriesList.size(); i++){
+                if (seriesList.get(i).getSeries_name() == existSeries)
+                    rc.setSeries_id(seriesList.get(i).getSeries_id());
+            }
+        }
+        //A new series was selected
+        if (!newSeries.equals("")){
+            String user = panelService.getPanelFromPanelId(rc.getPanel_id()).getAuthor();
+            Folder folder = new Folder();
+            folder.setFolder_type(1);
+            folder.setVisibility(1);
+            folder.setUsername(user);
+            folder.setFolder_name(user+newSeries+"seriesfolder");
+            folderService.addFolder(folder);
+            Series series = new Series();
+            series.setFolder_id(folder.getFolder_id());
+            series.setSeries_name(newSeries);
+            series.setThumbnail_path(seriesThumb);
+            seriesService.addSeries(series);
+            rc.setSeries_id(series.getSeries_id());
+        }
 
         regularComicService.addRegularComic(rc);
 
@@ -212,20 +266,23 @@ public class ajaxCreateDetailController {
         String comicId = request.getParameter("comicId");
         String descr = request.getParameter("descr");
         String title = request.getParameter("title");
-        String thumb = request.getParameter("oldthumb");
+        String thumb = request.getParameter("thumb");
         String newSeries = request.getParameter("newSeries");
         String existSeries = request.getParameter("existSeries");
-
+        String seriesThumb = request.getParameter("seriesThumb");
         String tag1 = request.getParameter("tag1");
         String tag2 = request.getParameter("tag2");
         String tag3 = request.getParameter("tag3");
         String tag4 = request.getParameter("tag4");
         String tag5 = request.getParameter("tag5");
+
         System.out.println("comicId:" + request.getParameter("comicId"));
         System.out.println("descr:" +request.getParameter("descr"));
         System.out.println("title:" +request.getParameter("title"));
-        System.out.println("oldthumb:" +request.getParameter("oldthumb"));
-        System.out.println("seriesId:" +request.getParameter("seriesId"));
+        System.out.println("thumb:" +request.getParameter("thumb"));
+        System.out.println("newSeries:" +request.getParameter("newSeries"));
+        System.out.println("existSeries:" +request.getParameter("existSeries"));
+        System.out.println("seriesThumb:" +request.getParameter("seriesThumb"));
         System.out.println("tag1:" +request.getParameter("tag1"));
         System.out.println("tag2:" +request.getParameter("tag2"));
         System.out.println("tag3:" +request.getParameter("tag3"));
@@ -239,8 +296,31 @@ public class ajaxCreateDetailController {
         rc.setDescription(descr);
         rc.setThumbnail_path(thumb);
 
+        //An existing series was selected
         if (!existSeries.equals("")){
-
+            System.out.println("pickexist");
+            List<Series> seriesList = seriesService.getAllSeries();
+            for (int i = 0; i < seriesList.size(); i++){
+                if (seriesList.get(i).getSeries_name().equals(existSeries))
+                    rc.setSeries_id(seriesList.get(i).getSeries_id());
+            }
+        }
+        //A new series was selected
+        if (!newSeries.equals("")){
+            System.out.println("picknew");
+            String user = panelService.getPanelFromPanelId(rc.getPanel_id()).getAuthor();
+            Folder folder = new Folder();
+            folder.setFolder_type(1);
+            folder.setVisibility(1);
+            folder.setUsername(user);
+            folder.setFolder_name(user+newSeries+"seriesfolder");
+            folderService.addFolder(folder);
+            Series series = new Series();
+            series.setFolder_id(folder.getFolder_id());
+            series.setSeries_name(newSeries);
+            series.setThumbnail_path(seriesThumb);
+            seriesService.addSeries(series);
+            rc.setSeries_id(series.getSeries_id());
         }
 
         regularComicService.addRegularComic(rc);

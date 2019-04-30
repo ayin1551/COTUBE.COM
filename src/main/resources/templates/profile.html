@@ -97,6 +97,11 @@
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
+        }else if($.cookie('role')=="admin"){
+            document.getElementById("login").style.display = "none";
+            document.getElementById("create").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("home").onclick = function() { admingohome(); }
         }else{
             document.getElementById("create").style.display = "none";
             document.getElementById("signout").style.display = "none";
@@ -125,12 +130,12 @@
             document.getElementById("unfollow").style.display = "none";
             document.getElementById("follow").style.display = "initial";
         }
-        if($.cookie("role")=="guest"){
+        if($.cookie("role")=="guest" || $.cookie("role")=="admin"){
             document.getElementById("unfollow").style.display = "none";
             document.getElementById("follow").style.display = "none";
         }
         //Comics table
-        if($.cookie("username")==$("#profileusername").text()){
+        if($.cookie("username")==$("#profileusername").text() || $.cookie("role")=="admin"){
             document.getElementById("followings").style.cursor = "pointer";
             document.getElementById("followers").style.cursor = "pointer";
             $(window).ready(function() {
@@ -165,6 +170,7 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
+                            img2.style.cursor = "pointer";
                             img2.addEventListener('click', function() {
                                 seriesRedirect(comics.comicSeriesId[j]);
                             });
@@ -202,18 +208,20 @@
                             deleteComic(comics.comicId[j]);
                         });
 
-                        var input2 = document.createElement('input');
-                        td.appendChild(input2);
-                        input2.type = "image";
-                        input2.src = "./img/edit-button.png";
-                        input2.style.marginRight = "5px";
-                        input2.style.cssFloat = "right";
-                        input2.style.width = "25px";
-                        input2.style.height = "25px";
+                        if($.cookie("role")!="admin"){
+                            var input2 = document.createElement('input');
+                            td.appendChild(input2);
+                            input2.type = "image";
+                            input2.src = "./img/edit-button.png";
+                            input2.style.marginRight = "5px";
+                            input2.style.cssFloat = "right";
+                            input2.style.width = "25px";
+                            input2.style.height = "25px";
+                            input2.addEventListener('click', function() {
+                                editRedirect(comics.comicId[j]);
+                            });
+                        }
                         var br2 = document.createElement('br');
-                        input2.addEventListener('click', function() {
-                            editRedirect(comics.comicId[j]);
-                        });
                         td.appendChild(br2);
                     }
                 }
@@ -251,6 +259,7 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
+                            img2.style.cursor = "pointer";
                             img2.addEventListener('click', function() {
                                 seriesRedirect(comics.comicSeriesId[j]);
                             });

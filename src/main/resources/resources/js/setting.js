@@ -95,18 +95,21 @@ function loadProfilePicture(){
     });
 }
 function changeProfile(){
-    var imgsrc = document.getElementById("newapp").src;
+    var imgsrc = document.getElementById("newpp").src;
+    //alert(imgsrc);
     $.ajax({
         url: "setting.html/changeProfile",
         type: "post",
         async: false,
         data: {username: $.cookie("username"),img: imgsrc},
         success: function (data) {
-            if(data){
-                document.getElementById("oldpp").src = document.getElementById("newpp").src;
-            }
+            alert(data);
+
+            document.getElementById("oldpp").src = document.getElementById("newpp").src;
+
         }
     });
+    //loadProfilePicture();
 }
 
 function changeNewPP(){

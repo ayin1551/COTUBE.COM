@@ -85,7 +85,7 @@
 
 
     <script>
-        document.getElementById("createNewComicImg").src = "../upload/comicID_" + $.cookie('comicId') + ".png";
+        document.getElementById("createNewComicImg").src = "../img/regularcomics/comicID_" + $.cookie('comicId') + ".png";
         console.log();
     </script>
 
@@ -96,16 +96,19 @@
                 <td style="padding: 20px 0px 30px 0px; font-size: 2.5vw"><input type="radio" id="srs" name="kwO" value="series" onclick="srs()">series comic<br></td>
             </tr>
         </table>
+        <div id = "th"  style="display: none;">
+        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Series Thumbnail:</label></td>
+        <tr id="tbn1" style="width:42.1vw;">
+            <input id="file-inputs" type="file" name="name" oninput="uploadSrsThumb()" />
+        </tr>
+        </div>
+        <div>
+        <td style="text-align: right; padding-right: 5px"><label id = "txtid2" style="margin-bottom: 10px;font-size:1.5vw">Upload a New Comic Thumbnail:</label></td>
+        <tr id="tbn2" style="width:100%">
+            <input id="file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
+        </tr>
+        </div>
 
-        <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
-            <tr id="tbn1" style="display:none;width:42.1vw">
-                <td style="width:100%"><input id="seriesThumbnail" class="form-control" style="width: 100%; margin:0px; display: inline-block" placeholder="series thumbnail path..."/></td>
-                <td><button id="seriesThumbnailbtn" class="kwbtn kwbtn2" style="margin:0px;float:right;" onclick="">Upload</button><br></td>
-            </tr>
-            <tr id="tbn2" style="width:100%">
-                Upload a New Thumbnail: <input id="file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
-            </tr>
-        </table>
 
         <div>
             <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
@@ -212,14 +215,18 @@
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("seriestr1").style.display = "none";
         document.getElementById("seriestr2").style.display = "none";
-        document.getElementById("tbn1").style.display = "none";
+        document.getElementById("th").style.display = "none";
+        document.getElementById("file-inputs").style.display = "none";
+
+
     }
     function cvtcreate() {
         document.getElementById("tag_error1").style.display = "none";
         document.getElementById("tag_error2").style.display = "none";
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("existDefault").checked = true;
-        document.getElementById("tbn1").style.display = "table-row";
+        document.getElementById("th").style.display = "inline-flex";
+        document.getElementById("file-inputs").style.display = "inline-flex";
         document.getElementById("newSeries").innerText = "";
         document.getElementById("seriestr1").style.display = "none";
         document.getElementById("seriestr2").style.display = "table-row";
@@ -229,7 +236,8 @@
         document.getElementById("tag_error2").style.display = "none";
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("existDefault").checked = true;
-        document.getElementById("tbn1").style.display = "none";
+        document.getElementById("th").style.display = "none";
+        document.getElementById("file-inputs").style.display = "none";
         document.getElementById("newSeries").innerText = "";
         document.getElementById("seriestr1").style.display = "table-row";
         document.getElementById("seriestr2").style.display = "none";
@@ -385,6 +393,7 @@
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
             // TODO: create comic to database --- public
             publishComic();
+
         }
     }
 

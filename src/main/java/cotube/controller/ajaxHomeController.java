@@ -180,7 +180,7 @@ public class ajaxHomeController{
         for(Integer i: followSeriesIdNeeded){
             List<RegularComic> regularComicInSeries = this.regularComicService.getAllRegularComicsInSeries(i);
             for(RegularComic rc: regularComicInSeries){
-                if(this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1){
+                if(this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3){
                     timelineComicId.add(rc.getRegular_comic_id());
                 }
             }
@@ -191,7 +191,7 @@ public class ajaxHomeController{
                 if(p.getAuthor().equals(s)){
                    for(RegularComic rc: regularComics){
                        if(rc.getPanel_id() == p.getPanel_id()){
-                            if(this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1){
+                            if(this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3){
                                 timelineComicId.add(rc.getRegular_comic_id());    
                             }
                        }

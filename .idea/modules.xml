@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrussianBlue_COTUBE.COM.iml" filepath="$PROJECT_DIR$/.idea/modules/PrussianBlue_COTUBE.COM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PrussianBlue_COTUBE.COM.iml" filepath="$PROJECT_DIR$/PrussianBlue_COTUBE.COM.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrussianBlue_COTUBE.COM.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PrussianBlue_COTUBE.COM.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PrussianBlue_COTUBE.COM.test.iml" filepath="$PROJECT_DIR$/.idea/modules/PrussianBlue_COTUBE.COM.test.iml" />
     </modules>

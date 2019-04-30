@@ -139,18 +139,21 @@
                             deleteComic(comics.comicId[j]);
                         });
 
-                        var input2 = document.createElement('input');
-                        td.appendChild(input2);
-                        input2.type = "image";
-                        input2.src = "./img/edit-button.png";
-                        input2.style.marginRight = "5px";
-                        input2.style.cssFloat = "right";
-                        input2.style.width = "25px";
-                        input2.style.height = "25px";
+                        if($.cookie("role")!="admin"){
+                            var input2 = document.createElement('input');
+                            td.appendChild(input2);
+                            input2.type = "image";
+                            input2.src = "./img/edit-button.png";
+                            input2.style.marginRight = "5px";
+                            input2.style.cssFloat = "right";
+                            input2.style.width = "25px";
+                            input2.style.height = "25px";
+                            input2.addEventListener('click', function() {
+                                editRedirect(comics.comicId[j]);
+                            });
+                        }
+                        
                         var br2 = document.createElement('br');
-                        input2.addEventListener('click', function() {
-                            editRedirect(comics.comicId[j]);
-                        });
                         td.appendChild(br2);
                     }
                 }
@@ -203,6 +206,11 @@
 
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
+        }else if($.cookie('role')=="admin"){
+            document.getElementById("login").style.display = "none";
+            document.getElementById("create").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("home").onclick = function() { admingohome(); }
         }else{
             document.getElementById("create").style.display = "none";
             document.getElementById("signout").style.display = "none";
