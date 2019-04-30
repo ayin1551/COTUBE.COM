@@ -82,13 +82,22 @@
 
 
     <div id="saveInfo" style="width:43vw;height:auto;">
+        <div id = "checks">
         <table style="margin:auto; text-align: left">
             <tr>
                 <td style="padding: 20px 20px 30px 0px; font-size: 2.5vw"><input type="radio" id="rgl" name="kwO" value="regular" checked onclick="rgl()">regular comic<br></td>
                 <td style="padding: 20px 0px 30px 0px; font-size: 2.5vw"><input type="radio" id="srs" name="kwO" value="series" onclick="srs()">series comic<br></td>
             </tr>
         </table>
-
+        </div>
+        <div id = "checks2" style="display: none;">
+            <table style="margin:auto; text-align: left">
+                <tr>
+                    <td style="padding: 20px 20px 30px 0px; font-size: 2.5vw"></td>
+                    <td style="padding: 20px 0px 30px 0px; font-size: 2.5vw"></td>
+                </tr>
+            </table>
+        </div>
         <div id = "th"  style="display: none;">
             <table>
                 <tr>
@@ -240,7 +249,7 @@
 document.getElementById("createNewComicImg").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
 document.getElementById("oldcomicthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
 document.getElementById("newcomicthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
-document.getElementById("newseriesthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+document.getElementById("newseriesthumb").src = "https://s3.amazonaws.com/cotubetest/seriescomic-" + $.cookie('comicId') + "_thumbnail.png";
 </script>
 <script>
     function srs() {
@@ -476,6 +485,14 @@ document.getElementById("newseriesthumb").src = "https://s3.amazonaws.com/cotube
 
 
     <div id="pub_saveInfo" style="width:43vw;height:auto;">
+        <div id = "checks3">
+            <table style="margin:auto; text-align: left">
+                <tr>
+                    <td style="padding: 20px 20px 30px 0px; font-size: 2.5vw"></td>
+                    <td style="padding: 20px 0px 30px 0px; font-size: 2.5vw"></td>
+                </tr>
+            </table>
+        </div>
         <div>
             <table>
                 <tr>
@@ -751,7 +768,6 @@ document.getElementById("newseriesthumb").src = "https://s3.amazonaws.com/cotube
             document.getElementById("nonpublished").style.display = "none";
             document.getElementById("pub_comicTitle").value = x.comic[0].title;
             document.getElementById("pub_comicDescription").value = x.rc[0].description;
-
         }
         else {
             //nonpublished
@@ -760,9 +776,15 @@ document.getElementById("newseriesthumb").src = "https://s3.amazonaws.com/cotube
             console.log('series_id' in x.rc);
             if('series_id' in x.rc[0]){
                 srs()
+                document.getElementById("seriestr1").style.display = "none";
+                document.getElementById("checks").style.display = "none";
+                document.getElementById("checks2").style.display = "inline-flex";
             }
-            else
+            else {
                 rgl();
+                //document.getElementById("checks").style.display = "none";
+                //document.getElementById("checks2").style.display = "inline-flex";
+            }
             document.getElementById("published").style.display = "none";
             document.getElementById("comicTitle").value = x.comic[0].title;
             document.getElementById("comicDescription").value =  x.rc[0].description;

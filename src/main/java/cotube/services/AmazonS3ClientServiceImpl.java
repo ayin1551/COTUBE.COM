@@ -44,13 +44,15 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService
     public void uploadMultipartFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess)
     {
         String fileName = multipartFile.getName();
+        System.out.println("File name of multipart file: " + fileName);
         try {
             //creating the file in the server (temporarily)
             File file = new File(fileName);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(multipartFile.getBytes());
             fos.close();
-            System.out.println(file);
+            System.out.println("Temp file created: " + file);
+            System.out.println(multipartFile.getBytes());
 
             PutObjectRequest putObjectRequest = new PutObjectRequest(this.amazonS3DefaultBucket, fileName, file);
 

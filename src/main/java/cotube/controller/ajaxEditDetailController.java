@@ -1,10 +1,10 @@
 package cotube.controller;
 
+import com.amazonaws.util.IOUtils;
 import cotube.domain.*;
 import cotube.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -96,12 +93,128 @@ public class ajaxEditDetailController {
         ImageIO.write(image, "png", seriesfile);
         ImageIO.write(image, "png", cmcthmbfile);
         //File file = new File()
-        //MultipartFile multipartFile = new MockMultipartFile("test.jpg", new FileInputStream(outputfile));
-        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
-        MultipartFile multipartFile2 = new MockMultipartFile(oldSeriesName, new FileInputStream(seriesfile));
-        MultipartFile multipartFile3 = new MockMultipartFile(oldComicThumbnail, new FileInputStream(cmcthmbfile));
-        System.out.println("MultipartFile Name:" + multipartFile.getName());
-        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return fileName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return fileName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) outputfile.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(outputfile));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(outputfile);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
+        MultipartFile multipartFile2 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return oldSeriesName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return oldSeriesName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) seriesfile.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(seriesfile));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(seriesfile);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
+        MultipartFile multipartFile3 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return oldComicThumbnail;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return oldComicThumbnail;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) cmcthmbfile.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(cmcthmbfile));
+            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(cmcthmbfile);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
+
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
@@ -221,7 +334,46 @@ public class ajaxEditDetailController {
         File file = new File("image.png");
         ImageIO.write(img, "png", file);
 
-        MultipartFile multipartFile = new MockMultipartFile(comicName, new FileInputStream(file));
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return comicName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return comicName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile.getName());
         System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
@@ -235,7 +387,46 @@ public class ajaxEditDetailController {
         File file2 = new File("image2.png");
         ImageIO.write(img2, "png", file2);
 
-        MultipartFile multipartFile2 = new MockMultipartFile(comicThumbnail, new FileInputStream(file2));
+        MultipartFile multipartFile2 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return comicThumbnail;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return comicThumbnail;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file2.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file2));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file2);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile2.getName());
         System.out.println("MultipartFile OGName:" + multipartFile2.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
@@ -249,9 +440,46 @@ public class ajaxEditDetailController {
         File file3 = new File("image3.png");
         ImageIO.write(img3, "png", file3);
 
-        MultipartFile multipartFile3 = new MockMultipartFile(seriesName, new FileInputStream(file3));
-        System.out.println("MultipartFile Name:" + multipartFile3.getName());
-        System.out.println("MultipartFile OGName:" + multipartFile3.getOriginalFilename());
+        MultipartFile multipartFile3 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return seriesName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return seriesName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file3.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file3));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file3);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
         this.amazonS3ClientService.deleteFileFromS3Bucket(oldSeriesName);
 
@@ -370,7 +598,46 @@ public class ajaxEditDetailController {
         File file = new File("image.png");
         ImageIO.write(img, "png", file);
 
-        MultipartFile multipartFile = new MockMultipartFile(comicName, new FileInputStream(file));
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return comicName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return comicName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile.getName());
         System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
@@ -384,7 +651,46 @@ public class ajaxEditDetailController {
         File file2 = new File("image2.png");
         ImageIO.write(img2, "png", file2);
 
-        MultipartFile multipartFile2 = new MockMultipartFile(comicThumbnail, new FileInputStream(file2));
+        MultipartFile multipartFile2 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return comicThumbnail;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return comicThumbnail;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file2.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file2));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file2);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile2.getName());
         System.out.println("MultipartFile OGName:" + multipartFile2.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
@@ -398,9 +704,46 @@ public class ajaxEditDetailController {
         File file3 = new File("image3.png");
         ImageIO.write(img3, "png", file3);
 
-        MultipartFile multipartFile3 = new MockMultipartFile(seriesName, new FileInputStream(file3));
-        System.out.println("MultipartFile Name:" + multipartFile3.getName());
-        System.out.println("MultipartFile OGName:" + multipartFile3.getOriginalFilename());
+        MultipartFile multipartFile3 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return seriesName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return seriesName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file3.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file3));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file3);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile3, true);
         this.amazonS3ClientService.deleteFileFromS3Bucket(oldSeriesName);
 
@@ -468,7 +811,46 @@ public class ajaxEditDetailController {
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
 
-        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return fileName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return fileName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) outputfile.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(outputfile));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(outputfile);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile.getName());
         System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
@@ -499,9 +881,46 @@ public class ajaxEditDetailController {
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
 
-        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
-        System.out.println("MultipartFile Name:" + multipartFile.getName());
-        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return fileName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return fileName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) outputfile.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(outputfile));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(outputfile);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
 
         return filePath;
@@ -527,9 +946,46 @@ public class ajaxEditDetailController {
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
 
-        MultipartFile multipartFile = new MockMultipartFile(filePath, new FileInputStream(outputfile));
-        System.out.println("MultipartFile Name:" + multipartFile.getName());
-        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return filePath;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return filePath;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) outputfile.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(outputfile));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(outputfile);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
 
         return img;
@@ -615,7 +1071,46 @@ public class ajaxEditDetailController {
         File file = new File("image.png");
         ImageIO.write(img, "png", file);
 
-        MultipartFile multipartFile = new MockMultipartFile(comicName, new FileInputStream(file));
+        MultipartFile multipartFile = new MultipartFile() {
+            @Override
+            public String getName() {
+                return comicName;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return comicName;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile.getName());
         System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
@@ -629,12 +1124,50 @@ public class ajaxEditDetailController {
         File file2 = new File("image2.png");
         ImageIO.write(img2, "png", file2);
 
-        MultipartFile multipartFile2 = new MockMultipartFile(comicThumbnail, new FileInputStream(file2));
+        MultipartFile multipartFile2 = new MultipartFile() {
+            @Override
+            public String getName() {
+                return comicThumbnail;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return comicThumbnail;
+            }
+
+            @Override
+            public String getContentType() {
+                return "images/png";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                return (int) file2.length();
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return IOUtils.toByteArray(new FileInputStream(file2));            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(file2);
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+
+            }
+        };
         System.out.println("MultipartFile Name:" + multipartFile2.getName());
         System.out.println("MultipartFile OGName:" + multipartFile2.getOriginalFilename());
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile2, true);
         this.amazonS3ClientService.deleteFileFromS3Bucket(oldComicThumbnail);
-
 
         comicService.addComic(comic);
         return "editComicDetail";
