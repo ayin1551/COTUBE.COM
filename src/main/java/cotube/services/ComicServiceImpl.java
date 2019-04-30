@@ -53,6 +53,24 @@ public class ComicServiceImpl implements ComicService {
         }
         return result;
     }
+
+    public List<Comic> searchComicsByTitlePublic(String title){
+        //List<Comic> comics = comicRepository.findAll();
+        List<Comic> comics = (List<Comic>) comicRepository.findAll();
+        //System.out.println(title);
+        List<Comic> result = new ArrayList<Comic>();
+        for (Comic com: comics){
+
+            if (com.getTitle().contains((CharSequence)title)&&(com.getStatus()==1||com.getStatus()==3)){
+                result.add(com);
+            }
+            System.out.println(com.getTitle());
+            System.out.println(title);
+        }
+        return result;
+    }
+
+
     public Comic getComicByComic_Id(Integer integer) {
         return comicRepository.getComicByComic_id(integer);
     }
