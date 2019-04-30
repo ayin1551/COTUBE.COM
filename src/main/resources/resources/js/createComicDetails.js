@@ -15,12 +15,11 @@ function getAllSeries(){
     return obj;
 }
 
-
 function uploadCmcThumb(){
-    var file = document.querySelector('input[type=file]').files[0];
+    var file = document.getElementById("file-input").files[0];
+    console.log(file);
     var reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log("HELP");
     reader.onloadend = function() {
         $.ajax({
             url: "createComicDetail.html/uploadCmcThumb",
@@ -30,16 +29,15 @@ function uploadCmcThumb(){
             success: function (data) {
             }
         });
-        console.log(reader.result);
-        //document.getElementById("thumb").src = reader.result;
+        document.getElementById("newcomicthumb").src =reader.result;
     }
 }
 
 function uploadSrsThumb(){
-    var file = document.querySelector('input[type=file]').files[0];
+    var file = document.getElementById("file-inputs").files[0];
+    console.log(file);
     var reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log("HELP");
     reader.onloadend = function() {
         $.ajax({
             url: "createComicDetail.html/uploadSrsThumb",
@@ -49,8 +47,7 @@ function uploadSrsThumb(){
             success: function (data) {
             }
         });
-        console.log(reader.result);
-        //document.getElementById("srsthumb").src = reader.result;
+        document.getElementById("newseriesthumb").src = reader.result;
     }
 }
 
@@ -61,11 +58,10 @@ function saveComic(){
         async: false,
         data: {title:document.getElementById("comicTitle").value,
             descr:document.getElementById("comicDescription").value,
-            thumb: null, seriesThumb: null,
-            //thumb:document.getElementById("file-input").value,
-            //seriesThumb: document.getElementById("file-inputs").value,
             comicId: $.cookie('comicId'),
             newSeries:document.getElementById("newSeries").value,
+            thumb: "https://s3.amazonaws.com/cotubetest/comic-" + $.cookie("comicId") + "_thumbnail.png",
+            seriesThumb: "https://s3.amazonaws.com/cotubetest/seriescomic-" + $.cookie("comicId") + "_thumbnail.png",
             existSeries: document.getElementById("existSeries").value,
             tag1: document.getElementById("tag1word").innerText,
             tag2: document.getElementById("tag2word").innerText,
@@ -73,7 +69,6 @@ function saveComic(){
             tag4:document.getElementById("tag4word").innerText,
             tag5: document.getElementById("tag5word").innerText},
         success: function(data){
-
         }
     });
 }
@@ -85,11 +80,10 @@ function publishComic(){
         async: false,
         data: {title:document.getElementById("comicTitle").value,
             descr:document.getElementById("comicDescription").value,
-            thumb: null, seriesThumb: null,
-            //thumb:document.getElementById("file-input").value,
-            //seriesThumb: document.getElementById("file-inputs").value,
             comicId: $.cookie('comicId'),
             newSeries:document.getElementById("newSeries").value,
+            thumb: "https://s3.amazonaws.com/cotubetest/comic-" + $.cookie("comicId") + "_thumbnail.png",
+            seriesThumb: "https://s3.amazonaws.com/cotubetest/seriescomic-" + $.cookie("comicId") + "_thumbnail.png",
             existSeries: document.getElementById("existSeries").value,
         tag1: document.getElementById("tag1word").innerText,
         tag2: document.getElementById("tag2word").innerText,

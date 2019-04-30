@@ -12,7 +12,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="../js/js.cookie.js"></script>
     <script src="../js/jumpFunction.js"></script>
-    <script src="../js/editComicDetail.js"></script>
+    <script src="../js/editComicDetails.js"></script>
 
 </head>
 
@@ -80,11 +80,6 @@
         <img src="../img/t/1.jpg" id="createNewComicImg" style="width:54vw;height:auto;margin-left:1.9vw;margin-right:0.9vw;margin-top: 1.9vw">
     </div>
 
-    <script>
-        document.getElementById("createNewComicImg").src = "../img/regularcomics/newcomicID_" + $.cookie('comicId') + ".png";
-        console.log();
-    </script>
-
 
     <div id="saveInfo" style="width:43vw;height:auto;">
         <table style="margin:auto; text-align: left">
@@ -95,15 +90,62 @@
         </table>
 
         <div id = "th"  style="display: none;">
-            <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Series Thumbnail:</label></td>
-            <tr id="tbn1" style=";width:42.1vw">
-                <input id="file-inputs" type="file" name="name" oninput="uploadSrsThumb()" />
-            </tr>
+            <table>
+                <tr>
+                    <td align = "center">
+                        <img id = "newseriesthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                    </td>
+                    <td align = "center">
+                    </td>
+                </tr>
+                <tr>
+                    <td align = "center">
+                        <h4>New</h4>
+                    </td>
+                    <td align = "center">
+                        <h4></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class = "submitButton" onclick="document.getElementById('file-inputs').click();">Upload Series Thumb</button>
+                        <input id="file-inputs" type="file" name="name2" oninput="uploadSrsThumb()" style="display: none;" />
+                    </td>
+                </tr>
+            </table>
         </div>
-        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Comic Thumbnail:</label></td>
+        <div>
+            <table>
+                <tr>
+                    <td align = "center">
+                        <img id = "oldcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                    </td>
+                    <td align = "center">
+                        <img id = "newcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                    </td>
+                </tr>
+                <tr>
+                    <td align = "center">
+                        <h4>Current</h4>
+                    </td>
+                    <td align = "center">
+                        <h4>New</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class = "submitButton" onclick="document.getElementById('file-input').click();">Upload Comic Thumb</button>
+                        <input id="file-input" type="file" name="name" oninput="uploadCmcThumb()" style="display: none;" />
+                    </td>
+                </tr>
+            </table>
+            <!--
+        <td style="text-align: right; padding-right: 5px"><label id = "txtid2" style="margin-bottom: 10px;font-size:1.5vw">Upload a New Comic Thumbnail:</label></td>
         <tr id="tbn2" style="width:100%">
             <input id="file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
         </tr>
+        -->
+        </div>
 
         <div>
             <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
@@ -195,6 +237,12 @@
     </div>
 </div>
 <script>
+document.getElementById("createNewComicImg").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+document.getElementById("oldcomicthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+document.getElementById("newcomicthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+document.getElementById("newseriesthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+</script>
+<script>
     function srs() {
         document.getElementById("tag_error1").style.display = "none";
         document.getElementById("tag_error2").style.display = "none";
@@ -210,15 +258,13 @@
         document.getElementById("seriestr1").style.display = "none";
         document.getElementById("seriestr2").style.display = "none";
         document.getElementById("th").style.display = "none";
-        document.getElementById("file-inputs").style.display = "none";
     }
     function cvtcreate() {
         document.getElementById("tag_error1").style.display = "none";
         document.getElementById("tag_error2").style.display = "none";
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("existDefault").checked = true;
-        document.getElementById("th").style.display = "inline";
-        document.getElementById("file-inputs").style.display = "inline";
+        document.getElementById("th").style.display = "inline-flex";
         document.getElementById("newSeries").innerText = "";
         document.getElementById("seriestr1").style.display = "none";
         document.getElementById("seriestr2").style.display = "table-row";
@@ -228,8 +274,7 @@
         document.getElementById("tag_error2").style.display = "none";
         document.getElementById("tag_error3").style.display = "none";
         document.getElementById("existDefault").checked = true;
-        document.getElementById("th").style.display = "inline";
-        document.getElementById("file-inputs").style.display = "inline";
+        document.getElementById("th").style.display = "none";
         document.getElementById("newSeries").innerText = "";
         document.getElementById("seriestr1").style.display = "table-row";
         document.getElementById("seriestr2").style.display = "none";
@@ -428,17 +473,33 @@
         <img src="../img/t/1.jpg" id="pub_createNewComicImg" style="width:54vw;height:auto;margin-left:1.9vw;margin-right:0.9vw;margin-top: 1.9vw">
     </div>
 
-    <script>
-        document.getElementById("createNewComicImg").src = "../img/regularcomics/newcomicID_" + $.cookie('comicId') + ".png";
-        console.log();
-    </script>
-
 
     <div id="pub_saveInfo" style="width:43vw;height:auto;">
-            <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Upload a New Comic Thumbnail:</label></td>
-            <tr id="tb3n2" style="width:100%">
-                <input id="pub_file-input" type="file" name="file-name" oninput="uploadCmcThumb()"  />
-            </tr>
+        <div>
+            <table>
+                <tr>
+                    <td align = "center">
+                        <img id = "pub_oldcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                    </td>
+                    <td align = "center">
+                        <img id = "pub_newcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                    </td>
+                </tr>
+                <tr>
+                    <td align = "center">
+                        <h4>Current</h4>
+                    </td>
+                    <td align = "center">
+                        <h4>New</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class = "submitButton" onclick="document.getElementById('pub_file-input').click();">Upload Comic Thumb</button>
+                        <input id="pub_file-input" type="file" name="name34" oninput="pub_uploadCmcThumb()" style="display: none;" />
+                    </td>
+                </tr>
+            </table>
 
         <div>
             <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
@@ -515,7 +576,11 @@
         </div>
     </div>
 </div>
-
+<script>
+    document.getElementById("pub_createNewComicImgpub").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+    document.getElementById("pub_oldcomicthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+    document.getElementById("pub_newcomicthumb").src = "https://s3.amazonaws.com/cotubetest/newcomicID_" + $.cookie('comicId') + ".png";
+</script>
 <!-- for publich comic -->
 <script>
     function pub_comiccreate() {

@@ -5,10 +5,12 @@ import cotube.domain.*;
 import cotube.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.imageio.ImageIO;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,6 +30,14 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/createComicDetail.html")
 public class ajaxCreateDetailController {
+
+    private String amazonURL =  "https://s3.amazonaws.com/cotubetest/";
+
+    private AmazonS3ClientService amazonS3ClientService;
+    @Autowired
+    public void setAmazonS3ClientService(AmazonS3ClientService amazonS3ClientService) {
+        this.amazonS3ClientService = amazonS3ClientService;
+    }
 
     private ComicService comicService;
     @Autowired
@@ -103,10 +114,18 @@ public class ajaxCreateDetailController {
 
         //comicService.addComic(comic);
         regularComicService.addRegularComic(rc);
-        File outputfile = new File("src/main/resources/resources/img/regularcomics/comicID_" + comicId + ".png"); //file path and file name need to change
-        System.out.println("Path of outputfile:" + outputfile);
+        String fileName = "comicID_" + comicId + ".png";
+        File outputfile = new File("src/main/resources/resources/img/regularcomics/" + fileName); //file path and file name need to change
+        System.out.println(System.getProperty("user.dir"));
+        //File outputfile = new File("src/main/resources/resources/img/t/4.jpg"); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
-
+        //File file = new File()
+        //MultipartFile multipartFile = new MockMultipartFile("test.jpg", new FileInputStream(outputfile));
+        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+        //this.amazonS3ClientService.uploadFileToS3Bucket(outputfile, true);
 
         return new RedirectView("?createComicId="+Integer.toString(comicId));
     }
@@ -116,7 +135,10 @@ public class ajaxCreateDetailController {
     public String uploadCmcThumb(HttpServletRequest request) throws IOException {
         String comicId = request.getParameter("comicId");
         String img = request.getParameter("img");
-        String filePath = "comic-" + comicId + "_thumbnail.png";
+        System.out.println(img);
+        String fileName= "comic-" + comicId + "_thumbnail.png";
+        //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
+        String filePath = "./src/main/resources/resources/img/thumbnails/" + fileName;
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
@@ -131,7 +153,12 @@ public class ajaxCreateDetailController {
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
 
-        return img;
+        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(outputfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
+
+        return filePath;
     }
 
     @RequestMapping(value = "/uploadSrsThumb", method = RequestMethod.POST)
@@ -153,6 +180,11 @@ public class ajaxCreateDetailController {
         System.out.println(filePath);
         File outputfile = new File(filePath);
         ImageIO.write(image, "png", outputfile);
+
+        MultipartFile multipartFile = new MockMultipartFile(filePath, new FileInputStream(outputfile));
+        System.out.println("MultipartFile Name:" + multipartFile.getName());
+        System.out.println("MultipartFile OGName:" + multipartFile.getOriginalFilename());
+        this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
 
         return img;
     }
@@ -185,13 +217,15 @@ public class ajaxCreateDetailController {
         System.out.println("tag4:" +request.getParameter("tag4"));
         System.out.println("tag5:" +request.getParameter("tag5"));
 
-
         Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
         comic.setTitle(title);
         comic.setStatus(0);
         RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(Integer.parseInt(comicId));
         rc.setDescription(descr);
         rc.setThumbnail_path(thumb);
+
+        Panel panel = panelService.getPanelFromPanelId(rc.getPanel_id());
+        panel.setCanvas_path(amazonURL + "comicID_" + comicId + ".png");
 
         //An existing series was selected
         if (!existSeries.equals("")){
@@ -203,7 +237,7 @@ public class ajaxCreateDetailController {
         }
         //A new series was selected
         if (!newSeries.equals("")){
-            String user = panelService.getPanelFromPanelId(rc.getPanel_id()).getAuthor();
+            String user = panel.getAuthor();
             Folder folder = new Folder();
             folder.setFolder_type(1);
             folder.setVisibility(1);
@@ -234,28 +268,27 @@ public class ajaxCreateDetailController {
         if (!tag2.equals("")) {
             Tag tag = new Tag();
             tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
+            tag.setComic_tag(tag2);
             tagService.addTag(tag);
         }
         if (!tag3.equals("")) {
             Tag tag = new Tag();
             tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
+            tag.setComic_tag(tag3);
             tagService.addTag(tag);
         }
         if (!tag4.equals("")) {
             Tag tag = new Tag();
             tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
+            tag.setComic_tag(tag4);
             tagService.addTag(tag);
         }
         if (!tag5.equals("")) {
             Tag tag = new Tag();
             tag.setRegular_comic_id(Integer.parseInt(comicId));
-            tag.setComic_tag(tag1);
+            tag.setComic_tag(tag5);
             tagService.addTag(tag);
         }
-
 
         comicService.addComic(comic);
         return "createComicDetail";
@@ -291,10 +324,14 @@ public class ajaxCreateDetailController {
 
         Comic comic = comicService.getComicByComic_Id(Integer.parseInt(comicId));
         comic.setTitle(title);
-        comic.setStatus(1);
+        comic.setStatus(3);
         RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(Integer.parseInt(comicId));
         rc.setDescription(descr);
         rc.setThumbnail_path(thumb);
+
+        Panel panel = panelService.getPanelFromPanelId(rc.getPanel_id());
+        panel.setCanvas_path(amazonURL + "comicID_" + comicId + ".png");
+
 
         //An existing series was selected
         if (!existSeries.equals("")){

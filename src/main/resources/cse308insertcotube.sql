@@ -325,10 +325,10 @@ INSERT INTO Comic
 VALUES(1, 0, 'garfield1', 1, curdate());
 
 INSERT INTO Comic
-VALUES(2, 0, 'garfield2', 1, curdate());
+VALUES(2, 0, 'garfield2', 3, curdate());
 
 INSERT INTO Comic
-VALUES(3, 0, 'garfield3', 1, curdate());
+VALUES(3, 0, 'garfield3', 0, curdate());
 
 INSERT INTO Comic
 VALUES(4, 0, 'nature1', 1, curdate());
@@ -403,10 +403,10 @@ INSERT INTO Comic
 VALUES(27, 0, 'wonderwoman1', 1, curdate());
 
 INSERT INTO Comic
-VALUES(28, 0, 'noseriesaesthetic2', 1, curdate());
+VALUES(28, 0, 'noseriesaesthetic2', 0, curdate());
 
 INSERT INTO Comic
-VALUES(29, 0, 'noseriespokellama3', 1, curdate());
+VALUES(29, 0, 'noseriespokellama3', 0, curdate());
 
 INSERT INTO Comic
 VALUES(30, 0, 'spiderman4', 1, curdate());
@@ -415,10 +415,10 @@ INSERT INTO Comic
 VALUES(31, 0, 'noseriessquidsuck4', 1, curdate());
 
 INSERT INTO Comic
-VALUES(32, 0, 'noseriesdonkey5', 1, curdate());
+VALUES(32, 0, 'noseriesdonkey5', 0, curdate());
 
 INSERT INTO Comic
-VALUES(33, 0, 'noseriesboop6', 1, curdate());
+VALUES(33, 0, 'noseriesboop6', 3, curdate());
 
 INSERT INTO Comic
 VALUES(34, 0, 'noseriesshoes7', 1, curdate());
@@ -1075,7 +1075,6 @@ VALUES(25, 'user7', curDate(), 7);
 
 INSERT INTO Favorite
 VALUES(30, 'user5', curDate(), 8);
-
 
 
 
