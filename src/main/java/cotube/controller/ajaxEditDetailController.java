@@ -84,9 +84,9 @@ public class ajaxEditDetailController {
         String oldComicThumbnail = "newcomic-" + comicId + "_thumbnail.png";
         String oldSeriesName = "seriesnewcomic-" + comicId + "_thumbnail.png";
         String fileName = "newcomicID_" + comicId + ".png";
-        File outputfile = new File("src/main/resources/resources/img/regularcomics/" + fileName); //file path and file name need to change
-        File seriesfile = new File("src/main/resources/resources/img/thumbnails/" + oldSeriesName); //file path and file name need to change
-        File cmcthmbfile = new File("src/main/resources/resources/img/thumbnails/" + oldComicThumbnail); //file path and file name need to change
+        File outputfile = new File("tmp/" + fileName); //file path and file name need to change
+        File seriesfile = new File("tmp/" + oldSeriesName); //file path and file name need to change
+        File cmcthmbfile = new File("tmp/" + oldComicThumbnail); //file path and file name need to change
         System.out.println(System.getProperty("user.dir"));
         //File outputfile = new File("src/main/resources/resources/img/t/4.jpg"); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
@@ -796,7 +796,8 @@ public class ajaxEditDetailController {
         System.out.println(img);
         String fileName= "newcomic-" + comicId + "_thumbnail.png";
         //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
-        String filePath = "./src/main/resources/resources/img/thumbnails/" + fileName;
+        String filePath = "tmp/" + fileName;
+        //String filePath = fileName;
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
@@ -866,7 +867,7 @@ public class ajaxEditDetailController {
         System.out.println(img);
         String fileName= "newcomic-" + comicId + "_thumbnail.png";
         //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
-        String filePath = "./src/main/resources/resources/img/thumbnails/" + fileName;
+        String filePath = "tmp/" + fileName;
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
