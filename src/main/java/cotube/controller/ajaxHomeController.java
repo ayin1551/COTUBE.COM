@@ -134,6 +134,7 @@ public class ajaxHomeController{
         return result.toString();
     }
 
+    // TODO: GET GAME COMIC
     @RequestMapping(value="/getTimeline",method = RequestMethod.POST)
     @ResponseBody
     public String getTimeline(HttpServletRequest request){

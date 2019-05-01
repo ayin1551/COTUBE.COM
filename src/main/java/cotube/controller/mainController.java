@@ -90,6 +90,11 @@ public class mainController {
         return "createGame";
     }
 
+    @RequestMapping(value={"createGameDetail.html"})
+    String createGameDetail(){
+        return "createGameDetail";
+    }
+
     @RequestMapping(value={"viewSeries.html"})
     String viewSeries(){
         return "viewSeries";

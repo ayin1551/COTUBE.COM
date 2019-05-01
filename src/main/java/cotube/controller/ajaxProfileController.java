@@ -403,6 +403,7 @@ public class ajaxProfileController{
         return result.toString();
     }
 
+    //TODO: Get GAMECOMIC
     @RequestMapping(value="/getMyComics",method = RequestMethod.POST)
     @ResponseBody
     public String getMyComic(HttpServletRequest request){
@@ -460,6 +461,7 @@ public class ajaxProfileController{
         return result.toString();
     }
 
+    //TODO:GET PUBLISHED GAME COMIC
     @RequestMapping(value="/getOthersComics",method = RequestMethod.POST)
     @ResponseBody
     public String getOtherComic(HttpServletRequest request){
@@ -578,5 +580,50 @@ public class ajaxProfileController{
             }
         }
         return false;
+    }
+
+    //TODO: Make game public
+    @RequestMapping(value="/makePublic",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean makePublic(HttpServletRequest request){
+        return true;
+    }
+
+    //TODO: Edit game
+    @RequestMapping(value="/editGame",method = RequestMethod.POST)
+    @ResponseBody
+    public String editGame(HttpServletRequest request){
+        Integer gameId = 0;
+        Integer panelNo = 0;
+
+        JSONObject result = new JSONObject();
+        result.put("gameId",gameId);
+        result.put("panelNo",panelNo);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    //TODO: Add user to game
+    @RequestMapping(value="/addUser",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean addUser(HttpServletRequest request){
+        Integer gameId = Integer.parseInt(request.getParameter("gameId"));
+        String user2 = request.getParameter("user2");
+        String user3 = request.getParameter("user3");
+        String user4 = request.getParameter("user4");
+
+
+        return true;
+    }
+
+    //TODO: Delete game to user
+    @RequestMapping(value="/deleteUser",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean deleteUser(HttpServletRequest request){
+        Integer gameId = Integer.parseInt(request.getParameter("gameId"));
+        String username = request.getParameter("username");
+
+
+        return true;
     }
 }
