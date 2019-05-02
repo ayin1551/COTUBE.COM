@@ -174,7 +174,7 @@ CREATE TABLE GameComic(
 
 
 CREATE TABLE Keyword(
-	keyword_id INTEGER(1000),
+	keyword_id INTEGER(255),
 	keyword VARCHAR(1000),
 	PRIMARY KEY(keyword_id)
 	);
