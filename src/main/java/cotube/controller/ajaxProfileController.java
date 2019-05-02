@@ -540,7 +540,7 @@ public class ajaxProfileController{
                     if(gc.getPanel4_id()==null){
                         nullCounter++;
                     }
-                    if(nullCounter>=1){
+                    if(nullCounter>=1 && gc.getGamecomic_type()!=2){
                         comicGamePublic.add(true);
                     }else{
                         comicGamePublic.add(false);
@@ -632,6 +632,7 @@ public class ajaxProfileController{
                     break;
                 }
             }
+
             if(comicType == 0){
                 for(RegularComic rc: regularComics){
                     if(rc.getRegular_comic_id() == i){
@@ -648,7 +649,6 @@ public class ajaxProfileController{
                 comicSeries.add(false);
                 comicSeriesId.add(null);
                 comicGame.add(true);
-                break;
             }
         }
 
