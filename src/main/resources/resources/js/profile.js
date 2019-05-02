@@ -275,3 +275,291 @@ function editGameRedirect(id,panelNo){
     document.location.href = "./createGame.html";
     
 }
+
+function submitadd(){
+
+}
+
+function cleanpopup(){
+    document.getElementById("add1close").style.display = "contents";
+    document.getElementById("add2close").style.display = "contents";
+    document.getElementById("add3close").style.display = "contents";
+    document.getElementById("user1option").disabled = false;
+    document.getElementById("user2option").disabled = false;
+    document.getElementById("user3option").disabled = false;
+    document.getElementById('add_error1').style.display = "none";
+    document.getElementById('add_error2').style.display = "none";
+    document.getElementById('add_error3').style.display = "none";
+    document.getElementById('add_error4').style.display = "none";
+    document.getElementById("addbtn").disabled = false;
+    document.getElementById('invite_people').value = "";
+    delete1();
+}
+
+function delete1() {
+    user1 = document.getElementById("add1name");
+    user2 = document.getElementById("add2name");
+    user3 = document.getElementById("add3name");
+    if(user2.innerText==""||user2.innerText==null){
+        user1.innerText = "";
+        var tag1 = document.getElementById("addhere1");
+        tag1.style.display = "none";
+        var u1o = document.getElementById("u1o");
+        u1o.style.display = "none";
+        document.getElementById("user1option").value = " ";
+    }else{
+        user1.innerText = user2.innerText;
+        delete2();
+    }
+}
+
+function delete2() {
+    user2 = document.getElementById("add2name");
+    user3 = document.getElementById("add3name");
+    if(user3.innerText==""||user3.innerText==null){
+        user2.innerText = "";
+        var tag2 = document.getElementById("addhere2");
+        tag2.style.display = "none";
+        var u2o = document.getElementById("u2o");
+        u2o.style.display = "none";
+        document.getElementById("user2option").value = " ";
+    }else{
+        user2.innerText = user3.innerText;
+        delete3();
+    }
+}
+
+function delete3() {
+    user3 = document.getElementById("add3name");
+    user3.innerText = "";
+    var btndisable = document.getElementById("addbtn");
+    btndisable.disabled = false;
+    var tag3 = document.getElementById("addhere3");
+    tag3.style.display = "none";
+    var u3o = document.getElementById("u3o");
+    u3o.style.display = "none";
+    document.getElementById("user3option").value = " ";
+}
+
+function list_invite_user(game_comic_id){
+    $.ajax({
+        type: "post",
+        url: "profile.html/list_invite_user",
+        async: false,
+        data: {game_comic_id:game_comic_id},
+        success: function(data){
+            obj = jQuery.parseJSON(data);
+            for(let i=0; i<obj.finished.length; i++){
+                if(obj.finished[i]==true){
+                    addundeletableuser(obj.user[i], i+2);
+                }
+            }
+            for(let j=0; j<obj.finished.length; j++){
+                if(obj.finished[j]==false){
+                    if(obj.user[j]!=null){
+                        adddeleteableuser(obj.user[j], j+2);
+                    }
+                }
+            }
+            checkadd();
+        }
+    });
+}
+
+function addundeletableuser(name, position){
+    var user1 = document.getElementById("add1name");
+    var user2 = document.getElementById("add2name");
+    var user3 = document.getElementById("add3name");
+    if(user1.innerText==""||user1.innerText==null){
+        user1.innerText = name;
+        var tag1 = document.getElementById("addhere1");
+        tag1.style.display = "block";
+        var u1o = document.getElementById("u1o");
+        u1o.style.display = "block";
+        document.getElementById("add1close").style.display = "none";
+        if(position=="2"){
+            document.getElementById('user1_2').selected = "true";
+        }
+        if(position=="3"){
+            document.getElementById('user1_3').selected = "true";
+        }
+        if(position=="4"){
+            document.getElementById('user1_4').selected = "true";
+        }
+        document.getElementById("user1option").disabled = true;
+    }
+    else if(user2.innerText==""||user2.innerText==null){
+        user2.innerText = name;
+        var tag2 = document.getElementById("addhere2");
+        tag2.style.display = "block";
+        var u2o = document.getElementById("u2o");
+        u2o.style.display = "block";
+        document.getElementById("add2close").style.display = "none";
+        if(position=="2"){
+            document.getElementById('user2_2').selected = "true";
+        }
+        if(position=="3"){
+            document.getElementById('user2_3').selected = "true";
+        }
+        if(position=="4"){
+            document.getElementById('user2_4').selected = "true";
+        }
+        document.getElementById("user2option").disabled = true;
+    }else if(user3.innerText==""||user3.innerText==null){
+        user3.innerText = name;
+        var tag3 = document.getElementById("addhere3");
+        tag3.style.display = "block";
+        var btndisable = document.getElementById("addbtn");
+        btndisable.disabled = true;
+        var u3o = document.getElementById("u3o");
+        u3o.style.display = "block";
+        document.getElementById("add3close").style.display = "none";
+        if(position=="2"){
+            document.getElementById('user3_2').selected = "true";
+        }
+        if(position=="3"){
+            document.getElementById('user3_3').selected = "true";
+        }
+        if(position=="4"){
+            document.getElementById('user3_4').selected = "true";
+        }
+        document.getElementById("user3option").disabled = true;
+    }
+}
+
+function adddeleteableuser(name, position){
+    var user1 = document.getElementById("add1name");
+    var user2 = document.getElementById("add2name");
+    var user3 = document.getElementById("add3name");
+    if(user1.innerText==""||user1.innerText==null){
+        user1.innerText = name;
+        var tag1 = document.getElementById("addhere1");
+        tag1.style.display = "block";
+        var u1o = document.getElementById("u1o");
+        u1o.style.display = "block";
+        document.getElementById("add1close").style.display = "contents";
+        if(position=="2"){
+            document.getElementById('user1_2').selected = "true";
+        }
+        if(position=="3"){
+            document.getElementById('user1_3').selected = "true";
+        }
+        if(position=="4"){
+            document.getElementById('user1_4').selected = "true";
+        }
+        document.getElementById("user1option").disabled = false;
+    }
+    else if(user2.innerText==""||user2.innerText==null){
+        user2.innerText = name;
+        var tag2 = document.getElementById("addhere2");
+        tag2.style.display = "block";
+        var u2o = document.getElementById("u2o");
+        u2o.style.display = "block";
+        document.getElementById("add2close").style.display = "contents";
+        if(position=="2"){
+            document.getElementById('user2_2').selected = "true";
+        }
+        if(position=="3"){
+            document.getElementById('user2_3').selected = "true";
+        }
+        if(position=="4"){
+            document.getElementById('user2_4').selected = "true";
+        }
+        document.getElementById("user2option").disabled = false;
+    }else if(user3.innerText==""||user3.innerText==null){
+        user3.innerText = name;
+        var tag3 = document.getElementById("addhere3");
+        tag3.style.display = "block";
+        var btndisable = document.getElementById("addbtn");
+        btndisable.disabled = true;
+        var u3o = document.getElementById("u3o");
+        u3o.style.display = "block";
+        document.getElementById("add3close").style.display = "contents";
+        if(position=="2"){
+            document.getElementById('user3_2').selected = "true";
+        }
+        if(position=="3"){
+            document.getElementById('user3_3').selected = "true";
+        }
+        if(position=="4"){
+            document.getElementById('user3_4').selected = "true";
+        }
+        document.getElementById("user3option").disabled = false;
+    }
+}
+
+function checkadd(){
+    var btndisable = document.getElementById("addbtn");
+    var user3 = document.getElementById("add3name");
+    if(user3.innerText!=""&&user3.innerText!=null){
+        btndisable.disabled = true;
+    }else{
+        btndisable.disabled = false;
+    }
+}
+ 
+function addUserBelow() {
+    document.getElementById("add_error1").style.display = "none";
+    document.getElementById("add_error2").style.display = "none";
+    document.getElementById("add_error4").style.display = "none";
+    document.getElementById("add_error3").style.display = "none";
+    document.getElementById("add_error5").style.display = "none";
+    var user1 = document.getElementById("add1name");
+    var user2 = document.getElementById("add2name");
+    var user3 = document.getElementById("add3name");
+    console.log($.cookie('username'));
+    console.log(document.getElementById("invite_people").value);
+    if(document.getElementById("invite_people").value==""){
+        // <!-- unfinished, user name empty -->
+    }else if(document.getElementById("invite_people").value==$.cookie('username')){
+    document.getElementById("add_error5").style.display = "block";
+    }else{
+        var validality;
+        $.ajax({
+            url: "profile.html/adduser",
+            type: "post",
+            async: false,
+            data: {username: document.getElementById("invite_people").value},
+            success: function (data) {//signUpController to check if the username already exist
+              validality = data;
+            }
+        });
+        if(!validality){
+            document.getElementById("add_error1").style.display = "block";
+        }else{
+            if(user1.innerText==""||user1.innerText==null){
+                user1.innerText = document.getElementById("invite_people").value;
+                var tag1 = document.getElementById("addhere1");
+                tag1.style.display = "block";
+                var u1o = document.getElementById("u1o");
+                u1o.style.display = "block";
+            }
+            else if(user2.innerText==""||user2.innerText==null){
+                user2.innerText = document.getElementById("invite_people").value;
+                if(user2.innerText==user1.innerText){
+                    document.getElementById("add_error3").style.display = "block";
+                    user2.innerText = "";
+                }else {
+                    var tag2 = document.getElementById("addhere2");
+                    tag2.style.display = "block";
+                    var u2o = document.getElementById("u2o");
+                    u2o.style.display = "block";
+                }
+            }else if(user3.innerText==""||user3.innerText==null){
+                user3.innerText = document.getElementById("invite_people").value;
+                if(user3.innerText==user1.innerText||user3.innerText==user2.innerText){
+                    document.getElementById("add_error3").style.display = "block";
+                    user3.innerText = "";
+                }else {
+                    var tag3 = document.getElementById("addhere3");
+                    tag3.style.display = "block";
+                    var btndisable = document.getElementById("addbtn");
+                    btndisable.disabled = true;
+                    var u3o = document.getElementById("u3o");
+                    u3o.style.display = "block";
+                }
+            }
+        }
+    }
+    document.getElementById("invite_people").value = "";
+}

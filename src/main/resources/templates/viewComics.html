@@ -184,7 +184,10 @@
                 span2.style.cursor = "default";
 
                 var a = document.createElement('a');
-                a.href = "./profile.html";
+                a.onclick = function(){
+                    authorprofile(comments.commenter[i]);
+                }
+                a.style.cursor = "pointer";
                 a.style.cssFloat = "right";
                 var t3 = document.createTextNode(comments.commenter[i]);
                 a.appendChild(t3);

@@ -737,18 +737,18 @@ public class ajaxProfileController{
     }
 
 
-    //TODO: Add user to game
-    @RequestMapping(value="/addUser",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean addUser(HttpServletRequest request){
-        Integer gameId = Integer.parseInt(request.getParameter("gameId"));
-        String user2 = request.getParameter("user2");
-        String user3 = request.getParameter("user3");
-        String user4 = request.getParameter("user4");
+    // //TODO: Add user to game
+    // @RequestMapping(value="/addser",method = RequestMethod.POST)
+    // @ResponseBody
+    // public Boolean addUser(HttpServletRequest request){
+    //     Integer gameId = Integer.parseInt(request.getParameter("gameId"));
+    //     String user2 = request.getParameter("user2");
+    //     String user3 = request.getParameter("user3");
+    //     String user4 = request.getParameter("user4");
 
 
-        return true;
-    }
+    //     return true;
+    // }
 
     //TODO: Delete user from game
     @RequestMapping(value="/deleteUser",method = RequestMethod.POST)
@@ -760,4 +760,68 @@ public class ajaxProfileController{
 
         return true;
     }
+
+    @RequestMapping(value="/list_invite_user",method = RequestMethod.POST)
+    @ResponseBody
+    public String list_invite_user(HttpServletRequest request){
+        String game_comic_id = request.getParameter("game_comic_id");
+        Integer gameId = Integer.parseInt(game_comic_id);
+        GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
+        List<Boolean> finished = new ArrayList<>();
+        List<String> username = new ArrayList<>();
+        if(gc.getPanel2_id()!=null){
+            Panel temp = panelService.getPanelFromPanelId(gc.getPanel2_id());
+            if(temp.getCanvas_path()==null||temp.getCanvas_path().equals("")){
+                finished.add(false);
+                username.add(temp.getAuthor()==null?null:temp.getAuthor());
+            }else{
+                finished.add(true);
+                username.add(temp.getAuthor());
+            }
+        }else{
+            finished.add(false);
+            username.add(null);
+        }
+
+        if(gc.getPanel3_id()!=null){
+            Panel temp = panelService.getPanelFromPanelId(gc.getPanel3_id());
+            if(temp.getCanvas_path()==null||temp.getCanvas_path().equals("")){
+                finished.add(false);
+                username.add(temp.getAuthor()==null?null:temp.getAuthor());
+            }else{
+                finished.add(true);
+                username.add(temp.getAuthor());
+            }
+        }else{
+            finished.add(false);
+            username.add(null);
+        }
+        if(gc.getPanel4_id()!=null){
+            Panel temp = panelService.getPanelFromPanelId(gc.getPanel4_id());
+            if(temp.getCanvas_path()==null||temp.getCanvas_path().equals("")){
+                finished.add(false);
+                username.add(temp.getAuthor()==null?null:temp.getAuthor());
+            }else{
+                finished.add(true);
+                username.add(temp.getAuthor());
+            }
+        }else{
+            finished.add(false);
+            username.add(null);
+        }
+        JSONObject result = new JSONObject();
+        result.put("finished", finished);
+        result.put("user", username);
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+
+    @RequestMapping(value="/adduser",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean adduser(HttpServletRequest request){
+        String username = request.getParameter("username");
+        return accountService.getAccountByUsername(username)==null?false:true;
+    }
+        
 }
