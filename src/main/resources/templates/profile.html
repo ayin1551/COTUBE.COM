@@ -94,6 +94,88 @@
         </table>
         <table id="followertb" style="display:none;border-collapse:separate; border-spacing:0px 10px;">
         </table>
+
+        <div id="addPopup" class="modal">
+            <div class="modal-content" style="width: fit-content;">
+                <span id="x" class="close">&times;</span>
+                <table style="margin: auto; text-align: left; margin-top: 15px">
+                    <tr>
+                        <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px">Invite:</label></td>
+                        <td><input id="invite_people" class="form-control" style="width: 200px; margin-bottom:10px; display: inline-block" placeholder="input user name..."/></td>
+                        <td style="padding-left: 5px"><button class="kwbtn kwbtn2" id="addbtn" style="margin-top:0px; margin-bottom: 10px" onclick="addUserBelow()">+ add</button></td>
+                    </tr>
+                </table>
+
+                <div id="all" style="display: inline-flex; font-size: 18px; line-height: 100%;">
+                    <div>
+                        <div id="addhere1" style="display: none" class="addUser">
+                            <label id="add1name" ></label><label> </label>
+                            <span id="add1close" class="someclose" style="opacity:0.8" onclick="delete1()">&#10006;</span>
+                        </div>
+                        <div style="width: 100%; display: none" id="u1o">
+                            <select id="user1option">
+                                <option id="user1default" value=" ">Order</option>
+                                <option id="user1_2" value="2">2nd Panel</option>
+                                <option id="user1_3" value="3">3rd Panel</option>
+                                <option id="user1_4" value="4">4th Panel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="addhere2" style="display: none" class="addUser">
+                            <label id="add2name" ></label><label> </label>
+                            <span id="add2close" class="someclose" style="opacity:0.8" onclick="delete2()">&#10006;</span>
+                        </div>
+                        <div style="width: 100%; display: none" id="u2o">
+                            <select id="user2option">
+                                <option id="user2default" value=" ">Order</option>
+                                <option id="user2_2" value="2">2nd Panel</option>
+                                <option id="user2_3" value="3">3rd Panel</option>
+                                <option id="user2_4" value="4">4th Panel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="addhere3" style="display: none" class="addUser">
+                            <label id="add3name"></label><label> </label>
+                            <span id="add3close" class="someclose" style="opacity:0.8" onclick="delete3()">&#10006;</span>
+                        </div>
+                        <div style="width: 100%; display: none" id="u3o">
+                            <select id="user3option">
+                                <option id="user3default" value=" ">Order</option>
+                                <option id="user3_2" value="2">2nd Panel</option>
+                                <option id="user3_3" value="3">3rd Panel</option>
+                                <option id="user3_4" value="4">4th Panel</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h4 id="add_error1" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">User Does not Exist.</h4>
+                <h4 id="add_error2" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">You Have To Invite At Least One Person.</h4>
+                <h4 id="add_error3" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Cannot Invite Same Person.</h4>
+                <h4 id="add_error4" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Order Invalid, Order Can Nither Be Repeat Or Empty.</h4>
+                <button class="kwbtn kwbtn2" id="submitadd" onclick="submitadd()">Submit</button>
+            </div>
+        </div>            
+        <script>
+            var modal = document.getElementById('addPopup');
+            var x1 = document.getElementById("x");
+            x1.onclick = function() {
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+
+
+
+
+
+
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";

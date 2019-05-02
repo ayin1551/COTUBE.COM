@@ -77,7 +77,6 @@ function getLikes(username){
     return num;
 }
 
-
 function getFollowings(username){
     var num = 0;
     $.ajax({
@@ -91,7 +90,6 @@ function getFollowings(username){
     });
     return num;
 }
-
 
 function getFollowers(username){
     var num = 0;
