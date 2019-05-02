@@ -1,6 +1,8 @@
 package cotube.controller;
 
 
+import cotube.domain.*;
+import cotube.services.*;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,36 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import java.util.Date;
-import cotube.domain.Likes;
-import cotube.services.LikesService;
-import cotube.domain.Favorite;
-import cotube.services.FavoriteService;
-import cotube.domain.Comic;
-import cotube.services.ComicService;
-import cotube.domain.Comments;
-import cotube.services.CommentsService;
-import cotube.domain.Account;
-import cotube.services.AccountService;
-import cotube.domain.RegularComic;
-import cotube.services.RegularComicService;
-import cotube.domain.Panel;
-import cotube.services.PanelService;
-import cotube.domain.Tag;
-import cotube.services.TagService;
-import cotube.domain.FollowSeries;
-import cotube.services.FollowSeriesService;
-import cotube.domain.Views;
-import cotube.services.ViewsService;
-import cotube.domain.Folder;
-import cotube.services.FolderService;
-import cotube.services.SeriesService;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 @Controller
 @RequestMapping(value="/viewComics.html")
 public class ajaxViewComicsController{
-
+    private NotificationService notificationService;
+    @Autowired
+    public void setNotificationService(NotificationService notificationService){
+        this.notificationService = notificationService;
+    }
     private LikesService likesService;
     @Autowired
     public void setLikesService(LikesService likesService) {
@@ -602,6 +586,24 @@ public class ajaxViewComicsController{
         Comic comic = comicService.getComicByComic_Id(comicId);
         int type = comic.getComic_type();
         if (type == 0) {//regular
+
+            //NOTIFICATION SECTION
+            List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
+            for(Favorite fav: allFavorites){
+                if (fav.getComic_id() == comicId){
+                    Date now = new Date();
+                    int notification_type = 4;
+                    String notification = "Favorite comic " + comic.getTitle() + " was deleted";
+                    Notification note = new Notification();
+                    note.setNotifcation_type(notification_type);
+                    note.setNotification(notification);
+                    note.setUsername(fav.getFavoriter_username());
+                    note.setNotifcation_time(now);
+                    this.notificationService.addNotification(note);
+                }
+            }
+            //END NOTIFICATION SECTION
+
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
             Integer series_id = rc.getSeries_id();
 

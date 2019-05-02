@@ -37,6 +37,12 @@ public class ajaxAdminController {
     private void setRegularComicService(RegularComicService regularComicService){
         this.regularComicService = regularComicService;
     }
+    private NotificationService notificationService;
+    @Autowired
+    private void setNotificationService(NotificationService notificationService){
+        this.notificationService = notificationService;
+    }
+
     @RequestMapping(value="/getComics",method = RequestMethod.POST)
     @ResponseBody
     public String getComicsToCensor(HttpServletRequest request){
@@ -74,6 +80,27 @@ public class ajaxAdminController {
         Comic change = this.comicService.getComicByComic_Id(Integer.parseInt(title));
         change.setStatus(0);
         this.comicService.addComic(change);
+
+        Date now = new Date();
+        int notification_type = 3;
+        String notification = "An admin has passed your comic: " + change.getTitle();
+
+        List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
+        String username = "";
+        for (RegularComic reg: regularComics){
+            if (reg.getRegular_comic_id() == change.getComic_id()){
+                username = getAuthor(reg);
+                System.out.println(username);
+            }
+        }
+
+        Notification note = new Notification();
+        note.setNotifcation_type(notification_type);
+        note.setNotification(notification);
+        note.setUsername(username);
+        note.setNotifcation_time(now);
+        note.setLink(Integer.toString(change.getComic_id()));
+        this.notificationService.addNotification(note);
         return true;
     }
 
@@ -85,6 +112,26 @@ public class ajaxAdminController {
         Comic change = this.comicService.getComicByComic_Id(Integer.parseInt(title));
         change.setStatus(2);
         this.comicService.addComic(change);
+
+        Date now = new Date();
+        int notification_type = 1;
+        String notification = "An admin has denied your comic: " + change.getTitle();
+
+        List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
+        String username = "";
+        for (RegularComic reg: regularComics){
+            if (reg.getRegular_comic_id() == change.getComic_id()){
+                username = getAuthor(reg);
+                System.out.println(username);
+            }
+        }
+
+        Notification note = new Notification();
+        note.setNotifcation_type(notification_type);
+        note.setNotification(notification);
+        note.setUsername(username);
+        note.setNotifcation_time(now);
+        this.notificationService.addNotification(note);
         return true;
     }
 
@@ -117,6 +164,7 @@ public class ajaxAdminController {
                 }
             }
         }
+
         return true;
     }
 
@@ -126,15 +174,35 @@ public class ajaxAdminController {
         String comicId = request.getParameter("comicID");
         String commentNum = request.getParameter("comicNum");
         List<Comments> comments = this.commentService.getAllComments();
+        String target = "";
         for(Comments c: comments){
             if (c.getComic_id() == Integer.parseInt(comicId)){
                 if(c.getComment_number() == Integer.parseInt(commentNum)){
                     c.setStatus(1);
+                    target = c.getCommenter_username();
                     this.commentService.addComments(c);
                 }
             }
         }
+        Date now = new Date();
+        int notification_type = 2;
+        String notification = "An admin has denied your comment in " + this.comicService.getComicByComic_Id(Integer.parseInt(comicId)).getTitle();
+        Notification note = new Notification();
+        note.setNotifcation_type(notification_type);
+        note.setNotification(notification);
+        note.setUsername(target);
+        note.setNotifcation_time(now);
+        note.setLink(comicId);
+        this.notificationService.addNotification(note);
         return true;
     }
-
+    private String getAuthor(RegularComic reg){
+        List<Panel>panels = this.panelService.getAllPanels();
+        for (Panel p: panels){
+            if (reg.getRegular_comic_id() == p.getPanel_id()){
+                return p.getAuthor();
+            }
+        }
+        return "NO AUTHOR";
+    }
 }

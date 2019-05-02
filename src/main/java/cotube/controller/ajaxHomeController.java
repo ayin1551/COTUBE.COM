@@ -6,6 +6,7 @@ import cotube.domain.Series;
 import cotube.domain.FollowSeries;
 import cotube.domain.Panel;
 import cotube.domain.FollowUser;
+import cotube.domain.GameComic;
 import cotube.services.ComicService;
 import cotube.services.LikesService;
 import cotube.services.RegularComicService;
@@ -13,6 +14,7 @@ import cotube.services.ViewsService;
 import cotube.services.FollowSeriesService;
 import cotube.services.PanelService;
 import cotube.services.FollowUserService;
+import cotube.services.GameComicService;
 import cotube.services.SeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import org.json.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 @Controller
@@ -52,6 +55,9 @@ public class ajaxHomeController{
 
     @Autowired
     private SeriesService seriesService;
+
+    @Autowired
+    private GameComicService gameComicService;
 
 
 
@@ -190,19 +196,52 @@ public class ajaxHomeController{
         for(String s: followUserList){
             for(Panel p: panel){
                 if(p.getAuthor().equals(s)){
-                   for(RegularComic rc: regularComics){
-                       if(rc.getPanel_id() == p.getPanel_id()){
+                    Boolean findFlag = false;
+                    for(RegularComic rc: regularComics){
+                        if(rc.getPanel_id() == p.getPanel_id()){
                             if(this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3){
                                 timelineComicId.add(rc.getRegular_comic_id());    
+                                findFlag = true;
+                                break;
                             }
-                       }
-                   }
+                        }
+                    }
+
+                    if(!findFlag){
+                        if(p.getTitle_word() != null){
+                            System.out.println(p.getPanel_id());
+                            Integer panelId = p.getPanel_id();
+                            if(panelId == 42){
+                                Integer gameComicId = this.gameComicService.getGameComicIdByPanelId(panelId);
+                            
+                                GameComic gc = this.gameComicService.getGameComicByGameComicId(gameComicId);
+                                if(gc.getStatus() == 1 || gc.getStatus() == 3){
+                                    timelineComicId.add(gc.getGame_comic_id());
+                                }
+                            }
+                            
+                        }
+                    }
+
                 }
             }
         }
-
-        Collections.sort(timelineComicId);
-        Collections.reverse(timelineComicId);
+        System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
+        System.out.println(timelineComicId);
+        List<Comic> comics = new ArrayList<Comic>();
+        for(Integer i: timelineComicId){
+            comics.add(comicService.getComicByComic_Id(i));
+        }
+        Collections.sort(comics, new Comparator<Comic>(){ 
+            public int compare(Comic o1, Comic o2) {
+                return o2.getDate_published().compareTo(o1.getDate_published());
+            }
+        });
+        
+        timelineComicId = new ArrayList<Integer>();
+        for(Comic c: comics){
+            timelineComicId.add(c.getComic_id());
+        }
 
         List<String> comicThumbnail = new ArrayList<String>();
         List<String> comicTitle = new ArrayList<String>();

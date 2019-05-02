@@ -43,6 +43,15 @@ public class AccountServiceImpl implements AccountService {
         return null;
     }
 
+    public boolean usernameExist(String username){
+        List<Account>all = this.getAllAccounts();
+        for(Account acc: all){
+            if (acc.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

@@ -12,6 +12,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
     <script src="./js/jumpFunction.js"></script>
+    <script src = "./js/viewGameComics.js"></script>
 
 
 </head>
@@ -48,12 +49,12 @@
         <table align="center" style="text-align: center;">
             <tr>
                 <td colspan="4">
-                    <h1>Comic Title</h1>
+                    <h1 id="comictitle" style="cursor:default;">Comic Title</h1>
                 </td>
             </tr>
             <tr>
                 <td colspan="4">
-                    <span style="font-size:20px;color:gray;">Views:8964</span>
+                    <span style="font-size:20px;color:gray;" id="comicviewnum"></span>
                 </td>
             </tr>
             <tr>
@@ -63,111 +64,242 @@
             </tr>
             <tr>
                 <td>
-                    <a href="profile.html">crazyArtist1024</a>
+                    <a href="profile.html" id="comicauthor1"></a>
                 </td>
                 <td>
-                    <img src = "./img/test/newpp.jpg" style = "display:inline;margin-right:10px;" width = "45px" height = "45px">
+                    <img src = "" style = "display:inline;margin-right:10px;" width = "45px" height = "45px" id="authorimg1">
                 </td>
                 <td>
-                    <a href="profile.html">crazyArtist2048</a>
+                    <a href="profile.html" id="comicauthor2"></a>
                 </td>
                 <td>
-                    <img src = "./img/test/oldpp.jpg" style = "display:inline;margin-left:10px;" width = "45px" height = "45px">
+                    <img src = "" style = "display:inline;margin-left:10px;" width = "45px" height = "45px" id="authorimg2">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="profile.html">crazyArtist4096</a>
+                    <a href="profile.html" id="comicauthor3"></a>
                 </td>
                 <td>
-                    <img src = "./img/test/oldpp.jpg" style = "margin-right:10px;margin-top:5px;" width = "45px" height = "45px">
+                    <img src = "" style = "margin-right:10px;margin-top:5px;" width = "45px" height = "45px" id="authorimg3">
                 </td>
                 <td>
-                    <a href="profile.html">crazyArtist8192</a>
+                    <a href="profile.html" id="comicauthor4"></a>
                 </td>
                 <td>
-                    <img src = "./img/test/newpp.jpg" style = "margin-left:10px;margin-top:5px;" width = "45px" height = "45px">
+                    <img src = "" style = "margin-left:10px;margin-top:5px;" width = "45px" height = "45px" id="authorimg4">
                 </td>
             </tr>
         </table>
-        <img src="./img/t/1.jpg" style="display:block;margin:0 auto;margin-top:20px;">
-        <table align="center">
+        <table align="center" width = "65%">
+            <tr>
+                <td>
+                    <img src = "" style="width:32.5vw;" id = "img1">
+                </td>
+                <td>
+                    <img src = "" style="width:32.5vw;" id = "img2">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src = "" style="width:32.5vw;" id = "img3">
+                </td>
+                <td>
+                    <img src = "" style="width:32.5vw;" id = "img4">
+                </td>
+            </tr>
+        </table>
+        <table align="center" id = "likefavtb">
             <tr>
                 <td align="center" style="width:150px;">
-                    <input type="image" src = "./img/like-gray.png" width = "40px">
-                </td>
-                <td align="center" style="width:150px;">
-                    <input type="image" src = "./img/star-empty.png" width = "40px">
+                    <input type="image" src = "./img/like-gray.png" width = "40px" id="likebtn" onclick="toggleLike();">
                 </td>
             </tr>
             <tr>
                 <td align="center">
-                    <span>45</span>
+                    <span id="likenumber"></span>
                 </td>
-                <td align="center"></td>
             </tr>
         </table>
     </div>
     <table align="center" width = "65%">
         <tr>
             <td>
-                <h2 style="margin-left:0px;">Comments(23)</h2>
+                <h2 style="margin-left:0px;" id = "commentHeader">Comments(23)</h2>
             </td>
         </tr>
-        <tr>
+        <tr id = "comments">
             <td>
-                <textarea rows="4" cols="88" style="color:black;" placeholder="Enter your comment:"></textarea>
+                <textarea maxlength = "300" rows="4" cols="88" style="color:black;width:50vw" placeholder="Enter your comment:" id="commentText"></textarea>
             </td>
             <td>
-                <button type="button" class="submitButton" style="height:85px;margin-left:0px;margin-top:0px;">Post</button>
+                <button type="button" class="submitButton" style="height:85px;margin-left:0px;margin-top:0px;" onclick = "postComment();">Post</button>
             </td>
-        </tr>
+        </tr>   
     </table>
-    <table width = "65%" align="center">
-        <tr>
-            <td><span style="margin-left:0px;">Very Interesting comic!!!</span></td>
-        </tr>
-        <tr>
-            <td>
-                <span style="margin-left:0px;">#23</span>
-                <a href="profile.html" style="float:right;">crazyArtist2048</a>
-                <span style="float:right;margin-right:0.5em;">by </span>
-                <span style="float:right;color:gray;margin-right:0.5em;">2 min ago</span>
-                <input type="image" src = "./img/delete.png" style = "margin-right:5px;float:right;" width = "20px" height = "20px">
-                <hr class="style-six">
-            </td>
-        </tr>
-        <tr>
-            <td><span style="margin-left:0px;">Gorgeous!</span></td>
-        </tr>
-        <tr>
-            <td>
-                <span style="margin-left:0px;">#22</span>
-                <a href="profile.html" style="float:right;">solaireOfAstora</a>
-                <span style="float:right;margin-right:0.5em;">by </span>
-                <span style="float:right;color:gray;margin-right:0.5em;">54 min ago</span>
-                <hr class="style-six">
-            </td>
-        </tr>
-    </table>
-    <table align="center">
-        <tr>
-            <td><span style="margin-right:10px;">First</span></td>
-            <td><span style="color:dodgerblue;margin-right:10px;">1</span></td>
-            <td><span style="margin-right:10px;">2</span></td>
-            <td><span style="margin-right:10px;">Last</span></td>
-        </tr>
-    </table>
+    <table width = "65%" align="center" id = "commenttb"></table>
+    <table align="center" id = "numPage"></table>
     <script>
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
+        }else if($.cookie('role')=="admin"){
+            document.getElementById("login").style.display = "none";
+            document.getElementById("create").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("likefavtb").style.display = "none";
+            document.getElementById("comments").style.display = "none";
+            document.getElementById("home").onclick = function() { admingohome(); }
         }else{
             document.getElementById("create").style.display = "none";
             document.getElementById("signout").style.display = "none";
             document.getElementById("message").style.display = "none";
             document.getElementById("profile").style.display = "none";
             document.getElementById("setting").style.display = "none";
+            document.getElementById("likefavtb").style.display = "none";
+            document.getElementById("comments").style.display = "none";
         }
+
+        var info = comicInfo();
+        document.getElementById("comictitle").innerHTML = info.title;
+        document.getElementById("likenumber").innerHTML = info.likes;
+        document.getElementById("comicauthor1").innerHTML = info.author1;
+        document.getElementById("comicauthor1").onclick = function() {
+            authorprofile(info.author1);
+        }
+        document.getElementById("comicauthor2").innerHTML = info.author2;
+        document.getElementById("comicauthor2").onclick = function() {
+            authorprofile(info.author2);
+        }
+        document.getElementById("comicauthor3").innerHTML = info.author3;
+        document.getElementById("comicauthor3").onclick = function() {
+            authorprofile(info.author3);
+        }
+        document.getElementById("comicauthor4").innerHTML = info.author4;
+        document.getElementById("comicauthor4").onclick = function() {
+            authorprofile(info.author4);
+        }
+        document.getElementById("authorimg1").src = info.authorPath1;
+        document.getElementById("authorimg1").onclick = function() {
+            authorprofile(info.author1);
+        }
+        document.getElementById("authorimg2").src = info.authorPath2;
+        document.getElementById("authorimg2").onclick = function() {
+            authorprofile(info.author2);
+        }
+        document.getElementById("authorimg3").src = info.authorPath3;
+        document.getElementById("authorimg3").onclick = function() {
+            authorprofile(info.author3);
+        }
+        document.getElementById("authorimg4").src = info.authorPath4;
+        document.getElementById("authorimg4").onclick = function() {
+            authorprofile(info.author4);
+        }
+        document.getElementById("comicviewnum").innerHTML = "Views:"+info.views;
+        document.getElementById("img1").src = info.path1;
+        document.getElementById("img2").src = info.path2;
+        document.getElementById("img3").src = info.path3;
+        document.getElementById("img4").src = info.path4;
+
+        if(info.ifLiked){
+            document.getElementById("likebtn").src = "./img/like-red.png";
+        }else{
+            document.getElementById("likebtn").src = "./img/like-gray.png";
+        }
+        $(window).ready(function() {
+            var tb = document.getElementById("commenttb");
+            var comments = getComment($.cookie("comicId"),1);
+            document.getElementById("commentHeader").innerText = "Comment("+comments.commentCount+")";
+            for(let i = 0; i < comments.commentNumber.length; i++){
+                var tr1 = document.createElement('tr');
+                tb.appendChild(tr1);
+                var td = document.createElement('td');
+                tr1.appendChild(td);
+                var span = document.createElement('span');
+                var t = document.createTextNode(comments.commentContent[i]);
+                span.appendChild(t);
+                td.appendChild(span);
+                span.style.marginLeft = "0px";
+                span.style.cursor = "default";
+                
+
+                var tr2 = document.createElement('tr');
+                tb.appendChild(tr2);
+                var td2 = document.createElement('td');
+                tr2.appendChild(td2);
+                var span2 = document.createElement('span');
+                var t2 = document.createTextNode("#"+comments.commentNumber[i]);
+                span2.appendChild(t2);
+                td2.appendChild(span2);
+                span2.style.marginLeft = "0px";
+                span2.style.cursor = "default";
+
+                var a = document.createElement('a');
+                a.style.cssFloat = "right";
+                a.onclick = function() {
+                    authorprofile(comments.commenter[i]);
+                }
+                a.style.cursor = "pointer";
+                var t3 = document.createTextNode(comments.commenter[i]);
+                a.appendChild(t3);
+                td2.appendChild(a);
+
+                var span3 = document.createElement('span');
+                var t4 = document.createTextNode("by");
+                span3.appendChild(t4);
+                span3.style.cssFloat = "right";
+                span3.style.marginRight = "0.5em";
+                span3.style.cursor = "default";
+                td2.appendChild(span3);
+
+                var span4 = document.createElement('span');
+                var t5 = document.createTextNode(comments.commentTime[i]);
+                span4.appendChild(t5);
+                span4.style.cssFloat = "right";
+                span4.style.marginRight = "0.5em";
+                span4.style.cursor = "default";
+                td2.appendChild(span4);
+
+                if($.cookie("username")==comments.commenter[i] || $.cookie("role")=="admin"){
+                    var input = document.createElement('input');
+                    td2.appendChild(input);
+                    input.type = "image";
+                    input.src = "./img/delete.png";
+                    input.style.marginRight = "5px";
+                    input.style.cssFloat = "right";
+                    input.style.width = "20px";
+                    input.style.height = "20px";
+                    input.addEventListener('click', function() {
+                        deleteComment($.cookie("comicId"),comments.commentNumber[i]);
+                    });
+                }
+                var hr = document.createElement('hr');
+                hr.className = "style-six";
+                td2.appendChild(hr);
+                
+
+            }
+     
+            var tb2 = document.getElementById("numPage");
+            for(let i=1;i<=comments.commentPage; i++){
+                var td = document.createElement('td');
+                tb2.appendChild(td);
+                var span = document.createElement('span');
+                var t = document.createTextNode(i);
+                span.appendChild(t);
+                span.style.marginRight = "10px";
+                span.style.cursor = "pointer";
+                span.id = "span"+i;
+                if(i==1){
+                    span.style.color = "dodgerblue";
+                }
+                span.addEventListener('click', function() {
+                    commentPage($.cookie("comicId"),i,comments.commentPage);
+                });
+                td.appendChild(span);
+                
+
+            }
+        });
     </script>
 </body>
 

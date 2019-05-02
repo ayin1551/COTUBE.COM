@@ -128,7 +128,7 @@ public class ajaxSearchController{
         List<Integer>IDs = new ArrayList<>();
         List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
         for (Comic c: comics){
-            if(c.getStatus()==1||c.getStatus()==3){
+            if((c.getStatus()==1||c.getStatus()==3) && c.getComic_type()==0){
                 titles.add(c.getTitle());
                 IDs.add(c.getComic_id());
                 for (RegularComic reg: regularComics){

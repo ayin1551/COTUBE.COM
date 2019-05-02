@@ -20,7 +20,11 @@ import java.util.Collections;
 @Controller
 @RequestMapping(value="/profile.html")
 public class ajaxProfileController{
-
+    private NotificationService notificationService;
+    @Autowired
+    public void setNotificationService(NotificationService notificationService){
+        this.notificationService = notificationService;
+    }
     private AccountService accountService;
     @Autowired
     public void setAccountService(AccountService accountService) {
@@ -670,6 +674,24 @@ public class ajaxProfileController{
         Comic comic = comicService.getComicByComic_Id(comicId);
         int type = comic.getComic_type();
         if (type == 0) {//regular
+
+            //NOTIFICATION SECTION
+            List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
+            for(Favorite fav: allFavorites){
+                if (fav.getComic_id() == comicId){
+                    Date now = new Date();
+                    int notification_type = 4;
+                    String notification = "Favorite comic " + comic.getTitle() + " was deleted";
+                    Notification note = new Notification();
+                    note.setNotifcation_type(notification_type);
+                    note.setNotification(notification);
+                    note.setUsername(fav.getFavoriter_username());
+                    note.setNotifcation_time(now);
+                    this.notificationService.addNotification(note);
+                }
+            }
+            //END NOTIFICATION SECTION
+
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
             Integer series_id = rc.getSeries_id();
 
