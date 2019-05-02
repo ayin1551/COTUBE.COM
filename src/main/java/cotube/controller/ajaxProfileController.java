@@ -99,6 +99,12 @@ public class ajaxProfileController{
         this.tagService = tagService;
     }
 
+    private GameComicService gameComicService;
+    @Autowired
+    public void setGameComicService(GameComicService gameComicService){
+        this.gameComicService = gameComicService;
+    }
+
     @RequestMapping(value="/follow",method = RequestMethod.POST)
     @ResponseBody
     public Boolean follow(HttpServletRequest request){
@@ -411,6 +417,7 @@ public class ajaxProfileController{
         List<Comic> comics = comicService.getAllComics();
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
         List<Panel> panel = panelService.getAllPanels();
+        List<GameComic> gameComics = gameComicService.getAllGameComics();
 
         List<String> comicName = new ArrayList<String>();
         List<Integer> comicId = new ArrayList<Integer>();
@@ -418,20 +425,41 @@ public class ajaxProfileController{
         List<Integer> comicSeriesId = new ArrayList<Integer>();
         List<Boolean> comicSeries = new ArrayList<Boolean>();
         List<Boolean> comicGame = new ArrayList<Boolean>();
+        List<Boolean> comicGameAdd = new ArrayList<Boolean>();
+        List<Boolean> comicGameEdit = new ArrayList<Boolean>();
+        List<Boolean> comicGamePublic = new ArrayList<Boolean>();
+        List<Integer> comicGamePanelNo = new ArrayList<Integer>();
+        List<Boolean> comicGamePublished = new ArrayList<Boolean>();
 
         Integer comicType = 0;
 
         for(Panel p: panel){
+            Boolean findFlag = false;
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
                     for(Comic c: comics){
                         if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id()){
                             comicId.add(rc.getRegular_comic_id());
-                            break;
+                            findFlag = true;
                         }
                     }
                 }
-                // TODO: find gamecomic by panelid
+                
+                if(!findFlag){
+                    for(GameComic gc: gameComics){
+                        for(Comic c: comics){
+                            Boolean panelMatch = (gc.getPanel1_id() == p.getPanel_id()) || (gc.getPanel2_id() == p.getPanel_id()) ||  (gc.getPanel3_id() == p.getPanel_id()) || (gc.getPanel4_id() == p.getPanel_id()) ;
+                            if(panelMatch && gc.getGame_comic_id() == c.getComic_id()){
+                                comicId.add(gc.getGame_comic_id()); 
+                                findFlag = true;
+                            }
+                        }
+                    }
+                }
+
+                if(!findFlag){
+                    System.out.println("panel not found!");
+                }
             }
         }
 
@@ -452,20 +480,96 @@ public class ajaxProfileController{
                         comicThumbnail.add(rc.getThumbnail_path());
                         comicSeries.add(rc.getSeries_id()==null?false:true);
                         comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
+                        comicGame.add(false);
+                        comicGameAdd.add(false);
+                        comicGameEdit.add(false);
+                        comicGamePublic.add(false);
+                        comicGamePanelNo.add(null);
+                        comicGamePublished.add(false);
                         break;
                     }
                 }
             }else if(comicType == 1){
                 // add gameComic to list
+                GameComic gc = gameComicService.getGameComicByGameComicId(i);
+                Panel p = panelService.getPanelFromPanelId(gc.getPanel1_id());
+                Integer panelNo = 1;
+                
+                if(!p.getAuthor().equals(username)){
+                    if(gc.getPanel2_id()!=null){
+                        p = panelService.getPanelFromPanelId(gc.getPanel2_id());
+                        panelNo = 2;
+                        
+                    }
+                }
+
+                if(!p.getAuthor().equals(username)){
+                    if(gc.getPanel3_id()!=null){
+                        p = panelService.getPanelFromPanelId(gc.getPanel3_id());
+                        panelNo = 3;
+                    }
+                }
+
+                if(!p.getAuthor().equals(username)){
+                    if(gc.getPanel4_id()!=null){
+                        p = panelService.getPanelFromPanelId(gc.getPanel4_id());
+                        panelNo = 4;
+                    }
+                }
+
+                comicThumbnail.add(panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path());
+                comicSeries.add(false);
+                comicSeriesId.add(null);
+                comicGame.add(true);
+                comicGamePanelNo.add(panelNo);
+                if(p.getCanvas_path() == null){
+                    comicGameEdit.add(true);
+                }else{
+                    comicGameEdit.add(false);
+                }
+                if(p.getPanel_id() == gc.getPanel1_id() && gc.getStatus() == 0){
+                    comicGamePublished.add(false);
+                    comicGameAdd.add(true);
+                    Integer nullCounter = 0;
+                    if(gc.getPanel1_id()==null){
+                        nullCounter++;
+                    }
+                    if(gc.getPanel2_id()==null){
+                        nullCounter++;
+                    }
+                    if(gc.getPanel3_id()==null){
+                        nullCounter++;
+                    }
+                    if(gc.getPanel4_id()==null){
+                        nullCounter++;
+                    }
+                    if(nullCounter>=1){
+                        comicGamePublic.add(true);
+                    }else{
+                        comicGamePublic.add(false);
+                    }
+                }else{
+                    comicGamePublished.add(true);
+                    comicGameAdd.add(false);
+                    comicGamePublic.add(false);
+                }
             }
+                
         }
+        
 
         JSONObject result = new JSONObject();
         result.put("comicName", comicName);
         result.put("comicId", comicId);
         result.put("comicThumbnail", comicThumbnail);
         result.put("comicSeries", comicSeries);
-        result.put("comicSeriesId",comicSeriesId);
+        result.put("comicSeriesId", comicSeriesId);
+        result.put("comicGame", comicGame);
+        result.put("comicGameAdd", comicGameAdd);
+        result.put("comicGameEdit", comicGameEdit);
+        result.put("comicGamePublic", comicGamePublic);
+        result.put("comicGamePanelNo", comicGamePanelNo);
+        result.put("comicGamePublished", comicGamePublished);
         System.out.println(result.toString());
         return result.toString();
     }

@@ -253,3 +253,15 @@ function getProfilePic(username){
     });
     return obj;
 }
+
+function comicGameRedirect(id){
+
+}
+
+function publicGameComic(id){
+
+}
+
+function editGameRedirect(id,panelNo){
+    
+}
