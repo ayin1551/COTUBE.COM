@@ -150,7 +150,7 @@ CREATE TABLE Favorite(
 CREATE TABLE GameComic(
 	game_comic_id INTEGER,
     keyword VARCHAR(255),
-    gamecomic_type INTEGER, #0 = public, #1 = private
+    gamecomic_type INTEGER, #0 = public, #1 = private, 2 = public, previously private
     panel1_id INTEGER,
     panel2_id INTEGER,
     panel3_id INTEGER,
