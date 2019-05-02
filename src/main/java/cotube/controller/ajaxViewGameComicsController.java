@@ -38,9 +38,10 @@ import cotube.services.SeriesService;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// TODO: Check everything works
 @Controller
-@RequestMapping(value="/viewComics.html")
-public class ajaxViewComicsController{
+@RequestMapping(value="/viewGameComics.html")
+public class ajaxViewGameComicsController{
 
     private LikesService likesService;
     @Autowired
@@ -214,24 +215,6 @@ public class ajaxViewComicsController{
     }
 
 
-    @RequestMapping(value="/checkFavorite",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean checkFavorite(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String comicid = request.getParameter("comic_id");
-        System.out.println(username);
-        System.out.println(comicid);
-        List<Favorite> favorites = favoriteService.getAllFavorites();
-        for(Favorite each : favorites){
-            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getFavoriter_username().equals(username)){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
     @RequestMapping(value="/toggleLike",method = RequestMethod.POST)
     @ResponseBody
     public Boolean toggleLike(HttpServletRequest request){
@@ -252,78 +235,6 @@ public class ajaxViewComicsController{
         }
 
         return true;
-    }
-
-    @RequestMapping(value="/removeFromFav",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean removeFromFav(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String comicid = request.getParameter("comic_id");
-        List<Favorite> favorites = favoriteService.getAllFavorites();
-        for(Favorite each : favorites){
-            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getFavoriter_username().equals(username)){
-                favoriteService.deleteFavorite(each);
-            }
-        } 
-        return true;
-    }
-
-    @RequestMapping(value="/listFavorite",method = RequestMethod.POST)
-    @ResponseBody
-    public String listFavorite(HttpServletRequest request){
-        String username = request.getParameter("username");
-        List<Folder> favoritesfolder = folderService.getAllFolders();
-        List<String> folderName = new ArrayList<String>();
-        List<Integer> folderId = new ArrayList<Integer>();
-        for(Folder each : favoritesfolder){
-            if(each.getUsername().equals(username)&&each.getFolder_type()==0){
-                folderName.add(each.getFolder_name());
-                folderId.add(each.getFolder_id());
-            }
-        }
-        System.out.println("favorite list:");
-        for(int i=0;i<folderName.size();i++){
-            System.out.println(folderName.get(i));
-        }
-        JSONObject result = new JSONObject();
-        result.put("name", folderName);
-        result.put("id", folderId);
-        return result.toString();
-    }
-
-    @RequestMapping(value="/addToFav",method = RequestMethod.POST)
-    @ResponseBody
-    public String addToFav(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String comicid = request.getParameter("comic_id");
-        String newlist= request.getParameter("new_list");
-        String idlist= request.getParameter("id_list");
-        System.out.println("newlist: " + newlist);
-        System.out.println("idlist: " + idlist);
-        if(!newlist.equals("")&&newlist!=null){
-            // create new folder, then add comic into folder
-            int i = 0;
-            List<Folder> all = folderService.getAllFolders();
-            for(Folder a : all){
-                if(a.getFolder_id()>i){
-                    i = a.getFolder_id();
-                }
-            }
-            Folder newf = new Folder(username,newlist,0,1);
-            folderService.addFolder(newf);
-            System.out.println(newf);
-            System.out.println(newf.getFolder_id());
-            Favorite newfa = new Favorite(Integer.parseInt(comicid), username, new Date(), newf.getFolder_id());
-            favoriteService.addFavorite(newfa);
-        }
-        if(idlist!=null&&!idlist.equals("")){
-            String[] id = idlist.split(",");
-            for(String a : id){
-                Favorite newfa = new Favorite(Integer.parseInt(comicid), username, new Date(), Integer.parseInt(a));
-                favoriteService.addFavorite(newfa);
-            }
-        }
-        return "";
     }
 
 
@@ -420,129 +331,6 @@ public class ajaxViewComicsController{
 
     }
 
-    @RequestMapping(value="/hasPrev",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean hasPrev(HttpServletRequest request){
-        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
-        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
-        List<Integer> series = new ArrayList<Integer>();
-        Integer seriesId = 0;
-        
-        for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
-                seriesId = rc.getSeries_id();
-                break;
-            }
-        }
-
-        for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
-                series.add(rc.getRegular_comic_id());
-            }
-        }
-
-        Collections.sort(series);
-        if(series.get(0)== comicId){
-            return false;
-        }
-
-
-        return true;
-    }
-
-    @RequestMapping(value="/hasNext",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean hasNext(HttpServletRequest request){
-        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
-        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
-        List<Integer> series = new ArrayList<Integer>();
-        Integer seriesId = 0;
-        
-        for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
-                seriesId = rc.getSeries_id();
-                break;
-            }
-        }
-
-        for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
-                series.add(rc.getRegular_comic_id());
-            }
-        }
-
-        Collections.sort(series);
-        if(series.get(series.size()-1)== comicId){
-            return false;
-        }
-
-
-        return true;
-    }
-
-    @RequestMapping(value="/prev",method = RequestMethod.POST)
-    @ResponseBody
-    public Integer prev(HttpServletRequest request){
-        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
-        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
-        List<Integer> series = new ArrayList<Integer>();
-        Integer seriesId = 0;
-        
-        for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
-                seriesId = rc.getSeries_id();
-                break;
-            }
-        }
-
-        for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
-                series.add(rc.getRegular_comic_id());
-            }
-        }
-
-        Collections.sort(series);
-        for(int i = 1; i < series.size(); i++){
-            if(series.get(i)==comicId){
-                return series.get(i-1);
-            }
-        }
-       
-        return null;
-    }
-
-    @RequestMapping(value="/next",method = RequestMethod.POST)
-    @ResponseBody
-    public Integer next(HttpServletRequest request){
-        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
-        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
-        List<Integer> series = new ArrayList<Integer>();
-        Integer seriesId = 0;
-        
-        for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
-                seriesId = rc.getSeries_id();
-                break;
-            }
-        }
-
-        for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
-                series.add(rc.getRegular_comic_id());
-            }
-        }
-
-        Collections.sort(series);
-        for(int i = 0; i < series.size(); i++){
-            if(series.get(i)==comicId){
-                return series.get(i+1);
-            }
-        }
-
-
-        return null;
-    }
-
 
     @RequestMapping(value="/viewComic",method = RequestMethod.POST)
     @ResponseBody
@@ -592,70 +380,6 @@ public class ajaxViewComicsController{
 
 
         return null;
-    }
-
-
-    @RequestMapping(value="/deleteComic",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean deleteComic(HttpServletRequest request){
-        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
-        Comic comic = comicService.getComicByComic_Id(comicId);
-        int type = comic.getComic_type();
-        if (type == 0) {//regular
-            RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
-            Integer series_id = rc.getSeries_id();
-
-            //delete From Tag
-            Integer regular_comic_id = comicId;
-            List<Tag> tagList = tagService.getAllTagsInRegularComic(regular_comic_id);
-            for (int i = 0; i < tagList.size(); i++)
-                tagService.deleteTag(tagList.get(i));
-
-            //delete From Views
-            List<Views> viewsList = viewsService.getAllViewsInComic(comicId);
-            for (int i = 0; i < viewsList.size(); i++)
-                viewsService.deleteView(viewsList.get(i));
-
-            //delete from Likes
-            List<Likes> likesList = likesService.getAllLikesInComic(comicId);
-            for (int i = 0; i < likesList.size(); i++)
-                likesService.deleteLike(likesList.get(i));
-
-            //delete from Comments
-            List<Comments> commentsList = commentsService.getAllCommentsInComic(comicId);
-            for (int i = 0; i < commentsList.size(); i++)
-                commentsService.deleteComment(commentsList.get(i));
-
-            //delete from Favorites
-            List<Favorite> favoritesList = favoriteService.getAllFavoritesInComic(comicId);
-            for (int i = 0; i < favoritesList.size(); i++)
-                favoriteService.deleteFavorite(favoritesList.get(i));
-
-            //delete from RegularComic
-            regularComicService.deleteRegularComic(rc);
-
-            //delete From Panel
-            panelService.deletePanel(panelService.getPanelFromPanelId(rc.getPanel_id()));
-
-            //delete from Comic
-            comicService.deleteComic(comic);
-
-            if (series_id != null) {
-                List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
-                if(rcSeriesList.isEmpty()){
-
-                    //delete from FollowSeries
-                    List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
-                    for (int i = 0; i < followSeriesList.size(); i++)
-                        followSeriesService.deleteFollowSeries(followSeriesList.get(i));
-
-                    //delete from Series
-                    seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
-
-                }
-            }
-        }
-        return false;
     }
 
 

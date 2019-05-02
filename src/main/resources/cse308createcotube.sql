@@ -46,7 +46,7 @@ CREATE TABLE Comic(
 	comic_id INTEGER auto_increment,
     comic_type INTEGER, #0 = REGULAR, 1 = GAME
     title VARCHAR(255),
-    status INTEGER, #0 = non-published, 1 = published, 2 = censored VARCHAR(255),
+    status INTEGER, #0 = saved, 1 = published, 2 = censored VARCHAR(255), 3 = nonchecked
     date_published DATETIME,
     PRIMARY KEY (comic_id));
 
@@ -114,7 +114,7 @@ CREATE TABLE Comments(
     commenter_username VARCHAR(255),
     comment_time DATETIME,
     comment VARCHAR(1000),
-    status INTEGER, #0 = published, 1 = censored
+    status INTEGER, #0 = published, 1 = censored, 2 = unchecked
     PRIMARY KEY(comic_id, comment_number),
 	FOREIGN KEY (comic_id) REFERENCES Comic (comic_id)
 		ON DELETE NO ACTION
@@ -146,11 +146,45 @@ CREATE TABLE Favorite(
 	FOREIGN KEY (favoriter_username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
-/*
+
 CREATE TABLE GameComic(
+	game_comic_id INTEGER,
+    keyword VARCHAR(255),
+    gamecomic_type INTEGER, #0 = public, #1 = private, 2 = public, previously private
+    panel1_id INTEGER,
+    panel2_id INTEGER,
+    panel3_id INTEGER,
+    panel4_id INTEGER,
+    status INTEGER, #0 = unfinished, 1 = published, 2 = censored, 3 = nonchecked
+    PRIMARY KEY(game_comic_id),
+    FOREIGN KEY (panel1_id) REFERENCES Panel (panel_id)
+    	ON DELETE NO ACTION
+        ON UPDATE CASCADE,
+    FOREIGN KEY (panel2_id) REFERENCES Panel (panel_id)
+    	ON DELETE NO ACTION
+        ON UPDATE CASCADE,
+    FOREIGN KEY (panel3_id) REFERENCES Panel (panel_id)
+    	ON DELETE NO ACTION
+        ON UPDATE CASCADE,
+	FOREIGN KEY (panel4_id) REFERENCES Panel (panel_id)
+    	ON DELETE NO ACTION
+        ON UPDATE CASCADE
+	);
+
+
+
+CREATE TABLE Keyword(
+	keyword_id INTEGER(255),
+	keyword VARCHAR(1000),
+	PRIMARY KEY(keyword_id)
+	);
+
 
 CREATE TABLE Notification(
 	notification_id INTEGER,
+    notification_type INTEGER, #1 = Admin censors comic, 2 = Admin deletes comment, 3 = Admin passes comic,
+							#4 = Single comic in favorite folder - censored/deleted, 5 = Entire series in series following -censored/deleted
+						    #6 = Invitation to join gamecomic, 7 =Gamecomic finished
 	username VARCHAR(255),
     notification VARCHAR(1000),
     notification_time DATETIME,
@@ -158,5 +192,3 @@ CREATE TABLE Notification(
     FOREIGN KEY (username) REFERENCES Account (username)
 		ON DELETE NO ACTION
         ON UPDATE CASCADE);
-
-#Folder table - Username, FolderName, type(series, favorite)
