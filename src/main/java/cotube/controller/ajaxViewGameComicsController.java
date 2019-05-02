@@ -1,6 +1,5 @@
 package cotube.controller;
 
-
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,31 +13,19 @@ import java.util.List;
 import java.util.Date;
 import cotube.domain.Likes;
 import cotube.services.LikesService;
-import cotube.domain.Favorite;
-import cotube.services.FavoriteService;
 import cotube.domain.Comic;
+import cotube.services.AccountService;
 import cotube.services.ComicService;
 import cotube.domain.Comments;
 import cotube.services.CommentsService;
-import cotube.domain.Account;
-import cotube.services.AccountService;
-import cotube.domain.RegularComic;
-import cotube.services.RegularComicService;
-import cotube.domain.Panel;
 import cotube.services.PanelService;
-import cotube.domain.Tag;
-import cotube.services.TagService;
-import cotube.domain.FollowSeries;
-import cotube.services.FollowSeriesService;
+import cotube.services.GameComicService;
+import cotube.domain.GameComic;
 import cotube.domain.Views;
 import cotube.services.ViewsService;
-import cotube.domain.Folder;
-import cotube.services.FolderService;
-import cotube.services.SeriesService;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// TODO: Check everything works
 @Controller
 @RequestMapping(value="/viewGameComics.html")
 public class ajaxViewGameComicsController{
@@ -47,12 +34,6 @@ public class ajaxViewGameComicsController{
     @Autowired
     public void setLikesService(LikesService likesService) {
         this.likesService = likesService;
-    }
-
-    private FavoriteService favoriteService;
-    @Autowired
-    public void setFavoriteService(FavoriteService favoriteService) {
-        this.favoriteService = favoriteService;
     }
 
     private ComicService comicService;
@@ -73,35 +54,10 @@ public class ajaxViewGameComicsController{
         this.panelService = panelService;
     }
 
-    private TagService tagService;
-    @Autowired
-    public void setTagService(TagService tagService) {
-        this.tagService = tagService;
-    }
-
-    private FollowSeriesService followSeriesService;
-    @Autowired
-    public void setFollowSeriesService(FollowSeriesService followSeriesService) {
-        this.followSeriesService = followSeriesService;
-    }
-
-
     private ViewsService viewsService;
     @Autowired
     public void setViewsService(ViewsService viewsService) {
         this.viewsService = viewsService;
-    }
-    
-    private RegularComicService regularComicService;
-    @Autowired
-    public void setRegularComicService(RegularComicService regularComicService) {
-        this.regularComicService = regularComicService;
-    }
-
-    private FolderService folderService;
-    @Autowired
-    public void setFolderService(FolderService folderService) {
-        this.folderService = folderService;
     }
 
     private AccountService accountService;
@@ -110,114 +66,69 @@ public class ajaxViewGameComicsController{
         this.accountService = accountService;
     }
 
-    private SeriesService seriesService;
+    private GameComicService gameComicService;
     @Autowired
-    public void setSeriesService(SeriesService seriesService) {
-        this.seriesService = seriesService;
+    public void setGameComicService(GameComicService gameComicService) {
+        this.gameComicService = gameComicService;
     }
 
-
-    @RequestMapping(value="/comicTitle",method = RequestMethod.POST)
-    @ResponseBody
-    public String comicTitle(HttpServletRequest request){
-        String comicid = request.getParameter("comic_id");
-        System.out.println(comicid);
-        String title = "";
-        List<Comic> comics = comicService.getAllComics();
-        for(Comic each : comics){
-            if(each.getComic_id()==Integer.parseInt(comicid)){
-                title = each.getTitle();
-                break;
-            }
-        }
-        return title;
-    }
 
     @RequestMapping(value="/comicInfo",method = RequestMethod.POST)
     @ResponseBody
     public String comicInfo(HttpServletRequest request){
-        String comicid = request.getParameter("comic_id");
-        System.out.println(comicid);
-        int comicpanel = -1;
-        String description = "";
-        String author = "";
-        String path = "";
-        List<RegularComic> comics = regularComicService.getAllRegularComics();
-        for(RegularComic each : comics){
-            if(each.getRegular_comic_id()==Integer.parseInt(comicid)){
-                comicpanel = each.getPanel_id();
-                description = each.getDescription();
+        Integer comicId = Integer.parseInt(request.getParameter("comic_id"));
+        String username = request.getParameter("username");
+        Comic c = comicService.getComicByComic_Id(comicId);
+        GameComic gc = gameComicService.getGameComicByGameComicId(comicId);
+        String title = c.getTitle();
+        String author1 = panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor();
+        String author2 = panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor();
+        String author3 = panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor();
+        String author4 = panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor();
+        String authorPath1 = accountService.getAccountByUsername(author1).getProfile_pic_path();
+        String authorPath2 = accountService.getAccountByUsername(author2).getProfile_pic_path();
+        String authorPath3 = accountService.getAccountByUsername(author3).getProfile_pic_path();
+        String authorPath4 = accountService.getAccountByUsername(author4).getProfile_pic_path();
+        String path1 = panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path();
+        String path2 = panelService.getPanelFromPanelId(gc.getPanel2_id()).getCanvas_path();
+        String path3 = panelService.getPanelFromPanelId(gc.getPanel3_id()).getCanvas_path();
+        String path4 = panelService.getPanelFromPanelId(gc.getPanel4_id()).getCanvas_path();
+        Integer views = viewsService.getAllViewsInComic(comicId).size();
+        Integer likes = likesService.getAllLikesInComic(comicId).size();
+        Boolean ifLiked = false;
+        List<Likes> allLikes = likesService.getAllLikesInComic(comicId);
+        for(Likes l: allLikes){
+            if(l.getLiker_username().equals(username)){
+                ifLiked = true;
                 break;
             }
         }
-        List<Panel> panels = panelService.getAllPanels();
-        for(Panel each : panels){
-            if(each.getPanel_id()==comicpanel){
-                author = each.getAuthor();
-                path = each.getCanvas_path();
-                break;
-            }
-        }
-        List<Views> views = viewsService.getAllViews();
-        int viewscount = 0;
-        for(Views each : views){
-            if(each.getComic_id()==Integer.parseInt(comicid)){
-                viewscount++;
-            }
-        }
-        String authorpath = "";
-        List<Account> users = accountService.getAllAccounts();
-        for(Account each : users){
-            if(each.getUsername().equals(author)){
-                authorpath = each.getProfile_pic_path();
-            }
-        }
+
         JSONObject result = new JSONObject();
-        result.put("author", author);
-        result.put("path", path);
-        result.put("authorpath", authorpath);
-        result.put("views", viewscount);
-        result.put("description", description);
+        result.put("title",title);
+        result.put("author1", author1);
+        result.put("author2", author2);
+        result.put("author3", author3);
+        result.put("author4", author4);
+        result.put("authorPath1", authorPath1);
+        result.put("authorPath2", authorPath2);
+        result.put("authorPath3", authorPath3);
+        result.put("authorPath4", authorPath4);
+        result.put("path1", path1);
+        result.put("path2", path2);
+        result.put("path3", path3);
+        result.put("path4", path4);
+        result.put("views", views);
+        result.put("likes", likes);
+        result.put("ifLiked", ifLiked);
+
         System.out.println(result.toString());
         return result.toString();
     }
 
-    @RequestMapping(value="/checkLike",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean checkLike(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String comicid = request.getParameter("comic_id");
-        System.out.println(username);
-        System.out.println(comicid);
-        List<Likes> likes = likesService.getAllLikes();
-        for(Likes each : likes){
-            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getLiker_username().equals(username)){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @RequestMapping(value="/likeNumber",method = RequestMethod.POST)
-    @ResponseBody
-    public int likeNumber(HttpServletRequest request){
-        String comicid = request.getParameter("comic_id");
-        System.out.println(comicid);
-        int count = 0;
-        List<Likes> likes = likesService.getAllLikes();
-        for(Likes each : likes){
-            if(each.getComic_id()==Integer.parseInt(comicid)){
-                count++;
-            }
-        }
-        return count;
-    }
-
-
     @RequestMapping(value="/toggleLike",method = RequestMethod.POST)
     @ResponseBody
-    public Boolean toggleLike(HttpServletRequest request){
+    public Integer toggleLike(HttpServletRequest request){
         String username = request.getParameter("username");
         String comicid = request.getParameter("comic_id");
         Boolean like = request.getParameter("like").equals("true")?true:false;
@@ -233,8 +144,7 @@ public class ajaxViewGameComicsController{
             Likes add = new Likes(Integer.parseInt(comicid), username, new Date());
             likesService.addLike(add);
         }
-
-        return true;
+        return likesService.getAllLikesInComic(Integer.parseInt(comicid)).size();
     }
 
 

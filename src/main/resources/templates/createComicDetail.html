@@ -438,7 +438,7 @@
             document.getElementById("tag_error2").style.display = "block";
         }
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
-            // TODO: create comic to database --- public
+            // create comic to database --- public
             publishComic();
             goProfile();
 
@@ -470,7 +470,7 @@
         if(document.getElementById("tag_error1").style.display=="none"&&document.getElementById("tag_error2").style.display=="none"&&document.getElementById("tag_error3").style.display=="none"){
             saveComic();
             goProfile();
-            // TODO: save the comic to database --- private
+            // save the comic to database --- private
         }
     }
 
@@ -490,7 +490,7 @@
             console.log(select);
         }
 
-        // TODO: get all series created by user, add them to <select> id="existSeries", (view in line120)
+        // get all series created by user, add them to <select> id="existSeries", (view in line120)
     }
 
     $(window).ready(function() {
