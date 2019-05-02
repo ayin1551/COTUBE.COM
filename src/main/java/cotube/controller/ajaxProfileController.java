@@ -417,6 +417,9 @@ public class ajaxProfileController{
         List<String> comicThumbnail = new ArrayList<String>();
         List<Integer> comicSeriesId = new ArrayList<Integer>();
         List<Boolean> comicSeries = new ArrayList<Boolean>();
+        List<Boolean> comicGame = new ArrayList<Boolean>();
+
+        Integer comicType = 0;
 
         for(Panel p: panel){
             if(p.getAuthor().equals(username)){
@@ -424,9 +427,11 @@ public class ajaxProfileController{
                     for(Comic c: comics){
                         if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id()){
                             comicId.add(rc.getRegular_comic_id());
+                            break;
                         }
                     }
                 }
+                // TODO: find gamecomic by panelid
             }
         }
 
@@ -437,17 +442,21 @@ public class ajaxProfileController{
             for(Comic c: comics){
                 if(c.getComic_id() == i){
                     comicName.add(c.getTitle());
+                    comicType = c.getComic_type();
                     break;
                 }
             }
-
-            for(RegularComic rc: regularComics){
-                if(rc.getRegular_comic_id() == i){
-                    comicThumbnail.add(rc.getThumbnail_path());
-                    comicSeries.add(rc.getSeries_id()==null?false:true);
-                    comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
-                    break;
+            if(comicType == 0){
+                for(RegularComic rc: regularComics){
+                    if(rc.getRegular_comic_id() == i){
+                        comicThumbnail.add(rc.getThumbnail_path());
+                        comicSeries.add(rc.getSeries_id()==null?false:true);
+                        comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
+                        break;
+                    }
                 }
+            }else if(comicType == 1){
+                // add gameComic to list
             }
         }
 
@@ -475,6 +484,9 @@ public class ajaxProfileController{
         List<String> comicThumbnail = new ArrayList<String>();
         List<Boolean> comicSeries = new ArrayList<Boolean>();
         List<Integer> comicSeriesId = new ArrayList<Integer>();
+        List<Boolean> comicGame = new ArrayList<Boolean>();
+        
+        Integer comicType = 0;
 
         for(Panel p: panel){
             if(p.getAuthor().equals(username)){
@@ -495,17 +507,21 @@ public class ajaxProfileController{
             for(Comic c: comics){
                 if(c.getComic_id() == i){
                     comicName.add(c.getTitle());
+                    comicType = c.getComic_type();
                     break;
                 }
             }
-
-            for(RegularComic rc: regularComics){
-                if(rc.getRegular_comic_id() == i){
-                    comicThumbnail.add(rc.getThumbnail_path());
-                    comicSeries.add(rc.getSeries_id()==null?false:true);
-                    comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
-                    break;
+            if(comicType == 0){
+                for(RegularComic rc: regularComics){
+                    if(rc.getRegular_comic_id() == i){
+                        comicThumbnail.add(rc.getThumbnail_path());
+                        comicSeries.add(rc.getSeries_id()==null?false:true);
+                        comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
+                        break;
+                    }
                 }
+            }else if(comicType == 1){
+
             }
         }
 
@@ -589,7 +605,7 @@ public class ajaxProfileController{
         return true;
     }
 
-    //TODO: Edit game
+    //TODO: Edit game NO NEED?
     @RequestMapping(value="/editGame",method = RequestMethod.POST)
     @ResponseBody
     public String editGame(HttpServletRequest request){
@@ -616,7 +632,7 @@ public class ajaxProfileController{
         return true;
     }
 
-    //TODO: Delete game to user
+    //TODO: Delete user from game
     @RequestMapping(value="/deleteUser",method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteUser(HttpServletRequest request){
