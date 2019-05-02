@@ -12,7 +12,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./js/js.cookie.js"></script>
     <script src="./js/jumpFunction.js"></script>
-
+    <script src="./js/messages.js"></script>
 
 </head>
 
@@ -53,7 +53,7 @@
     <h1 style="font-size:35px; text-align:center; padding-top:10px;cursor:default">Message Center</h1>
     <div style="clear: both; margin-left: 5%; margin-right: 5%; font-weight: initial">
         <table class="messageTab">
-            <tbody>
+            <tbody id = "messageBody">
                 <tr>
                     <td style="text-align: left;">"userName" follows you</td>
                     <td style="text-align: right; font-size: 14px; font-weight: lighter">59 seconds before</td>
@@ -96,7 +96,9 @@
         document.getElementById("profile").style.display = "none";
         document.getElementById("setting").style.display = "none";
     }
- 
+    $( document ).ready(function() {
+        loadTable();
+    });
 </script>
 </body>
 

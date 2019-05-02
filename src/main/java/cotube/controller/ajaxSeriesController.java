@@ -21,7 +21,11 @@ import java.sql.Timestamp;
 @Controller
 @RequestMapping(value="/viewSeries.html")
 public class ajaxSeriesController{
-
+    private NotificationService notificationService;
+    @Autowired
+    public void setNotificationService(NotificationService notificationService){
+        this.notificationService = notificationService;
+    }
     private FollowSeriesService followSeriesService;
     @Autowired
     public void setFollowSeriesService(FollowSeriesService followSeriesService) {
@@ -87,7 +91,7 @@ public class ajaxSeriesController{
     public Boolean follow(HttpServletRequest request){
         String username = request.getParameter("username");
         Integer id = Integer.parseInt(request.getParameter("seriesId"));
- 
+
         FollowSeries fs = new FollowSeries();
         Date date = new Date();
         fs.setFollow_time(new Timestamp(date.getTime()));
@@ -120,7 +124,7 @@ public class ajaxSeriesController{
     public Boolean check(HttpServletRequest request){
         String username = request.getParameter("username");
         Integer id = Integer.parseInt(request.getParameter("seriesId"));
-        
+
         List<FollowSeries> followSeries = followSeriesService.getAllFollowSeries();
         for(FollowSeries fs: followSeries){
             if(fs.getFollower_username().equals(username) && fs.getSeries_id() == id){
@@ -343,6 +347,22 @@ public class ajaxSeriesController{
             Comic comic = comicService.getComicByComic_Id(comicId);
             int type = comic.getComic_type();
             if (type == 0) {//regular
+                //NOTIFICATION SECTION
+                List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
+                for(Favorite fav: allFavorites){
+                    if (fav.getComic_id() == comicId){
+                        Date now = new Date();
+                        int notification_type = 4;
+                        String notification = "Favorite comic " + comic.getTitle() + " was deleted";
+                        Notification note = new Notification();
+                        note.setNotifcation_type(notification_type);
+                        note.setNotification(notification);
+                        note.setUsername(fav.getFavoriter_username());
+                        note.setNotifcation_time(now);
+                        this.notificationService.addNotification(note);
+                    }
+                }
+                //END NOTIFICATION SECTION
                 RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comicId);
                 Integer series_id = rc.getSeries_id();
 
@@ -383,12 +403,20 @@ public class ajaxSeriesController{
                 if (series_id != null) {
                     List<RegularComic> rcSeriesList = regularComicService.getAllRegularComicsInSeries(series_id);
                     if(rcSeriesList.isEmpty()){
-
                         //delete from FollowSeries
                         List<FollowSeries> followSeriesList = followSeriesService.getAllFollowSeriesInSeries(series_id);
-                        for (int i = 0; i < followSeriesList.size(); i++)
+                        for (int i = 0; i < followSeriesList.size(); i++) {
+                            Date now = new Date();
+                            int notification_type = 5;
+                            String notification = "Series " + this.seriesService.getSeriesBySeriesId(followSeriesList.get(i).getSeries_id()) + " was deleted";
+                            Notification note = new Notification();
+                            note.setNotifcation_type(notification_type);
+                            note.setNotification(notification);
+                            note.setUsername(followSeriesList.get(i).getFollower_username());
+                            note.setNotifcation_time(now);
+                            this.notificationService.addNotification(note);
                             followSeriesService.deleteFollowSeries(followSeriesList.get(i));
-
+                        }
                         //delete from Series
                         seriesService.deleteSeries(seriesService.getSeriesBySeriesId(series_id));
 

@@ -23,13 +23,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64.Decoder;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/createGame.html")
 public class ajaxCreateGameController {
 
+    private AccountService accountService;
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
+    private NotificationService notificationService;
+    @Autowired
+    public void setNotificationService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
     @RequestMapping(value = "/playRandom", method = RequestMethod.POST)
     @ResponseBody
     public String playRandom(HttpServletRequest request) throws IOException {
@@ -138,6 +149,44 @@ public class ajaxCreateGameController {
         String user4 = request.getParameter("user4");
         Integer gameId = 0;
         Integer panelNo = 0;
+        if (this.accountService.usernameExist(user2) == true){
+            Date now = new Date();
+            int notification_type = 6;
+            String notification = username + " has invited you to play in the comicGame";
+            Notification note = new Notification();
+            note.setNotifcation_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(user2);
+            note.setNotifcation_time(now);
+            note.setLink(gameId + " " + "2");
+            this.notificationService.addNotification(note);
+        }
+        if (this.accountService.usernameExist(user3) == true){
+            Date now = new Date();
+            int notification_type = 6;
+            String notification = username + " has invited you to play in the comicGame";
+            Notification note = new Notification();
+            note.setNotifcation_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(user3);
+            note.setNotifcation_time(now);
+            note.setLink(gameId + " " + "3");
+            this.notificationService.addNotification(note);
+
+        }
+        if(this.accountService.usernameExist(user4) == true){
+            Date now = new Date();
+            int notification_type = 6;
+            String notification = username + " has invited you to play in the comicGame";
+            Notification note = new Notification();
+            note.setNotifcation_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(user4);
+            note.setNotifcation_time(now);
+            note.setLink(gameId + " " + "4");
+            this.notificationService.addNotification(note);
+        }
+
 
         /*
             Create a new private game with the keyword
