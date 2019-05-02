@@ -14,6 +14,7 @@ import java.util.Date;
 import cotube.domain.Likes;
 import cotube.services.LikesService;
 import cotube.domain.Comic;
+import cotube.services.AccountService;
 import cotube.services.ComicService;
 import cotube.domain.Comments;
 import cotube.services.CommentsService;
