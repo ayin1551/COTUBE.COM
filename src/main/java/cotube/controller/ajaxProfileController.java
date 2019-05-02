@@ -643,6 +643,7 @@ public class ajaxProfileController{
                     }
                 }
             }else if(comicType == 1){
+                GameComic gc = gameComicService.getGameComicByGameComicId(i);
                 comicThumbnail.add(panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path());
                 comicSeries.add(false);
                 comicSeriesId.add(null);
