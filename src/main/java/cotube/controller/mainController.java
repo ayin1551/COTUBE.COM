@@ -109,4 +109,9 @@ public class mainController {
     String editComicDetail(){
         return "editComicDetail";
     }
+
+    @RequestMapping(value={"createGameDetail.html"})
+    String createGameDetail(){
+        return "createGameDetail";
+    }
 }
