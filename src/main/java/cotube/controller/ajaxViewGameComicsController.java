@@ -13,33 +13,18 @@ import java.util.List;
 import java.util.Date;
 import cotube.domain.Likes;
 import cotube.services.LikesService;
-import cotube.domain.Favorite;
-import cotube.services.FavoriteService;
 import cotube.domain.Comic;
 import cotube.services.ComicService;
 import cotube.domain.Comments;
 import cotube.services.CommentsService;
-import cotube.domain.Account;
-import cotube.services.AccountService;
-import cotube.domain.RegularComic;
-import cotube.services.RegularComicService;
-import cotube.domain.Panel;
 import cotube.services.PanelService;
-import cotube.domain.Tag;
-import cotube.services.TagService;
-import cotube.domain.FollowSeries;
-import cotube.services.FollowSeriesService;
 import cotube.services.GameComicService;
 import cotube.domain.GameComic;
 import cotube.domain.Views;
 import cotube.services.ViewsService;
-import cotube.domain.Folder;
-import cotube.services.FolderService;
-import cotube.services.SeriesService;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// TODO: Check everything works
 @Controller
 @RequestMapping(value="/viewGameComics.html")
 public class ajaxViewGameComicsController{
@@ -48,12 +33,6 @@ public class ajaxViewGameComicsController{
     @Autowired
     public void setLikesService(LikesService likesService) {
         this.likesService = likesService;
-    }
-
-    private FavoriteService favoriteService;
-    @Autowired
-    public void setFavoriteService(FavoriteService favoriteService) {
-        this.favoriteService = favoriteService;
     }
 
     private ComicService comicService;
@@ -74,47 +53,16 @@ public class ajaxViewGameComicsController{
         this.panelService = panelService;
     }
 
-    private TagService tagService;
-    @Autowired
-    public void setTagService(TagService tagService) {
-        this.tagService = tagService;
-    }
-
-    private FollowSeriesService followSeriesService;
-    @Autowired
-    public void setFollowSeriesService(FollowSeriesService followSeriesService) {
-        this.followSeriesService = followSeriesService;
-    }
-
-
     private ViewsService viewsService;
     @Autowired
     public void setViewsService(ViewsService viewsService) {
         this.viewsService = viewsService;
-    }
-    
-    private RegularComicService regularComicService;
-    @Autowired
-    public void setRegularComicService(RegularComicService regularComicService) {
-        this.regularComicService = regularComicService;
-    }
-
-    private FolderService folderService;
-    @Autowired
-    public void setFolderService(FolderService folderService) {
-        this.folderService = folderService;
     }
 
     private AccountService accountService;
     @Autowired
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
-    }
-
-    private SeriesService seriesService;
-    @Autowired
-    public void setSeriesService(SeriesService seriesService) {
-        this.seriesService = seriesService;
     }
 
     private GameComicService gameComicService;
