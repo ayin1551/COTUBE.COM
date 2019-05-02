@@ -1076,6 +1076,57 @@ VALUES(25, 'user7', curDate(), 7);
 INSERT INTO Favorite
 VALUES(30, 'user5', curDate(), 8);
 
+/* ---------------------- Game Comic -------------------------*/
 
+INSERT INTO Panel
+VALUES(41, 'user1', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4TyAbTgJtsWlUB3SMaytFi9XsiniH1r2dX0n8jR_lDZthOKW3-A', 'first', curdate());
+
+INSERT INTO Panel
+VALUES(42, 'user2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAeysQYdLE3qDyfid4nXi0iLxvJ6vtwc3U4Ju50zl1nQfaICbN', 'second', curdate());
+
+INSERT INTO Panel
+VALUES(43, 'user3', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6HyLNHsaUJBdzmsHcK-Z7_urZIWskmVJeBIL4DiaZok9ev95V', 'third', curdate());
+
+INSERT INTO Panel
+VALUES(44, 'user4', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0LyCEImuityCx-giYKJl5qBN2mszqrOjIuI7k4hfC0kJdu8lhWA', 'fourth', curdate());
+
+INSERT INTO Panel
+VALUES(47, 'user1', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4TyAbTgJtsWlUB3SMaytFi9XsiniH1r2dX0n8jR_lDZthOKW3-A', '3', curdate());
+
+INSERT INTO Panel
+VALUES(46, 'user2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAeysQYdLE3qDyfid4nXi0iLxvJ6vtwc3U4Ju50zl1nQfaICbN', '2', curdate());
+
+INSERT INTO Panel
+VALUES(45, 'user3', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6HyLNHsaUJBdzmsHcK-Z7_urZIWskmVJeBIL4DiaZok9ev95V', '1', curdate());
+
+INSERT INTO Panel
+VALUES(48, 'user4', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0LyCEImuityCx-giYKJl5qBN2mszqrOjIuI7k4hfC0kJdu8lhWA', '4', curdate());
+
+INSERT INTO Panel
+VALUES(49, 'user1', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt0s9Lz1WIauXYP3B_7teYIp-NoKut1N_r3eRztvwDMuNDJq5C', 'I', curdate());
+
+INSERT INTO Panel
+VALUES(50, 'user6', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtoKqZeZ1pIqX-F1e49mutn6t_E1ibg-bWIlsvnuc43PwTJAC01A', 'II', curdate());
+
+INSERT INTO Panel
+VALUES(51, 'user5', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpl8Aye2ROTAKxf1mMLKdO7pD0QH-iqLmfIS1KIkp3i-kbRjLATQ', 'III', curdate());
+
+INSERT INTO Comic
+VALUES(41, 1, 'first second third fourth', 1, curdate());
+
+INSERT INTO Comic
+VALUES(42, 1, '1 2 3 4', 3, curdate());
+
+INSERT INTO Comic
+VALUES(43, 1, 'I II III', 0, curdate()); 
+
+INSERT INTO GameComic
+VALUES(41, 'apple', 0, 41, 42, 43, 44, 1);
+
+INSERT INTO GameComic
+VALUES(42, 'banana', 2, 45, 46, 47, 48, 3);
+
+INSERT INTO GameComic
+VALUES(43, 'cranberry', 1, 49, 50, 51, null, 0);
 
 

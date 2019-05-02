@@ -397,7 +397,6 @@ public class ajaxProfileController{
             }
         }
 
-
         for(int i=0;i<seriesId.size();i++){
             System.out.println(i+1 + ": " + seriesId.get(i));
         }
@@ -409,7 +408,6 @@ public class ajaxProfileController{
         return result.toString();
     }
 
-    //TODO: Get GAMECOMIC
     @RequestMapping(value="/getMyComics",method = RequestMethod.POST)
     @ResponseBody
     public String getMyComic(HttpServletRequest request){
@@ -456,7 +454,6 @@ public class ajaxProfileController{
                         }
                     }
                 }
-
                 if(!findFlag){
                     System.out.println("panel not found!");
                 }
@@ -557,7 +554,6 @@ public class ajaxProfileController{
                 
         }
         
-
         JSONObject result = new JSONObject();
         result.put("comicName", comicName);
         result.put("comicId", comicId);
@@ -582,6 +578,8 @@ public class ajaxProfileController{
         List<Comic> comics = comicService.getAllComics();
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
         List<Panel> panel = panelService.getAllPanels();
+        List<GameComic> gameComics = gameComicService.getAllGameComics();
+
 
         List<String> comicName = new ArrayList<String>();
         List<Integer> comicId = new ArrayList<Integer>();
@@ -593,14 +591,33 @@ public class ajaxProfileController{
         Integer comicType = 0;
 
         for(Panel p: panel){
+            Boolean findFlag = false;
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
                     for(Comic c: comics){
                         if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id() && (c.getStatus() == 1 || c.getStatus() == 3)){
                             comicId.add(rc.getRegular_comic_id());
+                            findFlag = true;
                         }
                     }
                 }
+
+                if(!findFlag){
+                    for(GameComic gc: gameComics){
+                        for(Comic c: comics){
+                            Boolean panelMatch = (gc.getPanel1_id() == p.getPanel_id()) || (gc.getPanel2_id() == p.getPanel_id()) ||  (gc.getPanel3_id() == p.getPanel_id()) || (gc.getPanel4_id() == p.getPanel_id()) ;
+                            if((gc.getStatus() == 1 || gc.getStatus() == 3) && panelMatch && gc.getGame_comic_id() == c.getComic_id()){
+                                comicId.add(gc.getGame_comic_id()); 
+                                findFlag = true;
+                            }
+                        }
+                    }
+                }
+
+                if(!findFlag){
+                    System.out.println("panel not found!");
+                }
+
             }
         }
 
@@ -621,11 +638,16 @@ public class ajaxProfileController{
                         comicThumbnail.add(rc.getThumbnail_path());
                         comicSeries.add(rc.getSeries_id()==null?false:true);
                         comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
+                        comicGame.add(false);
                         break;
                     }
                 }
             }else if(comicType == 1){
-
+                comicThumbnail.add(panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path());
+                comicSeries.add(false);
+                comicSeriesId.add(null);
+                comicGame.add(true);
+                break;
             }
         }
 
@@ -635,6 +657,7 @@ public class ajaxProfileController{
         result.put("comicThumbnail", comicThumbnail);
         result.put("comicSeries", comicSeries);
         result.put("comicSeriesId", comicSeriesId);
+        result.put("comicGame", comicGame);
         System.out.println(result.toString());
         return result.toString();
     }
@@ -702,26 +725,16 @@ public class ajaxProfileController{
         return false;
     }
 
-    //TODO: Make game public
     @RequestMapping(value="/makePublic",method = RequestMethod.POST)
     @ResponseBody
     public Boolean makePublic(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        GameComic gc = gameComicService.getGameComicByGameComicId(comicId);
+        gc.setGamecomic_type(2);
+        gameComicService.addGameComic(gc);
         return true;
     }
 
-    //TODO: Edit game NO NEED?
-    @RequestMapping(value="/editGame",method = RequestMethod.POST)
-    @ResponseBody
-    public String editGame(HttpServletRequest request){
-        Integer gameId = 0;
-        Integer panelNo = 0;
-
-        JSONObject result = new JSONObject();
-        result.put("gameId",gameId);
-        result.put("panelNo",panelNo);
-        System.out.println(result.toString());
-        return result.toString();
-    }
 
     //TODO: Add user to game
     @RequestMapping(value="/addUser",method = RequestMethod.POST)

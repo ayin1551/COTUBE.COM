@@ -255,13 +255,25 @@ function getProfilePic(username){
 }
 
 function comicGameRedirect(id){
-
+    $.cookie("comicId",id);
+    document.location.href = "./viewGameComics.html";
 }
 
 function publicGameComic(id){
-
+    $.ajax({
+        type: "post",
+        url: "profile.html/makePublic",
+        async: false,
+        data: {comicId:id},
+        success: function(data){
+        }
+    });
+    document.location.href = "./profile.html";
 }
 
 function editGameRedirect(id,panelNo){
+    $.cookie("comicId",id);
+    $.cookie("panelNo",panelNo);
+    document.location.href = "./createGame.html";
     
 }
