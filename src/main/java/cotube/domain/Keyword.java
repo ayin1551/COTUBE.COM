@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Keyword {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer keyword_id;
     private String keyword;
 

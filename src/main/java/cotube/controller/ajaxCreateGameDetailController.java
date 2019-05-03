@@ -54,6 +54,23 @@ public class ajaxCreateGameDetailController {
             May update the canvas_path in the panel 
         */
 
+        byte[] imageByte;
+        BufferedImage image = null;
+        Decoder decoder = java.util.Base64.getMimeDecoder();
+        //Integer comicId = 23333; //comidId which need to return
+
+        imageByte = decoder.decode(img);
+        ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+        image = ImageIO.read(bis);
+        bis.close();
+
+        Panel panel = panelService.getPanelFromPanelId(panelNo);
+        String fileName = "gc_ " + comicId + "_panelID_" + panel.getPanel_id() + ".png";
+        File outputfile = new File("tmp/" + fileName); //file path and file name need to change
+        panel.setCanvas_path("comicID_" + comicId + ".png");
+        panelService.addPanel(panel);
+
+
         System.out.println(username);
         System.out.println(comicId);
         System.out.println(panelNo);
