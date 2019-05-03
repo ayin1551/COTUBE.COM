@@ -62,7 +62,7 @@ public class ajaxCreateGameController {
             record start time
         */
 
-
+        System.out.println(username);
         System.out.println(gameId);
         System.out.println(panelNo);
 
@@ -92,6 +92,8 @@ public class ajaxCreateGameController {
         */
 
 
+        System.out.println(username);
+        System.out.println(keyword);
         System.out.println(gameId);
         System.out.println(panelNo);
 
@@ -127,6 +129,8 @@ public class ajaxCreateGameController {
 
         */
 
+        System.out.println(username);
+        System.out.println(keyword);
         System.out.println(exist);
         System.out.println(gameId);
         System.out.println(panelNo);
@@ -198,7 +202,8 @@ public class ajaxCreateGameController {
             return the gameId and panelNo 
 
         */
-
+        System.out.println(username);
+        System.out.println(keyword);
         System.out.println(gameId);
         System.out.println(panelNo);
 
