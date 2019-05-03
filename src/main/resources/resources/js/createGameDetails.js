@@ -5,7 +5,7 @@ function getInfo(){
     var gameid = $.cookie('comicId');
     var panelNo = $.cookie('panelNo');
     $.ajax({
-        url: "createGame.html/getInfo",
+        url: "createGameDetail.html/getInfo",
         type: "post",
         async: false,
         data: {gameId: gameid,current:panelNo},
@@ -53,8 +53,49 @@ function getInfo(){
                     document.getElementById("wd3").innerText = "Upcoming...";
                 }
             }
+        }else{
+
         }
     }
+}
+
+function cancel(){
+    var username = $.cookie("username");
+    var comicId = $.cookie("comicId");
+    var panelNo = $.cookie("panelNo");
+    $.ajax({
+        type: "post",
+        url: "createGameDetail.html/cancel",
+        async: false,
+        dataType:"json",
+        data: {username: username, comicId:comicId, panelNo:panelNo},
+        success: function(data){
+        }
+    });
+    document.location.href = "./createHome.html";
+}
+
+function submit(){
+    var username = $.cookie("username");
+    var comicId = $.cookie("comicId");
+    var panelNo = $.cookie("panelNo");
+    var titleWord = $('input#priKW').val();
+    alert(titleWord);
+    $.ajax({
+        type: "post",
+        url: "createGameDetail.html/submit",
+        async: false,
+        dataType:"json",
+        data: {username: username, comicId:comicId, panelNo:panelNo, titleWord:titleWord},
+        success: function(data){
+            if(data){
+                $.cookie('profileUsername', $.cookie('username'));
+                document.location.href = "./profile.html";
+            }else{
+                document.location.href = "./createHome.html";
+            }
+        }
+    });
 }
 
 function unloadCancel(){

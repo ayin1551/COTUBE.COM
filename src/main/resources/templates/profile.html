@@ -289,7 +289,6 @@
                             if(comics.comicGamePublished[j]){
                                 img2.style.cursor = "pointer";
                                 img2.addEventListener('click', function() {
-                                    // TODO: DEFINE FUNCTION
                                     comicGameRedirect(comics.comicId[j]);
                                 });
                             }
@@ -356,7 +355,6 @@
                             input1.style.width = "25px";
                             input1.style.height = "25px";
                             input1.addEventListener('click', function() {
-                                // TODO: DEFINE FUNCTION
                                 publicGameComic(comics.comicId[j]);
                             });
                         }
@@ -371,7 +369,6 @@
                             input2.style.width = "25px";
                             input2.style.height = "25px";
                             input2.addEventListener('click', function() {
-                                // TODO: DEFINE FUNCTION
                                 editGameRedirect(comics.comicId[j],comics.comicGamePanelNo[j]);
                             });
                         }
@@ -386,9 +383,6 @@
                             input3.style.width = "25px";
                             input3.style.height = "25px";
                             input3.addEventListener('click', function() {
-                                // TODO: popup add user 
-                                // game comic id in comics.comicId[j]
-                                // game comic panel in comics.comicGamePanelNo[j]
                                 cleanpopup();
                                 list_invite_user(comics.comicId[j]);
                                 var cid = comics.comicId[j];
