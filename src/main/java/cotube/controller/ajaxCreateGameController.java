@@ -36,6 +36,18 @@ public class ajaxCreateGameController {
         this.accountService = accountService;
     }
 
+    private GameComicService gameComicService;
+    @Autowired
+    public void setGameComicService(GameComicService gameComicService) {
+        this.gameComicService = gameComicService;
+    }
+
+    private PanelService panelService;
+    @Autowired
+    public void setPanelService(PanelService panelService) {
+        this.panelService = panelService;
+    }
+
     private NotificationService notificationService;
     @Autowired
     public void setNotificationService(NotificationService notificationService) {
@@ -214,6 +226,86 @@ public class ajaxCreateGameController {
         return result.toString();
     }
 
+    @RequestMapping(value = "/getInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public String getInfo(HttpServletRequest request) throws IOException {
+        String gameID = request.getParameter("gameId");
+        String cur = request.getParameter("current");
+        Integer gameid = Integer.parseInt(gameID);
+        Integer currentPanel = Integer.parseInt(cur);
+        GameComic gc = gameComicService.getGameComicByGameComicId(gameid);
+        List<String> path = new ArrayList<>();
+        List<String> word = new ArrayList<>();
+        List<String> num = new ArrayList<>();
+        String keyword = gc.getKeyword();
+        if(currentPanel==1){
+            num.add("this");
+            path.add(null);
+            word.add(null);
+        }else{
+            num.add("No.1");
+            if(gc.getPanel1_id()==null){
+                path.add(null);
+                word.add(null);
+            }else{
+                Panel temp = panelService.getPanelFromPanelId(gc.getPanel1_id());
+                path.add(temp.getCanvas_path());
+                word.add(temp.getTitle_word());
+            }
+        }
+        if(currentPanel==2){
+            num.add("this");
+            path.add(null);
+            word.add(null);
+        }else{
+            num.add("No.2");
+            if(gc.getPanel2_id()==null){
+                path.add(null);
+                word.add(null);
+            }else{
+                Panel temp = panelService.getPanelFromPanelId(gc.getPanel2_id());
+                path.add(temp.getCanvas_path());
+                word.add(temp.getTitle_word());
+            }
+        }
+        if(currentPanel==3){
+            num.add("this");
+            path.add(null);
+            word.add(null);
+        }else{
+            num.add("No.3");
+            if(gc.getPanel3_id()==null){
+                path.add(null);
+                word.add(null);
+            }else{
+                Panel temp = panelService.getPanelFromPanelId(gc.getPanel3_id());
+                path.add(temp.getCanvas_path());
+                word.add(temp.getTitle_word());
+            }
+        }
+        if(currentPanel==4){
+            num.add("this");
+            path.add(null);
+            word.add(null);
+        }else{
+            num.add("No.4");
+            if(gc.getPanel4_id()==null){
+                path.add(null);
+                word.add(null);
+            }else{
+                Panel temp = panelService.getPanelFromPanelId(gc.getPanel4_id());
+                path.add(temp.getCanvas_path());
+                word.add(temp.getTitle_word());
+            }
+        }
+        JSONObject result = new JSONObject();
+        result.put("num", num);
+        result.put("path", path);
+        result.put("word", word);
+        result.put("keyword", keyword);
+        System.out.println(result.toString());
+        return result.toString();
+    }
 
     @RequestMapping(value = "/randomKeyword", method = RequestMethod.POST)
     @ResponseBody
