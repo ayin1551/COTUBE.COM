@@ -56,3 +56,18 @@ function getInfo(){
         }
     }
 }
+
+function unloadCancel(){
+    var username = $.cookie("username");
+    var comicId = $.cookie("comicId");
+    var panelNo = $.cookie("panelNo");
+    $.ajax({
+        type: "post",
+        url: "createGameDetail.html/cancel",
+        async: false,
+        dataType:"json",
+        data: {username: username, comicId:comicId, panelNo:panelNo},
+        success: function(data){
+        }
+    });
+}
