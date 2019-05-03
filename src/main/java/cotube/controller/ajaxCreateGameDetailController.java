@@ -46,7 +46,7 @@ public class ajaxCreateGameDetailController {
     public RedirectView saveComic(HttpServletRequest request) throws IOException {
         String username = request.getParameter("username");
         String img = request.getParameter("data");
-        Integer gameId = Integer.parseInt(request.getParameter("gameId"));
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
         Integer panelNo = Integer.parseInt(request.getParameter("panelNo"));
 
         /*
@@ -55,10 +55,10 @@ public class ajaxCreateGameDetailController {
         */
 
         System.out.println(username);
-        System.out.println(gameId);
+        System.out.println(comicId);
         System.out.println(panelNo);
 
-        return new RedirectView("?gameId="+Integer.toString(gameId));// return gameId
+        return new RedirectView("?comicId="+Integer.toString(comicId));// return gameId
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
