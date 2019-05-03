@@ -597,6 +597,14 @@ tr.d0:nth-child(even)  td{
   margin-bottom: 40px
 }
 
+.gameTable img{
+  width: 208px;
+  height: 117px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+
 select.selectType{
   /*background-color: #007700;*/
   color: #000000;
