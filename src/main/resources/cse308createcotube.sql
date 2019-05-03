@@ -1,4 +1,5 @@
-
+create database cse308;
+use cse308;
 CREATE TABLE Account (
     username VARCHAR(255) ,
     password VARCHAR(255) NOT NULL ,

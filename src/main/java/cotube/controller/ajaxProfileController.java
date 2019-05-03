@@ -772,29 +772,74 @@ public class ajaxProfileController{
         return true;
     }
 
-
-    // //TODO: Add user to game
-    // @RequestMapping(value="/addser",method = RequestMethod.POST)
-    // @ResponseBody
-    // public Boolean addUser(HttpServletRequest request){
-    //     Integer gameId = Integer.parseInt(request.getParameter("gameId"));
-    //     String user2 = request.getParameter("user2");
-    //     String user3 = request.getParameter("user3");
-    //     String user4 = request.getParameter("user4");
-
-
-    //     return true;
-    // }
-
-    //TODO: Delete user from game
-    @RequestMapping(value="/deleteUser",method = RequestMethod.POST)
+    @RequestMapping(value="/setUser",method = RequestMethod.POST)
     @ResponseBody
-    public Boolean deleteUser(HttpServletRequest request){
-        Integer gameId = Integer.parseInt(request.getParameter("gameId"));
-        String username = request.getParameter("username");
+    public void setUser(HttpServletRequest request){
+        String game_Id = request.getParameter("gameId");
+        Integer gameId = Integer.parseInt(game_Id);
+        String username = request.getParameter("user");
+        String position = request.getParameter("pos");
+        Integer pos = Integer.parseInt(position);
+        GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
+        if(username!=null&&!username.equals("")){
+            Integer panelId = -1;
+            if(pos==2){
+                panelId = gc.getPanel2_id()==null? -1:gc.getPanel2_id();
+            }else if(pos==3){
+                panelId = gc.getPanel3_id()==null? -1:gc.getPanel3_id();
+            }else if(pos==4){
+                panelId = gc.getPanel4_id()==null? -1:gc.getPanel4_id();
+            }
+            if(panelId!=-1){
+                Panel panel = panelService.getPanelFromPanelId(panelId);
+                if(!panel.getAuthor().equals(username)){
+                    panel.setAuthor(username);
+                    panelService.addPanel(panel);
+                }
+            }else{
+                Panel addpanel = new Panel(username, null, null, new Date());
+                panelService.addPanel(addpanel);
+                if(pos==2){
+                    gc.setPanel2_id(addpanel.getPanel_id());
+                }
+                if(pos==3){
+                    gc.setPanel3_id(addpanel.getPanel_id());
+                }
+                if(pos==4){
+                    gc.setPanel4_id(addpanel.getPanel_id());
+                }
+                gameComicService.addGameComic(gc);
+            }
+        }else{
+            Integer panelId = -1;
+            if(pos==2){
+                panelId = gc.getPanel2_id()==null? -1:gc.getPanel2_id();
+                if(panelId==gc.getPanel2_id()){
+                    Integer t = null;
+                    gc.setPanel2_id(t);
+                }
+            }
+            if(pos==3){
+                panelId = gc.getPanel3_id()==null? -1:gc.getPanel3_id();
+                if(panelId==gc.getPanel3_id()){
+                    Integer t = null;
+                    gc.setPanel3_id(t);
+                }
+            }
+            if(pos==4){
+                panelId = gc.getPanel4_id()==null? -1:gc.getPanel4_id();
+                if(panelId==gc.getPanel4_id()){
+                    Integer t = null;
+                    gc.setPanel4_id(t);
+                }
+            }
+            if(panelId!=-1){
+                Panel panel = panelService.getPanelFromPanelId(panelId);
+                panelService.deletePanel(panel);
+            }
+            gameComicService.addGameComic(gc);
+        }
 
-
-        return true;
     }
 
     @RequestMapping(value="/list_invite_user",method = RequestMethod.POST)
@@ -853,9 +898,9 @@ public class ajaxProfileController{
     }
 
 
-    @RequestMapping(value="/adduser",method = RequestMethod.POST)
+    @RequestMapping(value="/checkUser",method = RequestMethod.POST)
     @ResponseBody
-    public Boolean adduser(HttpServletRequest request){
+    public Boolean checkUser(HttpServletRequest request){
         String username = request.getParameter("username");
         return accountService.getAccountByUsername(username)==null?false:true;
     }

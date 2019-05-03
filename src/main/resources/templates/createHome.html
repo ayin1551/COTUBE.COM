@@ -136,14 +136,15 @@
                         </div>
                     </div>
                 </div>
+                <h4 id="error0" style="color:red;display:none;margin-left:20px;font-weight: 300;">Cannot Invite Yourself.</h4>
                 <h4 id="error3" style="color:red;display:none;margin-left:20px;font-weight: 300;">Cannot Invite Same Person.</h4>
                 <h4 id="error1" style="color:red;display:none;margin-left:20px;font-weight: 300;">Keyword Cannot Be Empty.</h4>
                 <h4 id="error4" style="color:red;display:none;margin-left:20px;font-weight: 300;">You Have To Invite At Least One Person.</h4>
                 <h4 id="error2" style="color:red;display:none;margin-left:20px;font-weight: 300;">Order Invalid, Order Can Nither Be Repeat Or Empty.</h4>
                 <br>
                 <button class="kwbtn kwbtn2" id="pribtn1" onclick="create()">Create</button>
-                <!-- TODO: delete exist btn? -->
-                <button class="kwbtn kwbtn2" id="pribtn2" onclick="exist()">Exist</button>
+                <!-- TODO: delete exist btn?
+                <button class="kwbtn kwbtn2" id="pribtn2" onclick="exist()">Exist</button> -->
 
             </div>
 
@@ -210,6 +211,7 @@
                     $.cookie("publicGame",false);
                 }
                 function addUserBelow() {
+                    document.getElementById("error0").style.display = "none";
                     document.getElementById("error1").style.display = "none";
                     document.getElementById("error2").style.display = "none";
                     document.getElementById("error4").style.display = "none";
@@ -222,35 +224,47 @@
                         // <!-- unfinished, user name empty -->
                     }else{
                         if(user1.innerText==""||user1.innerText==null){
-                            user1.innerText = document.getElementById("invite_people").value;
-                            var tag1 = document.getElementById("addhere1");
-                            tag1.style.display = "block";
-                            var u1o = document.getElementById("u1o");
-                            u1o.style.display = "block";
+                            if(document.getElementById('invite_people').value==$.cookie('username')){
+                                document.getElementById("error0").style.display = "block";
+                            }else{
+                                user1.innerText = document.getElementById("invite_people").value;
+                                var tag1 = document.getElementById("addhere1");
+                                tag1.style.display = "block";
+                                var u1o = document.getElementById("u1o");
+                                u1o.style.display = "block";
+                            }
                         }
                         else if(user2.innerText==""||user2.innerText==null){
-                            user2.innerText = document.getElementById("invite_people").value;
-                            if(user2.innerText==user1.innerText){
-                                document.getElementById("error3").style.display = "block";
-                                user2.innerText = "";
-                            }else {
-                                var tag2 = document.getElementById("addhere2");
-                                tag2.style.display = "block";
-                                var u2o = document.getElementById("u2o");
-                                u2o.style.display = "block";
+                            if(document.getElementById('invite_people').value==$.cookie('username')){
+                                document.getElementById("error0").style.display = "block";
+                            }else{
+                                user2.innerText = document.getElementById("invite_people").value;
+                                if(user2.innerText==user1.innerText){
+                                    document.getElementById("error3").style.display = "block";
+                                    user2.innerText = "";
+                                }else {
+                                    var tag2 = document.getElementById("addhere2");
+                                    tag2.style.display = "block";
+                                    var u2o = document.getElementById("u2o");
+                                    u2o.style.display = "block";
+                                }
                             }
                         }else if(user3.innerText==""||user3.innerText==null){
-                            user3.innerText = document.getElementById("invite_people").value;
-                            if(user3.innerText==user1.innerText||user3.innerText==user2.innerText){
-                                document.getElementById("error3").style.display = "block";
-                                user3.innerText = "";
-                            }else {
-                                var tag3 = document.getElementById("addhere3");
-                                tag3.style.display = "block";
-                                var btndisable = document.getElementById("addbtn");
-                                btndisable.disabled = true;
-                                var u3o = document.getElementById("u3o");
-                                u3o.style.display = "block";
+                            if(document.getElementById('invite_people').value==$.cookie('username')){
+                                document.getElementById("error0").style.display = "block";
+                            }else{
+                                user3.innerText = document.getElementById("invite_people").value;
+                                if(user3.innerText==user1.innerText||user3.innerText==user2.innerText){
+                                    document.getElementById("error3").style.display = "block";
+                                    user3.innerText = "";
+                                }else {
+                                    var tag3 = document.getElementById("addhere3");
+                                    tag3.style.display = "block";
+                                    var btndisable = document.getElementById("addbtn");
+                                    btndisable.disabled = true;
+                                    var u3o = document.getElementById("u3o");
+                                    u3o.style.display = "block";
+                                }
                             }
                         }
 
@@ -356,56 +370,7 @@
                     // <!-- unfinished: jump -->
                 }
 
-                function exist() {
-                    document.getElementById("error1").style.display = "none";
-                    document.getElementById("error2").style.display = "none";
-                    document.getElementById("error4").style.display = "none";
-                    document.getElementById("error3").style.display = "none";
-                    var kwd = document.getElementById("priKW");
-                    if(kwd.value==""||kwd.value==null){
-                        document.getElementById("error1").style.display = "block";
-                    }
-                    $.cookie("gamekeyword", kwd.value);
-                    var per1 = document.getElementById("add1name");
-                    var per2 = document.getElementById("add2name");
-                    var per3 = document.getElementById("add3name");
-                    var pos1 = document.getElementById("user1option");
-                    var pos2 = document.getElementById("user2option");
-                    var pos3 = document.getElementById("user3option");
-                    if(per1.innerText==""||per1.innerText==null){
-                        document.getElementById("error4").style.display = "block";
-                    }else if(per2.innerText==""||per2.innerText==null){
-                        if(pos1.value==" "){
-                            document.getElementById("error2").style.display = "block";
-                        }else{
-                            $.cookie("gameinvite1",per1.innerText);
-                            $.cookie("gameinvite1pos",pos1.value);
-                            document.location.href="./createGame.html";
-                        }
-                    }else if(per3.innerHTML==""||per3.innerText==null){
-                        if(pos1.value==pos2.value||pos1.value==" "||pos2.value==" "){
-                            document.getElementById("error2").style.display = "block";
-                        }else{
-                            $.cookie("gameinvite1",per1.innerText);
-                            $.cookie("gameinvite1pos",pos1.value);
-                            $.cookie("gameinvite2",per2.innerText);
-                            $.cookie("gameinvite2pos",pos2.value);
-                            document.location.href="./createGame.html";
-                        }
-                    }else if(pos1.value==" "||pos2.value==" "||pos3.value==" "||pos1.value==pos2.value||pos1.value==pos3.value||pos2.value==pos3.value){
-                        document.getElementById("error2").style.display = "block";
-                    }else{
-                        $.cookie("gameinvite1",per1.innerText);
-                        $.cookie("gameinvite1pos",pos1.value);
-                        $.cookie("gameinvite2",per2.innerText);
-                        $.cookie("gameinvite2pos",pos2.value);
-                        $.cookie("gameinvite3",per3.innerText);
-                        $.cookie("gameinvite3pos",pos3.value);
-                        document.location.href="./createGame.html";
-                    }
-                    // <!-- unfinished: jump -->
-                }
-
+                
                 function publicGame() {
                     var game = document.getElementById("private_public_game");
                     game.style.display = "none";

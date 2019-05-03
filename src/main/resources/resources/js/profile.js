@@ -276,8 +276,146 @@ function editGameRedirect(id,panelNo){
     
 }
 
-function submitadd(){
-
+function submitadd(gameId){
+    console.log("in js, gameId:", gameId);
+    document.getElementById("add_error1").style.display = "none";
+    document.getElementById("add_error2").style.display = "none";
+    document.getElementById("add_error3").style.display = "none";
+    document.getElementById("add_error4").style.display = "none";
+    document.getElementById("add_error5").style.display = "none";
+    var per1 = document.getElementById("add1name");
+    var per2 = document.getElementById("add2name");
+    var per3 = document.getElementById("add3name");
+    var pos1 = document.getElementById("user1option");
+    var pos2 = document.getElementById("user2option");
+    var pos3 = document.getElementById("user3option");
+    if(per1.innerText==""||per1.innerText==null){
+        document.getElementById("add_error2").style.display = "block";
+    }else if(per2.innerText==""||per2.innerText==null){
+        if(pos1.value==" "){
+            document.getElementById("add_error4").style.display = "block";
+        }else{
+            if(pos1.value=="2"){
+                pos2.value = "3";
+                pos3.value = "4";
+            }
+            else if(pos1.value=="3"){
+                pos2.value = "2";
+                pos3.value = "4";
+            }
+            else if(pos1.value=="4"){
+                pos2.value = "2";
+                pos3.value = "3";
+            }
+            $.ajax({
+                type: "post",
+                url: "profile.html/setUser",
+                async: false,
+                data: {gameId:gameId, user:per1.innerText, pos: pos1.value},
+                success: function(data){
+                    console.log("8");
+                    // obj = jQuery.parseJSON(data);
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "profile.html/setUser",
+                async: false,
+                data: {gameId:gameId, user:null, pos: pos2.value},
+                success: function(data){
+                    console.log("9");
+                    // obj = jQuery.parseJSON(data);
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "profile.html/setUser",
+                async: false,
+                data: {gameId:gameId, user:null, pos: pos3.value},
+                success: function(data){
+                    console.log("10");
+                    // obj = jQuery.parseJSON(data);
+                }
+            });
+            document.getElementById('addPopup').style.display = "none";
+            cleanpopup();
+        }
+    }else if(per3.innerHTML==""||per3.innerText==null){
+        if(pos1.value==pos2.value||pos1.value==" "||pos2.value==" "){
+            document.getElementById("add_error4").style.display = "block";
+        }else{
+            if((pos1.value=="2"&&pos2.value=="3")||(pos1.value=="3"&&pos2.value=="2")){
+                pos3.value = "4";
+            }
+            else if((pos1.value=="2"&&pos2.value=="4")||(pos1.value=="4"&&pos2.value=="2")){
+                pos3.value = "3";
+            }
+            else if((pos1.value=="3"&&pos2.value=="4")||(pos1.value=="4"&&pos2.value=="3")){
+                pos3.value = "2";
+            }
+            $.ajax({
+                type: "post",
+                url: "profile.html/setUser",
+                async: false,
+                data: {gameId:gameId, user:per1.innerText, pos: pos1.value},
+                success: function(data){
+                    console.log("16");
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "profile.html/setUser",
+                async: false,
+                data: {gameId:gameId, user:per2.innerText, pos: pos2.value},
+                success: function(data){
+                    console.log("17");
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "profile.html/setUser",
+                async: false,
+                data: {gameId:gameId, user:null, pos: pos3.value},
+                success: function(data){
+                    console.log("18");
+                }
+            });
+            document.getElementById('addPopup').style.display = "none";
+            cleanpopup();
+        }
+    }else if(pos1.value==" "||pos2.value==" "||pos3.value==" "||pos1.value==pos2.value||pos1.value==pos3.value||pos2.value==pos3.value){
+        document.getElementById("add_error4").style.display = "block";
+    }else{
+        $.ajax({
+            type: "post",
+            url: "profile.html/setUser",
+            async: false,
+            data: {gameId:gameId, user:per1.innerText, pos: pos1.value},
+            success: function(data){
+                console.log("21");
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "profile.html/setUser",
+            async: false,
+            data: {gameId:gameId, user:per2.innerText, pos: pos2.value},
+            success: function(data){
+                console.log("22");
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "profile.html/setUser",
+            async: false,
+            data: {gameId:gameId, user:per3.innerText, pos: pos3.value},
+            success: function(data){
+                console.log("23");
+            }
+        });
+        document.getElementById('addPopup').style.display = "none";
+        cleanpopup();
+    }
 }
 
 function cleanpopup(){
@@ -293,6 +431,8 @@ function cleanpopup(){
     document.getElementById('add_error4').style.display = "none";
     document.getElementById("addbtn").disabled = false;
     document.getElementById('invite_people').value = "";
+    delete3();
+    delete2();
     delete1();
 }
 
@@ -309,6 +449,7 @@ function delete1() {
         document.getElementById("user1option").value = " ";
     }else{
         user1.innerText = user2.innerText;
+        document.getElementById("user1option").value = document.getElementById("user2option").value;
         delete2();
     }
 }
@@ -325,6 +466,7 @@ function delete2() {
         document.getElementById("user2option").value = " ";
     }else{
         user2.innerText = user3.innerText;
+        document.getElementById("user2option").value = document.getElementById("user3option").value;
         delete3();
     }
 }
@@ -516,7 +658,7 @@ function addUserBelow() {
     }else{
         var validality;
         $.ajax({
-            url: "profile.html/adduser",
+            url: "profile.html/checkUser",
             type: "post",
             async: false,
             data: {username: document.getElementById("invite_people").value},
