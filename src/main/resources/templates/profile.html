@@ -155,7 +155,7 @@
                 <h4 id="add_error3" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Cannot Invite Same Person.</h4>
                 <h4 id="add_error4" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Order Invalid, Order Can Nither Be Repeat Or Empty.</h4>
                 <h4 id="add_error5" style="color:red;display:none;margin-left:20px;font-weight: 300;cursor:default">Cannot Invite Yourself.</h4>
-                <br><button class="kwbtn kwbtn2" id="submitadd" onclick="submitadd()">Submit</button>
+                <br><button class="kwbtn kwbtn2" id="submitadd" >Submit</button>
             </div>
         </div>            
         <script>
@@ -163,10 +163,12 @@
             var x1 = document.getElementById("x");
             x1.onclick = function() {
                 modal.style.display = "none";
+                cleanpopup();
             }
             window.onclick = function(event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
+                    cleanpopup();
                 }
             }
         </script>
@@ -389,8 +391,15 @@
                                 // game comic panel in comics.comicGamePanelNo[j]
                                 cleanpopup();
                                 list_invite_user(comics.comicId[j]);
+                                var cid = comics.comicId[j];
                                 var modal = document.getElementById('addPopup');
                                 modal.style.display = "block";
+                                var btn = document.getElementById("submitadd");
+                                btn.addEventListener('click', function(){
+                                    console.log("cid:" + cid);
+                                    console.log("use:" + comics.comicId[j]);
+                                    submitadd(comics.comicId[j]);
+                                });
                             });
                         }
                         var br2 = document.createElement('br');
