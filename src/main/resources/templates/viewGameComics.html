@@ -194,6 +194,7 @@
         document.getElementById("authorimg4").onclick = function() {
             authorprofile(info.author4);
         }
+        viewComic($.cookie("username"),$.cookie("comicId"));
         document.getElementById("comicviewnum").innerHTML = "Views:"+info.views;
         document.getElementById("img1").src = info.path1;
         document.getElementById("img2").src = info.path2;

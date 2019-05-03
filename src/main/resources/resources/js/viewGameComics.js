@@ -83,3 +83,14 @@ function comicInfo(){
     document.location.href = "./viewGameComics.html";
   }
   
+
+  function viewComic(username, id){
+    $.ajax({
+      type: "post",
+      url: "viewGameComics.html/viewComic",
+      async: true,
+      data: {username: username, comicId: id},
+      success: function(data){
+      }
+    });
+  }

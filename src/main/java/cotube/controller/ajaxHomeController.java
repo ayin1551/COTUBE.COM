@@ -80,12 +80,9 @@ public class ajaxHomeController{
             regularComics.add(rc);
         }
 
-        System.out.println(comics.toString());
-        System.out.println(regularComics.toString());
         JSONObject result = new JSONObject();
         result.put("comics", resultComics);
         result.put("regular_comics", regularComics);
-        System.out.println(result.toString());
         return result.toString();
     }
 
@@ -104,13 +101,10 @@ public class ajaxHomeController{
             seriesResult.add(series.get(index));
             series.remove(index);
         }
-        System.out.println(seriesResult.toString());
         JSONObject result = new JSONObject();
         result.put("series", seriesResult);
-        System.out.println(result.toString());
 
         String test = request.getRequestURI();
-        System.out.println(test);
 
         return result.toString();
     }
@@ -132,15 +126,12 @@ public class ajaxHomeController{
             ratedcomicsResult.add(ratedcomics.get(i));
         }
 
-        System.out.println(ratedcomics.toString());
         JSONObject result = new JSONObject();
         result.put("ratedcomics", ratedcomicsResult);
         result.put("regularcomics", regularComics);
-        System.out.println(result.toString());
         return result.toString();
     }
 
-    // TODO: GET GAME COMIC
     @RequestMapping(value="/getTimeline",method = RequestMethod.POST)
     @ResponseBody
     public String getTimeline(HttpServletRequest request){
@@ -209,13 +200,12 @@ public class ajaxHomeController{
 
                     if(!findFlag){
                         if(p.getTitle_word() != null){
-                            System.out.println(p.getPanel_id());
                             Integer panelId = p.getPanel_id();
-                            if(panelId == 42){
-                                Integer gameComicId = this.gameComicService.getGameComicIdByPanelId(panelId);
-                            
-                                GameComic gc = this.gameComicService.getGameComicByGameComicId(gameComicId);
-                                if(gc.getStatus() == 1 || gc.getStatus() == 3){
+                            Integer gameComicId = this.gameComicService.getGameComicIdByPanelId(panelId);
+                        
+                            GameComic gc = this.gameComicService.getGameComicByGameComicId(gameComicId);
+                            if(gc.getStatus() == 1 || gc.getStatus() == 3){
+                                if(!timelineComicId.contains(gc.getGame_comic_id())){
                                     timelineComicId.add(gc.getGame_comic_id());
                                 }
                             }
@@ -226,8 +216,6 @@ public class ajaxHomeController{
                 }
             }
         }
-        System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
-        System.out.println(timelineComicId);
         List<Comic> comics = new ArrayList<Comic>();
         for(Integer i: timelineComicId){
             comics.add(comicService.getComicByComic_Id(i));
@@ -242,6 +230,7 @@ public class ajaxHomeController{
         for(Comic c: comics){
             timelineComicId.add(c.getComic_id());
         }
+        System.out.println(timelineComicId);
 
         List<String> comicThumbnail = new ArrayList<String>();
         List<String> comicTitle = new ArrayList<String>();
@@ -251,25 +240,52 @@ public class ajaxHomeController{
         List<Boolean> comicSeries = new ArrayList<Boolean>();
         List<String> comicSeriesTitle = new ArrayList<String>();
         List<Integer> comicSeriesId = new ArrayList<Integer>();
+        List<Boolean> comicGame = new ArrayList<Boolean>();
 
         for(Integer i:timelineComicId){
-            RegularComic rc = this.regularComicService.getRegularComicByRegular_Comic_Id(i);
             Comic c = this.comicService.getComicByComic_Id(i);
-            Integer panelId = rc.getPanel_id();
-            Panel p = this.panelService.getPanelFromPanelId(panelId);
-            comicThumbnail.add(rc.getThumbnail_path());
-            comicTitle.add(c.getTitle());
-            comicTime.add(c.getDate_published().toString());
-            comicAuthor.add(p.getAuthor());
-            comicDescription.add(rc.getDescription());
-            comicSeries.add(rc.getSeries_id()==null?false:true);
-            if(rc.getSeries_id()==null?false:true){
-                comicSeriesTitle.add(this.seriesService.getSeriesBySeriesId(rc.getSeries_id()).getSeries_name());
-                comicSeriesId.add(rc.getSeries_id());
-            }else{
-                comicSeriesTitle.add("null");
-                comicSeriesId.add(0);
+            if(c.getComic_type() == 0){
+                RegularComic rc = this.regularComicService.getRegularComicByRegular_Comic_Id(i);
+                Integer panelId = rc.getPanel_id();
+                Panel p = this.panelService.getPanelFromPanelId(panelId);
+                comicThumbnail.add(rc.getThumbnail_path());
+                comicTitle.add(c.getTitle());
+                comicTime.add(c.getDate_published().toString());
+                comicAuthor.add(p.getAuthor());
+                comicDescription.add(rc.getDescription());
+                comicSeries.add(rc.getSeries_id()==null?false:true);
+                comicGame.add(false);
+                if(rc.getSeries_id()==null?false:true){
+                    comicSeriesTitle.add(this.seriesService.getSeriesBySeriesId(rc.getSeries_id()).getSeries_name());
+                    comicSeriesId.add(rc.getSeries_id());
+                }else{
+                    comicSeriesTitle.add("null");
+                    comicSeriesId.add(0);
+                }
             }
+            else if(c.getComic_type() == 1){
+                //EDIT GAME COMIC INFO TO BE SHOWN ON TIMELINE HERE
+
+                GameComic gc = this.gameComicService.getGameComicByGameComicId(i);
+                Integer panel1Id = gc.getPanel1_id();
+                Integer panel2Id = gc.getPanel2_id();
+                Integer panel3Id = gc.getPanel3_id();
+                Integer panel4Id = gc.getPanel4_id();
+                Panel p1 = this.panelService.getPanelFromPanelId(panel1Id);
+                Panel p2 = this.panelService.getPanelFromPanelId(panel2Id);
+                Panel p3 = this.panelService.getPanelFromPanelId(panel3Id);
+                Panel p4 = this.panelService.getPanelFromPanelId(panel4Id);
+                comicTitle.add(c.getTitle());
+                comicTime.add(c.getDate_published().toString());
+                comicThumbnail.add(p1.getCanvas_path());
+                comicAuthor.add(p1.getAuthor() + "," + p2.getAuthor() + "," + p3.getAuthor() + "," + p4.getAuthor());
+                comicDescription.add(gc.getKeyword());
+                comicSeries.add(false);
+                comicSeriesTitle.add(null);
+                comicSeriesId.add(null);
+                comicGame.add(true);
+            }
+
         }
 
         JSONObject result = new JSONObject();
@@ -282,7 +298,7 @@ public class ajaxHomeController{
         result.put("comicSeries", comicSeries);
         result.put("comicSeriesTitle", comicSeriesTitle);
         result.put("comicSeriesId", comicSeriesId);
-        System.out.println(result.toString());
+        result.put("comicGame", comicGame);
         return result.toString();
     }
 

@@ -121,8 +121,6 @@ public class ajaxViewGameComicsController{
         result.put("views", views);
         result.put("likes", likes);
         result.put("ifLiked", ifLiked);
-
-        System.out.println(result.toString());
         return result.toString();
     }
 
@@ -235,7 +233,6 @@ public class ajaxViewGameComicsController{
         result.put("commentTime", commentTime);
         result.put("commentCount", count);
         result.put("commentPage", Math.ceil(count/20));
-        System.out.println(result.toString());
         return result.toString();
 
 
@@ -259,7 +256,6 @@ public class ajaxViewGameComicsController{
 
         if(!ifView){
             if (username ==  null){
-                System.out.println("Guest viewing comic");
                 StringBuilder sb = new StringBuilder();
                 sb.append("Guest");
                 String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
