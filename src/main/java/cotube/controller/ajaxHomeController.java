@@ -253,23 +253,42 @@ public class ajaxHomeController{
         List<Integer> comicSeriesId = new ArrayList<Integer>();
 
         for(Integer i:timelineComicId){
-            RegularComic rc = this.regularComicService.getRegularComicByRegular_Comic_Id(i);
             Comic c = this.comicService.getComicByComic_Id(i);
-            Integer panelId = rc.getPanel_id();
-            Panel p = this.panelService.getPanelFromPanelId(panelId);
-            comicThumbnail.add(rc.getThumbnail_path());
-            comicTitle.add(c.getTitle());
-            comicTime.add(c.getDate_published().toString());
-            comicAuthor.add(p.getAuthor());
-            comicDescription.add(rc.getDescription());
-            comicSeries.add(rc.getSeries_id()==null?false:true);
-            if(rc.getSeries_id()==null?false:true){
-                comicSeriesTitle.add(this.seriesService.getSeriesBySeriesId(rc.getSeries_id()).getSeries_name());
-                comicSeriesId.add(rc.getSeries_id());
-            }else{
-                comicSeriesTitle.add("null");
-                comicSeriesId.add(0);
+            if(c.getComic_type() == 0){
+                RegularComic rc = this.regularComicService.getRegularComicByRegular_Comic_Id(i);
+                Integer panelId = rc.getPanel_id();
+                Panel p = this.panelService.getPanelFromPanelId(panelId);
+                comicThumbnail.add(rc.getThumbnail_path());
+                comicTitle.add(c.getTitle());
+                comicTime.add(c.getDate_published().toString());
+                comicAuthor.add(p.getAuthor());
+                comicDescription.add(rc.getDescription());
+                comicSeries.add(rc.getSeries_id()==null?false:true);
+                if(rc.getSeries_id()==null?false:true){
+                    comicSeriesTitle.add(this.seriesService.getSeriesBySeriesId(rc.getSeries_id()).getSeries_name());
+                    comicSeriesId.add(rc.getSeries_id());
+                }else{
+                    comicSeriesTitle.add("null");
+                    comicSeriesId.add(0);
+                }
             }
+            else {
+                //EDIT GAME COMIC INFO TO BE SHOWN ON TIMELINE HERE
+
+                GameComic gc = this.gameComicService.getGameComicByGameComicId(i);
+                Integer panel1Id = gc.getPanel1_id();
+                Integer panel2Id = gc.getPanel2_id();
+                Integer panel3Id = gc.getPanel3_id();
+                Integer panel4Id = gc.getPanel4_id();
+                Panel p1 = this.panelService.getPanelFromPanelId(panel1Id);
+                Panel p2 = this.panelService.getPanelFromPanelId(panel2Id);
+                Panel p3 = this.panelService.getPanelFromPanelId(panel3Id);
+                Panel p4 = this.panelService.getPanelFromPanelId(panel4Id);
+                comicTitle.add(c.getTitle());
+                comicTime.add(c.getDate_published().toString());
+                comicAuthor.add(p1.getAuthor() + ", " + p2.getAuthor() + ", " + p3.getAuthor() + ", " + p4.getAuthor());
+            }
+
         }
 
         JSONObject result = new JSONObject();
