@@ -13,7 +13,7 @@ function playRandom(){
 }
 
 function customCreate(){
-    var keyword; // TODO: put keyword here
+    var keyword = document.getElementById("userKW").value; 
     $.ajax({
         url: "createGame.html/customCreate",
         type: "post",
@@ -28,7 +28,7 @@ function customCreate(){
 }
 
 function customExist(){
-    var keyword; // TODO: put keyword here
+    var keyword = document.getElementById("userKW").value;
     $.ajax({
         url: "createGame.html/customExist",
         type: "post",
@@ -43,8 +43,7 @@ function customExist(){
 
         }
     });
-    // TODO: SHOW ERROR MESSAGE HERE 
-    // No Game exist for keyword "xxxx"
+    document.getElementById("error6").style.display = "block";
 }
 
 function randomKeyword(){
@@ -61,15 +60,13 @@ function randomKeyword(){
     $('input#priKW').val(keyword);
 }
 
-function privateGame(){
-    // TODO: PUT ALL INFORMATION HERE
-    // Keyword and usernameS
-    var keyword;
+function privateGame(user2, user3, user4){
+    var keyword = document.getElementById("priKW").value;
     $.ajax({
         url: "createGame.html/privateGame",
         type: "post",
         async: false,
-        data: {username:username, keyword:keyword, user2:xxx, user3:xxx, user4:xxx},
+        data: {username:username, keyword:keyword, user2:user2, user3:user3, user4:user4},
         success: function (data) {
             $.cookie("comidId",data.gameId);
             $.cookie("panelNo",data.panelNo);
@@ -77,3 +74,4 @@ function privateGame(){
     });
     document.location.href = "./createGame.html";  
 }
+
