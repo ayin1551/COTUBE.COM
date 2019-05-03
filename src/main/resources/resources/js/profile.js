@@ -290,27 +290,20 @@ function submitadd(gameId){
     var pos2 = document.getElementById("user2option");
     var pos3 = document.getElementById("user3option");
     if(per1.innerText==""||per1.innerText==null){
-        console.log("1");
         document.getElementById("add_error2").style.display = "block";
     }else if(per2.innerText==""||per2.innerText==null){
-        console.log("2");
         if(pos1.value==" "){
-            console.log("3");
             document.getElementById("add_error4").style.display = "block";
         }else{
-            console.log("4");
             if(pos1.value=="2"){
-                console.log("5");
                 pos2.value = "3";
                 pos3.value = "4";
             }
             else if(pos1.value=="3"){
-                console.log("6");
                 pos2.value = "2";
                 pos3.value = "4";
             }
             else if(pos1.value=="4"){
-                console.log("7");
                 pos2.value = "2";
                 pos3.value = "3";
             }
@@ -349,20 +342,15 @@ function submitadd(gameId){
         }
     }else if(per3.innerHTML==""||per3.innerText==null){
         if(pos1.value==pos2.value||pos1.value==" "||pos2.value==" "){
-            console.log("11");
             document.getElementById("add_error4").style.display = "block";
         }else{
-            console.log("12");
             if((pos1.value=="2"&&pos2.value=="3")||(pos1.value=="3"&&pos2.value=="2")){
-                console.log("13");
                 pos3.value = "4";
             }
             else if((pos1.value=="2"&&pos2.value=="4")||(pos1.value=="4"&&pos2.value=="2")){
-                console.log("14");
                 pos3.value = "3";
             }
             else if((pos1.value=="3"&&pos2.value=="4")||(pos1.value=="4"&&pos2.value=="3")){
-                console.log("15");
                 pos3.value = "2";
             }
             $.ajax({
@@ -372,7 +360,6 @@ function submitadd(gameId){
                 data: {gameId:gameId, user:per1.innerText, pos: pos1.value},
                 success: function(data){
                     console.log("16");
-                    // obj = jQuery.parseJSON(data);
                 }
             });
             $.ajax({
@@ -382,7 +369,6 @@ function submitadd(gameId){
                 data: {gameId:gameId, user:per2.innerText, pos: pos2.value},
                 success: function(data){
                     console.log("17");
-                    // obj = jQuery.parseJSON(data);
                 }
             });
             $.ajax({
@@ -392,18 +378,14 @@ function submitadd(gameId){
                 data: {gameId:gameId, user:null, pos: pos3.value},
                 success: function(data){
                     console.log("18");
-                    // obj = jQuery.parseJSON(data);
                 }
             });
             document.getElementById('addPopup').style.display = "none";
             cleanpopup();
         }
     }else if(pos1.value==" "||pos2.value==" "||pos3.value==" "||pos1.value==pos2.value||pos1.value==pos3.value||pos2.value==pos3.value){
-        console.log("19");
         document.getElementById("add_error4").style.display = "block";
     }else{
-        console.log("20");
-        console.log("1111+", $.cookie('comicId'));
         $.ajax({
             type: "post",
             url: "profile.html/setUser",
@@ -411,7 +393,6 @@ function submitadd(gameId){
             data: {gameId:gameId, user:per1.innerText, pos: pos1.value},
             success: function(data){
                 console.log("21");
-                // obj = jQuery.parseJSON(data);
             }
         });
         $.ajax({
@@ -421,7 +402,6 @@ function submitadd(gameId){
             data: {gameId:gameId, user:per2.innerText, pos: pos2.value},
             success: function(data){
                 console.log("22");
-                // obj = jQuery.parseJSON(data);
             }
         });
         $.ajax({
@@ -431,7 +411,6 @@ function submitadd(gameId){
             data: {gameId:gameId, user:per3.innerText, pos: pos3.value},
             success: function(data){
                 console.log("23");
-                // obj = jQuery.parseJSON(data);
             }
         });
         document.getElementById('addPopup').style.display = "none";
@@ -446,7 +425,6 @@ function cleanpopup(){
     document.getElementById("user1option").disabled = false;
     document.getElementById("user2option").disabled = false;
     document.getElementById("user3option").disabled = false;
-    // document.getElementById("")
     document.getElementById('add_error1').style.display = "none";
     document.getElementById('add_error2').style.display = "none";
     document.getElementById('add_error3').style.display = "none";
