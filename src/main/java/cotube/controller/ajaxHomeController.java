@@ -72,11 +72,11 @@ public class ajaxHomeController{
             counter = comics.size();
         }
         Random rand = new Random();
+        System.out.println(comics);
         for (int i = 0; i < counter; i++) {
-            int index = rand.nextInt(comics.size());
+            int index = i;
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(index).getComic_id());
             resultComics.add(comics.get(index));
-            comics.remove(index);
             regularComics.add(rc);
         }
 
@@ -230,7 +230,7 @@ public class ajaxHomeController{
         for(Comic c: comics){
             timelineComicId.add(c.getComic_id());
         }
-        System.out.println(timelineComicId);
+        //System.out.println(timelineComicId);
 
         List<String> comicThumbnail = new ArrayList<String>();
         List<String> comicTitle = new ArrayList<String>();

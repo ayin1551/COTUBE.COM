@@ -111,7 +111,6 @@
                     var divBig1 = document.createElement('DIV');
                     divBig1.style.width = "85%";
                     divBig1.style.height = "85%";
-                    console.log(x.comics[i].comic_id);
                     divBig1.addEventListener('click', function() {
                         trendingcomic(x.comics[a].comic_id, x.regular_comics[a].series_id);
                     });
@@ -122,7 +121,6 @@
                     divImg1.style.position = "relative";
                     divImg1.style.cursor = "pointer";
                     var img1 = document.createElement('img');
-                    console.log(x.regular_comics[i].thumbnail_path);
                     img1.src = x.regular_comics[i].thumbnail_path;
                     img1.style.width = "100%";
                     img1.style.height = "100%";
@@ -159,8 +157,7 @@
                     divImg2.style.position = "relative";
                     divImg2.style.cursor = "pointer";
                     var img2 = document.createElement('img');
-                    console.log(x.regular_comics[i+1].thumbnail_path);
-                    img2.src = x.regular_comics[i+1].thumbnail_path;
+                    img2.src = x.regular_comics[b].thumbnail_path;
                     img2.style.width = "100%";
                     img2.style.height = "100%";
                     img2.style.position = "absolute";
@@ -171,7 +168,7 @@
                     divinfo2.style.marginLeft = "6.8%"
                     var span_title2 = document.createElement('span');
                     span_title2.style.cursor = "pointer";
-                    var t2 = document.createTextNode(x.comics[i+1].title);
+                    var t2 = document.createTextNode(x.comics[b].title);
                     span_title2.appendChild(t2);
                     divinfo2.appendChild(span_title2);
                     // add to divBig1
@@ -196,8 +193,7 @@
                     divImg3.style.position = "relative";
                     divImg3.style.cursor = "pointer";
                     var img3 = document.createElement('img');
-                    console.log(x.regular_comics[i+2].thumbnail_path);
-                    img3.src = x.regular_comics[i+2].thumbnail_path;
+                    img3.src = x.regular_comics[c].thumbnail_path;
                     img3.style.width = "100%";
                     img3.style.height = "100%";
                     img3.style.position = "absolute";
@@ -208,7 +204,7 @@
                     divinfo3.style.marginLeft = "6.8%"
                     var span_title3 = document.createElement('span');
                     span_title3.style.cursor = "pointer";
-                    var t3 = document.createTextNode(x.comics[i+2].title);
+                    var t3 = document.createTextNode(x.comics[c].title);
                     span_title3.appendChild(t3);
                     divinfo3.appendChild(span_title3);
                     // add to divBig1
@@ -230,7 +226,6 @@
                     var divBig1 = document.createElement('DIV');
                     divBig1.style.width = "85%";
                     divBig1.style.height = "85%";
-                    console.log(x.comics[i].comic_id);
                     divBig1.addEventListener('click', function() {
                         trendingcomic(x.comics[d].comic_id, x.regular_comics[d].series_id);
                     });
@@ -241,8 +236,7 @@
                     divImg1.style.position = "relative";
                     divImg1.style.cursor = "pointer";
                     var img1 = document.createElement('img');
-                    console.log(x.regular_comics[i].thumbnail_path);
-                    img1.src = x.regular_comics[i].thumbnail_path;
+                    img1.src = x.regular_comics[d].thumbnail_path;
                     img1.style.width = "100%";
                     img1.style.height = "100%";
                     img1.style.position = "absolute";
@@ -252,7 +246,7 @@
                     divinfo1.style.width = "61.8%";
                     divinfo1.style.marginLeft = "6.8%"
                     var span_title1 = document.createElement('span');
-                    var t = document.createTextNode(x.comics[i].title);
+                    var t = document.createTextNode(x.comics[d].title);
                     span_title1.appendChild(t);
                     span_title1.style.cursor = "pointer";
                     divinfo1.appendChild(span_title1);
@@ -278,8 +272,7 @@
                     divImg2.style.position = "relative";
                     divImg2.style.cursor = "pointer";
                     var img2 = document.createElement('img');
-                    console.log(x.regular_comics[i+1].thumbnail_path);
-                    img2.src = x.regular_comics[i+1].thumbnail_path;
+                    img2.src = x.regular_comics[e].thumbnail_path;
                     img2.style.width = "100%";
                     img2.style.height = "100%";
                     img2.style.position = "absolute";
@@ -289,7 +282,7 @@
                     divinfo2.style.width = "61.8%";
                     divinfo2.style.marginLeft = "6.8%"
                     var span_title2 = document.createElement('span');
-                    var t2 = document.createTextNode(x.comics[i+1].title);
+                    var t2 = document.createTextNode(x.comics[e].title);
                     span_title2.appendChild(t2);
                     span_title2.style.cursor = "pointer";
                     divinfo2.appendChild(span_title2);
@@ -315,8 +308,7 @@
                     divImg3.style.position = "relative";
                     divImg3.style.cursor = "pointer";
                     var img3 = document.createElement('img');
-                    console.log(x.regular_comics[i+2].thumbnail_path);
-                    img3.src = x.regular_comics[i+2].thumbnail_path;
+                    img3.src = x.regular_comics[f].thumbnail_path;
                     img3.style.width = "100%";
                     img3.style.height = "100%";
                     img3.style.position = "absolute";
@@ -326,7 +318,7 @@
                     divinfo3.style.width = "61.8%";
                     divinfo3.style.marginLeft = "6.8%"
                     var span_title3 = document.createElement('span');
-                    var t3 = document.createTextNode(x.comics[i+2].title);
+                    var t3 = document.createTextNode(x.comics[f].title);
                     span_title3.appendChild(t3);
                     span_title3.style.cursor = "pointer";
                     divinfo3.appendChild(span_title3);
@@ -373,7 +365,6 @@
                 divImg1.style.position = "relative";
                 divImg1.style.cursor = "pointer";
                 var img1 = document.createElement('img');
-                console.log(x.series[a].series_thumbnail_path);
                 img1.src = x.series[a].series_thumbnail_path;
                 img1.style.width = "100%";
                 img1.style.height = "100%";
@@ -384,7 +375,7 @@
                 divinfo1.style.width = "61.8%";
                 divinfo1.style.marginLeft = "6.8%"
                 var span_title1 = document.createElement('span');
-                var t = document.createTextNode(x.series[i].series_name);
+                var t = document.createTextNode(x.series[a].series_name);
                 span_title1.appendChild(t);
                 span_title1.style.cursor = "pointer";
                 divinfo1.appendChild(span_title1);
@@ -410,7 +401,6 @@
                 divImg2.style.position = "relative";
                 divImg2.style.cursor = "pointer";
                 var img2 = document.createElement('img');
-                console.log(x.series[b].series_thumbnail_path);
                 img2.src = x.series[b].series_thumbnail_path;
                 img2.style.width = "100%";
                 img2.style.height = "100%";
@@ -447,7 +437,6 @@
                 divImg3.style.position = "relative";
                 divImg3.style.cursor = "pointer";
                 var img3 = document.createElement('img');
-                console.log(x.series[c].series_thumbnail_path);
                 img3.src = x.series[c].series_thumbnail_path;
                 img3.style.width = "100%";
                 img3.style.height = "100%";
@@ -491,7 +480,6 @@
                 divImg1.style.position = "relative";
                 divImg1.style.cursor = "pointer";
                 var img1 = document.createElement('img');
-                console.log(x.series[d].series_thumbnail_path);
                 img1.src = x.series[d].series_thumbnail_path;
                 img1.style.width = "100%";
                 img1.style.height = "100%";
@@ -502,7 +490,7 @@
                 divinfo1.style.width = "61.8%";
                 divinfo1.style.marginLeft = "6.8%"
                 var span_title1 = document.createElement('span');
-                var t = document.createTextNode(x.series[i].series_name);
+                var t = document.createTextNode(x.series[d].series_name);
                 span_title1.appendChild(t);
                 span_title1.style.cursor = "pointer";
                 divinfo1.appendChild(span_title1);
@@ -528,7 +516,6 @@
                 divImg2.style.position = "relative";
                 divImg2.style.cursor = "pointer";
                 var img2 = document.createElement('img');
-                console.log(x.series[e].series_thumbnail_path);
                 img2.src = x.series[e].series_thumbnail_path;
                 img2.style.width = "100%";
                 img2.style.height = "100%";
@@ -565,7 +552,6 @@
                 divImg3.style.position = "relative";
                 divImg3.style.cursor = "pointer";
                 var img3 = document.createElement('img');
-                console.log(x.series[f].series_thumbnail_path);
                 img3.src = x.series[f].series_thumbnail_path;
                 img3.style.width = "100%";
                 img3.style.height = "100%";
@@ -621,7 +607,6 @@
                     divImg1.style.position = "relative";
                     divImg1.style.cursor = "default";
                     var img1 = document.createElement('img');
-                    console.log(x.ratedcomics[i].thumbnail_path);
                     img1.src = "./img/gold-medal.png";
                     img1.style.width = "90%";
                     img1.style.height = "90%";
@@ -638,7 +623,6 @@
                     divImg1.style.position = "relative";
                     divImg1.style.cursor = "default";
                     var img1 = document.createElement('img');
-                    console.log(x.ratedcomics[i].thumbnail_path);
                     img1.src = "./img/silver-medal.png";
                     img1.style.width = "90%";
                     img1.style.height = "90%";
@@ -655,7 +639,6 @@
                     divImg1.style.position = "relative";
                     divImg1.style.cursor = "default";
                     var img1 = document.createElement('img');
-                    console.log(x.ratedcomics[i].thumbnail_path);
                     img1.src = "./img/bronze-medal.png";
                     img1.style.width = "90%";
                     img1.style.height = "90%";
@@ -730,7 +713,6 @@
                 divImg3.style.height = "75%";
                 divImg3.style.position = "relative";
                 var img3 = document.createElement('img');
-                console.log(x.regularcomics[i].thumbnail_path);
                 img3.src = x.regularcomics[i].thumbnail_path;
                 img3.style.width = "80%";
                 img3.style.height = "100%";
@@ -776,7 +758,6 @@
         if($.cookie('role')=="user"){
             $(window).ready(function() {
                 var timeline = getTimeline($.cookie('username'));
-                console.log(timeline);
                 var div = document.getElementById("timelinediv");
                 for(let i = 0; i < timeline.comicId.length; i++){
                     if(!timeline.comicGame[i]){
@@ -916,7 +897,6 @@
                         header4.style.color = "black";
                         td1.appendChild(header4);
                         var authors = timeline.comicAuthor[i].split(',');
-                        console.log(authors);
                         var td2 = document.createElement("td");
                         tr.appendChild(td2);
                         var a1 = document.createElement("a");

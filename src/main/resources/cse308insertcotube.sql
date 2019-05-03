@@ -1111,6 +1111,9 @@ VALUES(50, 'user6', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtoKq
 INSERT INTO Panel
 VALUES(51, 'user5', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpl8Aye2ROTAKxf1mMLKdO7pD0QH-iqLmfIS1KIkp3i-kbRjLATQ', 'III', curdate());
 
+INSERT INTO Panel
+VALUES(52, 'user4', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpl8Aye2ROTAKxf1mMLKdO7pD0QH-iqLmfIS1KIkp3i-kbRjLATQ', 'IIII', curdate());
+
 INSERT INTO Comic
 VALUES(41, 1, 'first second third fourth', 1, curdate());
 
@@ -1118,7 +1121,7 @@ INSERT INTO Comic
 VALUES(42, 1, '1 2 3 4', 3, curdate());
 
 INSERT INTO Comic
-VALUES(43, 1, 'I II III', 0, curdate()); 
+VALUES(43, 1, 'I II III IIII', 0, curdate());
 
 INSERT INTO GameComic
 VALUES(41, 'apple', 0, 41, 42, 43, 44, 1);
@@ -1127,6 +1130,6 @@ INSERT INTO GameComic
 VALUES(42, 'banana', 2, 45, 46, 47, 48, 3);
 
 INSERT INTO GameComic
-VALUES(43, 'cranberry', 1, 49, 50, 51, null, 0);
+VALUES(43, 'cranberry', 1, 49, 50, 51, 52, 0);
 
 

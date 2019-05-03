@@ -189,6 +189,7 @@ CREATE TABLE Notification(
 	username VARCHAR(255),
     notification VARCHAR(1000),
     notification_time DATETIME,
+    link VARCHAR(255),
     PRIMARY KEY(notification_id),
     FOREIGN KEY (username) REFERENCES Account (username)
 		ON DELETE NO ACTION
