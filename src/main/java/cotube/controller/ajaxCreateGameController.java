@@ -210,4 +210,16 @@ public class ajaxCreateGameController {
     }
 
 
+    @RequestMapping(value = "/randomKeyword", method = RequestMethod.POST)
+    @ResponseBody
+    public String randomKeyword(HttpServletRequest request) {
+        String keyword = "keyword";
+        /*
+
+            SELECT A RANDOM KEYWORD FROM KEYWORD TABLE
+
+        */
+
+        return keyword;
+    }
 }

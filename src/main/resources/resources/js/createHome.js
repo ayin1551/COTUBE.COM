@@ -47,6 +47,20 @@ function customExist(){
     // No Game exist for keyword "xxxx"
 }
 
+function randomKeyword(){
+    var keyword;
+    $.ajax({
+        url: "createGame.html/randomKeyword",
+        type: "post",
+        async: false,
+        data: {},
+        success: function (data) {
+            keyword = data;
+        }
+    });
+    $('input#priKW').val(keyword);
+}
+
 function privateGame(){
     // TODO: PUT ALL INFORMATION HERE
     // Keyword and usernameS
@@ -59,8 +73,6 @@ function privateGame(){
         success: function (data) {
             $.cookie("comidId",data.gameId);
             $.cookie("panelNo",data.panelNo);
-                
-
         }
     });
     document.location.href = "./createGame.html";  
