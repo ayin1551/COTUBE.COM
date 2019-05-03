@@ -13,8 +13,7 @@ public class Keyword {
     public Keyword() {
     }
 
-    public Keyword(Integer keyword_id, String keyword) {
-        this.keyword_id = keyword_id;
+    public Keyword(String keyword) {
         this.keyword = keyword;
     }
 

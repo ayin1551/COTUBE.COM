@@ -3,7 +3,7 @@ function playRandom(){
         url: "createGame.html/playRandom",
         type: "post",
         async: false,
-        data: {username:username},
+        data: {username:$.cookie('username')},
         success: function (data) {
             $.cookie("comidId",data.gameId);
             $.cookie("panelNo",data.panelNo);
@@ -18,7 +18,7 @@ function customCreate(){
         url: "createGame.html/customCreate",
         type: "post",
         async: false,
-        data: {username:username, keyword:keyword},
+        data: {username:$.cookie('username'), keyword:keyword},
         success: function (data) {
             $.cookie("comidId",data.gameId);
             $.cookie("panelNo",data.panelNo);
@@ -33,7 +33,7 @@ function customExist(){
         url: "createGame.html/customExist",
         type: "post",
         async: false,
-        data: {username:username, keyword:keyword},
+        data: {username:$.cookie('username'), keyword:keyword},
         success: function (data) {
             if(data.exist){
                 $.cookie("comidId",data.gameId);
@@ -66,7 +66,7 @@ function privateGame(user2, user3, user4){
         url: "createGame.html/privateGame",
         type: "post",
         async: false,
-        data: {username:username, keyword:keyword, user2:user2, user3:user3, user4:user4},
+        data: {username:$.cookie('username'), keyword:keyword, user2:user2, user3:user3, user4:user4},
         success: function (data) {
             $.cookie("comidId",data.gameId);
             $.cookie("panelNo",data.panelNo);
