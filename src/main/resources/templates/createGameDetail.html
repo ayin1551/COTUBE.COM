@@ -165,6 +165,15 @@
 
 
 <script>
+    if(htmlpath.indexOf("?comicId")!=-1){
+        var split = htmlpath.split("/?");
+        var saveCookie = split[1].split("=");
+        if(saveCookie[1]!="-1"){
+            document.location.href = split[0];
+        }else{
+            document.location.href = "/createHome.html";
+        }
+    }
     getInfo();
 </script>
 

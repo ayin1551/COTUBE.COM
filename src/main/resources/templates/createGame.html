@@ -52,7 +52,7 @@
         var a = 1;
         var b = 2;
         var target = document.location.href.replace("createGame.html","createGameDetail.html/saveComic?username=" + $.cookie("username") 
-                                                                                                   + "%26gameId=" + $.cookie("gameId")
+                                                                                                   + "%26comicId=" + $.cookie("comicId")
                                                                                                    + "%26panelNo="+ $.cookie("panelNo"));
         $(window).ready(function() {
             document.getElementById("paintBoard").src = "https://sumopaint.com/flash/api.php?target=" + target + "& cloud=0&service=Save%20to%20Cotube";
