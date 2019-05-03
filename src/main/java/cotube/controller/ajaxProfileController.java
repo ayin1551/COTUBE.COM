@@ -532,19 +532,34 @@ public class ajaxProfileController{
                     comicGamePublished.add(false);
                     comicGameAdd.add(true);
                     Integer nullCounter = 0;
+                    Boolean unfinished = false;
                     if(gc.getPanel1_id()==null){
                         nullCounter++;
+                    }else{
+                        unfinished = this.panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()==null?true:false;
                     }
                     if(gc.getPanel2_id()==null){
                         nullCounter++;
+                    }else{
+                        if(!unfinished){
+                            unfinished = this.panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()==null?true:false;
+                        }
                     }
                     if(gc.getPanel3_id()==null){
                         nullCounter++;
+                    }else{
+                        if(!unfinished){
+                            unfinished = this.panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()==null?true:false;
+                        }
                     }
                     if(gc.getPanel4_id()==null){
                         nullCounter++;
+                    }else{
+                        if(!unfinished){
+                            unfinished = this.panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()==null?true:false;
+                        }
                     }
-                    if(nullCounter>=1 && gc.getGamecomic_type()!=2){
+                    if(nullCounter>=1 && gc.getGamecomic_type()!=2 && !unfinished){
                         comicGamePublic.add(true);
                     }else{
                         comicGamePublic.add(false);
