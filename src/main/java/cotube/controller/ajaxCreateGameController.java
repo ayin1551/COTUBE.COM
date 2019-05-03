@@ -201,30 +201,34 @@ public class ajaxCreateGameController {
         Comic comic = new Comic();
         comic.setComic_type(1);
         comic.setStatus(0);
-        GameComic gc = new GameComic();
-        gc.setGame_comic_id(comic.getComic_id());
-        gc.setGamecomic_type(0);
-        gc.setPanel1_id(panel.getPanel_id());
-        gc.setPanel1_id(panel2.getPanel_id());
-        gc.setPanel1_id(panel3.getPanel_id());
-        gc.setPanel1_id(panel4.getPanel_id());
-        gc.setKeyword(keyword);
-        boolean flag = false;
-        for (int i = 0; i < keywords.size(); i++){
-            if (keywords.get(i).equals(keyword))
-                flag = true;
-        }
-        if (flag == false){
-            Keyword k = new Keyword();
-            k.setKeyword(keyword);
-            keywordService.addKeyword(k);
-        }
-        gc.setStatus(0); //remove status from gamecomic table in future
         panelService.addPanel(panel);
         panelService.addPanel(panel2);
         panelService.addPanel(panel3);
         panelService.addPanel(panel4);
         comicService.addComic(comic);
+        GameComic gc = new GameComic();
+        gc.setGame_comic_id(comic.getComic_id());
+        gc.setGamecomic_type(0);
+        gc.setPanel1_id(panel.getPanel_id());
+        gc.setPanel2_id(panel2.getPanel_id());
+        gc.setPanel3_id(panel3.getPanel_id());
+        gc.setPanel4_id(panel4.getPanel_id());
+        gc.setKeyword(keyword);
+        boolean flag = false;
+        for (int i = 0; i < keywords.size(); i++){
+            if (keywords.get(i).getKeyword().equals(keyword))
+                flag = true;
+        }
+        System.out.println(keyword);
+        System.out.println("000000000000000000000");
+        System.out.println(flag);
+        if (flag == false){
+            Keyword k = new Keyword();
+            k.setKeyword(keyword);
+            keywordService.addKeyword(k);
+        }
+
+        gc.setStatus(0); //remove status from gamecomic table in future
         gameComicService.addGameComic(gc);
         gameId = comic.getComic_id();
         panelNo = 1;
