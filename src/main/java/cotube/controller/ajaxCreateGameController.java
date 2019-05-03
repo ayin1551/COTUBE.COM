@@ -74,7 +74,7 @@ public class ajaxCreateGameController {
             record start time
         */
 
-
+        System.out.println(username);
         System.out.println(gameId);
         System.out.println(panelNo);
 
@@ -104,6 +104,8 @@ public class ajaxCreateGameController {
         */
 
 
+        System.out.println(username);
+        System.out.println(keyword);
         System.out.println(gameId);
         System.out.println(panelNo);
 
@@ -139,6 +141,8 @@ public class ajaxCreateGameController {
 
         */
 
+        System.out.println(username);
+        System.out.println(keyword);
         System.out.println(exist);
         System.out.println(gameId);
         System.out.println(panelNo);
@@ -210,7 +214,8 @@ public class ajaxCreateGameController {
             return the gameId and panelNo 
 
         */
-
+        System.out.println(username);
+        System.out.println(keyword);
         System.out.println(gameId);
         System.out.println(panelNo);
 
@@ -302,6 +307,16 @@ public class ajaxCreateGameController {
         return result.toString();
     }
 
- 
+    @RequestMapping(value = "/randomKeyword", method = RequestMethod.POST)
+    @ResponseBody
+    public String randomKeyword(HttpServletRequest request) {
+        String keyword = "keyword";
+        /*
 
+            SELECT A RANDOM KEYWORD FROM KEYWORD TABLE
+
+        */
+
+        return keyword;
+    }
 }
