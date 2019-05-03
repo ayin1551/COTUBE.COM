@@ -589,7 +589,6 @@ public class ajaxProfileController{
         return result.toString();
     }
 
-    //TODO:GET PUBLISHED GAME COMIC
     @RequestMapping(value="/getOthersComics",method = RequestMethod.POST)
     @ResponseBody
     public String getOtherComic(HttpServletRequest request){
