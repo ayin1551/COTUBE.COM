@@ -5,7 +5,8 @@ function playRandom(){
         async: false,
         data: {username:$.cookie('username')},
         success: function (data) {
-            $.cookie("comidId",data.gameId);
+            data = jQuery.parseJSON(data);
+            $.cookie("comicId",data.gameId);
             $.cookie("panelNo",data.panelNo);
         }
     });
@@ -20,7 +21,8 @@ function customCreate(){
         async: false,
         data: {username:$.cookie('username'), keyword:keyword},
         success: function (data) {
-            $.cookie("comidId",data.gameId);
+            data = jQuery.parseJSON(data);
+            $.cookie("comicId",data.gameId);
             $.cookie("panelNo",data.panelNo);
         }
     });
@@ -35,8 +37,9 @@ function customExist(){
         async: false,
         data: {username:$.cookie('username'), keyword:keyword},
         success: function (data) {
+            data = jQuery.parseJSON(data);
             if(data.exist){
-                $.cookie("comidId",data.gameId);
+                $.cookie("comicId",data.gameId);
                 $.cookie("panelNo",data.panelNo);
                 document.location.href = "./createGame.html";
             }
@@ -68,7 +71,8 @@ function privateGame(user2, user3, user4){
         async: false,
         data: {username:$.cookie('username'), keyword:keyword, user2:user2, user3:user3, user4:user4},
         success: function (data) {
-            $.cookie("comidId",data.gameId);
+            data = jQuery.parseJSON(data);
+            $.cookie("comicId",data.gameId);
             $.cookie("panelNo",data.panelNo);
         }
     });
