@@ -528,7 +528,7 @@ public class ajaxProfileController{
                 }else{
                     comicGameEdit.add(false);
                 }
-                if(p.getPanel_id() == gc.getPanel1_id() && gc.getStatus() == 0){
+                if(p.getPanel_id() == gc.getPanel1_id() && this.comicService.getComicByComic_Id(i).getStatus() == 0){
                     comicGamePublished.add(false);
                     comicGameAdd.add(true);
                     Integer nullCounter = 0;
@@ -624,7 +624,7 @@ public class ajaxProfileController{
                     for(GameComic gc: gameComics){
                         for(Comic c: comics){
                             Boolean panelMatch = (gc.getPanel1_id() == p.getPanel_id()) || (gc.getPanel2_id() == p.getPanel_id()) ||  (gc.getPanel3_id() == p.getPanel_id()) || (gc.getPanel4_id() == p.getPanel_id()) ;
-                            if((gc.getStatus() == 1 || gc.getStatus() == 3) && panelMatch && gc.getGame_comic_id() == c.getComic_id()){
+                            if((c.getStatus() == 1 || c.getStatus() == 3) && panelMatch && gc.getGame_comic_id() == c.getComic_id()){
                                 comicId.add(gc.getGame_comic_id()); 
                                 findFlag = true;
                             }

@@ -155,13 +155,10 @@ public class ajaxCreateGameDetailController {
         Integer gameId = Integer.parseInt(request.getParameter("comicId"));
         Integer panelNo = Integer.parseInt(request.getParameter("panelNo"));
         GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
-        Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
-        Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
-        Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
-        Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
         boolean exists = false;
 
         if (panelNo == 1){
+            Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
             if(!panel1.getAuthor().equals(username))
                 return exists;
             else {
@@ -172,6 +169,7 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (panelNo == 2){
+            Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
             if(!panel2.getAuthor().equals(username))
                 return exists;
             else {
@@ -182,6 +180,7 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (panelNo == 3){
+            Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
             if(!panel3.getAuthor().equals(username))
                 return exists;
             else {
@@ -192,6 +191,7 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (panelNo == 4){
+            Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
             if(!panel4.getAuthor().equals(username))
                 return exists;
             else {
@@ -202,35 +202,41 @@ public class ajaxCreateGameDetailController {
             }
         }
 
-        if (panel1.getCanvas_path() != null && panel2.getCanvas_path() != null && panel3.getCanvas_path() != null && panel4.getCanvas_path() != null){
-            Notification note = new Notification();
-            note.setNotifcation_type(7);
-            String notification = "Game comic with id " + gameId + " is finished";
-            note.setNotification(notification);
-            note.setUsername(panel1.getAuthor());
-            note.setLink(gameId + " " + "1");
-            notificationService.addNotification(note);
+        if (gc.getPanel1_id() != null && gc.getPanel2_id() != null && gc.getPanel3_id() != null && gc.getPanel4_id() != null) {
+            Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
+            Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
+            Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
+            Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
+            if (panel1.getCanvas_path() != null && panel2.getCanvas_path() != null && panel3.getCanvas_path() != null && panel4.getCanvas_path() != null) {
+                Notification note = new Notification();
+                note.setNotifcation_type(7);
+                String notification = "Game comic with id " + gameId + " is finished";
+                note.setNotification(notification);
+                note.setUsername(panel1.getAuthor());
+                note.setLink(gameId + " " + "1");
+                notificationService.addNotification(note);
 
-            Notification note2 = new Notification();
-            note.setNotifcation_type(7);
-            note.setNotification(notification);
-            note.setUsername(panel2.getAuthor());
-            note.setLink(gameId + " " + "2");
-            notificationService.addNotification(note2);
+                Notification note2 = new Notification();
+                note.setNotifcation_type(7);
+                note.setNotification(notification);
+                note.setUsername(panel2.getAuthor());
+                note.setLink(gameId + " " + "2");
+                notificationService.addNotification(note2);
 
-            Notification note3 = new Notification();
-            note.setNotifcation_type(7);
-            note.setNotification(notification);
-            note.setUsername(panel3.getAuthor());
-            note.setLink(gameId + " " + "3");
-            notificationService.addNotification(note3);
+                Notification note3 = new Notification();
+                note.setNotifcation_type(7);
+                note.setNotification(notification);
+                note.setUsername(panel3.getAuthor());
+                note.setLink(gameId + " " + "3");
+                notificationService.addNotification(note3);
 
-            Notification note4 = new Notification();
-            note.setNotifcation_type(7);
-            note.setNotification(notification);
-            note.setUsername(panel4.getAuthor());
-            note.setLink(gameId + " " + "4");
-            notificationService.addNotification(note4);
+                Notification note4 = new Notification();
+                note.setNotifcation_type(7);
+                note.setNotification(notification);
+                note.setUsername(panel4.getAuthor());
+                note.setLink(gameId + " " + "4");
+                notificationService.addNotification(note4);
+            }
         }
         /*
             Check if the user is still in the game
@@ -276,12 +282,9 @@ public class ajaxCreateGameDetailController {
 
         */
         GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
-        Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
-        Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
-        Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
-        Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
 
         if (panelNo == 1){
+            Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
             if(!panel1.getAuthor().equals(username))
                 return true;
             else {
@@ -291,14 +294,6 @@ public class ajaxCreateGameDetailController {
                     panel1.setAuthor(null);
                     panel1.setCanvas_path(null);
                     panelService.addPanel(panel1);
-                    if (panel2.getAuthor() == null && panel3.getAuthor() == null && panel4.getAuthor() == null) {
-                        gameComicService.deleteGameComic(gc);
-                        comicService.deleteComic(comicService.getComicByComic_Id(gc.getGame_comic_id()));
-                        panelService.deletePanel(panel1);
-                        panelService.deletePanel(panel2);
-                        panelService.deletePanel(panel3);
-                        panelService.deletePanel(panel4);
-                    }
                 }
                 else{
                     String fileName = "gc_ " + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
@@ -309,6 +304,7 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (panelNo == 2){
+            Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
             if(!panel2.getAuthor().equals(username))
                 return true;
             else {
@@ -318,14 +314,6 @@ public class ajaxCreateGameDetailController {
                     panel2.setAuthor(null);
                     panel2.setCanvas_path(null);
                     panelService.addPanel(panel2);
-                    if (panel1.getAuthor() == null && panel3.getAuthor() == null && panel4.getAuthor() == null) {
-                        gameComicService.deleteGameComic(gc);
-                        comicService.deleteComic(comicService.getComicByComic_Id(gc.getGame_comic_id()));
-                        panelService.deletePanel(panel1);
-                        panelService.deletePanel(panel2);
-                        panelService.deletePanel(panel3);
-                        panelService.deletePanel(panel4);
-                    }
                 }
                 else{
                     String fileName = "gc_ " + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
@@ -337,6 +325,7 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (panelNo == 3){
+            Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
             if(!panel3.getAuthor().equals(username))
                 return true;
             else {
@@ -346,14 +335,6 @@ public class ajaxCreateGameDetailController {
                     panel3.setAuthor(null);
                     panel3.setCanvas_path(null);
                     panelService.addPanel(panel3);
-                    if (panel2.getAuthor() == null && panel1.getAuthor() == null && panel4.getAuthor() == null) {
-                        gameComicService.deleteGameComic(gc);
-                        comicService.deleteComic(comicService.getComicByComic_Id(gc.getGame_comic_id()));
-                        panelService.deletePanel(panel1);
-                        panelService.deletePanel(panel2);
-                        panelService.deletePanel(panel3);
-                        panelService.deletePanel(panel4);
-                    }
                 }
                 else{
                     String fileName = "gc_ " + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
@@ -365,6 +346,7 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (panelNo == 4){
+            Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
             if(!panel4.getAuthor().equals(username))
                 return true;
             else {
@@ -374,14 +356,6 @@ public class ajaxCreateGameDetailController {
                     panel4.setAuthor(null);
                     panel4.setCanvas_path(null);
                     panelService.addPanel(panel4);
-                    if (panel2.getAuthor() == null && panel3.getAuthor() == null && panel1.getAuthor() == null) {
-                        gameComicService.deleteGameComic(gc);
-                        comicService.deleteComic(comicService.getComicByComic_Id(gc.getGame_comic_id()));
-                        panelService.deletePanel(panel1);
-                        panelService.deletePanel(panel2);
-                        panelService.deletePanel(panel3);
-                        panelService.deletePanel(panel4);
-                    }
                 }
                 else{
                     String fileName = "gc_ " + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
@@ -392,7 +366,20 @@ public class ajaxCreateGameDetailController {
             }
         }
 
-
+        if (gc.getGamecomic_type() == 1) {
+            if (checkEmptyGame(gameId)) {
+                Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
+                Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
+                Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
+                Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
+                gameComicService.deleteGameComic(gc);
+                comicService.deleteComic(comicService.getComicByComic_Id(gameId));
+                panelService.deletePanel(panel1);
+                panelService.deletePanel(panel2);
+                panelService.deletePanel(panel3);
+                panelService.deletePanel(panel4);
+            }
+        }
         return true;
     }
 
@@ -476,6 +463,36 @@ public class ajaxCreateGameDetailController {
         result.put("keyword", keyword);
         System.out.println(result.toString());
         return result.toString();
+    }
+
+    public Boolean checkEmptyGame(Integer gameId) {
+        GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
+        Boolean panel1Empty = true;
+        Boolean panel2Empty = true;
+        Boolean panel3Empty = true;
+        Boolean panel4Empty = true;
+
+        if (gameComicService.getGameComicByGameComicId(gameId).getPanel1_id() != null) {
+            if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(gameId).getPanel1_id()).getAuthor() != null)
+                panel1Empty = false;
+        }
+        if (gameComicService.getGameComicByGameComicId(gameId).getPanel2_id() != null) {
+            if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(gameId).getPanel2_id()).getAuthor() != null)
+                panel2Empty = false;
+        }
+        if (gameComicService.getGameComicByGameComicId(gameId).getPanel3_id() != null) {
+            if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(gameId).getPanel3_id()).getAuthor() != null)
+                panel3Empty = false;
+        }
+        if (gameComicService.getGameComicByGameComicId(gameId).getPanel4_id() != null) {
+            if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(gameId).getPanel4_id()).getAuthor() != null)
+                panel4Empty = false;
+        }
+
+        if (panel1Empty && panel2Empty && panel3Empty && panel4Empty)
+            return true;
+        else
+            return false;
     }
 
 }

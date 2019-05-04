@@ -1,5 +1,7 @@
 create database cse308;
 use cse308;
+
+
 CREATE TABLE Account (
     username VARCHAR(255) ,
     password VARCHAR(255) NOT NULL ,
@@ -156,7 +158,6 @@ CREATE TABLE GameComic(
     panel2_id INTEGER,
     panel3_id INTEGER,
     panel4_id INTEGER,
-    status INTEGER, #0 = unfinished, 1 = published, 2 = censored, 3 = nonchecked
     PRIMARY KEY(game_comic_id),
     FOREIGN KEY (panel1_id) REFERENCES Panel (panel_id)
     	ON DELETE NO ACTION
@@ -175,14 +176,14 @@ CREATE TABLE GameComic(
 
 
 CREATE TABLE Keyword(
-	keyword_id INTEGER(255),
+	keyword_id INTEGER auto_increment,
 	keyword VARCHAR(1000),
 	PRIMARY KEY(keyword_id)
 	);
 
 
 CREATE TABLE Notification(
-	notification_id INTEGER,
+	notification_id INTEGER auto_increment,
     notification_type INTEGER, #1 = Admin censors comic, 2 = Admin deletes comment, 3 = Admin passes comic,
 							#4 = Single comic in favorite folder - censored/deleted, 5 = Entire series in series following -censored/deleted
 						    #6 = Invitation to join gamecomic, 7 =Gamecomic finished

@@ -66,17 +66,21 @@ public class ajaxHomeController{
     public String getTrending(HttpServletRequest request){
         List<RegularComic> regularComics = new ArrayList<>();
         List<Comic> comics = viewsService.getHighestViewedRegularComics();
+        System.out.println("");
+        System.out.println(comics);
         List<Comic> resultComics = new ArrayList<>();
         int counter = 6;
         if (comics.size() < 6){
             counter = comics.size();
         }
         Random rand = new Random();
-        System.out.println(comics);
         for (int i = 0; i < counter; i++) {
-            int index = i;
+            int index = rand.nextInt(comics.size());
+            System.out.println("INDEX:" + index);
+            System.out.println("Comic ID: " + comics.get(index).getComic_id());
             RegularComic rc = regularComicService.getRegularComicByRegular_Comic_Id(comics.get(index).getComic_id());
             resultComics.add(comics.get(index));
+            comics.remove(index);
             regularComics.add(rc);
         }
 
@@ -204,7 +208,7 @@ public class ajaxHomeController{
                             Integer gameComicId = this.gameComicService.getGameComicIdByPanelId(panelId);
                         
                             GameComic gc = this.gameComicService.getGameComicByGameComicId(gameComicId);
-                            if(gc.getStatus() == 1 || gc.getStatus() == 3){
+                            if(this.comicService.getComicByComic_Id(gameComicId).getStatus() == 1 || this.comicService.getComicByComic_Id(gameComicId).getStatus() == 3){
                                 if(!timelineComicId.contains(gc.getGame_comic_id())){
                                     timelineComicId.add(gc.getGame_comic_id());
                                 }

@@ -13,12 +13,11 @@ public class GameComic {
     private Integer panel2_id;
     private Integer panel3_id;
     private Integer panel4_id;
-    private Integer status;
 
     public GameComic() {
     }
 
-    public GameComic(Integer game_comic_id, String keyword, Integer gamecomic_type, Integer panel1_id, Integer panel2_id, Integer panel3_id, Integer panel4_id, Integer status) {
+    public GameComic(Integer game_comic_id, String keyword, Integer gamecomic_type, Integer panel1_id, Integer panel2_id, Integer panel3_id, Integer panel4_id) {
         this.game_comic_id = game_comic_id;
         this.keyword = keyword;
         this.gamecomic_type = gamecomic_type;
@@ -26,7 +25,6 @@ public class GameComic {
         this.panel2_id = panel2_id;
         this.panel3_id = panel3_id;
         this.panel4_id = panel4_id;
-        this.status = status;
     }
 
     public Integer getGame_comic_id() {
@@ -85,14 +83,6 @@ public class GameComic {
         this.panel4_id = panel4_id;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "GameComic{" +
@@ -103,7 +93,6 @@ public class GameComic {
                 ", panel2_id=" + panel2_id +
                 ", panel3_id=" + panel3_id +
                 ", panel4_id=" + panel4_id +
-                ", status=" + status +
                 '}';
     }
 }
