@@ -94,7 +94,7 @@ public class ajaxCreateGameDetailController {
             panel = panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(comicId).getPanel3_id());
         if (panelNo == 4)
             panel = panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(comicId).getPanel4_id());
-        String fileName = "gc_ " + comicId + "_panelID_" + panel.getPanel_id() + ".png";
+        String fileName = "gc_" + comicId + "_panelID_" + panel.getPanel_id() + ".png";
         File outputfile = new File("tmp/" + fileName); //file path and file name need to change
         ImageIO.write(image, "png", outputfile);
         MultipartFile multipartFile = new MultipartFile() {
@@ -139,7 +139,8 @@ public class ajaxCreateGameDetailController {
         };
         this.amazonS3ClientService.uploadMultipartFileToS3Bucket(multipartFile, true);
 
-
+        System.out.println(panel);
+        System.out.println(fileName);
         System.out.println(username);
         System.out.println(comicId);
         System.out.println(panelNo);
@@ -154,6 +155,8 @@ public class ajaxCreateGameDetailController {
         String titleWord = request.getParameter("titleWord");
         Integer gameId = Integer.parseInt(request.getParameter("comicId"));
         Integer panelNo = Integer.parseInt(request.getParameter("panelNo"));
+        System.out.println("GAME ID SUBMIT: " + gameId);
+        System.out.println("PANEL IN SUBMIT: " + panelNo);
         GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
         boolean exists = false;
 
@@ -163,7 +166,7 @@ public class ajaxCreateGameDetailController {
                 return exists;
             else {
                 panel1.setTitle_word(titleWord);
-                String fileName = "gc_ " + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
+                String fileName = "gc_" + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
                 panel1.setCanvas_path(fileName);
                 panelService.addPanel(panel1);
             }
@@ -174,7 +177,7 @@ public class ajaxCreateGameDetailController {
                 return exists;
             else {
                 panel2.setTitle_word(titleWord);
-                String fileName = "gc_ " + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
+                String fileName = "gc_" + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
                 panel2.setCanvas_path(fileName);
                 panelService.addPanel(panel2);
             }
@@ -185,7 +188,7 @@ public class ajaxCreateGameDetailController {
                 return exists;
             else {
                 panel3.setTitle_word(titleWord);
-                String fileName = "gc_ " + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
+                String fileName = "gc_" + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
                 panel3.setCanvas_path(fileName);
                 panelService.addPanel(panel3);
             }
@@ -196,7 +199,7 @@ public class ajaxCreateGameDetailController {
                 return exists;
             else {
                 panel4.setTitle_word(titleWord);
-                String fileName = "gc_ " + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
+                String fileName = "gc_" + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
                 panel4.setCanvas_path(fileName);
                 panelService.addPanel(panel4);
             }
@@ -259,6 +262,7 @@ public class ajaxCreateGameDetailController {
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
     @ResponseBody
     public Boolean cancelGame(HttpServletRequest request) {
+        System.out.println("CANCEL WAS CALLED");
         String username = request.getParameter("username");
         Integer gameId = Integer.parseInt(request.getParameter("comicId"));
         Integer panelNo = Integer.parseInt(request.getParameter("panelNo"));
@@ -289,15 +293,17 @@ public class ajaxCreateGameDetailController {
                 return true;
             else {
                 if (gc.getGamecomic_type() == 1) {
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
-                    panel1.setAuthor(null);
                     panel1.setCanvas_path(null);
+                    panel1.setTitle_word(null);
                     panelService.addPanel(panel1);
                 }
                 else{
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel1.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
+                    panel1.setAuthor(null);
+                    panel1.setTitle_word(null);
                     panel1.setCanvas_path(null);
                     panelService.addPanel(panel1);
                 }
@@ -309,16 +315,18 @@ public class ajaxCreateGameDetailController {
                 return true;
             else {
                 if (gc.getGamecomic_type() == 1) {
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
-                    panel2.setAuthor(null);
                     panel2.setCanvas_path(null);
+                    panel2.setTitle_word(null);
                     panelService.addPanel(panel2);
                 }
                 else{
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel2.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
+                    panel2.setAuthor(null);
                     panel2.setCanvas_path(null);
+                    panel2.setTitle_word(null);
                     panelService.addPanel(panel2);
                 }
 
@@ -330,16 +338,18 @@ public class ajaxCreateGameDetailController {
                 return true;
             else {
                 if (gc.getGamecomic_type() == 1) {
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
-                    panel3.setAuthor(null);
                     panel3.setCanvas_path(null);
+                    panel3.setTitle_word(null);
                     panelService.addPanel(panel3);
                 }
                 else{
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel3.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
+                    panel3.setAuthor(null);
                     panel3.setCanvas_path(null);
+                    panel3.setTitle_word(null);
                     panelService.addPanel(panel3);
                 }
 
@@ -351,22 +361,24 @@ public class ajaxCreateGameDetailController {
                 return true;
             else {
                 if (gc.getGamecomic_type() == 1) {
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
-                    panel4.setAuthor(null);
                     panel4.setCanvas_path(null);
+                    panel4.setTitle_word(null);
                     panelService.addPanel(panel4);
                 }
                 else{
-                    String fileName = "gc_ " + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
+                    String fileName = "gc_" + gameId + "_panelID_" + panel4.getPanel_id() + ".png";
                     this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);
+                    panel4.setAuthor(null);
                     panel4.setCanvas_path(null);
+                    panel4.setTitle_word(null);
                     panelService.addPanel(panel4);
                 }
             }
         }
 
-        if (gc.getGamecomic_type() == 1) {
+        if (gc.getGamecomic_type() != 1) {
             if (checkEmptyGame(gameId)) {
                 Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
                 Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());

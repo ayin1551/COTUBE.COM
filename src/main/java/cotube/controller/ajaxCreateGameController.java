@@ -80,6 +80,12 @@ public class ajaxCreateGameController {
         for(int i = 0; i < gcs.size(); i++) {
             GameComic gc = gcs.get(i);
 
+            if ((gc.getPanel1_id() != null && panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor().equals(username)) ||
+                    (gc.getPanel2_id() != null && panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor().equals(username)) ||
+                    (gc.getPanel3_id() != null && panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor().equals(username)) ||
+                    (gc.getPanel4_id() != null && panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor().equals(username)))
+                continue;
+
             if (gc.getPanel1_id() == null) {
                 availableIds.add(gc.getGame_comic_id());
                 continue;
@@ -126,6 +132,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel1_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 1;
             }
             else if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(id).getPanel1_id()).getAuthor() == null) {
@@ -138,6 +145,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel2_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 2;
             }
             else if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(id).getPanel2_id()).getAuthor() == null) {
@@ -150,6 +158,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel3_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 3;
             }
             else if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(id).getPanel3_id()).getAuthor() == null) {
@@ -162,6 +171,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel4_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 4;
             }
             else {
@@ -295,6 +305,12 @@ public class ajaxCreateGameController {
         for(int i = 0; i < gcs.size(); i++) {
             GameComic gc = gcs.get(i);
 
+            if ((gc.getPanel1_id() != null && panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor().equals(username)) ||
+                    (gc.getPanel2_id() != null && panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor().equals(username)) ||
+                    (gc.getPanel3_id() != null && panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor().equals(username)) ||
+                    (gc.getPanel4_id() != null && panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor().equals(username)))
+                continue;
+
             if (gc.getPanel1_id() == null){
                 if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0) {
                     sameKeywordIds.add(gc.getGame_comic_id());
@@ -360,7 +376,7 @@ public class ajaxCreateGameController {
             DONE
         */
         if (sameKeywordIds.size() > 0) {
-            Integer num = rand.nextInt(gcs.size());
+            Integer num = rand.nextInt(sameKeywordIds.size());
             Integer id = sameKeywordIds.get(num);
             gameId = id;
             if (gameComicService.getGameComicByGameComicId(id).getPanel1_id() == null) {
@@ -368,6 +384,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel1_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 1;
             }
             else if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(id).getPanel1_id()).getAuthor() == null) {
@@ -380,6 +397,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel2_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 2;
             }
             else if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(id).getPanel2_id()).getAuthor() == null) {
@@ -392,6 +410,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel3_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 3;
             }
             else if (panelService.getPanelFromPanelId(gameComicService.getGameComicByGameComicId(id).getPanel3_id()).getAuthor() == null) {
@@ -404,6 +423,7 @@ public class ajaxCreateGameController {
                 panel.setAuthor(username);
                 panelService.addPanel(panel);
                 gameComicService.getGameComicByGameComicId(id).setPanel4_id(panel.getPanel_id());
+                gameComicService.addGameComic(gameComicService.getGameComicByGameComicId(id));
                 panelNo = 4;
             }
             else {

@@ -331,7 +331,7 @@ public class ajaxEditDetailController {
         String comicName = "comicID_" + comicId + ".png";
         URL url = new URL(amazonURL + oldComicName);
         BufferedImage img = ImageIO.read(url);
-        File file = new File("image.png");
+        File file = new File("tmp/image.png");
         ImageIO.write(img, "png", file);
 
         MultipartFile multipartFile = new MultipartFile() {
@@ -384,7 +384,7 @@ public class ajaxEditDetailController {
         String comicThumbnail = "comic-" + comicId + "_thumbnail.png";
         URL url2 = new URL(amazonURL + oldComicThumbnail);
         BufferedImage img2 = ImageIO.read(url2);
-        File file2 = new File("image2.png");
+        File file2 = new File("tmp/image2.png");
         ImageIO.write(img2, "png", file2);
 
         MultipartFile multipartFile2 = new MultipartFile() {
@@ -437,7 +437,7 @@ public class ajaxEditDetailController {
         String seriesName = "seriescomic-" + comicId + "_thumbnail.png";
         URL url3 = new URL(amazonURL + oldSeriesName);
         BufferedImage img3 = ImageIO.read(url3);
-        File file3 = new File("image3.png");
+        File file3 = new File("tmp/image3.png");
         ImageIO.write(img3, "png", file3);
 
         MultipartFile multipartFile3 = new MultipartFile() {
@@ -595,7 +595,7 @@ public class ajaxEditDetailController {
         String comicName = "comicID_" + comicId + ".png";
         URL url = new URL(amazonURL + oldComicName);
         BufferedImage img = ImageIO.read(url);
-        File file = new File("image.png");
+        File file = new File("tmp/image.png");
         ImageIO.write(img, "png", file);
 
         MultipartFile multipartFile = new MultipartFile() {
@@ -648,7 +648,7 @@ public class ajaxEditDetailController {
         String comicThumbnail = "comic-" + comicId + "_thumbnail.png";
         URL url2 = new URL(amazonURL + oldComicThumbnail);
         BufferedImage img2 = ImageIO.read(url2);
-        File file2 = new File("image2.png");
+        File file2 = new File("tmp/image2.png");
         ImageIO.write(img2, "png", file2);
 
         MultipartFile multipartFile2 = new MultipartFile() {
@@ -701,7 +701,7 @@ public class ajaxEditDetailController {
         String seriesName = "seriescomic-" + comicId + "_thumbnail.png";
         URL url3 = new URL(amazonURL + oldSeriesName);
         BufferedImage img3 = ImageIO.read(url3);
-        File file3 = new File("image3.png");
+        File file3 = new File("tmp/image3.png");
         ImageIO.write(img3, "png", file3);
 
         MultipartFile multipartFile3 = new MultipartFile() {
@@ -1069,7 +1069,7 @@ public class ajaxEditDetailController {
         String comicName = "comicID_" + comicId + ".png";
         URL url = new URL(amazonURL + oldComicName);
         BufferedImage img = ImageIO.read(url);
-        File file = new File("image.png");
+        File file = new File("tmp/image.png");
         ImageIO.write(img, "png", file);
 
         MultipartFile multipartFile = new MultipartFile() {
@@ -1122,7 +1122,7 @@ public class ajaxEditDetailController {
         String comicThumbnail = "comic-" + comicId + "_thumbnail.png";
         URL url2 = new URL(amazonURL + oldComicThumbnail);
         BufferedImage img2 = ImageIO.read(url2);
-        File file2 = new File("image2.png");
+        File file2 = new File("tmp/image2.png");
         ImageIO.write(img2, "png", file2);
 
         MultipartFile multipartFile2 = new MultipartFile() {
