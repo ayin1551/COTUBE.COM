@@ -569,7 +569,11 @@ public class ajaxProfileController{
                         comicGamePublic.add(false);
                     }
                 }else{
-                    comicGamePublished.add(true);
+                    if(this.comicService.getComicByComic_Id(i).getStatus() == 0){
+                        comicGamePublished.add(false);
+                    }else{
+                        comicGamePublished.add(true);
+                    }
                     comicGameAdd.add(false);
                     comicGamePublic.add(false);
                 }
