@@ -78,7 +78,7 @@ public class ajaxAdminController {
     public boolean passComic(HttpServletRequest request) {
         String title = request.getParameter("comicTitle");
         Comic change = this.comicService.getComicByComic_Id(Integer.parseInt(title));
-        change.setStatus(0);
+        change.setStatus(1);
         this.comicService.addComic(change);
 
         Date now = new Date();
