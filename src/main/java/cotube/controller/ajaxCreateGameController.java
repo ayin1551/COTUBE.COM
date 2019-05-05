@@ -80,6 +80,9 @@ public class ajaxCreateGameController {
         for(int i = 0; i < gcs.size(); i++) {
             GameComic gc = gcs.get(i);
 
+            if (gc.getGamecomic_type() == 1)
+                continue;
+
             if ((gc.getPanel1_id() != null && panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor().equals(username)) ||
                     (gc.getPanel2_id() != null && panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor().equals(username)) ||
                     (gc.getPanel3_id() != null && panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor().equals(username)) ||
@@ -304,6 +307,9 @@ public class ajaxCreateGameController {
         List<Integer> sameKeywordIds = new ArrayList<>();
         for(int i = 0; i < gcs.size(); i++) {
             GameComic gc = gcs.get(i);
+
+            if (gc.getGamecomic_type() == 1)
+                continue;
 
             if ((gc.getPanel1_id() != null && panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor().equals(username)) ||
                     (gc.getPanel2_id() != null && panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor().equals(username)) ||
