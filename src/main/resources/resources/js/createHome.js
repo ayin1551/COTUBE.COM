@@ -31,6 +31,7 @@ function customCreate(){
 
 function customExist(){
     var keyword = document.getElementById("userKW").value;
+    var dt;
     $.ajax({
         url: "createGame.html/customExist",
         type: "post",
@@ -38,15 +39,21 @@ function customExist(){
         data: {username:$.cookie('username'), keyword:keyword},
         success: function (data) {
             data = jQuery.parseJSON(data);
+            dt = data;
             if(data.exist){
                 $.cookie("comicId",data.gameId);
                 $.cookie("panelNo",data.panelNo);
                 document.location.href = "./createGame.html";
+                
             }
 
         }
     });
-    document.getElementById("error6").style.display = "block";
+    if(dt.exist){
+        document.getElementById("error6").style.display = "none";
+    }else{
+        document.getElementById("error6").style.display = "block";
+    }
 }
 
 function randomKeyword(){

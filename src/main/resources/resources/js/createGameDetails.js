@@ -78,12 +78,17 @@ function cancel(){
 }
 
 function submit(){
+    document.getElementById("game_error0").style.display = "none";
+    var titleWord = $('input#priKW').val();
+    if(titleWord==""||titleWord==null||titleWord==undefined){
+        document.getElementById("game_error0").style.display = "initial";
+        return;
+    }
     window.onbeforeunload = null;
     var username = $.cookie("username");
     var comicId = $.cookie("comicId");
     var panelNo = $.cookie("panelNo");
-    var titleWord = $('input#priKW').val();
-    alert(titleWord);
+    
     $.ajax({
         type: "post",
         url: "createGameDetail.html/submit",
