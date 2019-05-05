@@ -60,6 +60,7 @@ function getInfo(){
 }
 
 function cancel(){
+    window.onbeforeunload = null;
     var username = $.cookie("username");
     var comicId = $.cookie("comicId");
     var panelNo = $.cookie("panelNo");
@@ -76,6 +77,7 @@ function cancel(){
 }
 
 function submit(){
+    window.onbeforeunload = null;
     var username = $.cookie("username");
     var comicId = $.cookie("comicId");
     var panelNo = $.cookie("panelNo");
