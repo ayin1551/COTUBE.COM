@@ -70,7 +70,7 @@ public class ajaxSettingController {
         String username = request.getParameter("username");
         String img = request.getParameter("img");
         //String filePath = "./src/main/resources/resources/img/thumbnails/" + username + "_newProfilePicture.png";
-        String filePath = "./src/main/resources/resources/img/" + username + "_newProfilePicture.png";
+        String filePath = "tmp/" + username + "_newProfilePicture.png";
         //File path and need to change
         byte[] imageByte;
         BufferedImage image = null;
@@ -104,8 +104,8 @@ public class ajaxSettingController {
         String username = request.getParameter("username");
         String img = request.getParameter("img");
         Account changed = this.accountService.getAccountByUsername(username);
-        changed.setProfile_pic_path("img/" + username + "_newProfilePicture.png");
+        changed.setProfile_pic_path("tmp/" + username + "_newProfilePicture.png");
         this.accountService.addAccount(changed);
-        return ("img/" + username + "_newProfilePicture.png");
+        return ("tmp/" + username + "_newProfilePicture.png");
     }
 }

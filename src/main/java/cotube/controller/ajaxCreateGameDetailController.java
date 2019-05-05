@@ -386,10 +386,14 @@ public class ajaxCreateGameDetailController {
                 Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
                 gameComicService.deleteGameComic(gc);
                 comicService.deleteComic(comicService.getComicByComic_Id(gameId));
-                panelService.deletePanel(panel1);
-                panelService.deletePanel(panel2);
-                panelService.deletePanel(panel3);
-                panelService.deletePanel(panel4);
+                if (panel1 != null)
+                    panelService.deletePanel(panel1);
+                if (panel2 != null)
+                    panelService.deletePanel(panel2);
+                if (panel3 != null)
+                    panelService.deletePanel(panel3);
+                if (panel4 != null)
+                    panelService.deletePanel(panel4);
             }
         }
         return true;
