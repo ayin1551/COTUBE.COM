@@ -136,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+                <h4 id="error-1" style="color:red;display:none;margin-left:20px;font-weight: 300;">User Does not Exist.</h4>
                 <h4 id="error0" style="color:red;display:none;margin-left:20px;font-weight: 300;">Cannot Invite Yourself.</h4>
                 <h4 id="error3" style="color:red;display:none;margin-left:20px;font-weight: 300;">Cannot Invite Same Person.</h4>
                 <h4 id="error1" style="color:red;display:none;margin-left:20px;font-weight: 300;">Keyword Cannot Be Empty.</h4>
@@ -203,6 +204,7 @@
                     $.cookie("publicGame",false);
                 }
                 function addUserBelow() {
+                    document.getElementById("error-1").style.display = "none";
                     document.getElementById("error0").style.display = "none";
                     document.getElementById("error1").style.display = "none";
                     document.getElementById("error2").style.display = "none";
@@ -215,51 +217,64 @@
                     if(document.getElementById("invite_people").value==""){
                         // <!-- unfinished, user name empty -->
                     }else{
-                        if(user1.innerText==""||user1.innerText==null){
-                            if(document.getElementById('invite_people').value==$.cookie('username')){
-                                document.getElementById("error0").style.display = "block";
-                            }else{
-                                user1.innerText = document.getElementById("invite_people").value;
-                                var tag1 = document.getElementById("addhere1");
-                                tag1.style.display = "block";
-                                var u1o = document.getElementById("u1o");
-                                u1o.style.display = "block";
+                        var validality;
+                        $.ajax({
+                            url: "profile.html/checkUser",
+                            type: "post",
+                            async: false,
+                            data: {username: document.getElementById("invite_people").value},
+                            success: function (data) {//signUpController to check if the username already exist
+                            validality = data;
                             }
-                        }
-                        else if(user2.innerText==""||user2.innerText==null){
-                            if(document.getElementById('invite_people').value==$.cookie('username')){
-                                document.getElementById("error0").style.display = "block";
-                            }else{
-                                user2.innerText = document.getElementById("invite_people").value;
-                                if(user2.innerText==user1.innerText){
-                                    document.getElementById("error3").style.display = "block";
-                                    user2.innerText = "";
-                                }else {
-                                    var tag2 = document.getElementById("addhere2");
-                                    tag2.style.display = "block";
-                                    var u2o = document.getElementById("u2o");
-                                    u2o.style.display = "block";
+                        });
+                        if(!validality){
+                            document.getElementById("error-1").style.display = "block";
+                        }else{
+                            if(user1.innerText==""||user1.innerText==null){
+                                if(document.getElementById('invite_people').value==$.cookie('username')){
+                                    document.getElementById("error0").style.display = "block";
+                                }else{
+                                    user1.innerText = document.getElementById("invite_people").value;
+                                    var tag1 = document.getElementById("addhere1");
+                                    tag1.style.display = "block";
+                                    var u1o = document.getElementById("u1o");
+                                    u1o.style.display = "block";
                                 }
                             }
-                        }else if(user3.innerText==""||user3.innerText==null){
-                            if(document.getElementById('invite_people').value==$.cookie('username')){
-                                document.getElementById("error0").style.display = "block";
-                            }else{
-                                user3.innerText = document.getElementById("invite_people").value;
-                                if(user3.innerText==user1.innerText||user3.innerText==user2.innerText){
-                                    document.getElementById("error3").style.display = "block";
-                                    user3.innerText = "";
-                                }else {
-                                    var tag3 = document.getElementById("addhere3");
-                                    tag3.style.display = "block";
-                                    var btndisable = document.getElementById("addbtn");
-                                    btndisable.disabled = true;
-                                    var u3o = document.getElementById("u3o");
-                                    u3o.style.display = "block";
+                            else if(user2.innerText==""||user2.innerText==null){
+                                if(document.getElementById('invite_people').value==$.cookie('username')){
+                                    document.getElementById("error0").style.display = "block";
+                                }else{
+                                    user2.innerText = document.getElementById("invite_people").value;
+                                    if(user2.innerText==user1.innerText){
+                                        document.getElementById("error3").style.display = "block";
+                                        user2.innerText = "";
+                                    }else {
+                                        var tag2 = document.getElementById("addhere2");
+                                        tag2.style.display = "block";
+                                        var u2o = document.getElementById("u2o");
+                                        u2o.style.display = "block";
+                                    }
+                                }
+                            }else if(user3.innerText==""||user3.innerText==null){
+                                if(document.getElementById('invite_people').value==$.cookie('username')){
+                                    document.getElementById("error0").style.display = "block";
+                                }else{
+                                    user3.innerText = document.getElementById("invite_people").value;
+                                    if(user3.innerText==user1.innerText||user3.innerText==user2.innerText){
+                                        document.getElementById("error3").style.display = "block";
+                                        user3.innerText = "";
+                                    }else {
+                                        var tag3 = document.getElementById("addhere3");
+                                        tag3.style.display = "block";
+                                        var btndisable = document.getElementById("addbtn");
+                                        btndisable.disabled = true;
+                                        var u3o = document.getElementById("u3o");
+                                        u3o.style.display = "block";
+                                    }
                                 }
                             }
                         }
-
                     }
                     document.getElementById("invite_people").value = "";
                 }
