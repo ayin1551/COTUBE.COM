@@ -9,11 +9,12 @@ function getInfo(){
         type: "post",
         async: false,
         data: {gameId: gameid,current:panelNo},
-        success: function (data) {//signUpController to check if the username already exist
+        success: function (data) {
           info = jQuery.parseJSON(data);
         }
     });
     document.getElementById("kwhere").innerText = info.keyword;
+    document.getElementById("gameComic").src = info.pic;
     for(let i=0;i<info.word.length;i++){
         if(info.num[i]!="this"){
             if(document.getElementById("img1").src.indexOf("/1.jpg")!=-1){

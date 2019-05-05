@@ -69,7 +69,7 @@
             <span id="x1" class="close">&times;</span>
 
             <div id="private_public_game" class="private_public_game">
-                <button id="pbtn1" class="kwbtn kwbtn2" onclick="privateGame()">Play Private Game</button>
+                <button id="pbtn1" class="kwbtn kwbtn2" onclick="privateGamePop()">Play Private Game</button>
                 <button id="pbtn2" class="kwbtn kwbtn2" onclick="publicGame()">Play Public Game</button>
             </div>
 
@@ -195,7 +195,7 @@
 
 
 
-                function privateGame() {
+                function privateGamePop() {
                     var game = document.getElementById("private_public_game");
                     game.style.display = "none";
                     var pri = document.getElementById("private_game");
@@ -318,7 +318,6 @@
                     if(kwd.value==""||kwd.value==null){
                         document.getElementById("error1").style.display = "block";
                     }
-                    $.cookie("gamekeyword", kwd.value);
                     var per1 = document.getElementById("add1name");
                     var per2 = document.getElementById("add2name");
                     var per3 = document.getElementById("add3name");
