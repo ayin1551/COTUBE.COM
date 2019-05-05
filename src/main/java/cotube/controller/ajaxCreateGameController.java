@@ -318,48 +318,48 @@ public class ajaxCreateGameController {
                 continue;
 
             if (gc.getPanel1_id() == null){
-                if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0) {
+                if (gc.getKeyword().equals(keyword)) {
                     sameKeywordIds.add(gc.getGame_comic_id());
                     continue;
                 }
             }
-            else if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0 &&
+            else if (gc.getKeyword().equals(keyword) &&
                     panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor() == null){
                 sameKeywordIds.add(gc.getGame_comic_id());
                 continue;
             }
 
             if (gc.getPanel2_id() == null){
-                if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0) {
+                if (gc.getKeyword().equals(keyword)) {
                     sameKeywordIds.add(gc.getGame_comic_id());
                     continue;
                 }
             }
-            else if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0 &&
+            else if (gc.getKeyword().equals(keyword) &&
                     panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor() == null){
                 sameKeywordIds.add(gc.getGame_comic_id());
                 continue;
             }
 
             if (gc.getPanel3_id() == null){
-                if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0) {
+                if (gc.getKeyword().equals(keyword)) {
                     sameKeywordIds.add(gc.getGame_comic_id());
                     continue;
                 }
             }
-            else if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0 &&
+            else if (gc.getKeyword().equals(keyword) &&
                     panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor() == null){
                 sameKeywordIds.add(gc.getGame_comic_id());
                 continue;
             }
 
             if (gc.getPanel4_id() == null){
-                if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0) {
+                if (gc.getKeyword().equals(keyword)) {
                     sameKeywordIds.add(gc.getGame_comic_id());
                     continue;
                 }
             }
-            else if (gc.getKeyword().equals(keyword) && gc.getGamecomic_type() == 0 &&
+            else if (gc.getKeyword().equals(keyword) &&
                     panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor() == null){
                 sameKeywordIds.add(gc.getGame_comic_id());
                 continue;
@@ -462,46 +462,11 @@ public class ajaxCreateGameController {
         String user2 = request.getParameter("user2");
         String user3 = request.getParameter("user3");
         String user4 = request.getParameter("user4");
+        System.out.println(user2);
+        System.out.println(user3);
+        System.out.println(user4);
         Integer gameId = 0;
         Integer panelNo = 1;
-        if (this.accountService.usernameExist(user2) == true){
-            Date now = new Date();
-            int notification_type = 6;
-            String notification = username + " has invited you to play in the comicGame";
-            Notification note = new Notification();
-            note.setNotifcation_type(notification_type);
-            note.setNotification(notification);
-            note.setUsername(user2);
-            note.setNotifcation_time(now);
-            note.setLink(gameId + " " + "2");
-            this.notificationService.addNotification(note);
-        }
-        if (this.accountService.usernameExist(user3) == true){
-            Date now = new Date();
-            int notification_type = 6;
-            String notification = username + " has invited you to play in the comicGame";
-            Notification note = new Notification();
-            note.setNotifcation_type(notification_type);
-            note.setNotification(notification);
-            note.setUsername(user3);
-            note.setNotifcation_time(now);
-            note.setLink(gameId + " " + "3");
-            this.notificationService.addNotification(note);
-
-        }
-        if(this.accountService.usernameExist(user4) == true){
-            Date now = new Date();
-            int notification_type = 6;
-            String notification = username + " has invited you to play in the comicGame";
-            Notification note = new Notification();
-            note.setNotifcation_type(notification_type);
-            note.setNotification(notification);
-            note.setUsername(user4);
-            note.setNotifcation_time(now);
-            note.setLink(gameId + " " + "4");
-            this.notificationService.addNotification(note);
-        }
-
 
         /*
             Create a new private game with the keyword
@@ -515,19 +480,6 @@ public class ajaxCreateGameController {
             DONE
         */
 
-
-        Panel panel1 = new Panel();
-        panel1.setAuthor(username);
-        Panel panel2 = new Panel();
-        panel2.setAuthor(user2);
-        Panel panel3 = new Panel();
-        panel3.setAuthor(user3);
-        Panel panel4 = new Panel();
-        panel4.setAuthor(user4);
-        panelService.addPanel(panel1);
-        panelService.addPanel(panel2);
-        panelService.addPanel(panel3);
-        panelService.addPanel(panel4);
         Comic comic = new Comic();
         comic.setComic_type(1);
         comic.setStatus(0);
@@ -535,10 +487,72 @@ public class ajaxCreateGameController {
         GameComic gc = new GameComic();
         gc.setGame_comic_id(comic.getComic_id());
         gc.setGamecomic_type(1);
+
+        gameId = comic.getComic_id();
+        String notification = username + " has invited you to play in the comicGame with id " + gameId;
+        if (this.accountService.usernameExist(user2) == true){
+            Date now = new Date();
+            int notification_type = 6;
+            Notification note = new Notification();
+            note.setNotifcation_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(user2);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(gameId));
+            this.notificationService.addNotification(note);
+        }
+        if (this.accountService.usernameExist(user3) == true){
+            Date now = new Date();
+            int notification_type = 6;
+            Notification note = new Notification();
+            note.setNotifcation_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(user3);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(gameId));
+            this.notificationService.addNotification(note);
+
+        }
+        if(this.accountService.usernameExist(user4) == true){
+            Date now = new Date();
+            int notification_type = 6;
+            Notification note = new Notification();
+            note.setNotifcation_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(user4);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(gameId));
+            this.notificationService.addNotification(note);
+        }
+
+        Panel panel1 = new Panel();
+        panel1.setAuthor(username);
+        panelService.addPanel(panel1);
         gc.setPanel1_id(panel1.getPanel_id());
-        gc.setPanel2_id(panel2.getPanel_id());
-        gc.setPanel3_id(panel3.getPanel_id());
-        gc.setPanel4_id(panel4.getPanel_id());
+        if (user2 != null) {
+            if (this.accountService.usernameExist(user2) == true) {
+                Panel panel2 = new Panel();
+                panel2.setAuthor(user2);
+                panelService.addPanel(panel2);
+                gc.setPanel2_id(panel2.getPanel_id());
+            }
+        }
+        if (!user3.isEmpty()) {
+            if (this.accountService.usernameExist(user3) == true) {
+                Panel panel3 = new Panel();
+                panel3.setAuthor(user3);
+                panelService.addPanel(panel3);
+                gc.setPanel3_id(panel3.getPanel_id());
+            }
+        }
+        if (!user4.isEmpty()) {
+            if (this.accountService.usernameExist(user4) == true) {
+                Panel panel4 = new Panel();
+                panel4.setAuthor(user4);
+                panelService.addPanel(panel4);
+                gc.setPanel4_id(panel4.getPanel_id());
+            }
+        }
         gc.setKeyword(keyword);
         gameComicService.addGameComic(gc);
 
@@ -553,8 +567,6 @@ public class ajaxCreateGameController {
             k.setKeyword(keyword);
             keywordService.addKeyword(k);
         }
-
-        gameId = comic.getComic_id();
 
 
         System.out.println(username);

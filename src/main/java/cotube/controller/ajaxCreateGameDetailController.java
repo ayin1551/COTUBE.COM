@@ -228,7 +228,7 @@ public class ajaxCreateGameDetailController {
             if (panel1.getCanvas_path() != null && panel2.getCanvas_path() != null && panel3.getCanvas_path() != null && panel4.getCanvas_path() != null) {
                 Notification note = new Notification();
                 note.setNotifcation_type(7);
-                String notification = "Game comic with id " + gameId + " is finished";
+                String notification = "Game comic with title " + comic.getTitle() + " is finished";
                 note.setNotification(notification);
                 note.setUsername(panel1.getAuthor());
                 note.setLink(gameId + " " + "1");

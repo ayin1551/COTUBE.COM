@@ -158,7 +158,7 @@ public class ajaxViewGameComicsController{
         c.setComic_id(comicid);
         c.setComment(comment);
         c.setComment_time(new Date());
-        c.setStatus(0);
+        c.setStatus(2);
         c.setUsername(username);
         for(Comments co: comments){
             if(co.getComic_id() == comicid){
