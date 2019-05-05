@@ -530,7 +530,11 @@ public class ajaxProfileController{
                 }
                 if(p.getPanel_id() == gc.getPanel1_id() && this.comicService.getComicByComic_Id(i).getStatus() == 0){
                     comicGamePublished.add(false);
-                    comicGameAdd.add(true);
+                    if(gc.getGamecomic_type() == 1){
+                        comicGameAdd.add(true);
+                    }else{
+                        comicGameAdd.add(false);
+                    }   
                     Integer nullCounter = 0;
                     Boolean unfinished = false;
                     if(gc.getPanel1_id()==null){
@@ -559,7 +563,7 @@ public class ajaxProfileController{
                             unfinished = this.panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()==null?true:false;
                         }
                     }
-                    if(nullCounter>=1 && gc.getGamecomic_type()!=2 && !unfinished){
+                    if(nullCounter>=1 && gc.getGamecomic_type() == 1 && !unfinished){
                         comicGamePublic.add(true);
                     }else{
                         comicGamePublic.add(false);
