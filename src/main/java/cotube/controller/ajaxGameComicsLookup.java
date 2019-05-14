@@ -49,6 +49,7 @@ public class ajaxGameComicsLookup{
         List<imgsrcANDtitle>details = new ArrayList<>();
         for (GameComic x: all){
             imgsrcANDtitle z = new imgsrcANDtitle();
+            z.comic_id = x.getGame_comic_id();
             if (x.getPanel1_id() != null){
                 Panel p = this.panelService.getPanelFromPanelId(x.getPanel1_id());
                 z.panel1Src = p.getCanvas_path();

@@ -18,10 +18,36 @@ function loadTable(){
                 var TD2 = document.createElement('TD');
                 TD2.style="text-align: right; font-size: 14px; font-weight: lighter";
                 TD2.innerHTML = obj.MESSAGES[i].notifcation_time;
+
+                var deleteTD = document.createElement('TD');
+                var wrong = document.createElement('input');
+                wrong.type = "image";
+                wrong.src = "./img/delete.png";
+                wrong.height = "35";
+                wrong.style = "margin-left:10px";
+                wrong.addEventListener('click', function () {
+                    deleteComment(obj.MESSAGES[i].notification_id);
+                    //goViewSeries(obj["TPALV"][i].seriesID);
+
+                });
+
+                deleteTD.appendChild(wrong);
                 TABLEROW.appendChild(TD1);
                 TABLEROW.appendChild(TD2);
+                TABLEROW.appendChild(deleteTD);
                 tbody.appendChild(TABLEROW);
             }
+        }
+    });
+}
+function deleteComment(id){
+    $.ajax({
+        url: "message.html/deleteComment",
+        type: "post",
+        data: {id: id},
+        async: false,
+        success: function (data) {
+            document.location.reload();
         }
     });
 }

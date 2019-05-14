@@ -45,6 +45,24 @@ public class ajaxMessageController{
         return go.toString();
     }
 
+    @RequestMapping(value="/deleteComment",method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteComment(HttpServletRequest request){
+        //Username returns "" so we will use all of them until we can solve this
 
+        String str = request.getParameter("id");
+        int id = Integer.parseInt(str);
+        List<Notification> all = this.notificationService.getAllNotifications();
+        Notification delete = new Notification();
+        for(Notification note: all){
+            if (note.getNotification_id() == id) {
+                delete = note;
+            }
+        }
+
+        this.notificationService.deleteNotification(delete);
+        System.out.println("a");
+        return true;
+    }
 
 }

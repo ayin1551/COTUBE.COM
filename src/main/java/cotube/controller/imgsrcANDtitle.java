@@ -9,8 +9,15 @@ public class imgsrcANDtitle {
     String panel3Title;
     String panel4Src;
     String panel4Title;
+    int comic_id;
     public imgsrcANDtitle(){
 
+    }
+    public int getComic_id(){
+        return this.comic_id;
+    }
+    public void setComic_id(int x){
+        this.comic_id = x;
     }
     public String getPanel1Src(){
         return panel1Src;

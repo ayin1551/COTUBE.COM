@@ -142,7 +142,9 @@ public class ajaxSearchController{
             }
         }
         List<searchPackage>result = new ArrayList<>();
-        for (int i = 0;i < titles.size(); i++){
+        for (int i = 0;i < authors.size(); i++){
+            System.out.println(authors.size());
+            System.out.println(IDs.size());
             searchPackage packed = new searchPackage(titles.get(i),picPath.get(i),authors.get(i),likes.get(i),views.get(i),IDs.get(i));
                 result.add(packed);
         }
