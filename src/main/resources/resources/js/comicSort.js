@@ -41,6 +41,23 @@ function showtable(){
         checksortby();
         showcomic("series");
     }
+    if(by=="keyword" && document.getElementById('selectgames').selected == false) {
+        document.getElementById("keywordsortby").style.display = "block";
+        document.getElementById("series_regular").style.display = "block";
+        // checksortby();
+        document.getElementById("keywordresult").style.display = "block";
+        document.getElementById("authorresult").style.display = "none";
+        showcomic("regular");
+    }
+    if(by=="keyword" && document.getElementById('selectgames').selected == true){
+        document.getElementById("keywordsortby").style.display = "block";
+        document.getElementById("series_regular").style.display = "block";
+        // checksortby();
+        document.getElementById("keywordresult").style.display = "block";
+        document.getElementById("authorresult").style.display = "none";
+        checksortby();
+        showcomic("game");
+    }
 }
 
 

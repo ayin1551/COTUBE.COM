@@ -48,7 +48,15 @@ public class ajaxViewComicsByTitle {
         List<String> titles = new ArrayList<String>();
         List<String> authors = new ArrayList<String>();
         List<Integer> ids = new ArrayList<Integer>();
-        for (Comic c : comics) {
+        List<Comic>Filter = new ArrayList<>();
+        for (Comic c: comics){
+            if(c.getStatus() == 1 || c.getStatus() == 3){
+                if(c.getComic_type() == 0){
+                    Filter.add(c);
+                }
+            }
+        }
+        for (Comic c : Filter) {
             titles.add(c.getTitle());
             ids.add(c.getComic_id());
             for (RegularComic reg : regularComics) {

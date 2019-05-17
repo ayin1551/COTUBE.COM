@@ -26,11 +26,15 @@ function loadGameComics(x){
             var title3 = obj.Details[x].panel3Title;
             var src4 = obj.Details[x].panel4Src;
             var title4 = obj.Details[x].panel4Title;
+            var allTitle = title1 + title2 + title3;
             if (src4 == undefined){
                 src4 = "";
             }
             if (title4 == undefined){
                 title4 = "";
+            }
+            else{
+                allTitle = allTitle + title4;
             }
 
             var keywordDiv = document.createElement('div');
@@ -51,8 +55,12 @@ function loadGameComics(x){
             var th = document.createElement('th');
             var imgsrc1 = document.createElement('img');
             imgsrc1.src = src1;
+            imgsrc1.style.width = "260px";
+            imgsrc1.style.height = "190px";
+            imgsrc1.style.marginRight = "30px";
+            table.setAttribute('class','style-1');
             var h31 = document.createElement('h3');
-            h31.innerHTML = title1;
+            h31.innerHTML = allTitle;
             th.appendChild(imgsrc1);
             th.appendChild(h31);
             td.appendChild(th);
