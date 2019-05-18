@@ -1,3 +1,17 @@
+function ifExist(){
+  $.ajax({
+    url: "viewComics.html/comicExist",
+    type: "post",
+    async: false,
+    data: {comicId:$.cookie('comicId')},
+    success: function (data) {//signUpController to check if the username already exist
+      if(!data){
+        gohome();
+      }
+    }
+});
+}
+
 function comicTitle(){
   var title;
   var comicid = $("input#comicid").val();
