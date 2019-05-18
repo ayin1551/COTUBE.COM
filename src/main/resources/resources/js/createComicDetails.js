@@ -52,6 +52,7 @@ function uploadSrsThumb(){
 }
 
 function saveComic(){
+    window.onbeforeunload = null;
     $.ajax({
         type: "post",
         url: "createComicDetail.html/save",
@@ -74,6 +75,7 @@ function saveComic(){
 }
 
 function publishComic(){
+    window.onbeforeunload = null;
     $.ajax({
         type: "post",
         url: "createComicDetail.html/publish",
@@ -92,6 +94,19 @@ function publishComic(){
             tag5: document.getElementById("tag5word").innerText},
         success: function(data){
 
+        }
+    });
+}
+
+function unloadCancel(){
+    var comicId = $.cookie("comicId");
+    $.ajax({
+        type: "post",
+        url: "createComicDetail.html/cancel",
+        async: false,
+        dataType:"json",
+        data: {comicId:comicId},
+        success: function(data){
         }
     });
 }
