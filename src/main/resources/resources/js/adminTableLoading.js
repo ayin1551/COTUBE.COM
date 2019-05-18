@@ -40,6 +40,7 @@ function loadComics(){
                 var anchor = document.createElement('a');
                 anchor.innerHTML = "View";
                 anchor.addEventListener('click', function () {
+                    $.cookie('ifSeries', false);
                     goViewComic(obj.COMICS[i].id);
                 });
                 var correct = document.createElement('input');
@@ -150,6 +151,7 @@ function loadComments(){
                 var anchor = document.createElement('a');
                 anchor.innerHTML = "View";
                 anchor.addEventListener('click', function () {
+                    $.cookie('ifSeries', false);
                     goViewComic(obj.COMMENTS[i].comic_id);
                 });
                 var correct = document.createElement('input');

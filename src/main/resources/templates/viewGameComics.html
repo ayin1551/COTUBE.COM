@@ -140,6 +140,8 @@
     <table width = "65%" align="center" id = "commenttb"></table>
     <table align="center" id = "numPage"></table>
     <script>
+        checkExist();
+
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
         }else if($.cookie('role')=="admin"){

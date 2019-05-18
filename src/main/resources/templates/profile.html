@@ -241,17 +241,23 @@
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
-                        if(!comics.comicGame[j]){
+                        if(!comics.comicGame[j] && comics.comicClick[j]){
                             img.style.cursor = "pointer";
                             img.addEventListener('click', function() {
                                 comicRedirect(comics.comicId[j],comics.comicSeries[j]);
                             });
                         }else{
-                            if(comics.comicGamePublished[j]){
+                            if(comics.comicGamePublished[j] && comics.comicClick[j]){
                                 img.style.cursor = "pointer";
                                 img.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
                                 });
+                            }else{
+                                if(comics.comicGame[j]){
+                                    img.title = "Game in process";
+                                }else{
+                                    img.title = "Need to publish";
+                                }
                             }
                         }
                         
@@ -274,10 +280,12 @@
                             span.appendChild(t);
                             td.appendChild(span);
                             span.style.fontSize = "20px";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicRedirect(comics.comicId[j],comics.comicSeries[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                                });
+                            }
                         }else if(comics.comicGame[j]){
                             var img2 = document.createElement('img');
                             td.appendChild(img2);
@@ -297,7 +305,7 @@
                             span.appendChild(t);
                             td.appendChild(span);
                             span.style.fontSize = "20px";
-                            if(comics.comicGamePublished[j]){
+                            if(comics.comicGamePublished[j] && comics.comicClick[j]){
                                 span.style.cursor = "pointer";
                                 span.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
@@ -310,10 +318,12 @@
                             td.appendChild(span);
                             span.style.fontSize = "20px";
                             span.style.marginLeft = "2.5vw";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicRedirect(comics.comicId[j],comics.comicSeries[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                                });
+                            }
                         }
                         
                         if(!comics.comicGame[j]){
@@ -420,16 +430,24 @@
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
-                        if(comics.comicGame[j]){
+                        if(comics.comicGame[j] && comics.comicClick[j]){
                             img.style.cursor = "pointer";
                             img.addEventListener('click', function() {
                                 comicGameRedirect(comics.comicId[j]);
                             });
                         }else{
-                            img.style.cursor = "pointer";
-                            img.addEventListener('click', function() {
-                                comicRedirect(comics.comicId[j],comics.comicSeries[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                img.style.cursor = "pointer";
+                                img.addEventListener('click', function() {
+                                    comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                                });
+                            }else{
+                                if(comics.comicGame[j]){
+                                    img.title = "Game in process";
+                                }else{
+                                    img.title = "Need to publish";
+                                }
+                            }
                         }
                         
                         var br1 = document.createElement('br');
@@ -451,10 +469,12 @@
                             span.appendChild(t);
                             td.appendChild(span);
                             span.style.fontSize = "20px";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicRedirect(comics.comicId[j],comics.comicSeries[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                                });
+                            }
                         }else if(comics.comicGame[j]){
                             var img2 = document.createElement('img');
                             td.appendChild(img2);
@@ -463,19 +483,27 @@
                             img2.style.cssFloat = "left";
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
-                            img2.style.cursor = "pointer";
-                            img2.addEventListener('click', function() {
-                                comicGameRedirect(comics.comicId[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                img2.style.cursor = "pointer";
+                                img2.addEventListener('click', function() {
+                                    comicGameRedirect(comics.comicId[j]);
+                                });
+                            }else{
+                                img2.title = "Game in process";
+                            }
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
                             span.style.fontSize = "20px";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicGameRedirect(comics.comicId[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicGameRedirect(comics.comicId[j]);
+                                });
+                            }else{
+                                span.title = "Game in process";
+                            }
                         }else{
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
@@ -483,10 +511,12 @@
                             td.appendChild(span);
                             span.style.fontSize = "20px";
                             span.style.marginLeft = "2.5vw";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicGameRedirect(comics.comicId[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicGameRedirect(comics.comicId[j]);
+                                });
+                            }
                         }
                         
                         var br2 = document.createElement('br');

@@ -338,7 +338,6 @@ function comicPage(page){
                 for (let i = 0; i < obj.TPALV.length; i += 3) {
                     var tr = document.createElement('TR');
                     tbody.appendChild(tr);
-    
                     // i = 0, first one
                     var td1 = document.createElement('TD');
                     var img1 = document.createElement('img');
@@ -348,6 +347,8 @@ function comicPage(page){
                     img1.src = obj["TPALV"][i].picPath;
                     td1.appendChild(img1);
                     img1.addEventListener('click', function () {
+                        $.cookie("ifSeries",obj.isSeries[i]);
+                        console.log($.cookie('ifSeries'));
                         goViewComic(obj["TPALV"][i].comicID);
                     });
                     var td2 = document.createElement('TD');
@@ -356,6 +357,8 @@ function comicPage(page){
                     var t = document.createTextNode(obj["TPALV"][i].title);
                     span_title.appendChild(t);
                     span_title.addEventListener('click', function () {
+                        $.cookie("ifSeries",obj.isSeries[i]);
+                        console.log($.cookie('ifSeries'));
                         goViewComic(obj["TPALV"][i].comicID);
                     });
                     span_title.style.width = "11vw";
@@ -391,6 +394,8 @@ function comicPage(page){
                         img1.src = obj["TPALV"][i+1].picPath;
                         td1.appendChild(img1);
                         img1.addEventListener('click', function () {
+                            $.cookie("ifSeries",obj.isSeries[i+1]);
+                            console.log($.cookie('ifSeries'));
                             goViewComic(obj["TPALV"][i+1].comicID);
                         });
                         var td2 = document.createElement('TD');
@@ -399,6 +404,8 @@ function comicPage(page){
                         var t = document.createTextNode(obj["TPALV"][i+1].title);
                         span_title.appendChild(t);
                         span_title.addEventListener('click', function () {
+                            $.cookie("ifSeries",obj.isSeries[i+1]);
+                            console.log($.cookie('ifSeries'));
                             goViewComic(obj["TPALV"][i+1].comicID);
                         });
                         span_title.style.width = "11vw";
@@ -438,6 +445,8 @@ function comicPage(page){
                         img1.src = obj["TPALV"][i+2].picPath;
                         td1.appendChild(img1);
                         img1.addEventListener('click', function () {
+                            $.cookie("ifSeries",obj.isSeries[i+2]);
+                            console.log($.cookie('ifSeries'));
                             goViewComic(obj["TPALV"][i+2].comicID);
                         });
                         var td2 = document.createElement('TD');
@@ -446,6 +455,8 @@ function comicPage(page){
                         var t = document.createTextNode(obj["TPALV"][i+2].title);
                         span_title.appendChild(t);
                         span_title.addEventListener('click', function () {
+                            $.cookie("ifSeries",obj.isSeries[i+2]);
+                            console.log($.cookie('ifSeries'));
                             goViewComic(obj["TPALV"][i+2].comicID);
                         });
                         span_title.style.width = "11vw";

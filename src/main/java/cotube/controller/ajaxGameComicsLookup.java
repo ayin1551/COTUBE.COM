@@ -45,7 +45,7 @@ public class ajaxGameComicsLookup{
     @ResponseBody
     public String getGameComics(HttpServletRequest request){
         List<GameComic> all = this.gameComicService.getAllGameComics();
-        List allPanels = this.panelService.getAllPanels();
+        // List allPanels = this.panelService.getAllPanels();
         List<imgsrcANDtitle>details = new ArrayList<>();
         for (GameComic x: all){
             imgsrcANDtitle z = new imgsrcANDtitle();

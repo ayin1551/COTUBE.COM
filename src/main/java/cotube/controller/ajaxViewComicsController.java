@@ -450,7 +450,7 @@ public class ajaxViewComicsController{
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id() == seriesId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
                 series.add(rc.getRegular_comic_id());
             }
         }
@@ -659,6 +659,21 @@ public class ajaxViewComicsController{
         }
         return false;
     }
+
+    @RequestMapping(value="/comicExist",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean comicExist(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id() == comicId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
 
 
