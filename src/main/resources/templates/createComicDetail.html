@@ -64,7 +64,9 @@
     if(cusername=="null" || cusername==undefined){
         document.location.href="./index.html";
     }
-
+    window.onbeforeunload = function(){
+        unloadCancel();
+    }
 
     if($.cookie('role')=="user"){
         document.getElementById("login").style.display = "none";
