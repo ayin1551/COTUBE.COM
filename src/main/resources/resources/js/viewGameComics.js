@@ -1,3 +1,20 @@
+function checkExist(){
+    var obj;
+    var comicId = $.cookie("comicId");
+    $.ajax({
+        url: "viewGameComics.html/gameExist",
+        type: "post",
+        async: false,
+        data: {comicId:comicId},
+        success: function (data) {
+          obj = data;
+        }
+    });
+    if(!obj){
+      document.location.href = "./index.html";
+    }
+}
+
 function loadGameComics() {
     
 }

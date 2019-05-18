@@ -288,6 +288,18 @@ public class ajaxViewGameComicsController{
         return null;
     }
 
-
+    @RequestMapping(value="/gameExist",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean gameExist(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<GameComic> gameComics = gameComicService.getAllGameComics();
+        
+        for(GameComic gc: gameComics){
+            if(gc.getGame_comic_id() == comicId && (comicService.getComicByComic_Id(gc.getGame_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(gc.getGame_comic_id()).getStatus()==3)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
