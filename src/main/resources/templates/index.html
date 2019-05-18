@@ -73,7 +73,7 @@
     <div id = "ratedcomics" class = "ratedcomicsTable" style="/*width:23vw;float:left;*/margin-top:10px;">
         <h2 style="margin-left:0px;cursor:default;">Top 5 Comics</h2>
         <div>
-        <table class = "topratedTable" id = "top_rated_table" align="center" style="border-collapse:separate; border-spacing:0px 20px;">
+        <table class = "topratedTable" id = "top_rated_table" align="center" style="border-collapse:separate;">
         </table>
         </div>
     </div>
@@ -128,12 +128,14 @@
                     img1.style.top = "0";
                     divImg1.appendChild(img1);
                     var divinfo1 = document.createElement('div');
-                    divinfo1.style.width = "61.8%";
-                    divinfo1.style.marginLeft = "6.8%"
+                    //divinfo1.style.width = "100%";
+                    //divinfo1.style.marginLeft = "6.8%"
                     var span_title1 = document.createElement('span');
                     span_title1.style.cursor = "pointer";
                     var t = document.createTextNode(x.comics[i].title);
                     span_title1.appendChild(t);
+                    span_title1.style.fontWeight = "900";
+                    span_title1.style.font = "italic bold 20px arial,serif";
                     divinfo1.appendChild(span_title1);
                     // add to divBig1
                     divBig1.appendChild(divImg1);
@@ -164,11 +166,13 @@
                     img2.style.top = "0";
                     divImg2.appendChild(img2);
                     var divinfo2 = document.createElement('div');
-                    divinfo2.style.width = "61.8%";
-                    divinfo2.style.marginLeft = "6.8%"
+                    //divinfo2.style.width = "61.8%";
+                    //divinfo2.style.marginLeft = "6.8%"
                     var span_title2 = document.createElement('span');
                     span_title2.style.cursor = "pointer";
                     var t2 = document.createTextNode(x.comics[b].title);
+                    span_title2.style.fontWeight = "900";
+                    span_title2.style.font = "italic bold 20px arial,serif";
                     span_title2.appendChild(t2);
                     divinfo2.appendChild(span_title2);
                     // add to divBig1
@@ -200,12 +204,14 @@
                     img3.style.top = "0";
                     divImg3.appendChild(img3);
                     var divinfo3 = document.createElement('div');
-                    divinfo3.style.width = "61.8%";
-                    divinfo3.style.marginLeft = "6.8%"
+                    //divinfo3.style.width = "61.8%";
+                    //divinfo3.style.marginLeft = "6.8%"
                     var span_title3 = document.createElement('span');
                     span_title3.style.cursor = "pointer";
                     var t3 = document.createTextNode(x.comics[c].title);
                     span_title3.appendChild(t3);
+                    span_title3.style.fontWeight = "900";
+                    span_title3.style.font = "italic bold 20px arial,serif";
                     divinfo3.appendChild(span_title3);
                     // add to divBig1
                     divBig3.appendChild(divImg3);
@@ -243,11 +249,13 @@
                     img1.style.top = "0";
                     divImg1.appendChild(img1);
                     var divinfo1 = document.createElement('div');
-                    divinfo1.style.width = "61.8%";
-                    divinfo1.style.marginLeft = "6.8%"
+                    //divinfo1.style.width = "61.8%";
+                    //divinfo1.style.marginLeft = "6.8%"
                     var span_title1 = document.createElement('span');
                     var t = document.createTextNode(x.comics[d].title);
                     span_title1.appendChild(t);
+                    span_title1.style.fontWeight = "900";
+                    span_title1.style.font = "italic bold 20px arial,serif";
                     span_title1.style.cursor = "pointer";
                     divinfo1.appendChild(span_title1);
                     // add to divBig1
@@ -279,11 +287,13 @@
                     img2.style.top = "0";
                     divImg2.appendChild(img2);
                     var divinfo2 = document.createElement('div');
-                    divinfo2.style.width = "61.8%";
-                    divinfo2.style.marginLeft = "6.8%"
+                    //divinfo2.style.width = "61.8%";
+                    //divinfo2.style.marginLeft = "6.8%"
                     var span_title2 = document.createElement('span');
                     var t2 = document.createTextNode(x.comics[e].title);
                     span_title2.appendChild(t2);
+                    span_title2.style.fontWeight = "900";
+                    span_title2.style.font = "italic bold 20px arial,serif";
                     span_title2.style.cursor = "pointer";
                     divinfo2.appendChild(span_title2);
                     // add to divBig1
@@ -315,11 +325,13 @@
                     img3.style.top = "0";
                     divImg3.appendChild(img3);
                     var divinfo3 = document.createElement('div');
-                    divinfo3.style.width = "61.8%";
-                    divinfo3.style.marginLeft = "6.8%"
+                    //divinfo3.style.width = "61.8%";
+                    //divinfo3.style.marginLeft = "6.8%"
                     var span_title3 = document.createElement('span');
                     var t3 = document.createTextNode(x.comics[f].title);
                     span_title3.appendChild(t3);
+                    span_title3.style.fontWeight = "900";
+                    span_title3.style.font = "italic bold 20px arial,serif";
                     span_title3.style.cursor = "pointer";
                     divinfo3.appendChild(span_title3);
                     // add to divBig1
@@ -344,12 +356,12 @@
             for (i = 0; i < 3; i+=3){
                 var tr = document.createElement('TR');
                 tr.colspan = 3;
-                tr.style.width = "18vw";
+                tr.style.width = "19vw";
                 tbody.appendChild(tr);
 
                 // i = 0, first one
                 var td1 = document.createElement('TD');
-                td1.style.width = "18vw";
+                td1.style.width = "19vw";
                 td1.style.paddingTop= "15px";
                 tr.append(td1);
                 var divBig1 = document.createElement('DIV');
@@ -372,11 +384,13 @@
                 img1.style.top = "0";
                 divImg1.appendChild(img1);
                 var divinfo1 = document.createElement('div');
-                divinfo1.style.width = "61.8%";
-                divinfo1.style.marginLeft = "6.8%"
+                //divinfo1.style.width = "61.8%";
+                //divinfo1.style.marginLeft = "6.8%"
                 var span_title1 = document.createElement('span');
                 var t = document.createTextNode(x.series[a].series_name);
                 span_title1.appendChild(t);
+                span_title1.style.fontWeight = "900";
+                span_title1.style.font = "italic bold 20px arial,serif";
                 span_title1.style.cursor = "pointer";
                 divinfo1.appendChild(span_title1);
                 // add to divBig1
@@ -408,11 +422,13 @@
                 img2.style.top = "0";
                 divImg2.appendChild(img2);
                 var divinfo2 = document.createElement('div');
-                divinfo2.style.width = "61.8%";
-                divinfo2.style.marginLeft = "6.8%"
+                //divinfo2.style.width = "61.8%";
+                //divinfo2.style.marginLeft = "6.8%"
                 var span_title2 = document.createElement('span');
                 var t2 = document.createTextNode(x.series[i+1].series_name);
                 span_title2.appendChild(t2);
+                span_title2.style.fontWeight = "900";
+                span_title2.style.font = "italic bold 20px arial,serif";
                 span_title2.style.cursor = "pointer";
                 divinfo2.appendChild(span_title2);
                 // add to divBig1
@@ -444,11 +460,13 @@
                 img3.style.top = "0";
                 divImg3.appendChild(img3);
                 var divinfo3 = document.createElement('div');
-                divinfo3.style.width = "61.8%";
-                divinfo3.style.marginLeft = "6.8%"
+                //divinfo3.style.width = "61.8%";
+                //divinfo3.style.marginLeft = "6.8%"
                 var span_title3 = document.createElement('span');
                 var t3 = document.createTextNode(x.series[i+2].series_name);
                 span_title3.appendChild(t3);
+                span_title3.style.fontWeight = "900";
+                span_title3.style.font = "italic bold 20px arial,serif";
                 span_title3.style.cursor = "pointer";
                 divinfo3.appendChild(span_title3);
                 // add to divBig1
@@ -459,12 +477,12 @@
             for (i = 3; i < 6; i+=3){
                 var tr = document.createElement('TR');
                 tr.colspan = 3;
-                tr.style.width = "18vw";
+                tr.style.width = "19vw";
                 tbody.appendChild(tr);
 
                 // i = 0, first one
                 var td1 = document.createElement('TD');
-                td1.style.width = "18vw";
+                td1.style.width = "19vw";
                 td1.style.paddingTop= "15px";
                 tr.append(td1);
                 var divBig1 = document.createElement('DIV');
@@ -487,11 +505,13 @@
                 img1.style.top = "0";
                 divImg1.appendChild(img1);
                 var divinfo1 = document.createElement('div');
-                divinfo1.style.width = "61.8%";
-                divinfo1.style.marginLeft = "6.8%"
+                //divinfo1.style.width = "61.8%";
+                //divinfo1.style.marginLeft = "6.8%"
                 var span_title1 = document.createElement('span');
                 var t = document.createTextNode(x.series[d].series_name);
                 span_title1.appendChild(t);
+                span_title1.style.fontWeight = "900";
+                span_title1.style.font = "italic bold 20px arial,serif";
                 span_title1.style.cursor = "pointer";
                 divinfo1.appendChild(span_title1);
                 // add to divBig1
@@ -523,11 +543,13 @@
                 img2.style.top = "0";
                 divImg2.appendChild(img2);
                 var divinfo2 = document.createElement('div');
-                divinfo2.style.width = "61.8%";
-                divinfo2.style.marginLeft = "6.8%"
+                //divinfo2.style.width = "61.8%";
+                //divinfo2.style.marginLeft = "6.8%"
                 var span_title2 = document.createElement('span');
                 var t2 = document.createTextNode(x.series[i+1].series_name);
                 span_title2.appendChild(t2);
+                span_title2.style.fontWeight = "900";
+                span_title2.style.font = "italic bold 20px arial,serif";
                 span_title2.style.cursor = "pointer";
                 divinfo2.appendChild(span_title2);
                 // add to divBig1
@@ -559,11 +581,13 @@
                 img3.style.top = "0";
                 divImg3.appendChild(img3);
                 var divinfo3 = document.createElement('div');
-                divinfo3.style.width = "61.8%";
-                divinfo3.style.marginLeft = "6.8%"
+                //divinfo3.style.width = "61.8%";
+                //divinfo3.style.marginLeft = "6.8%"
                 var span_title3 = document.createElement('span');
                 var t3 = document.createTextNode(x.series[i+2].series_name);
                 span_title3.appendChild(t3);
+                span_title3.style.fontWeight = "900";
+                span_title3.style.font = "italic bold 20px arial,serif";
                 span_title3.style.cursor = "pointer";
                 divinfo3.appendChild(span_title3);
                 // add to divBig1
@@ -586,15 +610,15 @@
             for (i = 0; i < 5; i++){
                 var tr = document.createElement('TR');
                 tr.colspan = 3;
-                tr.style.width = "18vw";
-                tr.style.height = "11vw"
+                tr.style.width = "19vw";
+                tr.style.height = "9vw"
                 tbody.appendChild(tr);
 
                 // i = 0, first one
                 var td1 = document.createElement('TD');
-                td1.style.width = "16vw";
+                td1.style.width = "10vw";
                 td1.style.height = "9vw";
-                td1.style.paddingTop= "15px";
+                //td1.style.paddingTop= "15px";
                 tr.append(td1);
                 var divBig1 = document.createElement('DIV');
                 divBig1.style.width = "85%";
@@ -656,7 +680,7 @@
                 var td2 = document.createElement('TD');
                 td2.style.width = "7vw";
                 td2.style.height = "9vw";
-                td2.style.paddingTop= "15px";
+                //td2.style.paddingTop= "15px";
                 tr.append(td2);
                 var divBig2 = document.createElement('DIV');
                 divBig2.style.width = "85%";
@@ -667,11 +691,14 @@
                 divImg2.style.paddingTop = "85%";
                 divImg2.style.position = "relative";
                 var divinfo2 = document.createElement('div');
-                divinfo2.style.width = "61.8%";
-                divinfo2.style.marginLeft = "6.8%"
+                //divinfo2.style.width = "61.8%";
+                //divinfo2.style.marginLeft = "6.8%"
                 var span_title2 = document.createElement('span');
-                var t2 = document.createTextNode("Number " + (i+1));
+                var t2 = document.createTextNode("#");
+                var t3 = document.createTextNode(i+1);
                 span_title2.appendChild(t2);
+                span_title2.appendChild(t3);
+                span_title2.style.fontWeight = "900";
                 span_title2.style.cursor = "default";
                 divinfo2.appendChild(span_title2);
                 // add to divBig1
@@ -679,13 +706,13 @@
 
                 // i = 2, first one
                 var td3 = document.createElement('TD');
-                td3.style.width = "20vw";
-                td3.style.height = "11vw";
-                td3.style.paddingTop= "15px";
+                td3.style.width = "24vw";
+                td3.style.height = "13vw";
+                //td3.style.paddingTop= "15px";
                 tr.append(td3);
                 var divBig3 = document.createElement('DIV');
                 divBig3.style.width = "100%";
-                divBig3.style.height = "75%";
+                divBig3.style.height = "80%";
                 divBig3.style.cursor = "pointer";
                 if (i == 0){
                 divBig3.addEventListener('click', function() {
@@ -720,11 +747,13 @@
                 img3.style.top = "0";
                 divImg3.appendChild(img3);
                 var divinfo3 = document.createElement('div');
-                divinfo3.style.width = "50%";
+                //divinfo3.style.width = "50%";
                 //divinfo3.style.marginLeft = "50%"
                 var span_title3 = document.createElement('span');
                 var t3 = document.createTextNode(x.ratedcomics[i].title);
                 span_title3.appendChild(t3);
+                span_title3.style.fontWeight = "900";
+                span_title3.style.font = "italic bold 20px arial,serif";
                 divinfo3.appendChild(span_title3);
                 // add to divBig1
                 divBig3.appendChild(divImg3);
