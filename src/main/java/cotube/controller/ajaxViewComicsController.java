@@ -450,7 +450,7 @@ public class ajaxViewComicsController{
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id() == seriesId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
                 series.add(rc.getRegular_comic_id());
             }
         }
