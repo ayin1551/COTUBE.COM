@@ -428,4 +428,18 @@ public class ajaxSeriesController{
 
             return false;
         }
+
+    @RequestMapping(value="/seriesExist",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean seriesExist(HttpServletRequest request){
+        Integer seriesId = Integer.parseInt(request.getParameter("seriesId"));
+        List<Series> series = seriesService.getAllSeries();
+        
+        for(Series s: series){
+            if(s.getSeries_id() == seriesId){
+                return true;
+            }
+        }
+        return false;
+    }
 }
