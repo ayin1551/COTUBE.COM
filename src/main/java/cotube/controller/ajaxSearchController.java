@@ -140,7 +140,7 @@ public class ajaxSearchController{
                 for (RegularComic reg: regularComics){
                     if (reg.getRegular_comic_id() == c.getComic_id()){
                         picPath.add(reg.getThumbnail_path());
-                        authors.add(getAuthor(reg));
+                        authors.add(getAuthor(reg.getPanel_id()));
                         likes.add(getLikes(reg));
                         views.add(getViews(reg));
                     }
@@ -189,14 +189,14 @@ public class ajaxSearchController{
         //System.out.println(go.toString());
         return go.toString();
     }
-    private String getAuthor(RegularComic reg){
-        List<Panel>panels = this.panelService.getAllPanels();
-        for (Panel p: panels){
-            if (reg.getRegular_comic_id() == p.getPanel_id()){
-                return p.getAuthor();
-            }
-        }
-        return "NO AUTHOR";
+    private String getAuthor(Integer id){
+        Panel panels = panelService.getPanelFromPanelId(id);
+        // for (Panel p: panels){
+        //     if (reg.getRegular_comic_id() == p.getPanel_id()){
+                return panels.getAuthor()==null?"NO AUTHOR":panels.getAuthor();
+        //     }
+        // }
+        // return "NO AUTHOR";
     }
     private int getLikes(RegularComic reg){
         List<Likes>likes = this.likeService.getAllLikes();
