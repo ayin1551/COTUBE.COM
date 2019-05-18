@@ -667,7 +667,7 @@ public class ajaxViewComicsController{
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
+            if(rc.getRegular_comic_id() == comicId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
                 return true;
             }
         }
