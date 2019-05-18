@@ -660,6 +660,21 @@ public class ajaxViewComicsController{
         return false;
     }
 
+    @RequestMapping(value="/comicExist",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean comicExist(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id() == comicId){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
 
 
 }
