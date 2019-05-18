@@ -6,6 +6,7 @@ function ifExist(){
     data: {comicId:$.cookie('comicId')},
     success: function (data) {//signUpController to check if the username already exist
       if(!data){
+        alert("This comic does not exist");
         gohome();
       }
     }
