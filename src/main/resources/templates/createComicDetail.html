@@ -91,13 +91,15 @@
                 <td style="padding: 20px 0px 30px 0px; font-size: 2.5vw"><input type="radio" id="srs" name="kwO" value="series" onclick="srs()">series comic<br></td>
             </tr>
         </table>
-        <div id = "th"  style="display: none;">
+        <div id = "th"  style="display: none;width:40vw">
             <table>
                 <tr>
                     <td align = "center">
                         <img id = "newseriesthumb" src = "" style = "margin-left:25px;margin-right:25px;width:15vw" >
                     </td>
                     <td align = "center">
+                        <button type="button" class = "submitButton" onclick="document.getElementById('file-inputs').click();">Upload Series Thumb</button>
+                        <input id="file-inputs" type="file" name="name2" oninput="uploadSrsThumb()" style="display: none;" />
                     </td>
                 </tr>
                 <tr>
@@ -110,8 +112,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="button" class = "submitButton" onclick="document.getElementById('file-inputs').click();">Upload Series Thumb</button>
-                        <input id="file-inputs" type="file" name="name2" oninput="uploadSrsThumb()" style="display: none;" />
+                        <hr>
                     </td>
                 </tr>
             </table>
@@ -123,7 +124,7 @@
                         <img id = "oldcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;width:15vw" >
                     </td>
                     <td align = "center">
-                        <img id = "newcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;width:15vw" >
+                        <img id = "newcomicthumb" src = "../img/empty.png" style = "margin-left:25px;margin-right:25px;width:15vw" >
                     </td>
                 </tr>
                 <tr>
@@ -138,6 +139,11 @@
                     <td colspan="2" align="center">
                         <button type="button" class = "submitButton" onclick="document.getElementById('file-input').click();">Upload Comic Thumb</button>
                         <input id="file-input" type="file" name="name" oninput="uploadCmcThumb()" style="display: none;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr>
                     </td>
                 </tr>
             </table>

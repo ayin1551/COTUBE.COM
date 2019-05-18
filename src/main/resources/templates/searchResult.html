@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Search Result Page</title>
-    <!-- TODO:
-            By author   -- Profile picture and followers                                                        (FINISHED)
-                        -- Onclick to go to the specific profile page(store the author's username to cookie)    (FINISHED)
-            By keyword  -- Default regular comics, can select series comics
-                        -- Sort by views, likes and name -->
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
@@ -73,7 +68,7 @@
 
         <div id="series_regular" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
             <select class="sortBy" id="series_regular_view" name="sort_by" style="margin-right: 20px;" onchange ="showtable()">
-                <option value="regular">View Regular Comic</option>
+                <option value="regular" id="selectregular">View Regular Comic</option>
                 <option value="series" id = "selectseries">View Series Comic</option>
                 <option value="game" id = "selectgames">View Game Comic</option>
             </select>

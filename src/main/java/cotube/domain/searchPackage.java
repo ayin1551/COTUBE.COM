@@ -16,6 +16,7 @@ public class searchPackage{
         this.views = views;
         this.comicID = comicID;
     }
+    
     public int getComicID(){
         return comicID;
     }
