@@ -246,7 +246,7 @@ public class ajaxSeriesController{
         List<String> comicName = new ArrayList<String>();
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id() == seriesId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3)){
                 comicId.add(rc.getRegular_comic_id());
             }
         }
