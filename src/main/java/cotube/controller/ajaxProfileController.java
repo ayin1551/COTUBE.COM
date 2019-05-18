@@ -708,7 +708,7 @@ public class ajaxProfileController{
                     int notification_type = 4;
                     String notification = "Favorite comic " + comic.getTitle() + " was deleted";
                     Notification note = new Notification();
-                    note.setNotifcation_type(notification_type);
+                    note.setNotification_type(notification_type);
                     note.setNotification(notification);
                     note.setUsername(fav.getFavoriter_username());
                     note.setNotifcation_time(now);

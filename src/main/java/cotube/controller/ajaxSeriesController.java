@@ -355,7 +355,7 @@ public class ajaxSeriesController{
                         int notification_type = 4;
                         String notification = "Favorite comic " + comic.getTitle() + " was deleted";
                         Notification note = new Notification();
-                        note.setNotifcation_type(notification_type);
+                        note.setNotification_type(notification_type);
                         note.setNotification(notification);
                         note.setUsername(fav.getFavoriter_username());
                         note.setNotifcation_time(now);
@@ -410,7 +410,7 @@ public class ajaxSeriesController{
                             int notification_type = 5;
                             String notification = "Series " + this.seriesService.getSeriesBySeriesId(followSeriesList.get(i).getSeries_id()) + " was deleted";
                             Notification note = new Notification();
-                            note.setNotifcation_type(notification_type);
+                            note.setNotification_type(notification_type);
                             note.setNotification(notification);
                             note.setUsername(followSeriesList.get(i).getFollower_username());
                             note.setNotifcation_time(now);

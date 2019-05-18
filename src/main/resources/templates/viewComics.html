@@ -120,7 +120,12 @@
 
 
     <script>
-        ifExist();
+        if($.cookie('role')!="admin"){
+            ifExist();
+        }else{
+            ifExistAdmin();
+        }
+        
         if($.cookie('role')=="user"){
             document.getElementById("login").style.display = "none";
         }else if($.cookie('role')=="admin"){

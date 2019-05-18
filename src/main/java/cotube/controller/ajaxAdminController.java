@@ -96,7 +96,7 @@ public class ajaxAdminController {
         }
 
         Notification note = new Notification();
-        note.setNotifcation_type(notification_type);
+        note.setNotification_type(notification_type);
         note.setNotification(notification);
         note.setUsername(username);
         note.setNotifcation_time(now);
@@ -128,7 +128,7 @@ public class ajaxAdminController {
         }
 
         Notification note = new Notification();
-        note.setNotifcation_type(notification_type);
+        note.setNotification_type(notification_type);
         note.setNotification(notification);
         note.setUsername(username);
         note.setNotifcation_time(now);
@@ -189,7 +189,7 @@ public class ajaxAdminController {
         int notification_type = 2;
         String notification = "An admin has denied your comment in " + this.comicService.getComicByComic_Id(Integer.parseInt(comicId)).getTitle();
         Notification note = new Notification();
-        note.setNotifcation_type(notification_type);
+        note.setNotification_type(notification_type);
         note.setNotification(notification);
         note.setUsername(target);
         note.setNotifcation_time(now);

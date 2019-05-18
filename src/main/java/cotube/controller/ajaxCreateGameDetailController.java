@@ -239,32 +239,32 @@ public class ajaxCreateGameDetailController {
             Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
             if (panel1.getCanvas_path() != null && panel2.getCanvas_path() != null && panel3.getCanvas_path() != null && panel4.getCanvas_path() != null) {
                 Notification note = new Notification();
-                note.setNotifcation_type(7);
+                note.setNotification_type(7);
                 String notification = "Game comic with title " + comic.getTitle() + " is finished";
                 note.setNotification(notification);
                 note.setUsername(panel1.getAuthor());
-                note.setLink(gameId + " " + "1");
+                note.setLink(gameId + "");
                 notificationService.addNotification(note);
 
                 Notification note2 = new Notification();
-                note2.setNotifcation_type(7);
+                note2.setNotification_type(7);
                 note2.setNotification(notification);
                 note2.setUsername(panel2.getAuthor());
-                note2.setLink(gameId + " " + "2");
+                note2.setLink(gameId + "");
                 notificationService.addNotification(note2);
 
                 Notification note3 = new Notification();
-                note3.setNotifcation_type(7);
+                note3.setNotification_type(7);
                 note3.setNotification(notification);
                 note3.setUsername(panel3.getAuthor());
-                note3.setLink(gameId + " " + "3");
+                note3.setLink(gameId + "");
                 notificationService.addNotification(note3);
 
                 Notification note4 = new Notification();
-                note4.setNotifcation_type(7);
+                note4.setNotification_type(7);
                 note4.setNotification(notification);
                 note4.setUsername(panel4.getAuthor());
-                note4.setLink(gameId + " " + "4");
+                note4.setLink(gameId + "");
                 notificationService.addNotification(note4);
             }
         }

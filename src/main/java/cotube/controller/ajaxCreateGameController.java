@@ -494,7 +494,7 @@ public class ajaxCreateGameController {
             Date now = new Date();
             int notification_type = 6;
             Notification note = new Notification();
-            note.setNotifcation_type(notification_type);
+            note.setNotification_type(notification_type);
             note.setNotification(notification);
             note.setUsername(user2);
             note.setNotifcation_time(now);
@@ -505,7 +505,7 @@ public class ajaxCreateGameController {
             Date now = new Date();
             int notification_type = 6;
             Notification note = new Notification();
-            note.setNotifcation_type(notification_type);
+            note.setNotification_type(notification_type);
             note.setNotification(notification);
             note.setUsername(user3);
             note.setNotifcation_time(now);
@@ -517,7 +517,7 @@ public class ajaxCreateGameController {
             Date now = new Date();
             int notification_type = 6;
             Notification note = new Notification();
-            note.setNotifcation_type(notification_type);
+            note.setNotification_type(notification_type);
             note.setNotification(notification);
             note.setUsername(user4);
             note.setNotifcation_time(now);

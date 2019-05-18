@@ -103,7 +103,6 @@ function changeProfile(){
         async: false,
         data: {username: $.cookie("username"),img: imgsrc},
         success: function (data) {
-            alert(data);
 
             document.getElementById("oldpp").src = document.getElementById("newpp").src;
 

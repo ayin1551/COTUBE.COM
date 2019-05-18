@@ -4,7 +4,22 @@ function ifExist(){
     type: "post",
     async: false,
     data: {comicId:$.cookie('comicId')},
-    success: function (data) {//signUpController to check if the username already exist
+    success: function (data) {
+      if(!data){
+        alert("This comic does not exist");
+        gohome();
+      }
+    }
+});
+}
+
+function ifExistAdmin(){
+  $.ajax({
+    url: "viewComics.html/comicExistAdmin",
+    type: "post",
+    async: false,
+    data: {comicId:$.cookie('comicId')},
+    success: function (data) {
       if(!data){
         alert("This comic does not exist");
         gohome();
