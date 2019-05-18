@@ -237,7 +237,7 @@
                         tr.appendChild(td);
                         var img = document.createElement('img');
                         td.appendChild(img);
-                        img.src = comics.comicThumbnail[j];
+                        img.src = comics.comicThumbnail[j]==null?"./img/white.png":comics.comicThumbnail[j];
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
@@ -416,7 +416,7 @@
                         tr.appendChild(td);
                         var img = document.createElement('img');
                         td.appendChild(img);
-                        img.src = comics.comicThumbnail[j];
+                        img.src = comics.comicThumbnail[j]==null?"./img/white.png":comics.comicThumbnail[j];
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
