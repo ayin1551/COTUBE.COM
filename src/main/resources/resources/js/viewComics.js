@@ -13,6 +13,21 @@ function ifExist(){
 });
 }
 
+function ifExistAdmin(){
+  $.ajax({
+    url: "viewComics.html/comicExistAdmin",
+    type: "post",
+    async: false,
+    data: {comicId:$.cookie('comicId')},
+    success: function (data) {//signUpController to check if the username already exist
+      if(!data){
+        alert("This comic does not exist");
+        gohome();
+      }
+    }
+});
+}
+
 function comicTitle(){
   var title;
   var comicid = $("input#comicid").val();
