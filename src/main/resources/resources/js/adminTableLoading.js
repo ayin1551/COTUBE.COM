@@ -8,21 +8,22 @@ function loadComics(){
             var obj = jQuery.parseJSON(data);
             tbody.innerHTML = "";
             var tableRow = document.createElement("TR");
+            tableRow.style.cursor = "default";
             tableRow.className = "d0";
             var titleTD = document.createElement('TD');
-            titleTD.style = "width:25vw";
+            titleTD.style = "width:22.5vw";
             titleTD.innerText = "Title";
             var AuthorTD = document.createElement('TD');
             AuthorTD.style = "width:22.5vw";
             AuthorTD.innerText = "Author";
             var TimeTD = document.createElement('TD');
-            TimeTD.style = "width:25vw";
+            TimeTD.style = "width:22.5vw";
             TimeTD.innerText = "Time";
             var ActionTD = document.createElement('TD');
-            ActionTD.style = "width:25vw";
+            ActionTD.style = "width:22.5vw";
             ActionTD.innerText = "Action";
             tableRow.appendChild(titleTD);
-            //tableRow.appendChild(AuthorTD);
+            tableRow.appendChild(AuthorTD);
             tableRow.appendChild(TimeTD);
             tableRow.appendChild(ActionTD);
             tbody.appendChild(tableRow);
@@ -31,13 +32,14 @@ function loadComics(){
                 tableRow.className = "d0";
                 var titleTD = document.createElement('TD');
                 titleTD.innerText = obj.COMICS[i].title;
-                //var AuthorTD = document.createElement('TD');
-                //AuthorTD.innerText = obj.COMICS[i].author;;
+                var AuthorTD = document.createElement('TD');
+                AuthorTD.innerText = obj.author[i];
                 var TimeTD = document.createElement('TD');
                 TimeTD.innerText = obj.COMICS[i].date_published;
                 var ActionTD = document.createElement('TD');
                 //ActionTD.style = "width:22.5vw";
                 var anchor = document.createElement('a');
+                anchor.style.cursor = "pointer";
                 anchor.innerHTML = "View";
                 anchor.addEventListener('click', function () {
                     $.cookie('ifSeries', false);
@@ -47,7 +49,7 @@ function loadComics(){
                 correct.type = "image";
                 correct.src = "./img/correct.png";
                 correct.height = "35";
-                correct.style = "margin-left:10px";
+                correct.style = "margin-left:10px;vertical-align:inherit;cursor:pointer";
                 correct.addEventListener('click', function () {
                     //goViewSeries(obj["TPALV"][i].seriesID);
                     passComicID(obj.COMICS[i].id);
@@ -56,7 +58,7 @@ function loadComics(){
                 wrong.type = "image";
                 wrong.src = "./img/delete.png";
                 wrong.height = "35";
-                wrong.style = "margin-left:10px";
+                wrong.style = "margin-left:10px;vertical-align:inherit;cursor:pointer";
                 wrong.addEventListener('click', function () {
                     //goViewSeries(obj["TPALV"][i].seriesID);
                     denyComicID(obj.COMICS[i].id);
@@ -65,7 +67,7 @@ function loadComics(){
                 ActionTD.appendChild(correct);
                 ActionTD.appendChild(wrong);
                 tableRow.appendChild(titleTD);
-                //tableRow.appendChild(AuthorTD);
+                tableRow.appendChild(AuthorTD);
                 tableRow.appendChild(TimeTD);
                 tableRow.appendChild(ActionTD);
                 tbody.appendChild(tableRow);
@@ -108,6 +110,7 @@ function loadComments(){
             var obj = jQuery.parseJSON(data);
             tbody.innerHTML = "";
             var tableRow = document.createElement("TR");
+            tableRow.style.cursor = "default";
             tableRow.className = "d0";
             var titleTD = document.createElement('TD');
             titleTD.style = "width:17.5vw";
@@ -150,6 +153,7 @@ function loadComments(){
                 //ActionTD.style = "width:22.5vw";
                 var anchor = document.createElement('a');
                 anchor.innerHTML = "View";
+                anchor.style.cursor = "pointer";
                 anchor.addEventListener('click', function () {
                     $.cookie('ifSeries', false);
                     goViewComic(obj.COMMENTS[i].comic_id);
@@ -158,7 +162,7 @@ function loadComments(){
                 correct.type = "image";
                 correct.src = "./img/correct.png";
                 correct.height = "35";
-                correct.style = "margin-left:10px";
+                correct.style = "margin-left:10px;vertical-align:inherit;cursor:pointer";
                 correct.addEventListener('click', function () {
                     //goViewSeries(obj["TPALV"][i].seriesID);
                     passComment(obj.COMMENTS[i].comic_id,obj.COMMENTS[i].comment_number);
@@ -167,7 +171,7 @@ function loadComments(){
                 wrong.type = "image";
                 wrong.src = "./img/delete.png";
                 wrong.height = "35";
-                wrong.style = "margin-left:10px";
+                wrong.style = "margin-left:10px;vertical-align:inherit;cursor:pointer";
                 wrong.addEventListener('click', function () {
                     //goViewSeries(obj["TPALV"][i].seriesID);
                     denyComment(obj.COMMENTS[i].comic_id,obj.COMMENTS[i].comment_number);
