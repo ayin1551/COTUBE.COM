@@ -42,12 +42,12 @@ public class Notification {
         this.notification_id = notification_id;
     }
 
-    public Integer getNotifcation_type() {
+    public Integer getNotification_type() {
         return notification_type;
     }
 
-    public void setNotifcation_type(Integer notifcation_type) {
-        this.notification_type = notifcation_type;
+    public void setNotification_type(Integer notification_type) {
+        this.notification_type = notification_type;
     }
 
     public String getNotification() {
