@@ -132,6 +132,7 @@ public class ajaxSearchController{
         List<Integer>likes = new ArrayList<Integer>();
         List<Integer>views = new ArrayList<Integer>();
         List<Integer>IDs = new ArrayList<>();
+        List<Boolean>isSeries = new ArrayList<>();
         List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
         for (Comic c: comics){
             if((c.getStatus()==1||c.getStatus()==3) && c.getComic_type()==0){
@@ -143,17 +144,28 @@ public class ajaxSearchController{
                         authors.add(getAuthor(reg.getPanel_id()));
                         likes.add(getLikes(reg));
                         views.add(getViews(reg));
+                        if(reg.getSeries_id()==null){
+                            isSeries.add(false);
+                        }else{
+                            isSeries.add(true);
+                        }
                     }
                 }
             }
         }
+        // System.out.println(IDs);
+        // System.out.println(isSeries);
+
         List<searchPackage>result = new ArrayList<>();
         for (int i = 0;i < authors.size(); i++){
             System.out.println(authors.size());
             System.out.println(IDs.size());
-            searchPackage packed = new searchPackage(titles.get(i),picPath.get(i),authors.get(i),likes.get(i),views.get(i),IDs.get(i));
-                result.add(packed);
+            searchPackage packed = new searchPackage(titles.get(i),picPath.get(i),authors.get(i),likes.get(i),views.get(i),IDs.get(i),isSeries.get(i));
+            result.add(packed);
+            // System.out.println(packed.getisSeries());
         }
+        // System.out.println(result);
+        // System.out.println(result.toString());
         String sortMethod = request.getParameter("sorted");
         Comparator<searchPackage> compareByViews = (searchPackage o1, searchPackage o2) ->
                 Integer.compare(o1.getViews(), o2.getViews());
@@ -182,11 +194,19 @@ public class ajaxSearchController{
         }else{
             result = result.subList((pagenum-1)*15,pagenum*15);
         }
+        List<Boolean> ifSeries = new ArrayList<>();
+        for(int i=0;i<result.size();i++){
+            ifSeries.add(result.get(i).getisSeries());
+        }
         JSONObject go = new JSONObject();
+        for(int i=0;i<result.size();i++){
+            System.out.println(result.get(i).getComicID() + "\t" + result.get(i).getisSeries());
+        }
         go.put("TPALV",result);
+        go.put("isSeries",ifSeries);
         go.put("pagenumber",pagenum);
         go.put("totalpage",Math.ceil(count/15.0));
-        //System.out.println(go.toString());
+        // System.out.println(go.toString());
         return go.toString();
     }
     private String getAuthor(Integer id){
