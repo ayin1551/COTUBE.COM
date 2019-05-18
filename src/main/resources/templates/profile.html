@@ -252,6 +252,12 @@
                                 img.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
                                 });
+                            }else{
+                                if(comics.comicGame[j]){
+                                    img.title = "Game in process";
+                                }else{
+                                    img.title = "Need to publish";
+                                }
                             }
                         }
                         
@@ -435,6 +441,12 @@
                                 img.addEventListener('click', function() {
                                     comicRedirect(comics.comicId[j],comics.comicSeries[j]);
                                 });
+                            }else{
+                                if(comics.comicGame[j]){
+                                    img.title = "Game in process";
+                                }else{
+                                    img.title = "Need to publish";
+                                }
                             }
                         }
                         
@@ -476,6 +488,8 @@
                                 img2.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
                                 });
+                            }else{
+                                img2.title = "Game in process";
                             }
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
@@ -487,6 +501,8 @@
                                 span.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
                                 });
+                            }else{
+                                span.title = "Game in process";
                             }
                         }else{
                             var span = document.createElement('span');
