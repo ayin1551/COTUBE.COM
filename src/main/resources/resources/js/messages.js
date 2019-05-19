@@ -36,10 +36,20 @@ function loadTable(){
                 var anchor = document.createElement('a');
                 anchor.innerHTML = "Go to";
                 anchor.addEventListener('click', function () {
+
                     if(obj.MESSAGES[i].notification_type == 1 || obj.MESSAGES[i].notification_type == 3) {
                         goViewComic(obj.MESSAGES[i].link)
                     }
                     else if (obj.MESSAGES[i].notification_type == 6){
+                    if (obj.MESSAGES[i].notification_type == 3){
+                        var type = getType(obj.MESSAGES[i].link);
+                        if (type == 1){
+                            goViewGameComic(obj.MESSAGES[i].link);
+                        }
+                        else
+                            goViewComic(obj.MESSAGES[i].link);
+                    }
+                    if (obj.MESSAGES[i].notification_type == 6){
                         var splitted = obj.MESSAGES[i].link.split(" ");
                         var one = splitted[0];
                         var lastChar = obj.MESSAGES[i].link[obj.MESSAGES[i].link.length -1];
@@ -55,6 +65,7 @@ function loadTable(){
 
                 TABLEROW.appendChild(deleteTD);
                 if (obj.MESSAGES[i].notification_type > 5 || obj) {
+                if (obj.MESSAGES[i].notification_type > 5 || obj.MESSAGES[i].notification_type == 3) {
                     TABLEROW.appendChild(anchor);
                 }
                 tbody.appendChild(TABLEROW);
@@ -72,4 +83,18 @@ function deleteComment(id){
             document.location.reload();
         }
     });
+}
+
+function getType(id){
+    var type;
+    $.ajax({
+        url: "message.html/getType",
+        type: "post",
+        data: {id: id},
+        async: false,
+        success: function (data) {
+            type = data;
+        }
+    });
+    return type;
 }

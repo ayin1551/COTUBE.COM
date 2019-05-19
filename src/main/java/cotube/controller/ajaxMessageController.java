@@ -1,8 +1,10 @@
 package cotube.controller;
 
 import cotube.domain.Account;
+import cotube.domain.Comic;
 import cotube.domain.Notification;
 import cotube.services.AccountService;
+import cotube.services.ComicService;
 import cotube.services.NotificationService;
 import org.aspectj.weaver.ast.Not;
 import org.json.JSONObject;
@@ -22,6 +24,12 @@ public class ajaxMessageController{
     @Autowired
     public void setNotificationService(NotificationService notificationService) {
         this.notificationService = notificationService;
+    }
+
+    private ComicService comicService;
+    @Autowired
+    public void setComicService(ComicService comicService) {
+        this.comicService = comicService;
     }
 
 
@@ -63,6 +71,17 @@ public class ajaxMessageController{
         this.notificationService.deleteNotification(delete);
         System.out.println("a");
         return true;
+    }
+
+    @RequestMapping(value="/getType",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getType(HttpServletRequest request){
+        //Username returns "" so we will use all of them until we can solve this
+
+        String str = request.getParameter("id");
+        int id = Integer.parseInt(str);
+        Comic comic = comicService.getComicByComic_Id(id);
+        return comic.getComic_type();
     }
 
 }

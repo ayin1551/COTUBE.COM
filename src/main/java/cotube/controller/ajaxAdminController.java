@@ -56,22 +56,28 @@ public class ajaxAdminController {
         List<String>authors = new ArrayList<>();
         List<Date> dates = new ArrayList<>();
         List<Integer>IDS = new ArrayList<>();
+        List<Integer>ctypes = new ArrayList<>();
         List<comicCensorPackage> result = new ArrayList<>();
-        List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
         for (Comic c: all){
             if (c.getStatus() == 3) {
                 titles.add(c.getTitle());
                 dates.add(c.getDate_published());
                 IDS.add(c.getComic_id());
-                for (RegularComic reg: regularComics){
-                    if (reg.getRegular_comic_id() == c.getComic_id()){
-                        authors.add(panelService.getPanelFromPanelId(reg.getPanel_id()).getAuthor());
-                    }
+                ctypes.add(c.getComic_type());
+                if (c.getComic_type() == 0) {
+                    authors.add(panelService.getPanelFromPanelId(regularComicService.getRegularComicByRegular_Comic_Id(c.getComic_id()).getPanel_id()).getAuthor());
+                }
+                else {
+                    GameComic gc = gameComicService.getGameComicByGameComicId(c.getComic_id());
+                    authors.add(panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor() + " " +
+                            panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor() + " " +
+                            panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor() + " " +
+                            panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor() + " ");
                 }
             }
         }
         for (int i = 0;i<titles.size();i++){
-            comicCensorPackage add = new comicCensorPackage(IDS.get(i),titles.get(i),dates.get(i));
+            comicCensorPackage add = new comicCensorPackage(IDS.get(i),titles.get(i),dates.get(i), ctypes.get(i));
             result.add(add);
         }
         JSONObject go = new JSONObject();
