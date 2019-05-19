@@ -789,6 +789,7 @@ public class ajaxProfileController{
         String game_Id = request.getParameter("gameId");
         Integer gameId = Integer.parseInt(game_Id);
         String username = request.getParameter("user");
+        System.out.println(username+"!!!!!!!!!!!!");
         String position = request.getParameter("pos");
         Integer pos = Integer.parseInt(position);
         GameComic gc = gameComicService.getGameComicByGameComicId(gameId);
@@ -874,9 +875,10 @@ public class ajaxProfileController{
                 panelService.deletePanel(panel);
                 // TODO: delete message
                 // gameId, pos = panelNo, username
+                System.out.println("message:" + gameId + "\t" + username + "\t" + pos);
                 List<Notification>allNotes = this.notificationService.getAllNotifications();
                 for(Notification x: allNotes){
-                    if(x.getUsername().equals(username) && x.getNotification_type() == 6){
+                    if(x.getLink().matches(gameId + " (.*)" + pos) && x.getNotification_type() == 6){
                         this.notificationService.deleteNotification(x);
                     }
                 }
