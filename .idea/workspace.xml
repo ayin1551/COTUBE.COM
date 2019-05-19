@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70805034-98b8-4631-afef-b6602cb7871b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/resources/js/comicSort.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/resources/js/comicSort.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -65,11 +65,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/resources/js/comicSort.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="246">
-              <caret line="676" column="52" lean-forward="true" selection-start-line="676" selection-start-column="52" selection-end-line="676" selection-end-column="52" />
+              <caret line="676" column="52" selection-start-line="676" selection-start-column="52" selection-end-line="676" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="878" column="88" selection-start-line="878" selection-start-column="88" selection-end-line="878" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -78,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1329">
-              <caret line="356" column="1" lean-forward="true" selection-start-line="356" selection-start-column="1" selection-end-line="356" selection-end-column="1" />
+              <caret line="356" column="1" selection-start-line="356" selection-start-column="1" selection-end-line="356" selection-end-column="1" />
               <folding>
                 <element signature="e#970#971#0" expanded="true" />
                 <element signature="e#1020#1021#0" expanded="true" />
@@ -128,7 +137,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/cotube/domain/GameComic.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -137,16 +146,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxViewGameComicsController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="106">
-              <caret line="62" column="42" lean-forward="true" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/resources/js/adminTableLoading.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2941">
-              <caret line="176" column="51" selection-start-line="176" selection-start-column="51" selection-end-line="176" selection-end-column="51" />
+              <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -245,7 +245,6 @@
         <option value="$PROJECT_DIR$/src/main/java/cotube/services/MessageServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cotube/services/ComicServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/message.html" />
-        <option value="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxViewComicsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSeriesController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cotube/services/AccountService.java" />
@@ -270,6 +269,7 @@
         <option value="$PROJECT_DIR$/src/main/resources/resources/js/keywordComicsView.js" />
         <option value="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/resources/js/comicSort.js" />
+        <option value="$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java" />
       </list>
     </option>
   </component>
@@ -418,7 +418,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558301561928" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558303107581" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -468,18 +468,18 @@
       <workItem from="1557797837796" duration="56000" />
       <workItem from="1558118047110" duration="1727000" />
       <workItem from="1558217530268" duration="6987000" />
-      <workItem from="1558289977764" duration="8855000" />
+      <workItem from="1558289977764" duration="10347000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121553000" />
+    <option name="totallyTimeSpent" value="123045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2442953" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2442953" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -489,7 +489,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.41076487" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.41076487" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.40285715" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -557,13 +557,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cotube/services/GameComicServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/repositories/GameComicRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -886,14 +879,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxViewGameComicsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="106">
-          <caret line="62" column="42" lean-forward="true" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/domain/GameComic.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -919,7 +912,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxSearchController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1329">
-          <caret line="356" column="1" lean-forward="true" selection-start-line="356" selection-start-column="1" selection-end-line="356" selection-end-column="1" />
+          <caret line="356" column="1" selection-start-line="356" selection-start-column="1" selection-end-line="356" selection-end-column="1" />
           <folding>
             <element signature="e#970#971#0" expanded="true" />
             <element signature="e#1020#1021#0" expanded="true" />
@@ -951,7 +944,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/resources/js/comicSort.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
-          <caret line="676" column="52" lean-forward="true" selection-start-line="676" selection-start-column="52" selection-end-line="676" selection-end-column="52" />
+          <caret line="676" column="52" selection-start-line="676" selection-start-column="52" selection-end-line="676" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cotube/controller/ajaxProfileController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="878" column="88" selection-start-line="878" selection-start-column="88" selection-end-line="878" selection-end-column="88" />
         </state>
       </provider>
     </entry>

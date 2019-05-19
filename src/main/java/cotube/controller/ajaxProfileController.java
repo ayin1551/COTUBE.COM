@@ -810,8 +810,18 @@ public class ajaxProfileController{
                     panel.setAuthor(username);
                     panelService.addPanel(panel);
                 }
+                if(oldUsername.equals(newUsername) == false){
+                    List<Notification> allNotes = this.notificationService.getAllNotifications();
+                    for(Notification n: allNotes){
+                        if(n.getUsername().equals(oldUsername)){
+                            n.setUsername(newUsername);
+                            this.notificationService.addNotification(n);
+                        }
+                    }
+                }
                 // TODO: already create panel, need to delete old message, and add new message
                 // gameId, pos = panelNo, oldUsername, newUsername
+
             }else{
                 Panel addpanel = new Panel(username, null, null, new Date());
                 panelService.addPanel(addpanel);
@@ -827,6 +837,14 @@ public class ajaxProfileController{
                 gameComicService.addGameComic(gc);
                 // TODO: new panel, add new message
                 // gameId, pos = panelNo, username
+                String inviter = this.panelService.getPanelFromPanelId(this.gameComicService.getGameComicByGameComicId(gameId).getPanel1_id()).getAuthor();
+                Notification send = new Notification();
+                send.setNotification_type(6);
+                send.setLink(gameId + " " + pos);
+                send.setUsername(username);
+                send.setNotification(inviter + "has invited you to play in the comicGame with id " + gameId);
+                send.setNotifcation_time(new Date());
+                this.notificationService.addNotification(send);
             }
         }else{
             Integer panelId = -1;
@@ -856,6 +874,12 @@ public class ajaxProfileController{
                 panelService.deletePanel(panel);
                 // TODO: delete message
                 // gameId, pos = panelNo, username
+                List<Notification>allNotes = this.notificationService.getAllNotifications();
+                for(Notification x: allNotes){
+                    if(x.getUsername().equals(username) && x.getNotification_type() == 6){
+                        this.notificationService.deleteNotification(x);
+                    }
+                }
             }
             gameComicService.addGameComic(gc);
         }
