@@ -803,10 +803,15 @@ public class ajaxProfileController{
             }
             if(panelId!=-1){
                 Panel panel = panelService.getPanelFromPanelId(panelId);
+                
+                String oldUsername = panel.getAuthor();
+                String newUsername = username;
                 if(!panel.getAuthor().equals(username)){
                     panel.setAuthor(username);
                     panelService.addPanel(panel);
                 }
+                // TODO: already create panel, need to delete old message, and add new message
+                // gameId, pos = panelNo, oldUsername, newUsername
             }else{
                 Panel addpanel = new Panel(username, null, null, new Date());
                 panelService.addPanel(addpanel);
@@ -820,6 +825,8 @@ public class ajaxProfileController{
                     gc.setPanel4_id(addpanel.getPanel_id());
                 }
                 gameComicService.addGameComic(gc);
+                // TODO: new panel, add new message
+                // gameId, pos = panelNo, username
             }
         }else{
             Integer panelId = -1;
@@ -847,6 +854,8 @@ public class ajaxProfileController{
             if(panelId!=-1){
                 Panel panel = panelService.getPanelFromPanelId(panelId);
                 panelService.deletePanel(panel);
+                // TODO: delete message
+                // gameId, pos = panelNo, username
             }
             gameComicService.addGameComic(gc);
         }

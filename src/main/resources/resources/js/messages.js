@@ -37,10 +37,7 @@ function loadTable(){
                 anchor.innerHTML = "Go to";
                 anchor.addEventListener('click', function () {
 
-                    if(obj.MESSAGES[i].notification_type == 1 || obj.MESSAGES[i].notification_type == 3) {
-                        goViewComic(obj.MESSAGES[i].link)
-                    }
-                    else if (obj.MESSAGES[i].notification_type == 6){
+                    
                     if (obj.MESSAGES[i].notification_type == 3){
                         var type = getType(obj.MESSAGES[i].link);
                         if (type == 1){
@@ -64,7 +61,6 @@ function loadTable(){
                 TABLEROW.appendChild(TD2);
 
                 TABLEROW.appendChild(deleteTD);
-                if (obj.MESSAGES[i].notification_type > 5 || obj) {
                 if (obj.MESSAGES[i].notification_type > 5 || obj.MESSAGES[i].notification_type == 3) {
                     TABLEROW.appendChild(anchor);
                 }
