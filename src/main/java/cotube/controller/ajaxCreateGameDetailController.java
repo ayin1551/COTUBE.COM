@@ -247,13 +247,14 @@ public class ajaxCreateGameDetailController {
             }
         }
         if (gc.getPanel1_id() != null && gc.getPanel2_id() != null && gc.getPanel3_id() != null && gc.getPanel4_id() != null) {
-            comic.setStatus(3);
-            comicService.addComic(comic);
             Panel panel1 = panelService.getPanelFromPanelId(gc.getPanel1_id());
             Panel panel2 = panelService.getPanelFromPanelId(gc.getPanel2_id());
             Panel panel3 = panelService.getPanelFromPanelId(gc.getPanel3_id());
             Panel panel4 = panelService.getPanelFromPanelId(gc.getPanel4_id());
             if (panel1.getCanvas_path() != null && panel2.getCanvas_path() != null && panel3.getCanvas_path() != null && panel4.getCanvas_path() != null) {
+                comic.setStatus(3);
+                comicService.addComic(comic);
+
                 Notification note = new Notification();
                 note.setNotification_type(7);
                 String notification = "Game comic with title " + comic.getTitle() + " is finished";
