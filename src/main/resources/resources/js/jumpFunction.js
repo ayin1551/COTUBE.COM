@@ -65,6 +65,11 @@ function goViewComic(id){
     document.location.href="./viewComics.html";
 }
 
+function goViewGameComic(id){
+    $.cookie('profileUsername', $.cookie('username'));
+    $.cookie('comicId',id);
+    document.location.href="./viewGameComics.html";
+}
 function goViewSeries(id){
     $.cookie('seriesId',id);
     document.location.href="./viewSeries.html";
@@ -78,4 +83,9 @@ function logout(){
     $.cookie('username', null);
     $.cookie('role',"guest");
     document.location.href="./index.html";
+}
+function goCreateComic(id,panel){
+    $.cookie('comicId', id);
+    $.cookie('panelNo',panel);
+    document.location.href = "./createGame.html";
 }

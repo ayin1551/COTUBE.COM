@@ -131,6 +131,7 @@ public class ajaxAdminController {
         note.setNotification(notification);
         note.setUsername(username);
         note.setNotifcation_time(now);
+        note.setLink(Integer.toString(change.getComic_id()));
         this.notificationService.addNotification(note);
         return true;
     }

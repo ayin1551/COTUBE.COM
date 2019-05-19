@@ -40,7 +40,13 @@ function loadComics(){
                 var anchor = document.createElement('a');
                 anchor.innerHTML = "View";
                 anchor.addEventListener('click', function () {
-                    goViewComic(obj.COMICS[i].id);
+                    if (obj.COMICS[i].comic_type == 0){
+                        goViewComic(obj.COMICS[i].id);
+                    }
+                    else{
+                        goViewGameComic(obj.COMICS[i].id);
+                    }
+
                 });
                 var correct = document.createElement('input');
                 correct.type = "image";

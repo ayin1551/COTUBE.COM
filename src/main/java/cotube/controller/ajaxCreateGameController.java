@@ -498,7 +498,7 @@ public class ajaxCreateGameController {
             note.setNotification(notification);
             note.setUsername(user2);
             note.setNotifcation_time(now);
-            note.setLink(Integer.toString(gameId));
+            note.setLink(Integer.toString(gameId) + "  2");
             this.notificationService.addNotification(note);
         }
         if (this.accountService.usernameExist(user3) == true){
@@ -509,7 +509,7 @@ public class ajaxCreateGameController {
             note.setNotification(notification);
             note.setUsername(user3);
             note.setNotifcation_time(now);
-            note.setLink(Integer.toString(gameId));
+            note.setLink(Integer.toString(gameId) + "  3");
             this.notificationService.addNotification(note);
 
         }
@@ -521,7 +521,7 @@ public class ajaxCreateGameController {
             note.setNotification(notification);
             note.setUsername(user4);
             note.setNotifcation_time(now);
-            note.setLink(Integer.toString(gameId));
+            note.setLink(Integer.toString(gameId)+ "  4");
             this.notificationService.addNotification(note);
         }
 
