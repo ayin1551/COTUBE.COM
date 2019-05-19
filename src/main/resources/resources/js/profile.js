@@ -165,7 +165,26 @@ function comicRedirect(id, ifSeries){
 
 function editRedirect(id){
     $.cookie("comicId", id);
-    document.location.href = "./editComic.html";
+    if(ifExist()){
+        document.location.href = "./editComic.html";
+    }else{
+        $.cookie('profileUsername', $.cookie('username'));
+        document.location.href = "./profile.html";
+    }
+}
+
+function ifExist(){
+    var obj;
+    $.ajax({
+      url: "viewComics.html/comicExist",
+      type: "post",
+      async: false,
+      data: {comicId:$.cookie('comicId')},
+      success: function (data) {
+        obj = data;
+      }
+    });
+    return obj;
 }
 
 function deleteComic(id){
@@ -178,6 +197,7 @@ function deleteComic(id){
 
         }
     });
+    $.cookie('profileUsername', $.cookie('username'));
     document.location.href = "./profile.html";
 }
 
@@ -266,6 +286,7 @@ function publicGameComic(id){
         success: function(data){
         }
     });
+    $.cookie('profileUsername', $.cookie('username'));
     document.location.href = "./profile.html";
 }
 

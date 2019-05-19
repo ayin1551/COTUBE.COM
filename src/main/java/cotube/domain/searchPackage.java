@@ -8,14 +8,17 @@ public class searchPackage{
     int likes;
     int views;
     int comicID;
-    public searchPackage(String title,String path,String author,int likes,int views,int comicID){
+    Boolean isSeries;
+    public searchPackage(String title,String path,String author,int likes,int views,int comicID, Boolean isSeries){
         this.title = title;
         this.author = author;
         this.picPath = path;
         this.likes = likes;
         this.views = views;
         this.comicID = comicID;
+        this.isSeries = isSeries;
     }
+    
     public int getComicID(){
         return comicID;
     }
@@ -34,7 +37,12 @@ public class searchPackage{
     public String getAuthor() {
         return author;
     }
+
     public String getPicPath(){
         return picPath;
+    }
+
+    public Boolean getisSeries(){
+        return isSeries;
     }
 }

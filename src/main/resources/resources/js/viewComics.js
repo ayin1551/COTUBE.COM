@@ -1,3 +1,33 @@
+function ifExist(){
+  $.ajax({
+    url: "viewComics.html/comicExist",
+    type: "post",
+    async: false,
+    data: {comicId:$.cookie('comicId')},
+    success: function (data) {
+      if(!data){
+        alert("This comic does not exist");
+        gohome();
+      }
+    }
+});
+}
+
+function ifExistAdmin(){
+  $.ajax({
+    url: "viewComics.html/comicExistAdmin",
+    type: "post",
+    async: false,
+    data: {comicId:$.cookie('comicId')},
+    success: function (data) {
+      if(!data){
+        alert("This comic does not exist");
+        gohome();
+      }
+    }
+});
+}
+
 function comicTitle(){
   var title;
   var comicid = $("input#comicid").val();
@@ -185,6 +215,7 @@ function deleteComic(){
 
       }
   });
+  $.cookie("profileUsername",$.cookie("username"));
   document.location.href = "./profile.html";
 }
 

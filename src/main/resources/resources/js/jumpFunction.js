@@ -61,7 +61,7 @@ function goProfile(){
 function goViewComic(id){
     $.cookie('profileUsername', $.cookie('username'));
     $.cookie('comicId',id);
-    $.cookie('ifSeries', false);
+    // $.cookie('ifSeries', false);
     document.location.href="./viewComics.html";
 }
 

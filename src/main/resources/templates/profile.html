@@ -32,13 +32,13 @@
             </div>
 
             <div class = "regbar-right" style = "margin-top:7px;">
-                <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
-                <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
-                <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
-                <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px"onclick="goProfile();" >
-                <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
-                <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
-                <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+                <input type="image" src = "../img/create.png" title="Create your comic!" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
+                <input type="image" src = "../img/home.png" title="Home page" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+                <input type="image" src = "../img/message.png" title="Message page" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
+                <input type="image" src = "../img/profile.png" title="Check your profile!" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
+                <input type="image" src = "../img/setting.png" title="Setting page" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+                <input type="image" src = "../img/sign-in.png" title="Log in" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+                <input type="image" src = "../img/sign-out.png" title="Sign out" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
             </div>
 
 
@@ -237,21 +237,27 @@
                         tr.appendChild(td);
                         var img = document.createElement('img');
                         td.appendChild(img);
-                        img.src = comics.comicThumbnail[j];
+                        img.src = comics.comicThumbnail[j]==null?"./img/white.png":comics.comicThumbnail[j];
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
-                        if(!comics.comicGame[j]){
+                        if(!comics.comicGame[j] && comics.comicClick[j]){
                             img.style.cursor = "pointer";
                             img.addEventListener('click', function() {
                                 comicRedirect(comics.comicId[j],comics.comicSeries[j]);
                             });
                         }else{
-                            if(comics.comicGamePublished[j]){
+                            if(comics.comicGamePublished[j] && comics.comicClick[j]){
                                 img.style.cursor = "pointer";
                                 img.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
                                 });
+                            }else{
+                                if(comics.comicGame[j]){
+                                    img.title = "Game in process";
+                                }else{
+                                    img.title = "Need to publish";
+                                }
                             }
                         }
                         
@@ -274,10 +280,12 @@
                             span.appendChild(t);
                             td.appendChild(span);
                             span.style.fontSize = "20px";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicRedirect(comics.comicId[j],comics.comicSeries[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                                });
+                            }
                         }else if(comics.comicGame[j]){
                             var img2 = document.createElement('img');
                             td.appendChild(img2);
@@ -297,7 +305,7 @@
                             span.appendChild(t);
                             td.appendChild(span);
                             span.style.fontSize = "20px";
-                            if(comics.comicGamePublished[j]){
+                            if(comics.comicGamePublished[j] && comics.comicClick[j]){
                                 span.style.cursor = "pointer";
                                 span.addEventListener('click', function() {
                                     comicGameRedirect(comics.comicId[j]);
@@ -310,10 +318,12 @@
                             td.appendChild(span);
                             span.style.fontSize = "20px";
                             span.style.marginLeft = "2.5vw";
-                            span.style.cursor = "pointer";
-                            span.addEventListener('click', function() {
-                                comicRedirect(comics.comicId[j],comics.comicSeries[j]);
-                            });
+                            if(comics.comicClick[j]){
+                                span.style.cursor = "pointer";
+                                span.addEventListener('click', function() {
+                                    comicRedirect(comics.comicId[j],comics.comicSeries[j]);
+                                });
+                            }
                         }
                         
                         if(!comics.comicGame[j]){
@@ -416,7 +426,7 @@
                         tr.appendChild(td);
                         var img = document.createElement('img');
                         td.appendChild(img);
-                        img.src = comics.comicThumbnail[j];
+                        img.src = comics.comicThumbnail[j]==null?"./img/white.png":comics.comicThumbnail[j];
                         img.style.width = "20vw";
                         img.style.height = "11.25vw";
                         img.style.marginLeft = "2.5vw";
@@ -455,6 +465,7 @@
                             span.addEventListener('click', function() {
                                 comicRedirect(comics.comicId[j],comics.comicSeries[j]);
                             });
+                            
                         }else if(comics.comicGame[j]){
                             var img2 = document.createElement('img');
                             td.appendChild(img2);
@@ -467,6 +478,7 @@
                             img2.addEventListener('click', function() {
                                 comicGameRedirect(comics.comicId[j]);
                             });
+                           
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
@@ -476,6 +488,7 @@
                             span.addEventListener('click', function() {
                                 comicGameRedirect(comics.comicId[j]);
                             });
+
                         }else{
                             var span = document.createElement('span');
                             var t = document.createTextNode(comics.comicName[j]);
@@ -487,6 +500,7 @@
                             span.addEventListener('click', function() {
                                 comicGameRedirect(comics.comicId[j]);
                             });
+                            
                         }
                         
                         var br2 = document.createElement('br');

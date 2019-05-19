@@ -19,10 +19,11 @@ function getAllComicsByTitle(){
                 tableheadBullet.innerHTML = "&#9679";
                 var tableheadTitle = document.createElement("TH");
                 tableheadTitle.addEventListener('click', function () {
+                    $.cookie('ifSeries',obj.isSeries[i]);
                     goViewComic(obj["TNA"][i].ID);
                 });
-                tableheadTitle.style.cursor = "pointer";
                 tableheadTitle.style = "width:25%";
+                tableheadTitle.style.cursor = "pointer";
                 tableheadTitle.innerHTML = title;
                 var tableheadAuthor = document.createElement("TH");
                 tableheadAuthor.addEventListener('click', function () {

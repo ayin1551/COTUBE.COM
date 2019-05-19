@@ -1,4 +1,5 @@
 package cotube.controller;
+
 import cotube.domain.*;
 import cotube.services.AccountService;
 import cotube.services.ComicService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -56,12 +59,19 @@ public class ajaxViewComicsByTitle {
                 }
             }
         }
+        Collections.sort(Filter, new Comparator<Comic>(){
+            public int compare(Comic o1, Comic o2){
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        });
+        List<Boolean> ifSeries = new ArrayList<>();
         for (Comic c : Filter) {
             titles.add(c.getTitle());
             ids.add(c.getComic_id());
             for (RegularComic reg : regularComics) {
                 if (reg.getRegular_comic_id() == c.getComic_id()) {
                     authors.add(getAuthor(reg));
+                    ifSeries.add(reg.getSeries_id()!=null);
                 }
             }
         }
@@ -75,6 +85,7 @@ public class ajaxViewComicsByTitle {
         }
         JSONObject go = new JSONObject();
         go.put("TNA",result);
+        go.put("isSeries", ifSeries);
         //System.out.println(go.toString());
         return go.toString();
     }

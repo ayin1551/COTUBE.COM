@@ -246,7 +246,7 @@ public class ajaxSeriesController{
         List<String> comicName = new ArrayList<String>();
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id() == seriesId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3)){
                 comicId.add(rc.getRegular_comic_id());
             }
         }
@@ -355,7 +355,7 @@ public class ajaxSeriesController{
                         int notification_type = 4;
                         String notification = "Favorite comic " + comic.getTitle() + " was deleted";
                         Notification note = new Notification();
-                        note.setNotifcation_type(notification_type);
+                        note.setNotification_type(notification_type);
                         note.setNotification(notification);
                         note.setUsername(fav.getFavoriter_username());
                         note.setNotifcation_time(now);
@@ -410,7 +410,7 @@ public class ajaxSeriesController{
                             int notification_type = 5;
                             String notification = "Series " + this.seriesService.getSeriesBySeriesId(followSeriesList.get(i).getSeries_id()) + " was deleted";
                             Notification note = new Notification();
-                            note.setNotifcation_type(notification_type);
+                            note.setNotification_type(notification_type);
                             note.setNotification(notification);
                             note.setUsername(followSeriesList.get(i).getFollower_username());
                             note.setNotifcation_time(now);
@@ -428,4 +428,18 @@ public class ajaxSeriesController{
 
             return false;
         }
+
+    @RequestMapping(value="/seriesExist",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean seriesExist(HttpServletRequest request){
+        Integer seriesId = Integer.parseInt(request.getParameter("seriesId"));
+        List<Series> series = seriesService.getAllSeries();
+        
+        for(Series s: series){
+            if(s.getSeries_id() == seriesId){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -66,6 +66,12 @@ public class ajaxSearchController{
         this.viewsService = viewService;
     }
 
+    private GameComicService gameService;
+    @Autowired
+    public void setViewsService(GameComicService gameService) {
+        this.gameService = gameService;
+    }
+
     @RequestMapping(value="/author",method = RequestMethod.POST)
     @ResponseBody
     public String searchByAuthor(HttpServletRequest request){
@@ -126,6 +132,7 @@ public class ajaxSearchController{
         List<Integer>likes = new ArrayList<Integer>();
         List<Integer>views = new ArrayList<Integer>();
         List<Integer>IDs = new ArrayList<>();
+        List<Boolean>isSeries = new ArrayList<>();
         List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
         for (Comic c: comics){
             if((c.getStatus()==1||c.getStatus()==3) && c.getComic_type()==0){
@@ -134,20 +141,31 @@ public class ajaxSearchController{
                 for (RegularComic reg: regularComics){
                     if (reg.getRegular_comic_id() == c.getComic_id()){
                         picPath.add(reg.getThumbnail_path());
-                        authors.add(getAuthor(reg));
+                        authors.add(getAuthor(reg.getPanel_id()));
                         likes.add(getLikes(reg));
                         views.add(getViews(reg));
+                        if(reg.getSeries_id()==null){
+                            isSeries.add(false);
+                        }else{
+                            isSeries.add(true);
+                        }
                     }
                 }
             }
         }
+        // System.out.println(IDs);
+        // System.out.println(isSeries);
+
         List<searchPackage>result = new ArrayList<>();
         for (int i = 0;i < authors.size(); i++){
             System.out.println(authors.size());
             System.out.println(IDs.size());
-            searchPackage packed = new searchPackage(titles.get(i),picPath.get(i),authors.get(i),likes.get(i),views.get(i),IDs.get(i));
-                result.add(packed);
+            searchPackage packed = new searchPackage(titles.get(i),picPath.get(i),authors.get(i),likes.get(i),views.get(i),IDs.get(i),isSeries.get(i));
+            result.add(packed);
+            // System.out.println(packed.getisSeries());
         }
+        // System.out.println(result);
+        // System.out.println(result.toString());
         String sortMethod = request.getParameter("sorted");
         Comparator<searchPackage> compareByViews = (searchPackage o1, searchPackage o2) ->
                 Integer.compare(o1.getViews(), o2.getViews());
@@ -176,21 +194,29 @@ public class ajaxSearchController{
         }else{
             result = result.subList((pagenum-1)*15,pagenum*15);
         }
+        List<Boolean> ifSeries = new ArrayList<>();
+        for(int i=0;i<result.size();i++){
+            ifSeries.add(result.get(i).getisSeries());
+        }
         JSONObject go = new JSONObject();
+        for(int i=0;i<result.size();i++){
+            System.out.println(result.get(i).getComicID() + "\t" + result.get(i).getisSeries());
+        }
         go.put("TPALV",result);
+        go.put("isSeries",ifSeries);
         go.put("pagenumber",pagenum);
         go.put("totalpage",Math.ceil(count/15.0));
-        //System.out.println(go.toString());
+        // System.out.println(go.toString());
         return go.toString();
     }
-    private String getAuthor(RegularComic reg){
-        List<Panel>panels = this.panelService.getAllPanels();
-        for (Panel p: panels){
-            if (reg.getRegular_comic_id() == p.getPanel_id()){
-                return p.getAuthor();
-            }
-        }
-        return "NO AUTHOR";
+    private String getAuthor(Integer id){
+        Panel panels = panelService.getPanelFromPanelId(id);
+        // for (Panel p: panels){
+        //     if (reg.getRegular_comic_id() == p.getPanel_id()){
+                return panels.getAuthor()==null?"NO AUTHOR":panels.getAuthor();
+        //     }
+        // }
+        // return "NO AUTHOR";
     }
     private int getLikes(RegularComic reg){
         List<Likes>likes = this.likeService.getAllLikes();
@@ -265,4 +291,52 @@ public class ajaxSearchController{
         return go.toString();
     }
 
+
+    @RequestMapping(value="/game",method = RequestMethod.POST)
+    @ResponseBody
+    public String searchByKeywordgame(HttpServletRequest request){
+        String keyword = request.getParameter("keyword");
+        String pagenum1 = request.getParameter("page");
+        System.out.println("game!!!!!!!!!!!!!!" + keyword + "\t" + pagenum1);
+        int pagenum = Integer.parseInt(pagenum1);
+        List<String>titles = new ArrayList<String>();
+        List<String>keywords = new ArrayList<String>();
+        List<String>path = new ArrayList<String>();
+        List<Integer>IDs = new ArrayList<>();
+        List<GameComic> gameComics = gameService.getAllGameComics();
+        for (GameComic gc: gameComics){
+            Comic comic = comicService.getComicByComic_Id(gc.getGame_comic_id());
+            if(comic.getStatus()==1||comic.getStatus()==3){
+                if(comic.getTitle().toLowerCase().contains(keyword.toLowerCase())||gc.getKeyword().toLowerCase().contains(keyword.toLowerCase())){
+                    titles.add(comic.getTitle());
+                    keywords.add(gc.getKeyword());
+                    IDs.add(comic.getComic_id());
+                    Panel panel = panelService.getPanelFromPanelId(gc.getPanel1_id());
+                    path.add(panel.getCanvas_path());
+                }
+            }
+        }
+        Integer count = path.size();
+        if(pagenum*15>path.size()){
+            System.out.print("-----------in if game---------");
+            path = path.subList((pagenum-1)*15,count);
+            keywords = keywords.subList((pagenum-1)*15,count);
+            IDs = IDs.subList((pagenum-1)*15,count);
+            titles = titles.subList((pagenum-1)*15,count);
+        }else{
+            path = path.subList((pagenum-1)*15,pagenum*15);
+            keywords = keywords.subList((pagenum-1)*15,pagenum*15);
+            IDs = IDs.subList((pagenum-1)*15,pagenum*15);
+            titles = titles.subList((pagenum-1)*15,pagenum*15);
+        }
+        JSONObject go = new JSONObject();
+        go.put("pagenumber",pagenum);
+        go.put("totalpage",Math.ceil(count/15.0));
+        go.put("titles",titles);
+        go.put("IDs", IDs);
+        go.put("keywords",keywords);
+        go.put("path",path);
+        //System.out.println(go.toString());
+        return go.toString();
+    }
 }

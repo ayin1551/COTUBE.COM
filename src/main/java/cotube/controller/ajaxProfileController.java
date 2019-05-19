@@ -432,6 +432,7 @@ public class ajaxProfileController{
         List<Boolean> comicGamePublic = new ArrayList<Boolean>();
         List<Integer> comicGamePanelNo = new ArrayList<Integer>();
         List<Boolean> comicGamePublished = new ArrayList<Boolean>();
+        List<Boolean> comicClick = new ArrayList<Boolean>();
 
         Integer comicType = 0;
 
@@ -471,6 +472,7 @@ public class ajaxProfileController{
             for(Comic c: comics){
                 if(c.getComic_id() == i){
                     comicName.add(c.getTitle());
+                    comicClick.add((c.getStatus()==1 || c.getStatus()==3)?true:false);
                     comicType = c.getComic_type();
                     break;
                 }
@@ -593,6 +595,7 @@ public class ajaxProfileController{
         result.put("comicGamePublic", comicGamePublic);
         result.put("comicGamePanelNo", comicGamePanelNo);
         result.put("comicGamePublished", comicGamePublished);
+        result.put("comicClick", comicClick);
         System.out.println(result.toString());
         return result.toString();
     }
@@ -705,7 +708,7 @@ public class ajaxProfileController{
                     int notification_type = 4;
                     String notification = "Favorite comic " + comic.getTitle() + " was deleted";
                     Notification note = new Notification();
-                    note.setNotifcation_type(notification_type);
+                    note.setNotification_type(notification_type);
                     note.setNotification(notification);
                     note.setUsername(fav.getFavoriter_username());
                     note.setNotifcation_time(now);

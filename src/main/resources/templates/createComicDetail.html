@@ -33,13 +33,13 @@
         </div>
 
         <div class = "regbar-right" style = "margin-top:7px;">
-            <input type="image" src = "../img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
-            <input type="image" src = "../img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
-            <input type="image" src = "../img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
-            <input type="image" src = "../img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
-            <input type="image" src = "../img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
-            <input type="image" src = "../img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
-            <input type="image" src = "../img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+            <input type="image" src = "../img/create.png" title="Create your comic!" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
+                <input type="image" src = "../img/home.png" title="Home page" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+                <input type="image" src = "../img/message.png" title="Message page" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
+                <input type="image" src = "../img/profile.png" title="Check your profile!" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
+                <input type="image" src = "../img/setting.png" title="Setting page" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+                <input type="image" src = "../img/sign-in.png" title="Log in" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+                <input type="image" src = "../img/sign-out.png" title="Sign out" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
         </div>
 
 
@@ -64,7 +64,9 @@
     if(cusername=="null" || cusername==undefined){
         document.location.href="./index.html";
     }
-
+    window.onbeforeunload = function(){
+        unloadCancel();
+    }
 
     if($.cookie('role')=="user"){
         document.getElementById("login").style.display = "none";
@@ -84,20 +86,22 @@
     </div>
 
 
-    <div id="saveInfo" style="width:43vw;height:auto;">
+    <div id="saveInfo" style="width:40vw;height:auto;">
         <table style="margin:auto; text-align: left">
             <tr>
                 <td style="padding: 20px 20px 30px 0px; font-size: 2.5vw"><input type="radio" id="rgl" name="kwO" value="regular" checked onclick="rgl()">regular comic<br></td>
                 <td style="padding: 20px 0px 30px 0px; font-size: 2.5vw"><input type="radio" id="srs" name="kwO" value="series" onclick="srs()">series comic<br></td>
             </tr>
         </table>
-        <div id = "th"  style="display: none;">
+        <div id = "th"  style="display: none;width:40vw">
             <table>
                 <tr>
                     <td align = "center">
-                        <img id = "newseriesthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                        <img id = "newseriesthumb" src = "" style = "margin-left:25px;margin-right:25px;width:15vw" >
                     </td>
                     <td align = "center">
+                        <button type="button" class = "submitButton" onclick="document.getElementById('file-inputs').click();">Upload Series Thumb</button>
+                        <input id="file-inputs" type="file" name="name2" oninput="uploadSrsThumb()" style="display: none;" />
                     </td>
                 </tr>
                 <tr>
@@ -109,9 +113,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <button type="button" class = "submitButton" onclick="document.getElementById('file-inputs').click();">Upload Series Thumb</button>
-                        <input id="file-inputs" type="file" name="name2" oninput="uploadSrsThumb()" style="display: none;" />
+                    <td colspan="2" align="center">
+                        <hr>
                     </td>
                 </tr>
             </table>
@@ -120,10 +123,10 @@
             <table>
                 <tr>
                     <td align = "center">
-                        <img id = "oldcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                        <img id = "oldcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;width:15vw" >
                     </td>
                     <td align = "center">
-                        <img id = "newcomicthumb" src = "" style = "margin-left:25px;margin-right:25px;" width = "60px" height = "50px">
+                        <img id = "newcomicthumb" src = "../img/empty.png" style = "margin-left:25px;margin-right:25px;width:15vw" >
                     </td>
                 </tr>
                 <tr>
@@ -135,9 +138,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2" align="center">
                         <button type="button" class = "submitButton" onclick="document.getElementById('file-input').click();">Upload Comic Thumb</button>
                         <input id="file-input" type="file" name="name" oninput="uploadCmcThumb()" style="display: none;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr>
                     </td>
                 </tr>
             </table>
@@ -151,7 +159,7 @@
 
 
         <div>
-            <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:42.1vw">
+            <table style="margin-right: 0.9vw; text-align: left; margin-top: 15px;width:40vw">
                 <tr>
                     <td style="text-align: right; padding-right: 5px"><label style="margin-bottom: 10px;font-size:1.5vw">Title:</label></td>
                     <td><input id="comicTitle" class="form-control" style="width: 100%; margin-bottom:10px; display: inline-block"/></td>
@@ -187,36 +195,38 @@
                 </tr>
             </table>
         </div>
-        <div id="alltags" style="display: inline-flex; width: 43vw; font-size: 18px; margin-right: 0.9vw; line-height: 100%;">
-            <table style="width:43vw">
-                <tr>
-                    <td>
-                        <div id="tag1" style="display: none" class="addUser">
-                            <label id="tag1word" ></label><label> </label>
-                            <span id="tag1close" class="someclose" style="opacity:0.8" onclick="deletetag1()">&#10006;</span>
-                        </div>
-                                </td><td>
-                        <div id="tag2" style="display: none" class="addUser">
-                            <label id="tag2word" ></label><label> </label>
-                            <span id="tag2close" class="someclose" style="opacity:0.8" onclick="deletetag2()">&#10006;</span>
-                        </div>
-                            </td><td>
-                        <div id="tag3" style="display: none" class="addUser">
-                            <label id="tag3word" ></label><label> </label>
-                            <span id="tag3close" class="someclose" style="opacity:0.8" onclick="deletetag3()">&#10006;</span>
-                        </div>
-                            </td><td>
-                        <div id="tag4" style="display: none" class="addUser">
-                            <label id="tag4word" ></label><label> </label>
-                            <span id="tag4close" class="someclose" style="opacity:0.8" onclick="deletetag4()">&#10006;</span>
-                        </div>
-                            </td><td>
-                        <div id="tag5" style="display: none" class="addUser">
-                            <label id="tag5word" ></label><label> </label>
-                            <span id="tag5close" class="someclose" style="opacity:0.8" onclick="deletetag5()">&#10006;</span>
-                        </div>
-                    </td>
-                </tr>
+        <div id="alltags" style="display: inline-flex; width: 40vw; font-size: 18px; margin-right: 0.9vw; line-height: 100%;">
+            <table style="width:40vw">
+                <tr><td>
+                    <div id="tag1" style="display: none" class="addUser">
+                        <label id="tag1word" ></label><label> </label>
+                        <span id="tag1close" class="someclose" style="opacity:0.8" onclick="deletetag1()">&#10006;</span>
+                    </div>
+                </td></tr>
+                <tr><td>
+                    <div id="tag2" style="display: none" class="addUser">
+                        <label id="tag2word" ></label><label> </label>
+                        <span id="tag2close" class="someclose" style="opacity:0.8" onclick="deletetag2()">&#10006;</span>
+                    </div>
+                </td></tr>
+                <tr><td>
+                    <div id="tag3" style="display: none" class="addUser">
+                        <label id="tag3word" ></label><label> </label>
+                        <span id="tag3close" class="someclose" style="opacity:0.8" onclick="deletetag3()">&#10006;</span>
+                    </div>
+                </td></tr>
+                <tr><td>
+                    <div id="tag4" style="display: none" class="addUser">
+                        <label id="tag4word" ></label><label> </label>
+                        <span id="tag4close" class="someclose" style="opacity:0.8" onclick="deletetag4()">&#10006;</span>
+                    </div>
+                </td></tr>
+                <tr><td>
+                    <div id="tag5" style="display: none" class="addUser">
+                        <label id="tag5word" ></label><label> </label>
+                        <span id="tag5close" class="someclose" style="opacity:0.8" onclick="deletetag5()">&#10006;</span>
+                    </div>
+                </td></tr>
             </table>
         </div>
 

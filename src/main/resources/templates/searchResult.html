@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Search Result Page</title>
-    <!-- TODO:
-            By author   -- Profile picture and followers                                                        (FINISHED)
-                        -- Onclick to go to the specific profile page(store the author's username to cookie)    (FINISHED)
-            By keyword  -- Default regular comics, can select series comics
-                        -- Sort by views, likes and name -->
 
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./css/style.css">
@@ -42,13 +37,13 @@
 
 
         <div class = "regbar-right" style = "margin-top:7px;">
-            <input type="image" src = "./img/create.png" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
-            <input type="image" src = "./img/home.png" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
-            <input type="image" src = "./img/message.png" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
-            <input type="image" src = "./img/profile.png" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
-            <input type="image" src = "./img/setting.png" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
-            <input type="image" src = "./img/sign-in.png" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
-            <input type="image" src = "./img/sign-out.png" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">
+            <input type="image" src = "../img/create.png" title="Create your comic!" id="create" style = "margin-right:3px;" width = "35px" height = "35px" onclick="goCreate();">
+            <input type="image" src = "../img/home.png" title="Home page" id="home" style = "margin-right:3px;" width = "35px" height = "35px" onclick="gohome();">
+            <input type="image" src = "../img/message.png" title="Message page" id="message" style = "margin-right:3px;"  height = "35px" onclick="goMessage();">
+            <input type="image" src = "../img/profile.png" title="Check your profile!" id="profile" style = "margin-right:3px;"  height = "35px" onclick="goProfile();">
+            <input type="image" src = "../img/setting.png" title="Setting page" id="setting" style = "margin-right:3px;"  height = "35px" onclick="gotosetting();">
+            <input type="image" src = "../img/sign-in.png" title="Log in" id="login" style = "margin-right:3px;" width = "35px" height = "35px" onclick="login();">
+            <input type="image" src = "../img/sign-out.png" title="Sign out" id="signout" style = "margin-right:3px;" width = "35px" height = "35px" onclick="logout();">  
         </div>
     </div>
 </div>
@@ -73,7 +68,7 @@
 
         <div id="series_regular" style="display:none; float:right; height:100%; font-size:20px; padding-top: 15px">
             <select class="sortBy" id="series_regular_view" name="sort_by" style="margin-right: 20px;" onchange ="showtable()">
-                <option value="regular">View Regular Comic</option>
+                <option value="regular" id="selectregular">View Regular Comic</option>
                 <option value="series" id = "selectseries">View Series Comic</option>
                 <option value="game" id = "selectgames">View Game Comic</option>
             </select>
