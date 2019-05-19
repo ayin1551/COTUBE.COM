@@ -19,6 +19,7 @@ function deleteFavoriteFolder(){
         success: function(data){
         }
     });
+    $.cookie('profileUsername', $.cookie('username'));
     document.location.href = "./profile.html";
 }
 
