@@ -24,7 +24,11 @@ public class ajaxSearchController{
     public void setFollowUserService(FollowUserService followUserService) {
         this.followUserService = followUserService;
     }
-
+    private FolderService folderService;
+    @Autowired
+    public void setFolderService(FolderService folderService){
+        this.folderService = folderService;
+    }
     private SeriesService seriesService;
     @Autowired
     public void setSeriesService(SeriesService seriesService) {
@@ -247,6 +251,7 @@ public class ajaxSearchController{
         System.out.println("!!!!!!!!!!!!!!" + keyword + "\t" + pagenum1);
         int pagenum = Integer.parseInt(pagenum1);
         List<String>titles = new ArrayList<String>();
+        List<String>authors = new ArrayList<String>();
         List<String>picPath = new ArrayList<String>();
         List<Integer>ID = new ArrayList<>();
         List<Integer>totalComics = new ArrayList<>();
@@ -256,6 +261,7 @@ public class ajaxSearchController{
                 titles.add(x.getSeries_name());
                 picPath.add(x.getSeries_thumbnail_path());
                 ID.add(x.getSeries_id());
+                authors.add(getAuthorbyFolderID(x.getFolder_id()));
             }
         }
         List<RegularComic>regComics = this.regularComicService.getAllRegularComics();
@@ -271,7 +277,7 @@ public class ajaxSearchController{
         }
         List<seriesSearchPackage>result = new ArrayList<seriesSearchPackage>();
         for(int i = 0;i<titles.size();i++){
-            seriesSearchPackage add = new seriesSearchPackage(titles.get(i),picPath.get(i),"user1",ID.get(i),totalComics.get(i));
+            seriesSearchPackage add = new seriesSearchPackage(titles.get(i),picPath.get(i),authors.get(i),ID.get(i),totalComics.get(i));
             result.add(add);
         }
         int count = result.size();
@@ -338,5 +344,14 @@ public class ajaxSearchController{
         go.put("path",path);
         //System.out.println(go.toString());
         return go.toString();
+    }
+    private String getAuthorbyFolderID(int id){
+        List<Folder>all = this.folderService.getAllFolders();
+        for(Folder f: all){
+            if(f.getFolder_id() == id){
+                return f.getUsername();
+            }
+        }
+        return "user1";
     }
 }

@@ -628,7 +628,15 @@ function seriesPage(page){
                         });
                         span_title.style.width = "11vw";
                         span_title.style.cursor = "pointer";
+
+                        var span_author = document.createElement('p');
+                        var t = document.createTextNode(obj["TPALV"][i+1].author);
+                        span_author.appendChild(t);
+                        span_author.addEventListener('click', function () {
+                            authorprofile(obj["TPALV"][i+1].author);
+                        });
                         td2.appendChild(span_title);
+                        td2.appendChild(span_author);
                         tr.appendChild(td1);
                         tr.appendChild(td2);
     
@@ -657,9 +665,17 @@ function seriesPage(page){
                         span_title.addEventListener('click', function () {
                             goViewSeries(obj["TPALV"][i + 2].seriesID);
                         });
+
                         span_title.style.width = "11vw";
                         span_title.style.cursor = "pointer";
+                        var span_author = document.createElement('p');
+                        var t = document.createTextNode(obj["TPALV"][i+2].author);
+                        span_author.appendChild(t);
+                        span_author.addEventListener('click', function () {
+                            authorprofile(obj["TPALV"][i+2].author);
+                        });
                         td2.appendChild(span_title);
+                        td2.appendChild(span_author);
                         tr.appendChild(td1);
                         tr.appendChild(td2);
                     }
