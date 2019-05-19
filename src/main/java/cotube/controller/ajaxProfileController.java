@@ -814,7 +814,7 @@ public class ajaxProfileController{
                 if(oldUsername.equals(newUsername) == false){
                     List<Notification> allNotes = this.notificationService.getAllNotifications();
                     for(Notification n: allNotes){
-                        if(n.getUsername().equals(oldUsername)){
+                        if(n.getUsername().equals(oldUsername)&&n.getLink().matches(gameId + " (.*)" + pos)){
                             n.setUsername(newUsername);
                             this.notificationService.addNotification(n);
                         }
@@ -843,7 +843,7 @@ public class ajaxProfileController{
                 send.setNotification_type(6);
                 send.setLink(gameId + " " + pos);
                 send.setUsername(username);
-                send.setNotification(inviter + "has invited you to play in the comicGame with id " + gameId);
+                send.setNotification(inviter + " has invited you to draw panel" + pos + " in the comicGame with id " + gameId);
                 send.setNotifcation_time(new Date());
                 this.notificationService.addNotification(send);
             }
