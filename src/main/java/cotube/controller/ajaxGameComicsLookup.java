@@ -1,5 +1,6 @@
 package cotube.controller;
 
+import cotube.services.*;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,23 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.security.Key;
+import java.util.*;
 
-import java.util.Date;
 import cotube.domain.Likes;
-import cotube.services.LikesService;
 import cotube.domain.*;
-import cotube.services.AccountService;
-import cotube.services.ComicService;
 import cotube.domain.Comments;
-import cotube.services.CommentsService;
-import cotube.services.PanelService;
-import cotube.services.GameComicService;
 import cotube.domain.GameComic;
 import cotube.domain.Views;
-import cotube.services.ViewsService;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.lang.Math;
 
 @Controller
 @RequestMapping(value="/viewGameComicsByKeyword.html")
@@ -34,6 +28,11 @@ public class ajaxGameComicsLookup{
     public void setGameComicService(GameComicService gameComicService) {
         this.gameComicService = gameComicService;
     }
+    private ComicService ComicService;
+    @Autowired
+    public void setComicService(ComicService ComicService) {
+        this.ComicService = ComicService;
+    }
 
     private PanelService panelService;
     @Autowired
@@ -41,44 +40,98 @@ public class ajaxGameComicsLookup{
         this.panelService = panelService;
     }
 
+
+    private KeywordService keywordService;
+    @Autowired
+    public void setKeywordService (KeywordService keywordService){
+        this.keywordService = keywordService;
+    }
+
+    private ArrayList<Keyword> getFive(List<Keyword> all){
+        Random random = new Random();
+        ArrayList<Keyword> result = new ArrayList<>();
+        ArrayList<Integer> randomIndex = new ArrayList<>();
+        int len = all.size();
+        while(result.size()<5){
+            int rand = random.nextInt(len-1);
+            if(randomIndex.contains(rand) == false){
+                randomIndex.add(rand);
+                result.add(all.get(rand));
+            }
+        }
+        return result;
+    }
+    private boolean isValid(GameComic x){
+        int game_id = x.getGame_comic_id();
+        Comic check = this.ComicService.getComicByComic_Id(game_id);
+        if(check.getStatus() == 1){
+            return true;
+        }
+        if(check.getStatus() == 3){
+            return true;
+        }
+        return false;
+    }
     @RequestMapping(value="/getGameComics",method = RequestMethod.POST)
     @ResponseBody
     public String getGameComics(HttpServletRequest request){
+        List<Keyword> allKW = this.keywordService.getAllKeywords();
+        List<Keyword> fiveKW = getFive(allKW);
+
         List<GameComic> all = this.gameComicService.getAllGameComics();
         // List allPanels = this.panelService.getAllPanels();
-        List<imgsrcANDtitle>details = new ArrayList<>();
-        for (GameComic x: all){
-            imgsrcANDtitle z = new imgsrcANDtitle();
-            z.comic_id = x.getGame_comic_id();
-            if (x.getPanel1_id() != null){
-                Panel p = this.panelService.getPanelFromPanelId(x.getPanel1_id());
-                z.panel1Src = p.getCanvas_path();
-                z.panel1Title = p.getTitle_word();
+        List<imgsrcANDtitle>details1 = new ArrayList<>();
+        List<imgsrcANDtitle>details2 = new ArrayList<>();
+        List<imgsrcANDtitle>details3 = new ArrayList<>();
+        List<imgsrcANDtitle>details4 = new ArrayList<>();
+        List<imgsrcANDtitle>details5 = new ArrayList<>();
+        for (int i = 0; i < 5 ;i++){
+            String keyword = fiveKW.get(i).getKeyword();
+            System.out.println(keyword);
+            for (GameComic x: all){
+                if (x.getKeyword().equals(keyword) && isValid(x)){
+                    imgsrcANDtitle z = new imgsrcANDtitle();
+                    z.comic_id = x.getGame_comic_id();
+                    if (x.getPanel1_id() != null){
+                        Panel p = this.panelService.getPanelFromPanelId(x.getPanel1_id());
+                        z.panel1Src = p.getCanvas_path();
+                        z.panel1Title = p.getTitle_word();
+                    }
+                    if (x.getPanel2_id() != null){
+                        Panel p = this.panelService.getPanelFromPanelId(x.getPanel2_id());
+                        z.panel2Title = p.getTitle_word();
+                    }
+                    if (x.getPanel3_id() != null){
+                        Panel p = this.panelService.getPanelFromPanelId(x.getPanel3_id());
+                        z.panel3Title = p.getTitle_word();
+                        System.out.println(z.panel3Title);
+                    }
+                    if (x.getPanel4_id() != null){
+                        Panel p = this.panelService.getPanelFromPanelId(x.getPanel4_id());
+                        z.panel4Title = p.getTitle_word();
+                    }
+                    switch (i){
+                        case 0: details1.add(z);
+                        break;
+                        case 1: details2.add(z);
+                        break;
+                        case 2: details3.add(z);
+                        break;
+                        case 3: details4.add(z);
+                        break;
+                        case 4: details5.add(z);
+                        break;
+                    }
+                }
             }
-            if (x.getPanel2_id() != null){
-                Panel p = this.panelService.getPanelFromPanelId(x.getPanel2_id());
-                z.panel2Src = p.getCanvas_path();
-                z.panel2Title = p.getTitle_word();
-            }
-            if (x.getPanel3_id() != null){
-                Panel p = this.panelService.getPanelFromPanelId(x.getPanel3_id());
-                z.panel3Src = p.getCanvas_path();
-                z.panel3Title = p.getTitle_word();
-                System.out.println(z.panel3Title);
-            }
-            if (x.getPanel4_id() != null){
-                Panel p = this.panelService.getPanelFromPanelId(x.getPanel4_id());
-                z.panel4Src = p.getCanvas_path();
-                z.panel4Title = p.getTitle_word();
-            }
-            details.add(z);
-        }
-        for (imgsrcANDtitle x: details){
-            System.out.println(x.panel2Title);
         }
         JSONObject result = new JSONObject();
-        result.put("Details",details);
-        result.put("COMICS",all);
+        result.put("D1",details1);
+        result.put("D2",details2);
+        result.put("D3",details3);
+        result.put("D4",details4);
+        result.put("D5",details5);
+        result.put("KW",fiveKW);
         return result.toString();
     }
 }

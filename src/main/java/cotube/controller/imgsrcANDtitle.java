@@ -3,11 +3,8 @@ package cotube.controller;
 public class imgsrcANDtitle {
     String panel1Src;
     String panel1Title;
-    String panel2Src;
     String panel2Title;
-    String panel3Src;
     String panel3Title;
-    String panel4Src;
     String panel4Title;
     int comic_id;
     public imgsrcANDtitle(){
@@ -21,15 +18,6 @@ public class imgsrcANDtitle {
     }
     public String getPanel1Src(){
         return panel1Src;
-    }
-    public String getPanel2Src(){
-        return panel2Src;
-    }
-    public String getPanel3Src(){
-        return panel3Src;
-    }
-    public String getPanel4Src(){
-        return panel4Src;
     }
     public String getPanel1Title(){
         return panel1Title;
@@ -45,15 +33,6 @@ public class imgsrcANDtitle {
     }
     public void setPanel1Src(String x){
         x = this.panel1Src;
-    }
-    public void setPanel2Src(String x){
-        x = panel2Src;
-    }
-    public void setPanel3Src(String x){
-        x = panel3Src;
-    }
-    public void setPanel4Src(String x){
-        x = panel4Src;
     }
     public void setPanel1Title(String x){
         x = panel1Title;

@@ -36,7 +36,10 @@ function loadTable(){
                 var anchor = document.createElement('a');
                 anchor.innerHTML = "Go to";
                 anchor.addEventListener('click', function () {
-                    if (obj.MESSAGES[i].notification_type == 6){
+                    if(obj.MESSAGES[i].notification_type == 1 || obj.MESSAGES[i].notification_type == 3) {
+                        goViewComic(obj.MESSAGES[i].link)
+                    }
+                    else if (obj.MESSAGES[i].notification_type == 6){
                         var splitted = obj.MESSAGES[i].link.split(" ");
                         var one = splitted[0];
                         var lastChar = obj.MESSAGES[i].link[obj.MESSAGES[i].link.length -1];
@@ -51,7 +54,7 @@ function loadTable(){
                 TABLEROW.appendChild(TD2);
 
                 TABLEROW.appendChild(deleteTD);
-                if (obj.MESSAGES[i].notifcation_type > 5) {
+                if (obj.MESSAGES[i].notification_type > 5 || obj) {
                     TABLEROW.appendChild(anchor);
                 }
                 tbody.appendChild(TABLEROW);
