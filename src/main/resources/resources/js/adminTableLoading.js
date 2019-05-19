@@ -27,7 +27,9 @@ function loadComics(){
             tableRow.appendChild(TimeTD);
             tableRow.appendChild(ActionTD);
             tbody.appendChild(tableRow);
+            console.log(obj.COMICS);
             for (let i = 0; i < obj.COMICS.length; i = i + 1) {
+                console.log("COMIC TYPE IS: " +obj.COMICS[i].ctype);
                 var tableRow = document.createElement("TR");
                 tableRow.className = "d0";
                 var titleTD = document.createElement('TD');
@@ -42,8 +44,16 @@ function loadComics(){
                 anchor.style.cursor = "pointer";
                 anchor.innerHTML = "View";
                 anchor.addEventListener('click', function () {
-                    $.cookie('ifSeries', false);
-                    goViewComic(obj.COMICS[i].id);
+                    if (obj.COMICS[i].ctype == 0){
+                        $.cookie('ifSeries', false);
+                        goViewComic(obj.COMICS[i].id);
+                    }
+                    else{
+                        goViewGameComic(obj.COMICS[i].id);
+                    }
+
+                    //$.cookie('ifSeries', false);
+                    //goViewComic(obj.COMICS[i].id);
                 });
                 var correct = document.createElement('input');
                 correct.type = "image";

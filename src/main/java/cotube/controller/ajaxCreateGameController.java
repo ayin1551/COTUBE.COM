@@ -489,16 +489,15 @@ public class ajaxCreateGameController {
         gc.setGamecomic_type(1);
 
         gameId = comic.getComic_id();
-        String notification = username + " has invited you to play in the comicGame with id " + gameId;
         if (this.accountService.usernameExist(user2) == true){
             Date now = new Date();
             int notification_type = 6;
             Notification note = new Notification();
             note.setNotification_type(notification_type);
-            note.setNotification(notification);
+            note.setNotification(username + " has invited you to draw panel 2 in the comicGame with id " + gameId);
             note.setUsername(user2);
             note.setNotifcation_time(now);
-            note.setLink(Integer.toString(gameId));
+            note.setLink(Integer.toString(gameId) + "  2");
             this.notificationService.addNotification(note);
         }
         if (this.accountService.usernameExist(user3) == true){
@@ -506,10 +505,10 @@ public class ajaxCreateGameController {
             int notification_type = 6;
             Notification note = new Notification();
             note.setNotification_type(notification_type);
-            note.setNotification(notification);
+            note.setNotification(username + " has invited you to draw panel 3 in the comicGame with id " + gameId);
             note.setUsername(user3);
             note.setNotifcation_time(now);
-            note.setLink(Integer.toString(gameId));
+            note.setLink(Integer.toString(gameId) + "  3");
             this.notificationService.addNotification(note);
 
         }
@@ -518,10 +517,10 @@ public class ajaxCreateGameController {
             int notification_type = 6;
             Notification note = new Notification();
             note.setNotification_type(notification_type);
-            note.setNotification(notification);
+            note.setNotification(username + " has invited you to draw panel 4 in the comicGame with id " + gameId);
             note.setUsername(user4);
             note.setNotifcation_time(now);
-            note.setLink(Integer.toString(gameId));
+            note.setLink(Integer.toString(gameId)+ "  4");
             this.notificationService.addNotification(note);
         }
 

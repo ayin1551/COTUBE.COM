@@ -168,6 +168,7 @@ function editRedirect(id){
     if(ifExist()){
         document.location.href = "./editComic.html";
     }else{
+        $.cookie('profileUsername', $.cookie('username'));
         document.location.href = "./profile.html";
     }
 }
@@ -196,6 +197,7 @@ function deleteComic(id){
 
         }
     });
+    $.cookie('profileUsername', $.cookie('username'));
     document.location.href = "./profile.html";
 }
 
@@ -284,6 +286,7 @@ function publicGameComic(id){
         success: function(data){
         }
     });
+    $.cookie('profileUsername', $.cookie('username'));
     document.location.href = "./profile.html";
 }
 

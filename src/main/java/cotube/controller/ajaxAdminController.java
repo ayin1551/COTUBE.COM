@@ -37,6 +37,11 @@ public class ajaxAdminController {
     private void setRegularComicService(RegularComicService regularComicService){
         this.regularComicService = regularComicService;
     }
+    private GameComicService gameComicService;
+    @Autowired
+    private void setGameComicService(GameComicService gameComicService){
+        this.gameComicService = gameComicService;
+    }
     private NotificationService notificationService;
     @Autowired
     private void setNotificationService(NotificationService notificationService){
@@ -51,22 +56,28 @@ public class ajaxAdminController {
         List<String>authors = new ArrayList<>();
         List<Date> dates = new ArrayList<>();
         List<Integer>IDS = new ArrayList<>();
+        List<Integer>ctypes = new ArrayList<>();
         List<comicCensorPackage> result = new ArrayList<>();
-        List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
         for (Comic c: all){
             if (c.getStatus() == 3) {
                 titles.add(c.getTitle());
                 dates.add(c.getDate_published());
                 IDS.add(c.getComic_id());
-                for (RegularComic reg: regularComics){
-                    if (reg.getRegular_comic_id() == c.getComic_id()){
-                        authors.add(panelService.getPanelFromPanelId(reg.getPanel_id()).getAuthor());
-                    }
+                ctypes.add(c.getComic_type());
+                if (c.getComic_type() == 0) {
+                    authors.add(panelService.getPanelFromPanelId(regularComicService.getRegularComicByRegular_Comic_Id(c.getComic_id()).getPanel_id()).getAuthor());
+                }
+                else {
+                    GameComic gc = gameComicService.getGameComicByGameComicId(c.getComic_id());
+                    authors.add(panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor() + " " +
+                            panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor() + " " +
+                            panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor() + " " +
+                            panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor() + " ");
                 }
             }
         }
         for (int i = 0;i<titles.size();i++){
-            comicCensorPackage add = new comicCensorPackage(IDS.get(i),titles.get(i),dates.get(i));
+            comicCensorPackage add = new comicCensorPackage(IDS.get(i),titles.get(i),dates.get(i), ctypes.get(i));
             result.add(add);
         }
         JSONObject go = new JSONObject();
@@ -86,22 +97,57 @@ public class ajaxAdminController {
         int notification_type = 3;
         String notification = "An admin has passed your comic: " + change.getTitle();
 
-        List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
-        String username = "";
-        for (RegularComic reg: regularComics){
-            if (reg.getRegular_comic_id() == change.getComic_id()){
-                username = getAuthor(reg);
-                System.out.println(username);
-            }
-        }
+        if (change.getComic_type() == 0) {
+            String username = panelService.getPanelFromPanelId(regularComicService.getRegularComicByRegular_Comic_Id(change.getComic_id()).getPanel_id()).getAuthor();
+            System.out.println("RUSERNA: " + username );
 
-        Notification note = new Notification();
-        note.setNotification_type(notification_type);
-        note.setNotification(notification);
-        note.setUsername(username);
-        note.setNotifcation_time(now);
-        note.setLink(Integer.toString(change.getComic_id()));
-        this.notificationService.addNotification(note);
+            Notification note = new Notification();
+            note.setNotification_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(username);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note);
+        }
+        else{
+            GameComic gc = gameComicService.getGameComicByGameComicId(change.getComic_id());
+            String author1 = panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor();
+            String author2 = panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor();
+            String author3 = panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor();
+            String author4 = panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor();
+
+            Notification note = new Notification();
+            note.setNotification_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(author1);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note);
+
+            Notification note2 = new Notification();
+            note2.setNotification_type(notification_type);
+            note2.setNotification(notification);
+            note2.setUsername(author2);
+            note2.setNotifcation_time(now);
+            note2.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note2);
+
+            Notification note3 = new Notification();
+            note3.setNotification_type(notification_type);
+            note3.setNotification(notification);
+            note3.setUsername(author3);
+            note3.setNotifcation_time(now);
+            note3.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note3);
+
+            Notification note4 = new Notification();
+            note4.setNotification_type(notification_type);
+            note4.setNotification(notification);
+            note4.setUsername(author4);
+            note4.setNotifcation_time(now);
+            note4.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note4);
+        }
         return true;
     }
 
@@ -118,21 +164,56 @@ public class ajaxAdminController {
         int notification_type = 1;
         String notification = "An admin has denied your comic: " + change.getTitle();
 
-        List<RegularComic>regularComics = this.regularComicService.getAllRegularComics();
-        String username = "";
-        for (RegularComic reg: regularComics){
-            if (reg.getRegular_comic_id() == change.getComic_id()){
-                username = getAuthor(reg);
-                System.out.println(username);
-            }
-        }
+        if (change.getComic_type() == 0) {
+            String username = panelService.getPanelFromPanelId(regularComicService.getRegularComicByRegular_Comic_Id(change.getComic_id()).getPanel_id()).getAuthor();
 
-        Notification note = new Notification();
-        note.setNotification_type(notification_type);
-        note.setNotification(notification);
-        note.setUsername(username);
-        note.setNotifcation_time(now);
-        this.notificationService.addNotification(note);
+            Notification note = new Notification();
+            note.setNotification_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(username);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note);
+        }
+        else{
+            GameComic gc = gameComicService.getGameComicByGameComicId(change.getComic_id());
+            String author1 = panelService.getPanelFromPanelId(gc.getPanel1_id()).getAuthor();
+            String author2 = panelService.getPanelFromPanelId(gc.getPanel2_id()).getAuthor();
+            String author3 = panelService.getPanelFromPanelId(gc.getPanel3_id()).getAuthor();
+            String author4 = panelService.getPanelFromPanelId(gc.getPanel4_id()).getAuthor();
+
+            Notification note = new Notification();
+            note.setNotification_type(notification_type);
+            note.setNotification(notification);
+            note.setUsername(author1);
+            note.setNotifcation_time(now);
+            note.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note);
+
+            Notification note2 = new Notification();
+            note2.setNotification_type(notification_type);
+            note2.setNotification(notification);
+            note2.setUsername(author2);
+            note2.setNotifcation_time(now);
+            note2.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note2);
+
+            Notification note3 = new Notification();
+            note3.setNotification_type(notification_type);
+            note3.setNotification(notification);
+            note3.setUsername(author3);
+            note3.setNotifcation_time(now);
+            note3.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note3);
+
+            Notification note4 = new Notification();
+            note4.setNotification_type(notification_type);
+            note4.setNotification(notification);
+            note4.setUsername(author4);
+            note4.setNotifcation_time(now);
+            note4.setLink(Integer.toString(change.getComic_id()));
+            this.notificationService.addNotification(note4);
+        }
         return true;
     }
 

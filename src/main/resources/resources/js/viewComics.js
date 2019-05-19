@@ -215,6 +215,7 @@ function deleteComic(){
 
       }
   });
+  $.cookie("profileUsername",$.cookie("username"));
   document.location.href = "./profile.html";
 }
 
