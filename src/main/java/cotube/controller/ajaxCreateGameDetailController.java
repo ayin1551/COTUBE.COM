@@ -230,6 +230,22 @@ public class ajaxCreateGameDetailController {
         comic.setTitle(panel1title + " " + panel2title + " " + panel3title + " " + panel4title);
         comicService.addComic(comic);
 
+        if (gc.getGamecomic_type() == 1){
+            if (panelNo != 1){
+                List<Notification> notifications = notificationService.getAllNotifications();
+                System.out.println("COND REACHED");
+                for(int i = 0; i < notifications.size(); i++){
+                    if (notifications.get(i).getUsername().equals(username) && notifications.get(i).getNotification_type() == 6){
+                        String[] arrOfStr = notifications.get(i).getLink().split(" ");
+                        Integer id = Integer.parseInt(arrOfStr[0]);
+                                if (id == gameId) {
+                                    System.out.println(notifications.get(i).getNotification());
+                                    notificationService.deleteNotification(notifications.get(i));
+                        }
+                    }
+                }
+            }
+        }
         if (gc.getPanel1_id() != null && gc.getPanel2_id() != null && gc.getPanel3_id() != null && gc.getPanel4_id() != null) {
             comic.setStatus(3);
             comicService.addComic(comic);
