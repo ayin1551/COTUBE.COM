@@ -333,6 +333,7 @@ public class ajaxSearchController{
         go.put("pagenumber",pagenum);
         go.put("totalpage",Math.ceil(count/15.0));
         go.put("titles",titles);
+        go.put("IDs", IDs);
         go.put("keywords",keywords);
         go.put("path",path);
         //System.out.println(go.toString());

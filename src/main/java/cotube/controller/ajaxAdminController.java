@@ -48,7 +48,7 @@ public class ajaxAdminController {
     public String getComicsToCensor(HttpServletRequest request){
         List<Comic> all = this.comicService.getAllComics();
         List<String>titles = new ArrayList<>();
-        //List<String>authors = new ArrayList<>();
+        List<String>authors = new ArrayList<>();
         List<Date> dates = new ArrayList<>();
         List<Integer>IDS = new ArrayList<>();
         List<comicCensorPackage> result = new ArrayList<>();
@@ -58,11 +58,11 @@ public class ajaxAdminController {
                 titles.add(c.getTitle());
                 dates.add(c.getDate_published());
                 IDS.add(c.getComic_id());
-                //for (RegularComic reg: regularComics){
-                    //if (reg.getRegular_comic_id() == c.getComic_id()){
-                        //authors.add(getAuthor(reg));
-                    //}
-                //}
+                for (RegularComic reg: regularComics){
+                    if (reg.getRegular_comic_id() == c.getComic_id()){
+                        authors.add(panelService.getPanelFromPanelId(reg.getPanel_id()).getAuthor());
+                    }
+                }
             }
         }
         for (int i = 0;i<titles.size();i++){
@@ -71,6 +71,7 @@ public class ajaxAdminController {
         }
         JSONObject go = new JSONObject();
         go.put("COMICS",result);
+        go.put("author",authors);
         return go.toString();
     }
     @RequestMapping(value="/passComic",method = RequestMethod.POST)

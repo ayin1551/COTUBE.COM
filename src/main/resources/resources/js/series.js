@@ -1,3 +1,18 @@
+function ifSeriesExist(){
+    $.ajax({
+        url: "viewSeries.html/seriesExist",
+        type: "post",
+        async: false,
+        data: {seriesId:$.cookie('seriesId')},
+        success: function (data) {//signUpController to check if the username already exist
+          if(!data){
+              alert("This series has been deleted.");
+              gohome();
+          }
+        }
+    });
+}
+
 function followSeries(){
     var validality = false;
     var id = $.cookie("seriesId");

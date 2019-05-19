@@ -76,6 +76,8 @@
         <table id="comicstb"></table>
 
     <script>
+        ifSeriesExist();
+
         var seriesId = $.cookie("seriesId");
         var c = getInfo(seriesId);
         console.log(c);
