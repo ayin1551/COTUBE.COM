@@ -455,8 +455,10 @@ public class ajaxProfileController{
                         for(Comic c: comics){
                             Boolean panelMatch = checkMatch(p, gc);
                             if(panelMatch && gc.getGame_comic_id().equals(c.getComic_id())){
-                                comicId.add(gc.getGame_comic_id()); 
-                                findFlag = true;
+                                if(panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()!=null){
+                                    comicId.add(gc.getGame_comic_id()); 
+                                }
+                            findFlag = true;
                             }
                         }
                     }
