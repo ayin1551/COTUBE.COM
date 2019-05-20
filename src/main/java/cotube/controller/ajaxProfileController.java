@@ -391,11 +391,13 @@ public class ajaxProfileController{
         for(FollowSeries f: followSeries){
             if(f.getFollower_username().equals(username)){
                 for(Series s: series){
-                    if(s.getSeries_id().equals(f.getSeries_id())){
-                        seriesName.add(s.getSeries_name());
-                        seriesId.add(s.getSeries_id());
-                        seriesThumbnail.add(s.getSeries_thumbnail_path());
-                        break;
+                    if(s.getSeries_id()!=null){
+                        if(s.getSeries_id().equals(f.getSeries_id())){
+                            seriesName.add(s.getSeries_name());
+                            seriesId.add(s.getSeries_id());
+                            seriesThumbnail.add(s.getSeries_thumbnail_path());
+                            break;
+                        }
                     }
                 }
             }
