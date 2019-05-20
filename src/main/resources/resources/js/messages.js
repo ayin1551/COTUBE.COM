@@ -1,3 +1,10 @@
+function goCreateComic(id,panel){
+    $.cookie('comicId', id);
+    $.cookie('panelNo',panel);
+    document.location.href = "./createGame.html";
+}
+
+
 function loadTable(){
     var tbody = document.getElementById("messageBody");
     tbody.innerHTML = "";
@@ -50,7 +57,8 @@ function loadTable(){
                         var splitted = obj.MESSAGES[i].link.split(" ");
                         var one = splitted[0];
                         var lastChar = obj.MESSAGES[i].link[obj.MESSAGES[i].link.length -1];
-                        goCreateComic(one,lastChar);
+                        // goCreateComic(one,lastChar);
+                        goCreateComic(one, lastChar);
                     }
                     else if (obj.MESSAGES[i].notification_type == 7){
                         goViewGameComic(obj.MESSAGES[i].link)
