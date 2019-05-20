@@ -45,7 +45,7 @@ public class ComicServiceImpl implements ComicService {
         List<Comic> result = new ArrayList<Comic>();
         for (Comic com: comics){
 
-            if (com.getTitle().contains((CharSequence)title)){
+            if (com.getTitle().toUpperCase().contains((CharSequence)title.toUpperCase())){
                 result.add(com);
             }
         }
@@ -58,7 +58,7 @@ public class ComicServiceImpl implements ComicService {
         //System.out.println(title);
         List<Comic> result = new ArrayList<Comic>();
         for (Comic com: comics){
-            if ((com.getTitle() != null) && com.getTitle().contains((CharSequence)title)&&(com.getStatus()==1||com.getStatus()==3)){
+            if ((com.getTitle().toUpperCase() != null) && com.getTitle().toUpperCase().contains((CharSequence)title.toUpperCase())&&(com.getStatus()==1||com.getStatus()==3)){
                 result.add(com);
             }
         }

@@ -257,7 +257,7 @@ public class ajaxSearchController{
         List<Integer>totalComics = new ArrayList<>();
         List<Series>all = this.seriesService.getAllSeries();
         for(Series x: all){
-            if (x.getSeries_name().contains(keyword)){
+            if (x.getSeries_name().toUpperCase().contains(keyword.toUpperCase())){
                 titles.add(x.getSeries_name());
                 picPath.add(x.getSeries_thumbnail_path());
                 ID.add(x.getSeries_id());

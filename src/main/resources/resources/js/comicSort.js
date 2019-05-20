@@ -354,6 +354,9 @@ function comicPage(page){
                     var td2 = document.createElement('TD');
                     td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
+                    if(obj["TPALV"][i].title.length > 16) {
+                        obj["TPALV"][i].title = obj["TPALV"][i].title.substring(0,15)+"...";
+                    }
                     var t = document.createTextNode(obj["TPALV"][i].title);
                     span_title.appendChild(t);
                     span_title.addEventListener('click', function () {
@@ -401,6 +404,9 @@ function comicPage(page){
                         var td2 = document.createElement('TD');
                         td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                         var span_title = document.createElement('p');
+                        if(obj["TPALV"][i+1].title.length > 16) {
+                            obj["TPALV"][i+1].title = obj["TPALV"][i+1].title.substring(0,15)+"...";
+                        }
                         var t = document.createTextNode(obj["TPALV"][i+1].title);
                         span_title.appendChild(t);
                         span_title.addEventListener('click', function () {
@@ -452,6 +458,9 @@ function comicPage(page){
                         var td2 = document.createElement('TD');
                         td2.style = "padding-right: 20px; padding-bottom: 40px; width:11vw; word-wrap: break-word; height: 9.9vw;";
                         var span_title = document.createElement('p');
+                        if(obj["TPALV"][i+2].title.length > 16) {
+                            obj["TPALV"][i+2].title = obj["TPALV"][i+2].title.substring(0,15)+"...";
+                        }
                         var t = document.createTextNode(obj["TPALV"][i+2].title);
                         span_title.appendChild(t);
                         span_title.addEventListener('click', function () {
@@ -583,6 +592,9 @@ function seriesPage(page){
                     var td2 = document.createElement('TD');
                     td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
+                    if(obj["TPALV"][i].title.length > 16) {
+                        obj["TPALV"][i].title = obj["TPALV"][i].title.substring(0,15)+"...";
+                    }
                     var t = document.createTextNode(obj["TPALV"][i].title);
                     span_title.appendChild(t);
                     span_title.addEventListener('click', function () {
@@ -621,6 +633,9 @@ function seriesPage(page){
                         var td2 = document.createElement('TD');
                         td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                         var span_title = document.createElement('p');
+                        if(obj["TPALV"][i+1].title.length > 16) {
+                            obj["TPALV"][i+1].title = obj["TPALV"][i+1].title.substring(0,15)+"...";
+                        }
                         var t = document.createTextNode(obj["TPALV"][i + 1].title);
                         span_title.appendChild(t);
                         span_title.addEventListener('click', function () {
@@ -660,6 +675,9 @@ function seriesPage(page){
                         var td2 = document.createElement('TD');
                         td2.style = "padding-right: 20px; padding-bottom: 40px; width:11vw; word-wrap: break-word; height: 9.9vw;";
                         var span_title = document.createElement('p');
+                        if(obj["TPALV"][i+2].title.length > 16) {
+                            obj["TPALV"][i+2].title = obj["TPALV"][i+2].title.substring(0,15)+"...";
+                        }
                         var t = document.createTextNode(obj["TPALV"][i + 2].title);
                         span_title.appendChild(t);
                         span_title.addEventListener('click', function () {
@@ -775,6 +793,9 @@ function gamePage(page){
                     var td2 = document.createElement('TD');
                     td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                     var span_title = document.createElement('p');
+                    if(obj.titles[i].length > 16) {
+                        obj.titles[i] = obj.titles[i].substring(0,15)+"...";
+                    }
                     var t = document.createTextNode(obj.titles[i]);
                     span_title.appendChild(t);
                     td2.addEventListener('click', function () {
@@ -807,6 +828,9 @@ function gamePage(page){
                         var td2 = document.createElement('TD');
                         td2.style = "padding-right: 20px; padding-bottom: 40px; width:12vw; word-wrap: break-word; height: 9.9vw;";
                         var span_title = document.createElement('p');
+                        if(obj.titles[i+1].length > 16) {
+                            obj.titles[i+1] = obj.titles[i+1].substring(0,15)+"...";
+                        }
                         var t = document.createTextNode(obj.titles[i+1]);
                         span_title.appendChild(t);
                         td2.addEventListener('click', function () {
@@ -842,6 +866,9 @@ function gamePage(page){
                         var td2 = document.createElement('TD');
                         td2.style = "padding-right: 20px; padding-bottom: 40px; width:11vw; word-wrap: break-word; height: 9.9vw;";
                         var span_title = document.createElement('p');
+                        if(obj.titles[i+2].length > 16) {
+                            obj.titles[i+2] = obj.titles[i+2].substring(0,15)+"...";
+                        }
                         var t = document.createTextNode(obj.titles[i+2]);
                         span_title.appendChild(t);
                         td2.addEventListener('click', function () {

@@ -276,6 +276,9 @@
                                 seriesRedirect(comics.comicSeriesId[j]);
                             });
                             var span = document.createElement('span');
+                            if(comics.comicName[j].length > 15) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,14)+"...";
+                            }
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
@@ -301,6 +304,9 @@
                                 });
                             }
                             var span = document.createElement('span');
+                            if(comics.comicName[j].length > 15) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,14)+"...";
+                            }
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
@@ -313,6 +319,9 @@
                             }
                         }else{
                             var span = document.createElement('span');
+                            if(comics.comicName[j].length > 17) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,16)+"...";
+                            }
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
@@ -457,6 +466,9 @@
                                 seriesRedirect(comics.comicSeriesId[j]);
                             });
                             var span = document.createElement('span');
+                            if(comics.comicName[j].length > 17) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,16)+"...";
+                            }
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
@@ -480,6 +492,9 @@
                             });
                            
                             var span = document.createElement('span');
+                            if(comics.comicName[j].length > 17) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,16)+"...";
+                            }
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
@@ -491,6 +506,9 @@
 
                         }else{
                             var span = document.createElement('span');
+                            if(comics.comicName[j].length > 17) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,16)+"...";
+                            }
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);
@@ -811,6 +829,9 @@
                         var br1 = document.createElement('br');
                         td.appendChild(br1);
                         var span = document.createElement('span');
+                        if(folders.folderName[j].length > 25) {
+                            folders.folderName[j] = folders.folderName[j].substring(0,24)+"...";
+                        }
                         var t = document.createTextNode(folders.folderName[j]);
                         span.appendChild(t);
                         span.style.cursor = "pointer";
@@ -852,6 +873,9 @@
                         var br1 = document.createElement('br');
                         td.appendChild(br1);
                         var span = document.createElement('span');
+                        if(folders.folderName[j].length > 25) {
+                            folders.folderName[j] = folders.folderName[j].substring(0,24)+"...";
+                        }
                         var t = document.createTextNode(folders.folderName[j]);
                         span.appendChild(t);
                         td.appendChild(span);
@@ -895,6 +919,9 @@
                     var br1 = document.createElement('br');
                     td.appendChild(br1);
                     var span = document.createElement('span');
+                    if(series.seriesName[j].length > 25) {
+                        series.seriesName[j] = series.seriesName[j].substring(0,24)+"...";
+                    }
                     var t = document.createTextNode(series.seriesName[j]);
                     span.appendChild(t);
                     td.appendChild(span);

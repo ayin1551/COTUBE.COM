@@ -54,6 +54,9 @@ function loadGameComics(){
                 imgsrc1.style.marginRight = "30px";
                 table.setAttribute('class', 'style-1');
                 var h31 = document.createElement('h3');
+                if(allTitle.length > 22) {
+                    allTitle = allTitle.substring(0,21)+"...";
+                }
                 h31.innerHTML = allTitle;
                 th.appendChild(imgsrc1);
                 th.appendChild(h31);
@@ -104,6 +107,9 @@ function loadGameComics(){
                 imgsrc1.style.marginRight = "30px";
                 table.setAttribute('class', 'style-1');
                 var h31 = document.createElement('h3');
+                if(allTitle.length > 22) {
+                    allTitle = allTitle.substring(0,21)+"...";
+                }
                 h31.innerHTML = allTitle;
                 th.appendChild(imgsrc1);
                 th.appendChild(h31);
@@ -153,6 +159,9 @@ function loadGameComics(){
                 imgsrc1.style.marginRight = "30px";
                 table.setAttribute('class', 'style-1');
                 var h31 = document.createElement('h3');
+                if(allTitle.length > 22) {
+                    allTitle = allTitle.substring(0,21)+"...";
+                }
                 h31.innerHTML = allTitle;
                 th.appendChild(imgsrc1);
                 th.appendChild(h31);
@@ -202,6 +211,9 @@ function loadGameComics(){
                 imgsrc1.style.marginRight = "30px";
                 table.setAttribute('class', 'style-1');
                 var h31 = document.createElement('h3');
+                if(allTitle.length > 22) {
+                    allTitle = allTitle.substring(0,21)+"...";
+                }
                 h31.innerHTML = allTitle;
                 th.appendChild(imgsrc1);
                 th.appendChild(h31);
@@ -252,6 +264,9 @@ function loadGameComics(){
                 imgsrc1.style.marginRight = "30px";
                 table.setAttribute('class', 'style-1');
                 var h31 = document.createElement('h3');
+                if(allTitle.length > 22) {
+                    allTitle = allTitle.substring(0,21)+"...";
+                }
                 h31.innerHTML = allTitle;
                 th.appendChild(imgsrc1);
                 th.appendChild(h31);
