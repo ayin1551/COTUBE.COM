@@ -451,7 +451,7 @@ public class ajaxProfileController{
                 if(!findFlag){
                     for(GameComic gc: gameComics){
                         for(Comic c: comics){
-                            Boolean panelMatch = (gc.getPanel1_id() .equals(p.getPanel_id())) || (gc.getPanel2_id().equals(p.getPanel_id())) ||  (gc.getPanel3_id().equals(p.getPanel_id())) || (gc.getPanel4_id().equals(p.getPanel_id())) ;
+                            Boolean panelMatch = checkMatch(p, gc);
                             if(panelMatch && gc.getGame_comic_id().equals(c.getComic_id())){
                                 comicId.add(gc.getGame_comic_id()); 
                                 findFlag = true;
@@ -634,7 +634,7 @@ public class ajaxProfileController{
                 if(!findFlag){
                     for(GameComic gc: gameComics){
                         for(Comic c: comics){
-                            Boolean panelMatch = (gc.getPanel1_id().equals(p.getPanel_id())) || (gc.getPanel2_id().equals(p.getPanel_id())) ||  (gc.getPanel3_id().equals(p.getPanel_id())) || (gc.getPanel4_id() .equals(p.getPanel_id())) ;
+                            Boolean panelMatch = checkMatch(p, gc);
                             if((c.getStatus() == 1 || c.getStatus() == 3) && panelMatch && gc.getGame_comic_id().equals( c.getComic_id())){
                                 comicId.add(gc.getGame_comic_id()); 
                                 findFlag = true;
@@ -950,5 +950,23 @@ public class ajaxProfileController{
         String username = request.getParameter("username");
         return accountService.getAccountByUsername(username)==null?false:true;
     }
-        
+
+    public Boolean checkMatch(Panel p, GameComic gc){
+        if (gc.getPanel1_id() != null)
+            if (gc.getPanel1_id().equals(p.getPanel_id()))
+                return true;
+
+        if (gc.getPanel2_id() != null)
+            if (gc.getPanel2_id().equals(p.getPanel_id()))
+                return true;
+
+        if (gc.getPanel3_id() != null)
+            if (gc.getPanel3_id().equals(p.getPanel_id()))
+                return true;
+
+        if (gc.getPanel4_id() != null)
+            if (gc.getPanel4_id().equals(p.getPanel_id()))
+                return true;
+        return false;
+    }
 }
