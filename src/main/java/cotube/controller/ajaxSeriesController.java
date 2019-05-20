@@ -159,9 +159,11 @@ public class ajaxSeriesController{
         int likeCount = 0;
 
         for(Series s: series){
-            if(s.getSeries_id().equals(seriesId)){
-                seriesName = s.getSeries_name();
-                seriesThumbnail = s.getSeries_thumbnail_path();
+            if(s.getSeries_id()!=null){
+                if(s.getSeries_id().equals(seriesId)){
+                    seriesName = s.getSeries_name();
+                    seriesThumbnail = s.getSeries_thumbnail_path();
+                }
             }
         }
 
@@ -248,8 +250,10 @@ public class ajaxSeriesController{
         List<String> comicName = new ArrayList<String>();
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id().equals(seriesId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3)){
-                comicId.add(rc.getRegular_comic_id());
+            if(rc.getSeries_id()!=null){
+                if(rc.getSeries_id().equals(seriesId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3)){
+                    comicId.add(rc.getRegular_comic_id());
+                }
             }
         }
 

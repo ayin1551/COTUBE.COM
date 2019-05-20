@@ -268,9 +268,11 @@ public class ajaxSearchController{
         for(Integer x: ID){
             int total = 0;
             for(RegularComic reg: regComics){
-                if(reg.getSeries_id().equals(x)){
-                    System.out.println(reg.getSeries_id());
-                    total = total + 1;
+                if(reg.getSeries_id()!=null){
+                    if(reg.getSeries_id().equals(x)){
+                        System.out.println(reg.getSeries_id());
+                        total = total + 1;
+                    }
                 }
                 totalComics.add(total);
             }

@@ -420,7 +420,7 @@ public class ajaxViewComicsController{
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id().equals(seriesId)){
+            if(rc.getSeries_id()!=null && rc.getSeries_id().equals(seriesId)){
                 series.add(rc.getRegular_comic_id());
             }
         }
@@ -450,7 +450,7 @@ public class ajaxViewComicsController{
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id().equals(seriesId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
+            if(rc.getSeries_id()!=null && rc.getSeries_id().equals(seriesId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
                 series.add(rc.getRegular_comic_id());
             }
         }
@@ -480,7 +480,7 @@ public class ajaxViewComicsController{
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id().equals(seriesId)){
+            if(rc.getSeries_id()!=null && rc.getSeries_id().equals(seriesId)){
                 series.add(rc.getRegular_comic_id());
             }
         }
