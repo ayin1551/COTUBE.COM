@@ -108,7 +108,7 @@ public class ajaxViewComicsController{
         String title = "";
         List<Comic> comics = comicService.getAllComics();
         for(Comic each : comics){
-            if(each.getComic_id()==Integer.parseInt(comicid)){
+            if(each.getComic_id().equals(Integer.parseInt(comicid))){
                 title = each.getTitle();
                 break;
             }
@@ -127,7 +127,7 @@ public class ajaxViewComicsController{
         String path = "";
         List<RegularComic> comics = regularComicService.getAllRegularComics();
         for(RegularComic each : comics){
-            if(each.getRegular_comic_id()==Integer.parseInt(comicid)){
+            if(each.getRegular_comic_id().equals(Integer.parseInt(comicid))){
                 comicpanel = each.getPanel_id();
                 description = each.getDescription();
                 break;
@@ -135,7 +135,7 @@ public class ajaxViewComicsController{
         }
         List<Panel> panels = panelService.getAllPanels();
         for(Panel each : panels){
-            if(each.getPanel_id()==comicpanel){
+            if(each.getPanel_id().equals(comicpanel)){
                 author = each.getAuthor();
                 path = each.getCanvas_path();
                 break;
@@ -144,7 +144,7 @@ public class ajaxViewComicsController{
         List<Views> views = viewsService.getAllViews();
         int viewscount = 0;
         for(Views each : views){
-            if(each.getComic_id()==Integer.parseInt(comicid)){
+            if(each.getComic_id().equals(Integer.parseInt(comicid))){
                 viewscount++;
             }
         }
@@ -174,7 +174,7 @@ public class ajaxViewComicsController{
         System.out.println(comicid);
         List<Likes> likes = likesService.getAllLikes();
         for(Likes each : likes){
-            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getLiker_username().equals(username)){
+            if(each.getComic_id().equals(Integer.parseInt(comicid))&&each.getLiker_username().equals(username)){
                 return true;
             }
         }
@@ -190,7 +190,7 @@ public class ajaxViewComicsController{
         int count = 0;
         List<Likes> likes = likesService.getAllLikes();
         for(Likes each : likes){
-            if(each.getComic_id()==Integer.parseInt(comicid)){
+            if(each.getComic_id().equals(Integer.parseInt(comicid))){
                 count++;
             }
         }
@@ -207,7 +207,7 @@ public class ajaxViewComicsController{
         System.out.println(comicid);
         List<Favorite> favorites = favoriteService.getAllFavorites();
         for(Favorite each : favorites){
-            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getFavoriter_username().equals(username)){
+            if(each.getComic_id().equals(Integer.parseInt(comicid))&&each.getFavoriter_username().equals(username)){
                 return true;
             }
         }
@@ -225,7 +225,7 @@ public class ajaxViewComicsController{
         List<Likes> all = likesService.getAllLikes();
         if(like){
             for(Likes each : all){
-                if(each.getComic_id()==Integer.parseInt(comicid)&&each.getLiker_username().equals(username)){
+                if(each.getComic_id().equals(Integer.parseInt(comicid))&&each.getLiker_username().equals(username)){
                     likesService.deleteLike(each);
                     break;
                 }
@@ -245,7 +245,7 @@ public class ajaxViewComicsController{
         String comicid = request.getParameter("comic_id");
         List<Favorite> favorites = favoriteService.getAllFavorites();
         for(Favorite each : favorites){
-            if(each.getComic_id()==Integer.parseInt(comicid)&&each.getFavoriter_username().equals(username)){
+            if(each.getComic_id().equals(Integer.parseInt(comicid))&&each.getFavoriter_username().equals(username)){
                 favoriteService.deleteFavorite(each);
             }
         } 
@@ -326,7 +326,7 @@ public class ajaxViewComicsController{
         c.setStatus(2);
         c.setUsername(username);
         for(Comments co: comments){
-            if(co.getComic_id() == comicid){
+            if(co.getComic_id().equals(comicid)){
                 if(co.getComment_number()>high){
                     high = co.getComment_number();
                 }
@@ -344,7 +344,7 @@ public class ajaxViewComicsController{
         Integer num = Integer.parseInt(request.getParameter("num"));
         List<Comments> comments = this.commentsService.getAllComments();
         for(Comments c: comments){
-            if(c.getComic_id() == comicId && c.getComment_number() == num){
+            if(c.getComic_id().equals(comicId) && c.getComment_number().equals(num)){
                 this.commentsService.deleteComment(c);
                 return true;
             }
@@ -365,7 +365,7 @@ public class ajaxViewComicsController{
         double count = 0;
 
         for(Comments c: comments){
-            if(c.getStatus()!=1 && c.getComic_id() == comicid){
+            if(c.getStatus()!=1 && c.getComic_id().equals(comicid)){
                 commentNumber.add(c.getComment_number());
                 count += 1;
             }
@@ -383,7 +383,7 @@ public class ajaxViewComicsController{
         }
         for(Integer n: commentNumber){
             for(Comments c: comments){
-                if(c.getComment_number() == n && c.getComic_id() == comicid){
+                if(c.getComment_number().equals(n) && c.getComic_id().equals(comicid)){
                     commentContent.add(c.getComment());
                     commenter.add(c.getCommenter_username());
                     commentTime.add(c.getComment_time().toString());
@@ -413,20 +413,20 @@ public class ajaxViewComicsController{
         Integer seriesId = 0;
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
+            if(rc.getRegular_comic_id().equals(comicId)){
                 seriesId = rc.getSeries_id();
                 break;
             }
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id()!=null && rc.getSeries_id().equals(seriesId)){
                 series.add(rc.getRegular_comic_id());
             }
         }
 
         Collections.sort(series);
-        if(series.get(0)== comicId){
+        if(series.get(0).equals(comicId)){
             return false;
         }
 
@@ -443,20 +443,20 @@ public class ajaxViewComicsController{
         Integer seriesId = 0;
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
+            if(rc.getRegular_comic_id().equals(comicId)){
                 seriesId = rc.getSeries_id();
                 break;
             }
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
+            if(rc.getSeries_id()!=null && rc.getSeries_id().equals(seriesId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
                 series.add(rc.getRegular_comic_id());
             }
         }
 
         Collections.sort(series);
-        if(series.get(series.size()-1)== comicId){
+        if(series.get(series.size()-1).equals(comicId)){
             return false;
         }
 
@@ -473,21 +473,21 @@ public class ajaxViewComicsController{
         Integer seriesId = 0;
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
+            if(rc.getRegular_comic_id().equals(comicId)){
                 seriesId = rc.getSeries_id();
                 break;
             }
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id()!=null && rc.getSeries_id().equals(seriesId)){
                 series.add(rc.getRegular_comic_id());
             }
         }
 
         Collections.sort(series);
         for(int i = 1; i < series.size(); i++){
-            if(series.get(i)==comicId){
+            if(series.get(i).equals(comicId)){
                 return series.get(i-1);
             }
         }
@@ -504,21 +504,21 @@ public class ajaxViewComicsController{
         Integer seriesId = 0;
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId){
+            if(rc.getRegular_comic_id().equals(comicId)){
                 seriesId = rc.getSeries_id();
                 break;
             }
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
+            if(rc.getSeries_id()!=null && rc.getSeries_id() .equals( seriesId)){
                 series.add(rc.getRegular_comic_id());
             }
         }
 
         Collections.sort(series);
         for(int i = 0; i < series.size(); i++){
-            if(series.get(i)==comicId){
+            if(series.get(i).equals(comicId)){
                 return series.get(i+1);
             }
         }
@@ -590,7 +590,7 @@ public class ajaxViewComicsController{
             //NOTIFICATION SECTION
             List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
             for(Favorite fav: allFavorites){
-                if (fav.getComic_id() == comicId){
+                if (fav.getComic_id() .equals(comicId)){
                     Date now = new Date();
                     int notification_type = 4;
                     String notification = "Favorite comic " + comic.getTitle() + " was deleted";
@@ -667,13 +667,27 @@ public class ajaxViewComicsController{
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
+            if(rc.getRegular_comic_id().equals(comicId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()==3)){
                 return true;
             }
         }
         return false;
     }
     
+    @RequestMapping(value="/comicExistProfile",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean comicExistProfile(HttpServletRequest request){
+        Integer comicId = Integer.parseInt(request.getParameter("comicId"));
+        List<RegularComic> regularComics = regularComicService.getAllRegularComics();
+        
+        for(RegularComic rc: regularComics){
+            if(rc.getRegular_comic_id().equals(comicId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @RequestMapping(value="/comicExistAdmin",method = RequestMethod.POST)
     @ResponseBody
     public Boolean comicExistAdmin(HttpServletRequest request){
@@ -681,7 +695,7 @@ public class ajaxViewComicsController{
         List<RegularComic> regularComics = regularComicService.getAllRegularComics();
         
         for(RegularComic rc: regularComics){
-            if(rc.getRegular_comic_id() == comicId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()!=0)){
+            if(rc.getRegular_comic_id().equals(comicId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus()!=0)){
                 return true;
             }
         }

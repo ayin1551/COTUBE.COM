@@ -132,6 +132,9 @@
                     //divinfo1.style.marginLeft = "6.8%"
                     var span_title1 = document.createElement('span');
                     span_title1.style.cursor = "pointer";
+                    if(x.comics[i].title.length > 17) {
+                        x.comics[i].title = x.comics[i].title.substring(0,16)+"...";
+                    }
                     var t = document.createTextNode(x.comics[i].title);
                     span_title1.appendChild(t);
                     span_title1.style.fontWeight = "900";
@@ -170,6 +173,9 @@
                     //divinfo2.style.marginLeft = "6.8%"
                     var span_title2 = document.createElement('span');
                     span_title2.style.cursor = "pointer";
+                    if(x.comics[b].title.length > 17) {
+                        x.comics[b].title = x.comics[b].title.substring(0,16)+"...";
+                    }
                     var t2 = document.createTextNode(x.comics[b].title);
                     span_title2.style.fontWeight = "900";
                     span_title2.style.font = "italic bold 20px arial,serif";
@@ -208,6 +214,9 @@
                     //divinfo3.style.marginLeft = "6.8%"
                     var span_title3 = document.createElement('span');
                     span_title3.style.cursor = "pointer";
+                    if(x.comics[c].title.length > 17) {
+                        x.comics[c].title = x.comics[c].title.substring(0,16)+"...";
+                    }
                     var t3 = document.createTextNode(x.comics[c].title);
                     span_title3.appendChild(t3);
                     span_title3.style.fontWeight = "900";
@@ -252,6 +261,9 @@
                     //divinfo1.style.width = "61.8%";
                     //divinfo1.style.marginLeft = "6.8%"
                     var span_title1 = document.createElement('span');
+                    if(x.comics[d].title.length > 17) {
+                        x.comics[d].title = x.comics[d].title.substring(0,16)+"...";
+                    }
                     var t = document.createTextNode(x.comics[d].title);
                     span_title1.appendChild(t);
                     span_title1.style.fontWeight = "900";
@@ -290,6 +302,9 @@
                     //divinfo2.style.width = "61.8%";
                     //divinfo2.style.marginLeft = "6.8%"
                     var span_title2 = document.createElement('span');
+                    if(x.comics[e].title.length > 17) {
+                        x.comics[e].title = x.comics[e].title.substring(0,16)+"...";
+                    }
                     var t2 = document.createTextNode(x.comics[e].title);
                     span_title2.appendChild(t2);
                     span_title2.style.fontWeight = "900";
@@ -328,6 +343,9 @@
                     //divinfo3.style.width = "61.8%";
                     //divinfo3.style.marginLeft = "6.8%"
                     var span_title3 = document.createElement('span');
+                    if(x.comics[f].title.length > 17) {
+                        x.comics[f].title = x.comics[f].title.substring(0,16)+"...";
+                    }
                     var t3 = document.createTextNode(x.comics[f].title);
                     span_title3.appendChild(t3);
                     span_title3.style.fontWeight = "900";
@@ -387,6 +405,9 @@
                 //divinfo1.style.width = "61.8%";
                 //divinfo1.style.marginLeft = "6.8%"
                 var span_title1 = document.createElement('span');
+                if(x.series[a].series_name.length > 17) {
+                    x.series[a].series_name = x.series[a].series_name.substring(0,16)+"...";
+                }
                 var t = document.createTextNode(x.series[a].series_name);
                 span_title1.appendChild(t);
                 span_title1.style.fontWeight = "900";
@@ -425,6 +446,9 @@
                 //divinfo2.style.width = "61.8%";
                 //divinfo2.style.marginLeft = "6.8%"
                 var span_title2 = document.createElement('span');
+                if(x.series[i+1].series_name.length > 17) {
+                    x.series[i+1].series_name = x.series[i+1].series_name.substring(0,16)+"...";
+                }
                 var t2 = document.createTextNode(x.series[i+1].series_name);
                 span_title2.appendChild(t2);
                 span_title2.style.fontWeight = "900";
@@ -463,6 +487,9 @@
                 //divinfo3.style.width = "61.8%";
                 //divinfo3.style.marginLeft = "6.8%"
                 var span_title3 = document.createElement('span');
+                if(x.series[i+2].series_name.length > 17) {
+                    x.series[i+2].series_name = x.series[i+2].series_name.substring(0,16)+"...";
+                }
                 var t3 = document.createTextNode(x.series[i+2].series_name);
                 span_title3.appendChild(t3);
                 span_title3.style.fontWeight = "900";
@@ -508,6 +535,9 @@
                 //divinfo1.style.width = "61.8%";
                 //divinfo1.style.marginLeft = "6.8%"
                 var span_title1 = document.createElement('span');
+                if(x.series[d].series_name.length > 17) {
+                    x.series[d].series_name = x.series[d].series_name.substring(0,16)+"...";
+                }
                 var t = document.createTextNode(x.series[d].series_name);
                 span_title1.appendChild(t);
                 span_title1.style.fontWeight = "900";
@@ -546,6 +576,9 @@
                 //divinfo2.style.width = "61.8%";
                 //divinfo2.style.marginLeft = "6.8%"
                 var span_title2 = document.createElement('span');
+                if(x.series[i+1].series_name.length > 17) {
+                    x.series[i+1].series_name = x.series[i+1].series_name.substring(0,16)+"...";
+                }
                 var t2 = document.createTextNode(x.series[i+1].series_name);
                 span_title2.appendChild(t2);
                 span_title2.style.fontWeight = "900";
@@ -584,6 +617,9 @@
                 //divinfo3.style.width = "61.8%";
                 //divinfo3.style.marginLeft = "6.8%"
                 var span_title3 = document.createElement('span');
+                if(x.series[i+2].series_name.length > 17) {
+                    x.series[i+2].series_name = x.series[i+2].series_name.substring(0,16)+"...";
+                }
                 var t3 = document.createTextNode(x.series[i+2].series_name);
                 span_title3.appendChild(t3);
                 span_title3.style.fontWeight = "900";
@@ -750,6 +786,9 @@
                 //divinfo3.style.width = "50%";
                 //divinfo3.style.marginLeft = "50%"
                 var span_title3 = document.createElement('span');
+                if(x.ratedcomics[i].title.length > 17) {
+                    x.ratedcomics[i].title = x.ratedcomics[i].title.substring(0,16)+"...";
+                }
                 var t3 = document.createTextNode(x.ratedcomics[i].title);
                 span_title3.appendChild(t3);
                 span_title3.style.fontWeight = "900";

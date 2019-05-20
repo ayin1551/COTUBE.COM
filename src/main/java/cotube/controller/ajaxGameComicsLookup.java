@@ -51,14 +51,12 @@ public class ajaxGameComicsLookup{
         Random random = new Random();
         ArrayList<Keyword> result = new ArrayList<>();
         ArrayList<Integer> randomIndex = new ArrayList<>();
-        int len = all.size();
-        while(result.size()<5){
-            int rand = random.nextInt(len-1);
-            if(randomIndex.contains(rand) == false){
-                randomIndex.add(rand);
-                result.add(all.get(rand));
-            }
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(all.size());
+            result.add(all.get(index));
+            all.remove(index);
         }
+
         return result;
     }
     private boolean isValid(GameComic x){
@@ -77,9 +75,8 @@ public class ajaxGameComicsLookup{
     public String getGameComics(HttpServletRequest request){
         List<Keyword> allKW = this.keywordService.getAllKeywords();
         List<Keyword> fiveKW = getFive(allKW);
-
+       // List<Keyword> fiveKW =this.keywordService.getAllKeywords();
         List<GameComic> all = this.gameComicService.getAllGameComics();
-        // List allPanels = this.panelService.getAllPanels();
         List<imgsrcANDtitle>details1 = new ArrayList<>();
         List<imgsrcANDtitle>details2 = new ArrayList<>();
         List<imgsrcANDtitle>details3 = new ArrayList<>();

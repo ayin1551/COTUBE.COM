@@ -165,12 +165,26 @@ function comicRedirect(id, ifSeries){
 
 function editRedirect(id){
     $.cookie("comicId", id);
-    if(ifExist()){
+    if(ifExistProfile()){
         document.location.href = "./editComic.html";
     }else{
         $.cookie('profileUsername', $.cookie('username'));
         document.location.href = "./profile.html";
     }
+}
+
+function ifExistProfile(){
+    var obj;
+    $.ajax({
+      url: "viewComics.html/comicExistProfile",
+      type: "post",
+      async: false,
+      data: {comicId:$.cookie('comicId')},
+      success: function (data) {
+        obj = data;
+      }
+    });
+    return obj;
 }
 
 function ifExist(){

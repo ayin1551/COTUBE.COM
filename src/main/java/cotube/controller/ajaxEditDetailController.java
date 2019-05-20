@@ -777,7 +777,7 @@ public class ajaxEditDetailController {
         List<Series> resultList = new ArrayList<>();
         for (int i = 0; i < seriesList.size(); i++){
             for(int j = 0; j < folderList.size(); j++){
-                if (seriesList.get(i).getFolder_id() == folderList.get(j).getFolder_id())
+                if (seriesList.get(i).getFolder_id().equals(folderList.get(j).getFolder_id()))
                     if (folderList.get(j).getUsername().equals(username))
                         resultList.add(seriesList.get(i));
             }

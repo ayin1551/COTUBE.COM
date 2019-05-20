@@ -239,8 +239,8 @@ public class ajaxAdminController {
         String commentNum = request.getParameter("comicNum");
         List<Comments> comments = this.commentService.getAllComments();
         for(Comments c: comments){
-            if (c.getComic_id() == Integer.parseInt(comicId)){
-                if(c.getComment_number() == Integer.parseInt(commentNum)){
+            if (c.getComic_id().equals(Integer.parseInt(comicId))){
+                if(c.getComment_number().equals(Integer.parseInt(commentNum))){
                     c.setStatus(0);
                     this.commentService.addComments(c);
                 }
@@ -258,8 +258,8 @@ public class ajaxAdminController {
         List<Comments> comments = this.commentService.getAllComments();
         String target = "";
         for(Comments c: comments){
-            if (c.getComic_id() == Integer.parseInt(comicId)){
-                if(c.getComment_number() == Integer.parseInt(commentNum)){
+            if (c.getComic_id().equals(Integer.parseInt(comicId))){
+                if(c.getComment_number().equals(Integer.parseInt(commentNum))){
                     c.setStatus(1);
                     target = c.getCommenter_username();
                     this.commentService.addComments(c);
@@ -281,7 +281,7 @@ public class ajaxAdminController {
     private String getAuthor(RegularComic reg){
         List<Panel>panels = this.panelService.getAllPanels();
         for (Panel p: panels){
-            if (reg.getRegular_comic_id() == p.getPanel_id()){
+            if (reg.getRegular_comic_id().equals( p.getPanel_id())){
                 return p.getAuthor();
             }
         }

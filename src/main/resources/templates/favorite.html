@@ -104,6 +104,12 @@
                             img2.style.marginTop = "5px";
                             img2.style.width = "19px";
                             var span = document.createElement('span');
+                            console.log(comics.comicName[j].length);
+                            console.log(comics.comicName[j]);
+                            if(comics.comicName[j].length > 20) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,19)+"...";
+                            }
+                            console.log(comics.comicName[j]);
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             span.style.cursor = "pointer";
@@ -114,6 +120,12 @@
                             span.style.fontSize = "20px";
                         }else{
                             var span = document.createElement('span');
+                            console.log(comics.comicName[j].length);
+                            console.log(comics.comicName[j]);
+                            if(comics.comicName[j].length > 22) {
+                                comics.comicName[j] = comics.comicName[j].substring(0,21)+"...";
+                            }
+                            console.log(comics.comicName[j]);
                             var t = document.createTextNode(comics.comicName[j]);
                             span.appendChild(t);
                             td.appendChild(span);

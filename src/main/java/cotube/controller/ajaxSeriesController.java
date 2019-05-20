@@ -109,7 +109,7 @@ public class ajaxSeriesController{
         Integer id = Integer.parseInt(request.getParameter("seriesId"));
         List<FollowSeries> followSeries = followSeriesService.getAllFollowSeries();
         for(FollowSeries fs: followSeries){
-            if(fs.getFollower_username().equals(username) && fs.getSeries_id() == id){
+            if(fs.getFollower_username().equals(username) && fs.getSeries_id().equals(id)){
                 this.followSeriesService.deleteFollowSeries(fs);
                 return true;
             }
@@ -127,7 +127,7 @@ public class ajaxSeriesController{
 
         List<FollowSeries> followSeries = followSeriesService.getAllFollowSeries();
         for(FollowSeries fs: followSeries){
-            if(fs.getFollower_username().equals(username) && fs.getSeries_id() == id){
+            if(fs.getFollower_username().equals(username) && fs.getSeries_id() .equals( id)){
                 return true;
             }
         }
@@ -159,26 +159,30 @@ public class ajaxSeriesController{
         int likeCount = 0;
 
         for(Series s: series){
-            if(s.getSeries_id() == seriesId){
-                seriesName = s.getSeries_name();
-                seriesThumbnail = s.getSeries_thumbnail_path();
+            if(s.getSeries_id()!=null){
+                if(s.getSeries_id().equals(seriesId)){
+                    seriesName = s.getSeries_name();
+                    seriesThumbnail = s.getSeries_thumbnail_path();
+                }
             }
         }
 
         for(FollowSeries fs: followSeries){
-            if(fs.getSeries_id() == seriesId){
+            if(fs.getSeries_id().equals(seriesId)){
                 following += 1;
             }
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId){
-                comicId.add(rc.getRegular_comic_id());
-                if(seriesAuthor.equals("")){
-                    for(Panel p: panel){
-                        if(p.getPanel_id() == rc.getPanel_id()){
-                            seriesAuthor = p.getAuthor();
-                            break;
+            if(rc.getSeries_id()!=null){
+                if(rc.getSeries_id().equals(seriesId)){
+                    comicId.add(rc.getRegular_comic_id());
+                    if(seriesAuthor.equals("")){
+                        for(Panel p: panel){
+                            if(p.getPanel_id().equals(rc.getPanel_id())){
+                                seriesAuthor = p.getAuthor();
+                                break;
+                            }
                         }
                     }
                 }
@@ -189,7 +193,7 @@ public class ajaxSeriesController{
 
         for(Integer i: comicId){
             for(Views v: views){
-                if(v.getComic_id() == i){
+                if(v.getComic_id().equals(i)){
                     viewCount += 1;
                 }
             }
@@ -197,7 +201,7 @@ public class ajaxSeriesController{
 
         for(Integer i: comicId){
             for(Likes l: likes){
-                if(l.getComic_id() == i){
+                if(l.getComic_id().equals(i)){
                     likeCount += 1;
                 }
             }
@@ -205,14 +209,14 @@ public class ajaxSeriesController{
 
         for(Integer i: comicId){
             for(RegularComic rc: regularComics){
-                if(rc.getRegular_comic_id() == i){
+                if(rc.getRegular_comic_id().equals(i)){
                     comicThumbnail.add(rc.getThumbnail_path());
                     break;
                 }
             }
 
             for(Comic c: comics){
-                if(c.getComic_id() == i){
+                if(c.getComic_id().equals(i)){
                     comicName.add(c.getTitle());
                     break;
                 }
@@ -246,8 +250,10 @@ public class ajaxSeriesController{
         List<String> comicName = new ArrayList<String>();
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id() == seriesId && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3)){
-                comicId.add(rc.getRegular_comic_id());
+            if(rc.getSeries_id()!=null){
+                if(rc.getSeries_id().equals(seriesId) && (comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3)){
+                    comicId.add(rc.getRegular_comic_id());
+                }
             }
         }
 
@@ -256,14 +262,14 @@ public class ajaxSeriesController{
 
         for(Integer i: comicId){
             for(RegularComic rc: regularComics){
-                if(rc.getRegular_comic_id() == i){
+                if(rc.getRegular_comic_id().equals(i)){
                     comicThumbnail.add(rc.getThumbnail_path());
                     break;
                 }
             }
 
             for(Comic c: comics){
-                if(c.getComic_id() == i){
+                if(c.getComic_id().equals(i)){
                     comicName.add(c.getTitle());
                     break;
                 }
@@ -350,7 +356,7 @@ public class ajaxSeriesController{
                 //NOTIFICATION SECTION
                 List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
                 for(Favorite fav: allFavorites){
-                    if (fav.getComic_id() == comicId){
+                    if (fav.getComic_id().equals(comicId)){
                         Date now = new Date();
                         int notification_type = 4;
                         String notification = "Favorite comic " + comic.getTitle() + " was deleted";
@@ -436,7 +442,7 @@ public class ajaxSeriesController{
         List<Series> series = seriesService.getAllSeries();
         
         for(Series s: series){
-            if(s.getSeries_id() == seriesId){
+            if(s.getSeries_id().equals(seriesId)){
                 return true;
             }
         }

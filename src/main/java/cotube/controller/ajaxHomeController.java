@@ -193,7 +193,7 @@ public class ajaxHomeController{
                 if(p.getAuthor().equals(s)){
                     Boolean findFlag = false;
                     for(RegularComic rc: regularComics){
-                        if(rc.getPanel_id() == p.getPanel_id()){
+                        if(rc.getPanel_id().equals(p.getPanel_id())){
                             if(this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 1 || this.comicService.getComicByComic_Id(rc.getRegular_comic_id()).getStatus() == 3){
                                 timelineComicId.add(rc.getRegular_comic_id());    
                                 findFlag = true;

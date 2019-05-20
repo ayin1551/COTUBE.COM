@@ -69,16 +69,16 @@ public class ajaxViewComicsByTitle {
             titles.add(c.getTitle());
             ids.add(c.getComic_id());
             for (RegularComic reg : regularComics) {
-                if (reg.getRegular_comic_id() == c.getComic_id()) {
-                    authors.add(getAuthor(reg));
+                if (reg.getRegular_comic_id().equals(c.getComic_id())) {
+                    authors.add(panelService.getPanelFromPanelId(reg.getPanel_id()).getAuthor());
                     ifSeries.add(reg.getSeries_id()!=null);
                 }
             }
         }
         List<titleAndAuthor>result = new ArrayList<>();
-        System.out.println(titles.size());
-        System.out.println(authors.size());
-        System.out.println(ids.size());
+        //System.out.println(titles.size());
+        //System.out.println(authors.size());
+        //System.out.println(ids.size());
         for (int i = 0;i < titles.size(); i++){
             titleAndAuthor packed = new titleAndAuthor(titles.get(i),authors.get(i),ids.get(i));
             result.add(packed);
@@ -90,10 +90,12 @@ public class ajaxViewComicsByTitle {
         return go.toString();
     }
     private String getAuthor(RegularComic reg){
+        panelService.getPanelFromPanelId(reg.getPanel_id()).getAuthor();
+        System.out.println("Reg comic looking author: " + reg + ", ID: " + reg.getRegular_comic_id());
         List<Panel>panels = this.panelService.getAllPanels();
         for (Panel p: panels){
-            if (reg.getRegular_comic_id() == p.getPanel_id()){
-                return p.getAuthor();
+            if (reg.getRegular_comic_id().equals(p.getPanel_id())){
+                return panelService.getPanelFromPanelId(reg.getPanel_id()).getAuthor();
             }
         }
         return "NO AUTHOR";

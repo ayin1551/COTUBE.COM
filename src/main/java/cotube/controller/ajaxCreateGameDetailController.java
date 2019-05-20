@@ -238,7 +238,7 @@ public class ajaxCreateGameDetailController {
                     if (notifications.get(i).getUsername().equals(username) && notifications.get(i).getNotification_type() == 6){
                         String[] arrOfStr = notifications.get(i).getLink().split(" ");
                         Integer id = Integer.parseInt(arrOfStr[0]);
-                                if (id == gameId) {
+                                if (id .equals( gameId)) {
                                     System.out.println(notifications.get(i).getNotification());
                                     notificationService.deleteNotification(notifications.get(i));
                         }

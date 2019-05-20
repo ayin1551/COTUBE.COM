@@ -143,7 +143,7 @@ public class ajaxSearchController{
                 titles.add(c.getTitle());
                 IDs.add(c.getComic_id());
                 for (RegularComic reg: regularComics){
-                    if (reg.getRegular_comic_id() == c.getComic_id()){
+                    if (reg.getRegular_comic_id().equals( c.getComic_id())){
                         picPath.add(reg.getThumbnail_path());
                         authors.add(getAuthor(reg.getPanel_id()));
                         likes.add(getLikes(reg));
@@ -226,7 +226,7 @@ public class ajaxSearchController{
         List<Likes>likes = this.likeService.getAllLikes();
         int total = 0;
         for (Likes like:likes){
-            if (like.getComic_id() == reg.getRegular_comic_id()){
+            if (like.getComic_id().equals( reg.getRegular_comic_id())){
                 total++;
             }
         }
@@ -236,7 +236,7 @@ public class ajaxSearchController{
         List<Views>views = this.viewsService.getAllViews();
         int total = 0;
         for (Views view:views){
-            if (view.getComic_id() == reg.getRegular_comic_id()){
+            if (view.getComic_id().equals(reg.getRegular_comic_id())){
                 total++;
             }
         }
@@ -257,7 +257,7 @@ public class ajaxSearchController{
         List<Integer>totalComics = new ArrayList<>();
         List<Series>all = this.seriesService.getAllSeries();
         for(Series x: all){
-            if (x.getSeries_name().contains(keyword)){
+            if (x.getSeries_name().toUpperCase().contains(keyword.toUpperCase())){
                 titles.add(x.getSeries_name());
                 picPath.add(x.getSeries_thumbnail_path());
                 ID.add(x.getSeries_id());
@@ -268,9 +268,11 @@ public class ajaxSearchController{
         for(Integer x: ID){
             int total = 0;
             for(RegularComic reg: regComics){
-                if(reg.getSeries_id() == x){
-                    System.out.println(reg.getSeries_id());
-                    total = total + 1;
+                if(reg.getSeries_id()!=null){
+                    if(reg.getSeries_id().equals(x)){
+                        System.out.println(reg.getSeries_id());
+                        total = total + 1;
+                    }
                 }
                 totalComics.add(total);
             }
@@ -348,7 +350,7 @@ public class ajaxSearchController{
     private String getAuthorbyFolderID(int id){
         List<Folder>all = this.folderService.getAllFolders();
         for(Folder f: all){
-            if(f.getFolder_id() == id){
+            if(f.getFolder_id().equals(id)){
                 return f.getUsername();
             }
         }

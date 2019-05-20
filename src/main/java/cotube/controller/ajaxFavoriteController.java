@@ -61,7 +61,7 @@ public class ajaxFavoriteController{
         
 
         for(Folder folder: folders){
-            if (folder.getFolder_id() == folderId){
+            if (folder.getFolder_id().equals(folderId)){
                 folderName = folder.getFolder_name();
                 pub = folder.getVisibility()==1?true:false;
                 folderOwner = folder.getUsername();
@@ -85,7 +85,7 @@ public class ajaxFavoriteController{
 
 
         for(Folder folder: folders){
-            if (folder.getFolder_id() == folderId){
+            if (folder.getFolder_id().equals(folderId)){
                 folder.setVisibility(pub?1:0);
                 folderService.addFolder(folder);
                 return true;
@@ -111,7 +111,7 @@ public class ajaxFavoriteController{
 
 
         for(Folder folder: folders){
-            if (folder.getFolder_id() == folderId){
+            if (folder.getFolder_id().equals(folderId)){
                 folderService.deleteFolder(folder);
                 return true;
             }
@@ -133,7 +133,7 @@ public class ajaxFavoriteController{
         List<Boolean> comicSeries = new ArrayList<Boolean>();
 
         for(Favorite f: favorites){
-            if(f.getFavorite_folder_id() == favoriteId){
+            if(f.getFavorite_folder_id().equals(favoriteId)){
                 comicId.add(f.getComic_id());
             }
         }
@@ -143,14 +143,14 @@ public class ajaxFavoriteController{
 
         for(Integer i: comicId){
             for(Comic c: comics){
-                if(c.getComic_id() == i){
+                if(c.getComic_id().equals(i)){
                     comicName.add(c.getTitle());
                     break;
                 }
             }
 
             for(RegularComic rc: regularComics){
-                if(rc.getRegular_comic_id() == i){
+                if(rc.getRegular_comic_id().equals(i)){
                     comicThumbnail.add(rc.getThumbnail_path());
                     comicSeries.add(rc.getSeries_id()==null?false:true);
                     break;
@@ -176,7 +176,7 @@ public class ajaxFavoriteController{
 
 
         for(Favorite f: favorites){
-            if(f.getFavorite_folder_id() == favoriteId && f.getComic_id() == comicId){
+            if(f.getFavorite_folder_id().equals(favoriteId) && f.getComic_id().equals(comicId)){
                 this.favoriteService.deleteFavorite(f);
                 return true;
             }

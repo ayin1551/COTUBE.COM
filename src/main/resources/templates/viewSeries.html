@@ -119,6 +119,9 @@
                         td.appendChild(br1);
                         
                         var span = document.createElement('span');
+                        if(comics.comicName[j].length > 17) {
+                            comics.comicName[j] = comics.comicName[j].substring(0,16)+"...";
+                        }
                         var t = document.createTextNode(comics.comicName[j]);
                         span.appendChild(t);
                         td.appendChild(span);
@@ -187,6 +190,9 @@
                         td.appendChild(br1);
             
                         var span = document.createElement('span');
+                        if(comics.comicName[j].length > 17) {
+                            comics.comicName[j] = comics.comicName[j].substring(0,16)+"...";
+                        }
                         var t = document.createTextNode(comics.comicName[j]);
                         span.appendChild(t);
                         td.appendChild(span);

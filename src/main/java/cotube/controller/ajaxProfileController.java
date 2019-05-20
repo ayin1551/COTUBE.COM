@@ -183,7 +183,7 @@ public class ajaxProfileController{
         for(Panel p: panel){
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
-                    if(rc.getPanel_id() == p.getPanel_id()){
+                    if(rc.getPanel_id().equals(p.getPanel_id())){
                         comicId.add(rc.getRegular_comic_id());
                     }
                 }
@@ -192,7 +192,7 @@ public class ajaxProfileController{
 
         for(Integer i: comicId){
             for(Views v: views){
-                if(v.getComic_id() == i){
+                if(v.getComic_id().equals(i)){
                     count +=1;
                 }
             }
@@ -215,7 +215,7 @@ public class ajaxProfileController{
         for(Panel p: panel){
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
-                    if(rc.getPanel_id() == p.getPanel_id()){
+                    if(rc.getPanel_id().equals(p.getPanel_id())){
                         comicId.add(rc.getRegular_comic_id());
                     }
                 }
@@ -224,7 +224,7 @@ public class ajaxProfileController{
 
         for(Integer i: comicId){
             for(Likes l: likes){
-                if(l.getComic_id() == i){
+                if(l.getComic_id().equals(i)){
                     count +=1;
                 }
             }
@@ -391,11 +391,13 @@ public class ajaxProfileController{
         for(FollowSeries f: followSeries){
             if(f.getFollower_username().equals(username)){
                 for(Series s: series){
-                    if(s.getSeries_id() == f.getSeries_id()){
-                        seriesName.add(s.getSeries_name());
-                        seriesId.add(s.getSeries_id());
-                        seriesThumbnail.add(s.getSeries_thumbnail_path());
-                        break;
+                    if(s.getSeries_id()!=null){
+                        if(s.getSeries_id().equals(f.getSeries_id())){
+                            seriesName.add(s.getSeries_name());
+                            seriesId.add(s.getSeries_id());
+                            seriesThumbnail.add(s.getSeries_thumbnail_path());
+                            break;
+                        }
                     }
                 }
             }
@@ -441,7 +443,7 @@ public class ajaxProfileController{
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
                     for(Comic c: comics){
-                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id()){
+                        if(rc.getPanel_id().equals(p.getPanel_id()) && c.getComic_id().equals(rc.getRegular_comic_id())){
                             comicId.add(rc.getRegular_comic_id());
                             findFlag = true;
                         }
@@ -451,10 +453,12 @@ public class ajaxProfileController{
                 if(!findFlag){
                     for(GameComic gc: gameComics){
                         for(Comic c: comics){
-                            Boolean panelMatch = (gc.getPanel1_id() == p.getPanel_id()) || (gc.getPanel2_id() == p.getPanel_id()) ||  (gc.getPanel3_id() == p.getPanel_id()) || (gc.getPanel4_id() == p.getPanel_id()) ;
-                            if(panelMatch && gc.getGame_comic_id() == c.getComic_id()){
-                                comicId.add(gc.getGame_comic_id()); 
-                                findFlag = true;
+                            Boolean panelMatch = checkMatch(p, gc);
+                            if(panelMatch && gc.getGame_comic_id().equals(c.getComic_id())){
+                                if(panelService.getPanelFromPanelId(gc.getPanel1_id()).getCanvas_path()!=null){
+                                    comicId.add(gc.getGame_comic_id()); 
+                                }
+                            findFlag = true;
                             }
                         }
                     }
@@ -470,7 +474,7 @@ public class ajaxProfileController{
 
         for(Integer i: comicId){
             for(Comic c: comics){
-                if(c.getComic_id() == i){
+                if(c.getComic_id().equals(i)){
                     comicName.add(c.getTitle());
                     comicClick.add((c.getStatus()==1 || c.getStatus()==3)?true:false);
                     comicType = c.getComic_type();
@@ -479,7 +483,7 @@ public class ajaxProfileController{
             }
             if(comicType == 0){
                 for(RegularComic rc: regularComics){
-                    if(rc.getRegular_comic_id() == i){
+                    if(rc.getRegular_comic_id().equals(i)){
                         comicThumbnail.add(rc.getThumbnail_path());
                         comicSeries.add(rc.getSeries_id()==null?false:true);
                         comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
@@ -530,7 +534,7 @@ public class ajaxProfileController{
                 }else{
                     comicGameEdit.add(false);
                 }
-                if(p.getPanel_id() == gc.getPanel1_id() && this.comicService.getComicByComic_Id(i).getStatus() == 0){
+                if(p.getPanel_id().equals(gc.getPanel1_id()) && this.comicService.getComicByComic_Id(i).getStatus() == 0){
                     comicGamePublished.add(false);
                     if(gc.getGamecomic_type() == 1){
                         comicGameAdd.add(true);
@@ -624,7 +628,7 @@ public class ajaxProfileController{
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
                     for(Comic c: comics){
-                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id() && (c.getStatus() == 1 || c.getStatus() == 3)){
+                        if(rc.getPanel_id().equals(p.getPanel_id()) && c.getComic_id().equals(rc.getRegular_comic_id()) && (c.getStatus() == 1 || c.getStatus() == 3)){
                             comicId.add(rc.getRegular_comic_id());
                             findFlag = true;
                         }
@@ -634,8 +638,8 @@ public class ajaxProfileController{
                 if(!findFlag){
                     for(GameComic gc: gameComics){
                         for(Comic c: comics){
-                            Boolean panelMatch = (gc.getPanel1_id() == p.getPanel_id()) || (gc.getPanel2_id() == p.getPanel_id()) ||  (gc.getPanel3_id() == p.getPanel_id()) || (gc.getPanel4_id() == p.getPanel_id()) ;
-                            if((c.getStatus() == 1 || c.getStatus() == 3) && panelMatch && gc.getGame_comic_id() == c.getComic_id()){
+                            Boolean panelMatch = checkMatch(p, gc);
+                            if((c.getStatus() == 1 || c.getStatus() == 3) && panelMatch && gc.getGame_comic_id().equals( c.getComic_id())){
                                 comicId.add(gc.getGame_comic_id()); 
                                 findFlag = true;
                             }
@@ -655,7 +659,7 @@ public class ajaxProfileController{
 
         for(Integer i: comicId){
             for(Comic c: comics){
-                if(c.getComic_id() == i){
+                if(c.getComic_id().equals(i)){
                     comicName.add(c.getTitle());
                     comicType = c.getComic_type();
                     break;
@@ -664,7 +668,7 @@ public class ajaxProfileController{
 
             if(comicType == 0){
                 for(RegularComic rc: regularComics){
-                    if(rc.getRegular_comic_id() == i){
+                    if(rc.getRegular_comic_id().equals( i)){
                         comicThumbnail.add(rc.getThumbnail_path());
                         comicSeries.add(rc.getSeries_id()==null?false:true);
                         comicSeriesId.add(rc.getSeries_id()==null?null:rc.getSeries_id());
@@ -703,7 +707,7 @@ public class ajaxProfileController{
             //NOTIFICATION SECTION
             List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
             for(Favorite fav: allFavorites){
-                if (fav.getComic_id() == comicId){
+                if (fav.getComic_id() .equals( comicId)){
                     Date now = new Date();
                     int notification_type = 4;
                     String notification = "Favorite comic " + comic.getTitle() + " was deleted";
@@ -851,21 +855,21 @@ public class ajaxProfileController{
             Integer panelId = -1;
             if(pos==2){
                 panelId = gc.getPanel2_id()==null? -1:gc.getPanel2_id();
-                if(panelId==gc.getPanel2_id()){
+                if(panelId.equals(gc.getPanel2_id())){
                     Integer t = null;
                     gc.setPanel2_id(t);
                 }
             }
             if(pos==3){
                 panelId = gc.getPanel3_id()==null? -1:gc.getPanel3_id();
-                if(panelId==gc.getPanel3_id()){
+                if(panelId.equals(gc.getPanel3_id())){
                     Integer t = null;
                     gc.setPanel3_id(t);
                 }
             }
             if(pos==4){
                 panelId = gc.getPanel4_id()==null? -1:gc.getPanel4_id();
-                if(panelId==gc.getPanel4_id()){
+                if(panelId.equals(gc.getPanel4_id())){
                     Integer t = null;
                     gc.setPanel4_id(t);
                 }
@@ -950,5 +954,23 @@ public class ajaxProfileController{
         String username = request.getParameter("username");
         return accountService.getAccountByUsername(username)==null?false:true;
     }
-        
+
+    public Boolean checkMatch(Panel p, GameComic gc){
+        if (gc.getPanel1_id() != null)
+            if (gc.getPanel1_id().equals(p.getPanel_id()))
+                return true;
+
+        if (gc.getPanel2_id() != null)
+            if (gc.getPanel2_id().equals(p.getPanel_id()))
+                return true;
+
+        if (gc.getPanel3_id() != null)
+            if (gc.getPanel3_id().equals(p.getPanel_id()))
+                return true;
+
+        if (gc.getPanel4_id() != null)
+            if (gc.getPanel4_id().equals(p.getPanel_id()))
+                return true;
+        return false;
+    }
 }
