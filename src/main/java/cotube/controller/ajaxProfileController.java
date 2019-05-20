@@ -441,7 +441,7 @@ public class ajaxProfileController{
             if(p.getAuthor().equals(username)){
                 for(RegularComic rc: regularComics){
                     for(Comic c: comics){
-                        if(rc.getPanel_id() == p.getPanel_id() && c.getComic_id() == rc.getRegular_comic_id()){
+                        if(c.getComic_id().equals(rc.getRegular_comic_id()) && rc.getPanel_id().equals(p.getPanel_id())){
                             comicId.add(rc.getRegular_comic_id());
                             findFlag = true;
                         }
@@ -462,12 +462,14 @@ public class ajaxProfileController{
                 if(!findFlag){
                     System.out.println("panel not found!");
                 }
+                System.out.println();
             }
         }
 
         Collections.sort(comicId);
         Collections.reverse(comicId);
-
+        System.out.println("comicid!!!!!!!!!!!!!!!!");
+        System.out.println(comicId);
         for(Integer i: comicId){
             for(Comic c: comics){
                 if(c.getComic_id() == i){
