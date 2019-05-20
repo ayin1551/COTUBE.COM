@@ -13,7 +13,15 @@ function getAllComicsByTitle(){
                 var author = obj["TNA"][i].author;
                 var id = obj["TNA"][i].ID;
                 var firstChar = title.charAt(0).toLowerCase();
-                var tbody = document.getElementById(firstChar);
+                var tbody;
+                var letters = /^[A-Za-z]/;
+                if(!firstChar.match(letters)){
+                    console.log("in if " + firstChar);
+                    tbody = document.getElementById('#');
+                }else{
+                    console.log("in else " + firstChar);
+                    tbody = document.getElementById(firstChar);
+                }
                 var tablerow = document.createElement('TR');
                 var tableheadEmpty = document.createElement('TH');
                 tableheadEmpty.style = "width:5%";
