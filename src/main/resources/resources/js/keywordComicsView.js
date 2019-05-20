@@ -66,7 +66,6 @@ function loadGameComics(){
                     goToComics();
                 });
                 tbody.appendChild(td);
-
                 keywordDiv1.appendChild(table);
                 keywordDiv1.appendChild(tbody);
             }
@@ -175,13 +174,14 @@ function loadGameComics(){
                 keywordDiv3.appendChild(table);
                 keywordDiv3.appendChild(tbody);
             }
+
             var keywordDiv4 = document.createElement('div');
             keywordDiv4.className = "keyworddiv";
             var p = document.createElement('P');
             p.id = "kwd";
             p.style = "cursor:default";
             p.innerHTML = Keyword4;
-            keywordDiv1.appendChild(p);
+            keywordDiv4.appendChild(p);
             appendDiv.appendChild(keywordDiv4);
             for (let i = 0; i < obj.D4.length; i = i + 1) {
                 var src1 = obj.D4[i].panel1Src;
