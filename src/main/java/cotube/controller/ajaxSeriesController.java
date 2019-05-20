@@ -172,13 +172,15 @@ public class ajaxSeriesController{
         }
 
         for(RegularComic rc: regularComics){
-            if(rc.getSeries_id().equals(seriesId)){
-                comicId.add(rc.getRegular_comic_id());
-                if(seriesAuthor.equals("")){
-                    for(Panel p: panel){
-                        if(p.getPanel_id().equals(rc.getPanel_id())){
-                            seriesAuthor = p.getAuthor();
-                            break;
+            if(rc.getSeries_id()!=null){
+                if(rc.getSeries_id().equals(seriesId)){
+                    comicId.add(rc.getRegular_comic_id());
+                    if(seriesAuthor.equals("")){
+                        for(Panel p: panel){
+                            if(p.getPanel_id().equals(rc.getPanel_id())){
+                                seriesAuthor = p.getAuthor();
+                                break;
+                            }
                         }
                     }
                 }
