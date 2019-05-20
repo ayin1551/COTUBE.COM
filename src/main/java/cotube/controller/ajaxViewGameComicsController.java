@@ -133,7 +133,7 @@ public class ajaxViewGameComicsController{
         List<Likes> all = likesService.getAllLikes();
         if(like){
             for(Likes each : all){
-                if(each.getComic_id()==Integer.parseInt(comicid)&&each.getLiker_username().equals(username)){
+                if(each.getComic_id().equals(Integer.parseInt(comicid))&&each.getLiker_username().equals(username)){
                     likesService.deleteLike(each);
                     break;
                 }
@@ -161,7 +161,7 @@ public class ajaxViewGameComicsController{
         c.setStatus(2);
         c.setUsername(username);
         for(Comments co: comments){
-            if(co.getComic_id() == comicid){
+            if(co.getComic_id().equals(comicid)){
                 if(co.getComment_number()>high){
                     high = co.getComment_number();
                 }
@@ -179,7 +179,7 @@ public class ajaxViewGameComicsController{
         Integer num = Integer.parseInt(request.getParameter("num"));
         List<Comments> comments = this.commentsService.getAllComments();
         for(Comments c: comments){
-            if(c.getComic_id() == comicId && c.getComment_number() == num){
+            if(c.getComic_id().equals(comicId) && c.getComment_number().equals(num)){
                 this.commentsService.deleteComment(c);
                 return true;
             }
@@ -200,7 +200,7 @@ public class ajaxViewGameComicsController{
         double count = 0;
 
         for(Comments c: comments){
-            if(c.getStatus()!=1 && c.getComic_id() == comicid){
+            if(c.getStatus()!=1 && c.getComic_id().equals(comicid)){
                 commentNumber.add(c.getComment_number());
                 count += 1;
             }
@@ -218,7 +218,7 @@ public class ajaxViewGameComicsController{
         }
         for(Integer n: commentNumber){
             for(Comments c: comments){
-                if(c.getComment_number() == n && c.getComic_id() == comicid){
+                if(c.getComment_number().equals(n) && c.getComic_id().equals(comicid)){
                     commentContent.add(c.getComment());
                     commenter.add(c.getCommenter_username());
                     commentTime.add(c.getComment_time().toString());
@@ -295,7 +295,7 @@ public class ajaxViewGameComicsController{
         List<GameComic> gameComics = gameComicService.getAllGameComics();
         
         for(GameComic gc: gameComics){
-            if(gc.getGame_comic_id() == comicId && (comicService.getComicByComic_Id(gc.getGame_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(gc.getGame_comic_id()).getStatus()==3)){
+            if(gc.getGame_comic_id().equals(comicId) && (comicService.getComicByComic_Id(gc.getGame_comic_id()).getStatus()==1 ||comicService.getComicByComic_Id(gc.getGame_comic_id()).getStatus()==3)){
                 return true;
             }
         }

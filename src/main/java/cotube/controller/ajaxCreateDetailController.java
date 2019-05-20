@@ -672,7 +672,7 @@ public class ajaxCreateDetailController {
         List<Series> resultList = new ArrayList<>();
         for (int i = 0; i < seriesList.size(); i++){
             for(int j = 0; j < folderList.size(); j++){
-            if (seriesList.get(i).getFolder_id() == folderList.get(j).getFolder_id())
+            if (seriesList.get(i).getFolder_id().equals( folderList.get(j).getFolder_id()))
                 if (folderList.get(j).getUsername().equals(username))
                     resultList.add(seriesList.get(i));
             }
@@ -697,7 +697,7 @@ public class ajaxCreateDetailController {
             //NOTIFICATION SECTION
             List <Favorite> allFavorites = this.favoriteService.getAllFavorites();
             for(Favorite fav: allFavorites){
-                if (fav.getComic_id() == comicId){
+                if (fav.getComic_id().equals( comicId)){
                     Date now = new Date();
                     int notification_type = 4;
                     String notification = "Favorite comic " + comic.getTitle() + " was deleted";

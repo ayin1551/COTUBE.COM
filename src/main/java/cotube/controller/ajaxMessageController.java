@@ -63,7 +63,7 @@ public class ajaxMessageController{
         List<Notification> all = this.notificationService.getAllNotifications();
         Notification delete = new Notification();
         for(Notification note: all){
-            if (note.getNotification_id() == id) {
+            if (note.getNotification_id().equals(id)) {
                 delete = note;
             }
         }
