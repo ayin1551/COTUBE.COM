@@ -74,7 +74,7 @@ function loadGameComics(){
             keywordDiv2.className = "keyworddiv";
             var p = document.createElement('P');
             p.id = "kwd";
-            p.style = "cursor:default";
+            p.style = "cursor:default";x
             p.innerHTML = Keyword2;
             keywordDiv2.appendChild(p);
             appendDiv.appendChild(keywordDiv2);
